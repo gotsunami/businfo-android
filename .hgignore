@@ -1,0 +1,24 @@
+# Ignore file
+syntax: glob
+
+*.pyc
+*.class
+bin
+cli/java/doc
+cli/java/build
+proguard/*.jar
+proguard/*.txt
+doc
+libs
+gen
+api
+*~
+*.swp
+*.zip
+*.jar
+*.orig
+cache
+.qiv-*
+nbproject
+cli/java/pre.dist
+res/values/revision.xml

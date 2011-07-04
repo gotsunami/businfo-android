@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LinesActivity</string>
+    <string name="app_name">Hérault Transports</string>
+    <string name="lines_activity_title">All lines</string>
 </resources>

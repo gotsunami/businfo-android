@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="lines">
+		<item>103</item>
+		<item>312</item>
+		<item>103/312</item>
+	</string-array>
+
+	<string-array name="p103_312">
+		<item>103</item>
+	</string-array>
+</resources>
