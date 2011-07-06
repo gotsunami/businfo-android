@@ -33,6 +33,10 @@ class BusManager {
         mLinesId = resid;
     }
 
+    public XmlResourceParser getResourceParser() { 
+        return mAppResources.getXml(mLinesId);
+    }
+
     public List<BusLine> getBusLines() throws XmlPullParserException, IOException {
         if (mAppResources == null) return null;
         List<BusLine> lines = new ArrayList<BusLine>();
@@ -41,12 +45,13 @@ class BusManager {
             if (xrp.getEventType() == XmlPullParser.START_TAG) {
                 String s = xrp.getName();
                 if (s.equals("line")) {
-                    BusLine line = new BusLine(xrp, xrp.getAttributeValue(null, "id"));
+                    BusLine line = new BusLine(this, xrp.getAttributeValue(null, "id"));
                     lines.add(line);
                 }
             }
             xrp.next();
         }
+        xrp.close();
         return lines;
     }
 

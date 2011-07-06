@@ -39,6 +39,11 @@ public class LinesActivity extends ListActivity
 
         try {
             List<BusLine> lines = manager.getBusLines();
+            for (BusLine line : lines) {
+                Log.d("TAG", "Line " + line.getName() + " has " + line.getStations().size()
+                    + " stations");
+
+            }
             ListAdapter adapter = new SimpleAdapter(this, getData(lines),
                 android.R.layout.simple_list_item_1, new String[] {"name"},
                 new int[] {android.R.id.text1});

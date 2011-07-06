@@ -1,6 +1,7 @@
 package com.monnerville.tranports.herault;
 
 import android.content.res.XmlResourceParser;
+import android.util.Log;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,26 +14,40 @@ import org.xmlpull.v1.XmlPullParserException;
  */
 class BusLine {
     private String mName;
-    private XmlResourceParser mXrp;
+    private BusManager mManager;
 
-    public BusLine(XmlResourceParser xrp, String name) {
+    public BusLine(BusManager manager, String name) {
         mName = name;
-        mXrp = xrp;
+        mManager = manager;
     }
     public String getName() { return mName; }
 
-    public List getStations(String line) throws XmlPullParserException, IOException {
-        List<String> stations = new ArrayList<String>();
-        while(mXrp.getEventType() != XmlPullParser.END_DOCUMENT) {
-            if (mXrp.getEventType() == XmlPullParser.START_TAG) {
-                String s = mXrp.getName();
+    public List<BusStation> getStations() throws XmlPullParserException, IOException {
+        List<BusStation> stations = new ArrayList<BusStation>();
+        XmlResourceParser xrp = mManager.getResourceParser();
+        boolean match = false;
+        while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
+            if (xrp.getEventType() == XmlPullParser.START_TAG) {
+                String s = xrp.getName();
                 if (s.equals("line")) {
-                    if (mXrp.getAttributeValue(null, "id").equals(line)) {
-
-                    }
+                    String id = xrp.getAttributeValue(null, "id");
+                    if (id.equals(mName))
+                        match = true;
+                }
+                if (s.equals("station")) {
+                    if (match)
+                        stations.add(new BusStation(this, xrp.getAttributeValue(null, "id")));
                 }
             }
-            mXrp.next();
+            else if(xrp.getEventType() == XmlPullParser.END_TAG) {
+                // Matches end of line
+                String s = xrp.getName();
+                if (s.equals("line")) {
+                    if (match)
+                        match = false;
+                }
+            }
+            xrp.next();
         }
         return stations;
     }
