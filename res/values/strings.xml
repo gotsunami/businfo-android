@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Hérault Transports</string>
     <string name="lines_activity_title">All lines</string>
+    <string name="busline_activity_title">Bus line</string>
 </resources>

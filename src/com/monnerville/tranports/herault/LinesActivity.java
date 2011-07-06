@@ -2,6 +2,7 @@ package com.monnerville.tranports.herault;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ListAdapter;
@@ -23,7 +24,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class LinesActivity extends ListActivity
 {
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -66,6 +66,9 @@ public class LinesActivity extends ListActivity
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, BusLineActivity.class);
+        Map<String, String> map = (Map)getListView().getItemAtPosition(position);
+        intent.putExtra("line", map.get("name"));
+        startActivity(intent);
     }
 }

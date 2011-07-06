@@ -11,5 +11,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="BusLineActivity"
+                  android:label="@string/busline_activity_title">
+        </activity>
     </application>
 </manifest> 
