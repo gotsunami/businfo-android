@@ -33,7 +33,8 @@ class BusManager {
         mLinesId = resid;
     }
 
-    public XmlResourceParser getResourceParser() { 
+    public XmlResourceParser getResourceParser() {
+        if (mAppResources == null) return null;
         return mAppResources.getXml(mLinesId);
     }
 
@@ -45,7 +46,7 @@ class BusManager {
             if (xrp.getEventType() == XmlPullParser.START_TAG) {
                 String s = xrp.getName();
                 if (s.equals("line")) {
-                    BusLine line = new BusLine(this, xrp.getAttributeValue(null, "id"));
+                    BusLine line = new BusLine(xrp.getAttributeValue(null, "id"));
                     lines.add(line);
                 }
             }

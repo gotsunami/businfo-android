@@ -11,10 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
 public class LinesActivity extends ListActivity
@@ -39,17 +43,14 @@ public class LinesActivity extends ListActivity
 
         try {
             List<BusLine> lines = manager.getBusLines();
-            for (BusLine line : lines) {
-                Log.d("TAG", "Line " + line.getName() + " has " + line.getStations().size()
-                    + " stations");
-
-            }
             ListAdapter adapter = new SimpleAdapter(this, getData(lines),
                 android.R.layout.simple_list_item_1, new String[] {"name"},
                 new int[] {android.R.id.text1});
             setListAdapter(adapter);
         } catch(XmlPullParserException err) {
+            Log.e("TAG", "Parsing error: " + err.getMessage());
         } catch(IOException err) {
+            Log.e("TAG", "Error: " + err.getMessage());
         }
     }
 
