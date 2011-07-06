@@ -56,4 +56,28 @@ class BusManager {
         return lines;
     }
 
+    /**
+     * Gets a single bus line by name
+     * @param name name of bus line
+     * @return a BusLine instance or null if not found
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
+    public BusLine getBusLine(String name) throws XmlPullParserException, IOException {
+        if (mAppResources == null) return null;
+        XmlResourceParser xrp = mAppResources.getXml(mLinesId);
+        while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
+            if (xrp.getEventType() == XmlPullParser.START_TAG) {
+                String s = xrp.getName();
+                if (s.equals("line")) {
+                    if (xrp.getAttributeValue(null, "id").equals(name))
+                        return new BusLine(name);
+                }
+            }
+            xrp.next();
+        }
+        xrp.close();
+        return null;
+    }
+
 }
