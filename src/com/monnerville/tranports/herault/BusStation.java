@@ -23,8 +23,7 @@ class BusStation {
      * Cached city value
      */
     private String mCity = null;
-    private List<Date> mStops = new ArrayList<Date>();
-    private DateFormat mFormatter = new SimpleDateFormat("HH:mm");
+    private List<BusStop> mStops = new ArrayList<BusStop>();
 
     public BusStation(BusLine line, String name) {
         mLine = line;
@@ -70,9 +69,10 @@ class BusStation {
      * @throws IOException
      * @throws ParseException
      */
-    public List<Date> getStops() throws XmlPullParserException, IOException, ParseException {
+    public List<BusStop> getStops() throws XmlPullParserException, IOException, ParseException {
         if (!mStops.isEmpty()) return mStops;
         XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
+        Date now = new Date();
         boolean match = false;
         while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
             if (xrp.getEventType() == XmlPullParser.START_TAG) {
@@ -84,7 +84,11 @@ class BusStation {
                 }
                 else if(s.equals("stop")) {
                     if (match) {
-                        mStops.add(mFormatter.parse(xrp.getAttributeValue(null, "t")));
+                        Date d = BusStop.TIME_FORMATTER.parse(xrp.getAttributeValue(null, "t"));
+                        d.setYear(now.getYear());
+                        d.setMonth(now.getMonth());
+                        d.setDate(now.getDate());
+                        mStops.add(new BusStop(this, d, null, null, false));
                     }
                 }
             }
@@ -101,5 +105,21 @@ class BusStation {
         }
         xrp.close();
         return mStops;
+    }
+
+    /**
+     * Returns next bus stop related to current time
+     * @return a BusStop instance or null if none found
+     */
+    public BusStop getNextStop() throws XmlPullParserException, IOException, ParseException {
+        if (mStops.isEmpty())
+            getStops();
+        Date now = new Date();
+        for (BusStop st : mStops) {
+            if (st.getTime().after(now)) {
+                return st;
+            }
+        }
+        return null;
     }
 }

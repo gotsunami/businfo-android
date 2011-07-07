@@ -3,7 +3,9 @@ package com.monnerville.tranports.herault;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class BusLineActivity extends ListActivity {
             BusLine line = manager.getBusLine(mLine);
             List<BusStation> stations = line.getStations();
             ListAdapter adapter = new SimpleAdapter(this, getData(stations),
-                android.R.layout.simple_list_item_1, new String[] {"name"},
+                android.R.layout.simple_list_item_1, new String[] {"station"},
                 new int[] {android.R.id.text1});
             setListAdapter(adapter);
         } catch (XmlPullParserException ex) {
@@ -55,9 +57,18 @@ public class BusLineActivity extends ListActivity {
         List<Map> data = new ArrayList<Map>();
         for (BusStation st : stations) {
             Map<String, String> m = new HashMap<String, String>();
-            m.put("name", st.getName());
+            m.put("station", st.getName());
             data.add(m);
         }
         return data;
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = new Intent(this, BusStationActivity.class);
+        Map<String, String> map = (Map)getListView().getItemAtPosition(position);
+        intent.putExtra("line", mLine);
+        intent.putExtra("station", map.get("station"));
+        startActivity(intent);
     }
 }
