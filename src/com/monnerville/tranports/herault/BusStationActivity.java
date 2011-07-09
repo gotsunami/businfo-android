@@ -63,7 +63,7 @@ public class BusStationActivity extends ListActivity {
                     board.setText(R.string.no_more_stop);
             }
             ListAdapter adapter = new SimpleAdapter(this, getData(mStops),
-                android.R.layout.simple_list_item_1, new String[] {"time"},
+                R.layout.bus_station_list_item, new String[] {"time"},
                 new int[] {android.R.id.text1});
             setListAdapter(adapter);
         } catch (ParseException ex) {

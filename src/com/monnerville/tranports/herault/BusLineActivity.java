@@ -43,7 +43,7 @@ public class BusLineActivity extends ListActivity {
             BusLine line = manager.getBusLine(mLine);
             List<BusStation> stations = line.getStations();
             ListAdapter adapter = new SimpleAdapter(this, getData(stations),
-                android.R.layout.simple_list_item_1, new String[] {"station"},
+                R.layout.bus_line_list_item, new String[] {"station"},
                 new int[] {android.R.id.text1});
             setListAdapter(adapter);
         } catch (XmlPullParserException ex) {

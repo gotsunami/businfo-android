@@ -44,8 +44,8 @@ public class LinesActivity extends ListActivity
         try {
             List<BusLine> lines = manager.getBusLines();
             ListAdapter adapter = new SimpleAdapter(this, getData(lines),
-                android.R.layout.simple_list_item_1, new String[] {"name"},
-                new int[] {android.R.id.text1});
+                R.layout.all_lines_list_item, new String[] {"name", "directions"},
+                new int[] {android.R.id.text1, android.R.id.text2});
             setListAdapter(adapter);
         } catch(XmlPullParserException err) {
             Log.e("TAG", "Parsing error: " + err.getMessage());
@@ -54,11 +54,13 @@ public class LinesActivity extends ListActivity
         }
     }
 
-    private List getData(List<BusLine> lines) {
+    private List getData(List<BusLine> lines) throws XmlPullParserException, IOException {
         List<Map> data = new ArrayList<Map>();
         for (BusLine line : lines) {
             Map<String, String> m = new HashMap<String, String>();
             m.put("name", line.getName());
+            String[] d = line.getDirections();
+            m.put("directions", d[0] + " - " + d[1]);
             data.add(m);
         }
         return data;
