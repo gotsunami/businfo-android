@@ -29,6 +29,7 @@ public class LinesActivity extends ListActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        setTitle(R.string.lines_activity_title);
 
         BusManager manager = BusManager.getInstance();
         try {
