@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
-import static com.monnerville.tranports.herault.Application.TAG;
+import static com.monnerville.tranports.herault.core.Application.TAG;
 
 import com.monnerville.tranports.herault.core.BusLine;
 import com.monnerville.tranports.herault.core.BusManager;
