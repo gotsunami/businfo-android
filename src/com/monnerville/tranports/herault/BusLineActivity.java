@@ -82,6 +82,7 @@ public class BusLineActivity extends ListActivity {
         Intent intent = new Intent(this, BusStationActivity.class);
         Map<String, String> map = (Map)getListView().getItemAtPosition(position);
         intent.putExtra("line", mLine);
+        intent.putExtra("direction", mDirection);
         intent.putExtra("station", map.get("station"));
         startActivity(intent);
     }

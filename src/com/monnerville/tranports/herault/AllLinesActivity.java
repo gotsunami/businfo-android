@@ -1,7 +1,9 @@
 package com.monnerville.tranports.herault;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -74,11 +76,26 @@ public class AllLinesActivity extends ListActivity
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(this, BusLineActivity.class);
-        Map<String, String> map = (Map)getListView().getItemAtPosition(position);
-        intent.putExtra("line", map.get("name"));
-        //intent.putExtra("direction", map.get("direction1"));
-        intent.putExtra("direction", "toto");
-        startActivity(intent);
+        final Map<String, String> map = (Map)getListView().getItemAtPosition(position);
+        final String[] directions = new String[2];
+        directions[0] = map.get("direction1");
+        directions[1] = map.get("direction2");
+
+        if (directions[0] == null || directions[1] == null) {
+            Toast.makeText(this, R.string.toast_null_direction, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.pick_direction_title);
+        builder.setItems(directions, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                Intent intent = new Intent(AllLinesActivity.this, BusLineActivity.class);
+                intent.putExtra("line", map.get("name"));
+                intent.putExtra("direction", directions[item]);
+                startActivity(intent);
+            }
+        });
+        builder.show();
     }
 }

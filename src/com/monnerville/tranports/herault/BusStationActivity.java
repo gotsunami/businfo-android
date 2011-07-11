@@ -29,6 +29,7 @@ import com.monnerville.tranports.herault.core.BusStop;
 public class BusStationActivity extends ListActivity {
     private String mLine = null;
     private String mStation = null;
+    private String mDirection = null;
     private List<BusStop> mStops;
     private BusStation mCurrentStation;
 
@@ -43,6 +44,7 @@ public class BusStationActivity extends ListActivity {
         if (bun != null) {
             mStation = bun.getString("station");
             mLine = bun.getString("line");
+            mDirection = bun.getString("direction");
         }
         else
             finish();
@@ -51,7 +53,7 @@ public class BusStationActivity extends ListActivity {
         BusManager manager = BusManager.getInstance();
         try {
             BusLine line = manager.getBusLine(mLine);
-            List<BusStation> stations = line.getStations(mStation);
+            List<BusStation> stations = line.getStations(mDirection);
             for (BusStation st : stations) {
                 if (st.getName().equals(mStation)) {
                     mStops = st.getStops();

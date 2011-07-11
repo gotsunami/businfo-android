@@ -3,4 +3,6 @@
     <string name="lines_activity_title">Hérault Transports - Lignes de bus</string>
     <string name="busline_activity_title">Ligne de bus</string>
     <string name="no_more_stop">Prochain arrêt demain</string>
+    <string name="pick_direction_title">Choix direction</string>
+    <string name="toast_null_direction">"Direction(s) nulle(s): pas de stations"</string>
 </resources>
