@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
-public class LinesActivity extends ListActivity
+public class AllLinesActivity extends ListActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
