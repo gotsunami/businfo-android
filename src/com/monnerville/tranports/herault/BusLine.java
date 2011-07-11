@@ -29,24 +29,31 @@ class BusLine {
     /**
      * Returns a list of all available bus stations on that line
      *
-     * @return a list of bus stations
+     * @param direction direction of the line
+     * @return a list of bus stations or null if the direction is non-existent
      * @throws XmlPullParserException
      * @throws IOException
      */
-    public List<BusStation> getStations() throws XmlPullParserException, IOException {
+    public List<BusStation> getStations(String direction) throws XmlPullParserException, IOException {
         List<BusStation> stations = new ArrayList<BusStation>();
         XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
-        boolean match = false;
+        boolean matchLine = false;
+        boolean matchDirection = false;
         while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
             if (xrp.getEventType() == XmlPullParser.START_TAG) {
                 String s = xrp.getName();
                 if (s.equals("line")) {
                     String id = xrp.getAttributeValue(null, "id");
                     if (id.equals(mName))
-                        match = true;
+                        matchLine = true;
                 }
-                if (s.equals("station")) {
-                    if (match)
+                else if(s.equals("direction")) {
+                    String id = xrp.getAttributeValue(null, "id");
+                    if (id.equals(direction))
+                        matchDirection = true;
+                }
+                else if(s.equals("station")) {
+                    if (matchDirection)
                         stations.add(new BusStation(this, xrp.getAttributeValue(null, "id")));
                 }
             }
@@ -54,13 +61,17 @@ class BusLine {
                 // Matches end of line
                 String s = xrp.getName();
                 if (s.equals("line")) {
-                    if (match)
-                        match = false;
+                    if (matchLine) {
+                        matchLine = false;
+                        if (!matchDirection) return null;
+                        return stations;
+                    }
                 }
             }
             xrp.next();
         }
         xrp.close();
+        if (!matchDirection) return null;
         return stations;
     }
 
@@ -121,7 +132,7 @@ class BusLine {
                     if (id.equals(mName))
                         match = true;
                 }
-                if (s.equals("direction")) {
+                else if(s.equals("direction")) {
                     if (match)
                         mDirections[k++] = xrp.getAttributeValue(null, "id");
                 }

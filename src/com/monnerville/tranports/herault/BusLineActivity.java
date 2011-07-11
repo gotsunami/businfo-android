@@ -1,5 +1,6 @@
 package com.monnerville.tranports.herault;
 
+import android.util.Log;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +17,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
+import static com.monnerville.tranports.herault.Application.TAG;
+
 /**
  *
  * @author mathias
  */
 public class BusLineActivity extends ListActivity {
-    private String mLine = null;
+    private String mLine;
+    private String mDirection;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -33,6 +37,7 @@ public class BusLineActivity extends ListActivity {
         final Bundle bun = intent.getExtras();
         if (bun != null) {
             mLine = bun.getString("line");
+            mDirection = bun.getString("direction");
         }
         else
             finish();
@@ -41,11 +46,16 @@ public class BusLineActivity extends ListActivity {
         BusManager manager = BusManager.getInstance();
         try {
             BusLine line = manager.getBusLine(mLine);
-            List<BusStation> stations = line.getStations();
-            ListAdapter adapter = new SimpleAdapter(this, getData(stations),
-                R.layout.bus_line_list_item, new String[] {"station"},
-                new int[] {android.R.id.text1});
-            setListAdapter(adapter);
+            List<BusStation> stations = line.getStations(mDirection);
+            if (stations != null) {
+                ListAdapter adapter = new SimpleAdapter(this, getData(stations),
+                    R.layout.bus_line_list_item, new String[] {"station"},
+                    new int[] {android.R.id.text1});
+                setListAdapter(adapter);
+            }
+            else {
+                Log.w(TAG, "Direction '" + mDirection + "' not found");
+            }
         } catch (XmlPullParserException ex) {
             Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

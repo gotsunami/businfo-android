@@ -46,7 +46,7 @@ public class BusStationActivity extends ListActivity {
         BusManager manager = BusManager.getInstance();
         try {
             BusLine line = manager.getBusLine(mLine);
-            List<BusStation> stations = line.getStations();
+            List<BusStation> stations = line.getStations(mStation);
             for (BusStation st : stations) {
                 if (st.getName().equals(mStation)) {
                     mStops = st.getStops();

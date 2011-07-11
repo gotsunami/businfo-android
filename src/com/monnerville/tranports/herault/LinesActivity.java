@@ -62,6 +62,8 @@ public class LinesActivity extends ListActivity
             m.put("name", line.getName());
             String[] d = line.getDirections();
             m.put("directions", d[0] + " - " + d[1]);
+            m.put("direction1", d[0]);
+            m.put("direction2", d[1]);
             data.add(m);
         }
         return data;
@@ -72,6 +74,8 @@ public class LinesActivity extends ListActivity
         Intent intent = new Intent(this, BusLineActivity.class);
         Map<String, String> map = (Map)getListView().getItemAtPosition(position);
         intent.putExtra("line", map.get("name"));
+        //intent.putExtra("direction", map.get("direction1"));
+        intent.putExtra("direction", "toto");
         startActivity(intent);
     }
 }
