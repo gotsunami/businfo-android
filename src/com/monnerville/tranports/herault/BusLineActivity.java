@@ -5,9 +5,11 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +37,10 @@ public class BusLineActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.busline);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_line_title_bar);
 
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
@@ -46,7 +51,9 @@ public class BusLineActivity extends ListActivity {
         else
             finish();
 
-        setTitle(mLine);
+        setLineTitle(getString(R.string.current_line_title, mLine));
+        setDirectionTitle(getString(R.string.line_direction_title, mDirection));
+
         BusManager manager = BusManager.getInstance();
         try {
             BusLine line = manager.getBusLine(mLine);
@@ -75,6 +82,16 @@ public class BusLineActivity extends ListActivity {
             data.add(m);
         }
         return data;
+    }
+
+    public void setLineTitle(String title) {
+        TextView t= (TextView)findViewById(R.id.title);
+        t.setText(title);
+    }
+
+    public void setDirectionTitle(String title) {
+        TextView t= (TextView)findViewById(R.id.direction);
+        t.setText(title);
     }
 
     @Override

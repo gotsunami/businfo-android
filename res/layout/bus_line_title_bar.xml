@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+        <!--
+	<Button android:layout_width="48dip"
+		android:id="@+id/btn_tags_go_home"
+		android:layout_weight="0"
+		android:layout_height="48dip"
+		android:scaleType="center"
+		android:layout_gravity="center"
+		android:background="@drawable/btn_go_home"/>
+	<ImageView android:layout_width="9dip"
+		android:layout_height="48dip"
+		android:src="@drawable/titlebar_divider"/>
+       -->
+    <ImageView
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:src="@drawable/ic_menu_link"
+        android:scaleType="fitCenter" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <TextView
+            style="@style/HeaderTitle.Primary"
+            android:id="@+id/title"
+        />
+        <TextView
+            style="@style/HeaderTitle.Secondary"
+            android:id="@+id/direction"
+        />
+    </LinearLayout>
+    <!--
+	<ImageView android:layout_width="9dip"
+		android:layout_height="48dip"
+		android:layout_gravity="center"
+		android:src="@drawable/titlebar_divider"/>
+	<Button android:layout_width="48dip"
+		android:id="@+id/btn_tags_go_back"
+		android:layout_weight="0"
+		android:layout_height="48dip"
+		android:scaleType="center"
+		android:layout_gravity="center"
+		android:background="@drawable/btn_go_back"/>
+        -->
+</LinearLayout>

@@ -6,4 +6,6 @@
     <string name="no_more_stop">No more stop today</string>
     <string name="pick_direction_title">Pick a direction</string>
     <string name="toast_null_direction">"Can't show the stations: null direction(s)"</string>
+    <string name="current_line_title">Line %s</string>
+    <string name="line_direction_title">Direction %s</string>
 </resources>

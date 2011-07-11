@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="HeaderTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:shadowColor">#BB000000</item>
+        <item name="android:shadowRadius">2.75</item>
+        <item name="android:textColor">@color/hometitletextcolor</item>
+	</style>
+	<style name="HeaderTitle.Primary">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">0dip</item>
+        <!--
+        <item name="android:shadowDx">2.0</item>
+        <item name="android:shadowDy">2.0</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/hometitletextcolor</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">left</item>
+        -->
+	</style>
+	<style name="HeaderTitle.Secondary">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textStyle">italic</item>
+	</style>
+</resources>

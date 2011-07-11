@@ -5,4 +5,5 @@
     <string name="no_more_stop">Prochain arrêt demain</string>
     <string name="pick_direction_title">Choix direction</string>
     <string name="toast_null_direction">"Direction(s) nulle(s): pas de stations"</string>
+    <string name="current_line_title">Ligne %s</string>
 </resources>
