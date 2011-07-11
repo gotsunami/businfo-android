@@ -4,7 +4,9 @@ import android.content.res.XmlResourceParser;
 import android.util.Log;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -66,6 +68,69 @@ public class BusLine {
                         if (!matchDirection) return null;
                         return stations;
                     }
+                }
+            }
+            xrp.next();
+        }
+        xrp.close();
+        if (!matchDirection) return null;
+        return stations;
+    }
+
+    /**
+     * Returns a list of bus stations per city
+     *
+     * @param direction bus line direction
+     * @return list of bus stations per city or empty map if no city section at all
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
+    public Map<String, List<BusStation>> getStationsPerCity(String direction)
+        throws XmlPullParserException, IOException {
+
+        Map<String, List<BusStation>> stations = new HashMap<String, List<BusStation>>();
+        XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
+        boolean matchLine = false;
+        boolean matchDirection = false;
+        boolean matchCity = false;
+        String city = null;
+        while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
+            if (xrp.getEventType() == XmlPullParser.START_TAG) {
+                String s = xrp.getName();
+                if (s.equals("line")) {
+                    String id = xrp.getAttributeValue(null, "id");
+                    if (id.equals(mName))
+                        matchLine = true;
+                }
+                else if(s.equals("direction")) {
+                    String id = xrp.getAttributeValue(null, "id");
+                    if (id.equals(direction))
+                        matchDirection = true;
+                }
+                else if(s.equals("city")) {
+                    if (matchDirection) {
+                        city = xrp.getAttributeValue(null, "id");
+                        stations.put(city, new ArrayList<BusStation>());
+                        matchCity = true;
+                    }
+                }
+                else if(s.equals("station")) {
+                    if (matchDirection && matchCity)
+                        stations.get(city).add(new BusStation(this, xrp.getAttributeValue(null, "id")));
+                }
+            }
+            else if(xrp.getEventType() == XmlPullParser.END_TAG) {
+                // Matches end of line
+                String s = xrp.getName();
+                if (s.equals("line")) {
+                    if (matchLine) {
+                        matchLine = false;
+                        if (!matchDirection) return null;
+                        return stations;
+                    }
+                }
+                else if(s.equals("city")) {
+                    matchCity = false;
                 }
             }
             xrp.next();

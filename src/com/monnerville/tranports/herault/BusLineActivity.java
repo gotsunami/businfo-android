@@ -64,9 +64,13 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         BusManager manager = BusManager.getInstance();
         try {
             BusLine line = manager.getBusLine(mLine);
-            List<BusStation> stations = line.getStations(mDirection);
-            if (stations != null) {
-                mAdapter.addSection("Gigean", new StationListAdapter(this, R.layout.bus_line_list_item, stations));
+            Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
+            if (!stationsPerCity.isEmpty()) {
+                List<String> cities = line.getCities();
+                for (String city : cities) {
+                    List<BusStation> stations = stationsPerCity.get(city);
+                    mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
+                }
                 setListAdapter(mAdapter);
             }
             else {
