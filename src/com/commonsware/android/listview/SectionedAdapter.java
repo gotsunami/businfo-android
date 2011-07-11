@@ -45,61 +45,50 @@ abstract public class SectionedAdapter extends BaseAdapter {
     @Override
 	public Object getItem(int position) {
 		for (Section section : this.sections) {
-			if (position==0) {
+			if (position == 0) {
 				return(section);
 			}
-			
-			int size=section.adapter.getCount()+1;
-
-			if (position<size) {
+			int size = section.adapter.getCount()+1;
+			if (position < size) {
 				return(section.adapter.getItem(position-1));
 			}
-
-			position-=size;
+			position -= size;
 		}
-		
 		return(null);
 	}
 
     @Override
 	public int getCount() {
-		int total=0;
-		
+		int total = 0;
 		for (Section section : this.sections) {
-			total+=section.adapter.getCount()+1; // add one for header
+			total += section.adapter.getCount()+1; // add one for header
 		}
-		
 		return(total);
 	}
 
     @Override
 	public int getViewTypeCount() {
-		int total=1;	// one for the header, plus those from sections
-		
+		int total = 1;	// one for the header, plus those from sections
 		for (Section section : this.sections) {
-			total+=section.adapter.getViewTypeCount();
+			total += section.adapter.getViewTypeCount();
 		}
-		
 		return(total);
 	}
 
     @Override
 	public int getItemViewType(int position) {
-		int typeOffset=TYPE_SECTION_HEADER+1;	// start counting from here
-		
+		int typeOffset = TYPE_SECTION_HEADER+1;	// start counting from here
 		for (Section section : this.sections) {
-			if (position==0) {
+			if (position == 0) {
 				return(TYPE_SECTION_HEADER);
 			}
-			
-			int size=section.adapter.getCount()+1;
+			int size = section.adapter.getCount()+1;
 
-			if (position<size) {
+			if (position < size) {
 				return(typeOffset+section.adapter.getItemViewType(position-1));
 			}
-
-			position-=size;
-			typeOffset+=section.adapter.getViewTypeCount();
+			position -= size;
+			typeOffset += section.adapter.getViewTypeCount();
 		}
 		
 		return(-1);
@@ -111,26 +100,25 @@ abstract public class SectionedAdapter extends BaseAdapter {
 
     @Override
 	public boolean isEnabled(int position) {
-		return(getItemViewType(position)!=TYPE_SECTION_HEADER);
+		return(getItemViewType(position) != TYPE_SECTION_HEADER);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		int sectionIndex=0;
+		int sectionIndex = 0;
 		for (Section section : this.sections) {
-			if (position==0) {
+			if (position == 0) {
 				return(getHeaderView(section.caption, sectionIndex, convertView, parent));
 			}
 
-			int size=section.adapter.getCount()+1;
+			int size = section.adapter.getCount()+1;
 
-			if (position<size) {
+			if (position < size) {
 				return(section.adapter.getView(position-1, convertView, parent));
 			}
-			position-=size;
+			position -= size;
 			sectionIndex++;
 		}
-		
 		return(null);
 	}
 
@@ -144,8 +132,8 @@ abstract public class SectionedAdapter extends BaseAdapter {
 		Adapter adapter;
 		
 		Section(String caption, Adapter adapter) {
-			this.caption=caption;
-			this.adapter=adapter;
+			this.caption = caption;
+			this.adapter = adapter;
 		}
 	}
 }
