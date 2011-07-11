@@ -6,11 +6,14 @@
         <item name="android:shadowColor">#BB000000</item>
         <item name="android:shadowRadius">2.75</item>
         <item name="android:textColor">@color/hometitletextcolor</item>
+        <item name="android:singleLine">true</item>
 	</style>
 	<style name="HeaderTitle.Primary">
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingBottom">0dip</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:ellipsize">marquee</item>
         <!--
         <item name="android:shadowDx">2.0</item>
         <item name="android:shadowDy">2.0</item>
