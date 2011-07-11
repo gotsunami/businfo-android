@@ -2,10 +2,15 @@ package com.monnerville.tranports.herault;
 
 import android.util.Log;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -18,6 +23,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
+
+import com.commonsware.android.listview.SectionedAdapter;
 
 import static com.monnerville.tranports.herault.core.Application.TAG;
 
@@ -59,10 +66,8 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             BusLine line = manager.getBusLine(mLine);
             List<BusStation> stations = line.getStations(mDirection);
             if (stations != null) {
-                ListAdapter adapter = new SimpleAdapter(this, getData(stations),
-                    R.layout.bus_line_list_item, new String[] {"station"},
-                    new int[] {android.R.id.text1});
-                setListAdapter(adapter);
+                mAdapter.addSection("Gigean", new StationListAdapter(this, R.layout.bus_line_list_item, stations));
+                setListAdapter(mAdapter);
             }
             else {
                 Log.w(TAG, "Direction '" + mDirection + "' not found");
@@ -74,23 +79,54 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         }
     }
 
-    private List getData(List<BusStation> stations) {
-        List<Map> data = new ArrayList<Map>();
-        for (BusStation st : stations) {
-            Map<String, String> m = new HashMap<String, String>();
-            m.put("station", st.getName());
-            data.add(m);
+    private class StationListAdapter extends ArrayAdapter<BusStation> {
+        private int mResource;
+        private Context mContext;
+
+        StationListAdapter(Context context, int resource, List<BusStation> items) {
+            super(context, resource, items);
+            mResource = resource;
+            mContext = context;
         }
-        return data;
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LinearLayout itemView;
+            BusStation station = getItem(position);
+
+            if (convertView == null) {
+                itemView = new LinearLayout(mContext);
+                LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                li.inflate(mResource, itemView, true);
+            }
+            else
+                itemView = (LinearLayout)convertView;
+
+            TextView name = (TextView)itemView.findViewById(android.R.id.text1);
+            name.setText(station.getName());
+            return itemView;
+        }
     }
+
+	final SectionedAdapter mAdapter = new SectionedAdapter() {
+        @Override
+		protected View getHeaderView(String caption, int index, View convertView, ViewGroup parent) {
+			TextView result = (TextView)convertView;
+			if (convertView == null) {
+				result = (TextView)getLayoutInflater().inflate(R.layout.list_header, null);
+			}
+			result.setText(caption);
+			return(result);
+		}
+	};
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, BusStationActivity.class);
-        Map<String, String> map = (Map)getListView().getItemAtPosition(position);
+        BusStation station = (BusStation)getListView().getItemAtPosition(position);
         intent.putExtra("line", mLine);
         intent.putExtra("direction", mDirection);
-        intent.putExtra("station", map.get("station"));
+        intent.putExtra("station", station.getName());
         startActivity(intent);
     }
 
