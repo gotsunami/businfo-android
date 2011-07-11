@@ -81,8 +81,8 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                     board.setText(R.string.no_more_stop);
             }
             ListAdapter adapter = new SimpleAdapter(this, getData(mStops),
-                R.layout.bus_station_list_item, new String[] {"time"},
-                new int[] {android.R.id.text1});
+                R.layout.bus_station_list_item, new String[] {"time", "line"},
+                new int[] {android.R.id.text1, android.R.id.text2});
             setListAdapter(adapter);
         } catch (ParseException ex) {
             Logger.getLogger(BusStationActivity.class.getName()).log(Level.SEVERE, null, ex);

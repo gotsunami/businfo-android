@@ -88,7 +88,12 @@ public class BusStation {
                         d.setYear(now.getYear());
                         d.setMonth(now.getMonth());
                         d.setDate(now.getDate());
-                        mStops.add(new BusStop(this, d, null, null, false));
+                        mStops.add(new BusStop(this,
+                            d, // stop time
+                            xrp.getAttributeValue(null, "l"), // line
+                            xrp.getAttributeValue(null, "c"), // circulation days
+                            xrp.getAttributeValue(null, "s") == null ? false : true // school days
+                        ));
                     }
                 }
             }
