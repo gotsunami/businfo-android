@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <ImageView
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:src="@drawable/ic_menu_flag"
+        android:scaleType="fitCenter" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <TextView
+            style="@style/HeaderTitle.Primary"
+            android:id="@+id/primary"
+        />
+        <TextView
+            style="@style/HeaderTitle.Secondary"
+            android:id="@+id/secondary"
+        />
+    </LinearLayout>
+</LinearLayout>

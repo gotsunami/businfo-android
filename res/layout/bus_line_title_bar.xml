@@ -26,11 +26,11 @@
         android:layout_height="fill_parent" >
         <TextView
             style="@style/HeaderTitle.Primary"
-            android:id="@+id/title"
+            android:id="@+id/primary"
         />
         <TextView
             style="@style/HeaderTitle.Secondary"
-            android:id="@+id/direction"
+            android:id="@+id/secondary"
         />
     </LinearLayout>
     <!--

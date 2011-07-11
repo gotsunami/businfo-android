@@ -29,7 +29,7 @@ import com.monnerville.tranports.herault.core.BusStation;
  *
  * @author mathias
  */
-public class BusLineActivity extends ListActivity {
+public class BusLineActivity extends ListActivity implements HeaderTitle {
     private String mLine;
     private String mDirection;
 
@@ -51,8 +51,8 @@ public class BusLineActivity extends ListActivity {
         else
             finish();
 
-        setLineTitle(getString(R.string.current_line_title, mLine));
-        setDirectionTitle(getString(R.string.line_direction_title, mDirection));
+        setPrimaryTitle(getString(R.string.current_line_title, mLine));
+        setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
         BusManager manager = BusManager.getInstance();
         try {
@@ -84,16 +84,6 @@ public class BusLineActivity extends ListActivity {
         return data;
     }
 
-    public void setLineTitle(String title) {
-        TextView t= (TextView)findViewById(R.id.title);
-        t.setText(title);
-    }
-
-    public void setDirectionTitle(String title) {
-        TextView t= (TextView)findViewById(R.id.direction);
-        t.setText(title);
-    }
-
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, BusStationActivity.class);
@@ -102,5 +92,17 @@ public class BusLineActivity extends ListActivity {
         intent.putExtra("direction", mDirection);
         intent.putExtra("station", map.get("station"));
         startActivity(intent);
+    }
+
+    @Override
+    public void setPrimaryTitle(String title) {
+        TextView t= (TextView)findViewById(R.id.primary);
+        t.setText(title);
+    }
+
+    @Override
+    public void setSecondaryTitle(String title) {
+        TextView t= (TextView)findViewById(R.id.secondary);
+        t.setText(title);
     }
 }

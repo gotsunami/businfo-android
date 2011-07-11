@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -26,7 +27,7 @@ import com.monnerville.tranports.herault.core.BusStop;
  *
  * @author mathias
  */
-public class BusStationActivity extends ListActivity {
+public class BusStationActivity extends ListActivity implements HeaderTitle {
     private String mLine = null;
     private String mStation = null;
     private String mDirection = null;
@@ -37,7 +38,10 @@ public class BusStationActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.busstation);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_station_title_bar);
 
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
@@ -48,6 +52,9 @@ public class BusStationActivity extends ListActivity {
         }
         else
             finish();
+
+        setPrimaryTitle(mStation);
+        setSecondaryTitle(getString(R.string.station_line_direction_title, mLine, mDirection));
 
         setTitle(mLine + " - Station " + mStation);
         BusManager manager = BusManager.getInstance();
@@ -91,5 +98,17 @@ public class BusStationActivity extends ListActivity {
             data.add(m);
         }
         return data;
+    }
+
+    @Override
+    public void setPrimaryTitle(String title) {
+        TextView t= (TextView)findViewById(R.id.primary);
+        t.setText(title);
+    }
+
+    @Override
+    public void setSecondaryTitle(String title) {
+        TextView t= (TextView)findViewById(R.id.secondary);
+        t.setText(title);
     }
 }
