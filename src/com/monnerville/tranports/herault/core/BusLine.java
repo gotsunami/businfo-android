@@ -1,4 +1,4 @@
-package com.monnerville.tranports.herault;
+package com.monnerville.tranports.herault.core;
 
 import android.content.res.XmlResourceParser;
 import android.util.Log;
@@ -12,7 +12,7 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  * @author mathias
  */
-class BusLine {
+public class BusLine {
     private String mName;
     /**
      * Cities related to this line

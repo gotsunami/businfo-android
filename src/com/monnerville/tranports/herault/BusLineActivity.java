@@ -19,6 +19,10 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import static com.monnerville.tranports.herault.Application.TAG;
 
+import com.monnerville.tranports.herault.core.BusLine;
+import com.monnerville.tranports.herault.core.BusManager;
+import com.monnerville.tranports.herault.core.BusStation;
+
 /**
  *
  * @author mathias

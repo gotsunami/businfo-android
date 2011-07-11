@@ -22,6 +22,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.monnerville.tranports.herault.core.BusLine;
+import com.monnerville.tranports.herault.core.BusManager;
+
 public class AllLinesActivity extends ListActivity
 {
     @Override

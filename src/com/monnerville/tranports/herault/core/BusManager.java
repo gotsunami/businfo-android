@@ -1,4 +1,4 @@
-package com.monnerville.tranports.herault;
+package com.monnerville.tranports.herault.core;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
@@ -14,7 +14,7 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  * @author mathias
  */
-class BusManager {
+public class BusManager {
     private static final BusManager INSTANCE = new BusManager();
     private BusManager() {}
 
