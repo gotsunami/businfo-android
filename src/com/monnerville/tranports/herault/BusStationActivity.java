@@ -2,6 +2,7 @@ package com.monnerville.tranports.herault;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -43,6 +44,10 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         setContentView(R.layout.busstation);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_station_title_bar);
 
+        TextView board = (TextView)findViewById(R.id.board);
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/lcd.ttf");
+        board.setTypeface(tf);
+
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
         if (bun != null) {
@@ -68,7 +73,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                     break;
                 }
             }
-            TextView board = (TextView)findViewById(R.id.board);
             if (mCurrentStation != null) {
                 BusStop nextStop = mCurrentStation.getNextStop();
                 if (nextStop != null)

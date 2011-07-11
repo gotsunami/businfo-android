@@ -4,12 +4,7 @@
          android:layout_width="fill_parent"
          android:layout_height="fill_parent">
     <TextView android:id="@+id/board"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize = "50sp"
-        android:textColor = "#00ff00"
-        android:padding="3dip" />
+        style="@style/BoardStation" />
     <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

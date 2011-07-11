@@ -11,5 +11,8 @@
 	<color name="home_primary_text_blue">#486cb4</color>
 	<color name="home_secondary_text_blue">#5682d8</color>
 	<color name="home_tertiary_text_blue">#5682d8</color>
+    <color name="board_background">#ccffffff</color>
+    <color name="board_time">#c0000000</color>
+    <color name="ht_official_orange">#e75012</color>
 </resources>
 

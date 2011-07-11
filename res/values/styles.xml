@@ -25,4 +25,14 @@
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textStyle">italic</item>
 	</style>
+	<style name="BoardStation">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">60sp</item>
+        <item name="android:textColor">@color/board_time</item>
+        <item name="android:padding">3dip</item>
+        <item name="android:background">@color/board_background</item>
+	</style>
 </resources>
