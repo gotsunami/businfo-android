@@ -23,6 +23,10 @@ public class BusStation {
      * Cached city value
      */
     private String mCity = null;
+    /**
+     * Cache stop
+     */
+    private BusStop mNextStop = null;
     private List<BusStop> mStops = new ArrayList<BusStop>();
 
     public BusStation(BusLine line, String name) {
@@ -113,15 +117,39 @@ public class BusStation {
     }
 
     /**
-     * Returns next bus stop related to current time
-     * @return a BusStop instance or null if none found
+     * Returns next bus stop related to current time, do not use the cached value.
+     * Equivalent to {@code getNextStop(false)}.
+     *
+     * @return
+     * @throws XmlPullParserException
+     * @throws IOException
+     * @throws ParseException
      */
-    public BusStop getNextStop() throws XmlPullParserException, IOException, ParseException {
+    public BusStop getNextStop()
+        throws XmlPullParserException, IOException, ParseException {
+        return getNextStop(false);
+    }
+
+    /**
+     * Returns next bus stop related to current time and caches the value
+     *
+     * @param cache cache the BusStop instance if set to true
+     * @return a BusStop instance or null if none found or null if cache
+     *         is set to true but no value is yet cached
+     * @throws XmlPullParserException
+     * @throws IOException
+     * @throws ParseException
+     */
+    public BusStop getNextStop(boolean cache)
+        throws XmlPullParserException, IOException, ParseException {
+
+        if (cache) return mNextStop;
         if (mStops.isEmpty())
             getStops();
         Date now = new Date();
         for (BusStop st : mStops) {
             if (st.getTime().after(now)) {
+                mNextStop = st;
                 return st;
             }
         }

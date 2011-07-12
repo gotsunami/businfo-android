@@ -4,6 +4,7 @@ import android.util.Log;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +12,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -66,12 +64,14 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         BusManager manager = BusManager.getInstance();
         try {
             BusLine line = manager.getBusLine(mLine);
+            // Computes all next bus stops
             Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
             if (!stationsPerCity.isEmpty()) {
                 List<String> cities = line.getCities();
                 for (String city : cities) {
                     List<BusStation> stations = stationsPerCity.get(city);
                     mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
+                    new StationsStopsRetreiverTask().execute(stations);
                 }
                 setListAdapter(mAdapter);
             }
@@ -112,9 +112,11 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             name.setText(station.getName());
             TextView time = (TextView)itemView.findViewById(R.id.time);
             try {
-                BusStop stop = station.getNextStop();
-                String caption = stop == null ? getString(R.string.no_more_stop) : BusStop.TIME_FORMATTER.format(stop.getTime());
-                time.setText(caption);
+                BusStop stop = station.getNextStop(true);
+                // We have a non-cached value
+                if (stop != null) {
+                    time.setText(BusStop.TIME_FORMATTER.format(stop.getTime()));
+                }
             } catch (XmlPullParserException ex) {
                 Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -158,5 +160,35 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     public void setSecondaryTitle(String title) {
         TextView t= (TextView)findViewById(R.id.secondary);
         t.setText(title);
+    }
+
+    /**
+     * Retrieves next stops for all bus stations in a background thread
+     */
+    private class StationsStopsRetreiverTask extends AsyncTask<List<BusStation>, Void, Void> {
+        @Override
+        protected Void doInBackground(List<BusStation>... st) {
+            List<BusStation> stations = st[0];
+            try {
+                for (BusStation station : stations) {
+                    try {
+                        // Get a fresh, non-cached value
+                        BusStop nextStop = station.getNextStop();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } catch (XmlPullParserException ex) {
+                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void none) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }
