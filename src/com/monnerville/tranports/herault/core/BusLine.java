@@ -19,12 +19,10 @@ public class BusLine {
     /**
      * Cities related to this line
      */
-    private List<String> mCities = new ArrayList<String>();
     private String[] mDirections = {null, null};
 
     public BusLine(String name) {
         mName = name;
-        mCities.clear();
     }
     public String getName() { return mName; }
 
@@ -51,23 +49,20 @@ public class BusLine {
                 }
                 else if(s.equals("direction")) {
                     String id = xrp.getAttributeValue(null, "id");
-                    if (id.equals(direction))
+                    if (matchLine && id.equals(direction))
                         matchDirection = true;
                 }
                 else if(s.equals("station")) {
-                    if (matchDirection)
+                    if (matchLine && matchDirection)
                         stations.add(new BusStation(this, xrp.getAttributeValue(null, "id")));
                 }
             }
             else if(xrp.getEventType() == XmlPullParser.END_TAG) {
                 // Matches end of line
                 String s = xrp.getName();
-                if (s.equals("line")) {
-                    if (matchLine) {
-                        matchLine = false;
-                        if (!matchDirection) return null;
+                if (s.equals("direction")) {
+                    if (matchDirection)
                         return stations;
-                    }
                 }
             }
             xrp.next();
@@ -122,15 +117,9 @@ public class BusLine {
             else if(xrp.getEventType() == XmlPullParser.END_TAG) {
                 // Matches end of line
                 String s = xrp.getName();
-                if (s.equals("line")) {
-                    if (matchLine) {
-                        matchLine = false;
-                        if (!matchDirection) return null;
+                if (s.equals("direction")) {
+                    if (matchDirection)
                         return stations;
-                    }
-                }
-                else if(s.equals("city")) {
-                    matchCity = false;
                 }
             }
             xrp.next();
@@ -142,39 +131,47 @@ public class BusLine {
 
     /**
      * Returns a list of all related cities that come accross this line
+     * @param direction direction of the line
      * @return a list of strings
      * @throws XmlPullParserException
      * @throws IOException
      */
-    public List<String> getCities() throws XmlPullParserException, IOException {
-        if (!mCities.isEmpty()) return mCities;
+    public List<String> getCities(String direction) throws XmlPullParserException, IOException {
+        List<String> cities = new ArrayList<String>();
         XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
-        boolean match = false;
+        boolean matchLine = false;
+        boolean matchDirection = false;
         while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
             if (xrp.getEventType() == XmlPullParser.START_TAG) {
                 String s = xrp.getName();
                 if (s.equals("line")) {
                     String id = xrp.getAttributeValue(null, "id");
                     if (id.equals(mName))
-                        match = true;
+                        matchLine = true;
                 }
-                if (s.equals("city")) {
-                    if (match)
-                        mCities.add(xrp.getAttributeValue(null, "id"));
+                else if(s.equals("direction")) {
+                    String id = xrp.getAttributeValue(null, "id");
+                    if (matchLine && id.equals(direction))
+                        matchDirection = true;
+                }
+                else if(s.equals("city")) {
+                    if (matchLine && matchDirection)
+                        cities.add(xrp.getAttributeValue(null, "id"));
                 }
             }
             else if(xrp.getEventType() == XmlPullParser.END_TAG) {
                 // Matches end of line
                 String s = xrp.getName();
-                if (s.equals("line")) {
-                    if (match)
-                        match = false;
+                if (s.equals("direction")) {
+                    if (matchDirection)
+                        return cities;
                 }
             }
             xrp.next();
         }
         xrp.close();
-        return mCities;
+        if (!matchDirection) return null;
+        return cities;
     }
 
     /**

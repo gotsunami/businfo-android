@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <lines>
+    <!-- t: time (mandatory)
+         l: bus line (optional)
+         c: circulation days (monday=1, sunday=7, feries=*)
+                             (mandatory)
+         s: school days only (any value)
+    -->
     <line id="103/312">
         <direction id="St Jean de Vedas">
             <city id="Poussan">
                 <station id="La baraque">
-                    <!-- t: time (mandatory)
-                         l: bus line (optional)
-                         c: circulation days (monday=1, sunday=7, feries=*)
-                                             (mandatory)
-                         s: school days only (any value)
-                    -->
                     <stop t="6:17" l="103" c="1-5"/>
                     <stop t="6:37" l="103" c="1-6"/>
                     <stop t="7:32" l="103" c="1-6"/>
@@ -288,6 +288,12 @@
             </city> <!-- St Jean de Vedas -->
         </direction>
         <direction id="Poussan">
+            <city id="St Jean de Vedas">
+                <station id="Station St Jean Le Sec">
+                    <stop t="06:10" l="216" c="1-6"/>
+                    <stop t="06:20" l="216" c="1-6"/>
+                </station>
+            </city> <!-- St Jean de Vedas -->
         </direction>
     </line>
     <line id="103" from="Béziers" to="St Jean de Vedas">
