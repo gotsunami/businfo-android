@@ -7,4 +7,5 @@
     <string name="toast_null_direction">"Direction(s) nulle(s): pas de stations"</string>
     <string name="current_line_title">Ligne %1$s</string>
     <string name="station_line_direction_title">Ligne %1$s vers %2$s</string>
+    <string name="all_lines_header">Toutes les lignes</string>
 </resources>
