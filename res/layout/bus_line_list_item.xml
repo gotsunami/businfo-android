@@ -14,25 +14,26 @@
         android:layout_height="@android:dimen/app_icon_size"
         android:src="@drawable/ic_menu_flag"
         android:scaleType="fitCenter" />
-
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
         <!-- Activity name -->
         <TextView android:id="@android:id/text1"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fadingEdge="horizontal"
+            android:ellipsize="marquee"
+            android:singleLine="true"
             android:paddingLeft="10dip" />
-        <!--
-        <TextView android:id="@android:id/text2"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+        <TextView android:id="@+id/time"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:attr/textColorSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dip" />
-        -->
     </LinearLayout>
 </LinearLayout>
 

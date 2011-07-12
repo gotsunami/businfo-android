@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import static com.monnerville.tranports.herault.core.Application.TAG;
 import com.monnerville.tranports.herault.core.BusLine;
 import com.monnerville.tranports.herault.core.BusManager;
 import com.monnerville.tranports.herault.core.BusStation;
+import com.monnerville.tranports.herault.core.BusStop;
 
 /**
  *
@@ -108,6 +110,18 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(station.getName());
+            TextView time = (TextView)itemView.findViewById(R.id.time);
+            try {
+                BusStop stop = station.getNextStop();
+                String caption = stop == null ? getString(R.string.no_more_stop) : BusStop.TIME_FORMATTER.format(stop.getTime());
+                time.setText(caption);
+            } catch (XmlPullParserException ex) {
+                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return itemView;
         }
     }
