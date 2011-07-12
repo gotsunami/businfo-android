@@ -70,8 +70,6 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 List<String> cities = line.getCities(mDirection);
                 for (String city : cities) {
                     List<BusStation> stations = stationsPerCity.get(city);
-                    Log.d("TOTO", "CITY: " + city);
-                    Log.d("TOTO", "STATIONS: " + stations);
                     mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
                     new StationsStopsRetreiverTask().execute(stations);
                 }
