@@ -3,7 +3,7 @@
 	<!-- Inherits default Theme.Light theme -->
 	<style name="OfficialTheme" parent="@android:Theme">
 		<!-- Change background color -->
-		<item name="android:windowTitleSize">48dip</item>
+		<item name="android:windowTitleSize">50dip</item>
         <!--
 		<item name="android:windowBackground">@color/background_gmail</item>
 		<item name="android:colorBackground">@color/background_gmail</item>
