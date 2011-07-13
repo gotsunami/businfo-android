@@ -6,6 +6,7 @@ syntax: glob
 bin
 cli/java/doc
 cli/java/build
+cli/raw/*.xml
 proguard/*.jar
 proguard/*.txt
 doc
