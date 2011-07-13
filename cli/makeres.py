@@ -8,7 +8,7 @@ Make Android XML resources for bus lines from row text.
 Raw text is a copy of the PDF content using evince
 """
 
-import sys, re
+import sys, re, types
 from optparse import OptionParser
 
 TIME_PAT = r'\d{2}:\d{2}'
@@ -52,13 +52,20 @@ def makeXML(busline, directions, outfile):
             for stop in station['stops']:
                 if re.match(TIME_PAT, stop):
                     sline = ''
-                    if data.has_key('lines'):
-                        try:
-                            sline = " l=\"%s\"" % data['lines'][k]
-                        except IndexError:
-                            print "\nError @ k=%d for %s, %s @ %s:" % (k, curDirection.encode('latin-1'), station['station'].encode('latin-1'), stop.encode('latin=-1'))
-                            print data['lines']
-                            print len(data['lines']), len(station['stops'])
+                    if type(stop) is types.ListType:
+                        stop, line = stop
+                        sline = " l=\"%s\"" % line
+                    else:
+                        print "\nError @ k=%d for %s, %s @ %s:" % (k, curDirection.encode('latin-1'), station['station'].encode('latin-1'), stop.encode('latin=-1'))
+                        print data['lines']
+                        print len(data['lines']), len(station['stops'])
+#                    if data.has_key('lines'):
+#                        try:
+#                            sline = " l=\"%s\"" % data['lines'][k]
+#                        except IndexError:
+#                            print "\nError @ k=%d for %s, %s @ %s:" % (k, curDirection.encode('latin-1'), station['station'].encode('latin-1'), stop.encode('latin=-1'))
+#                            print data['lines']
+#                            print len(data['lines']), len(station['stops'])
                     f.write(' ' *4*INDENT + """<stop t="%s"%s />\n""" % (stop, sline))
                     nbStops += 1
                 k += 1
@@ -115,14 +122,45 @@ def parse(infile):
                 station = line[0]
                 j = 1
 
-            stops = []
+            # time only, final stops will have time and bus line info
+            tmpStops = []
             for stop in line[j:]:
                 m = re.findall(r'\d{2}:\d{2}', stop)
                 if m: 
-                    stops.extend(m)
+                    tmpStops.extend(m)
                 else:
-                    stops.append(stop)
+                    tmpStops.append(stop)
+
+            # Add busline info
+            stops = []
+            print curDirection
+            if directions[curDirection].has_key('lines'):
+                z = 0
+                for stop in tmpStops:
+                    stops.append([stop, directions[curDirection]['lines'][z]])
+                    z += 1
+            else:
+                stops = tmpStops
             directions[curDirection]['stations'].append({'city': curCity, 'station': station, 'stops': stops})
+
+    ld = len(directions)
+    if ld > 2:
+        if ld == 4:
+            print 'Merging directions'
+            for k in range(0, len(directions), 2):
+                data1, data2 = directions[k], directions[k+1]
+                z = 0
+                for station in data2['stations']:
+                    city = station['city']
+                    data1['stations'][z]['stops'].extend(station['stops'])
+                    #del data2['stations'][k]
+                    z += 1
+            print len(directions)
+            for k in range(len(directions)-1, 0, -2):
+                print k
+                del directions[k]
+        else:
+            raise ValueError, "unexpected number of directions: %d" % ld
 
     if busline is None:
         print "Could not find bus line information."
