@@ -8,7 +8,7 @@ Make Android XML resources for bus lines from row text.
 Raw text is a copy of the PDF content using evince
 """
 
-import sys, re, types
+import sys, re, types, os.path, glob
 from optparse import OptionParser
 
 DFLT_CIRC_POLICY = '1-6'
@@ -69,7 +69,7 @@ def makeXML(busline, directions, outfile):
     f.write("</line>")
     f.close()
 
-    print "[%s] %-30s (Dir: %d, Cit: %2d, Stations: %2d, Stops: %2d)" % (busline, "Generated %s" % outfile, nbDirections, nbCities, nbStations, nbStops)
+    print "[%-15s] %-30s (Dir: %d, Cit: %2d, Stations: %2d, Stops: %2d)" % (busline, "Generated %s" % outfile, nbDirections, nbCities, nbStations, nbStops)
     if DEBUG: print directions
 
 def parse(infile):
@@ -155,7 +155,7 @@ def parse(infile):
 
 def main():
     global DEBUG
-    parser = OptionParser(usage="Usage: %prog [-d] raw_line.txt")
+    parser = OptionParser(usage="Usage: %prog [-d] (raw_line.txt|dir)")
     parser.add_option("-d", action="store_true", dest="debug", default=False)
     options, args = parser.parse_args()
 
@@ -165,10 +165,16 @@ def main():
 
     DEBUG = options.debug
     infile = args[0]
-    outfile = infile[:infile.rfind('.')] + '.xml'
-
-    busline, directions = parse(infile)
-    makeXML(busline, directions, outfile)
+    if os.path.isdir(infile):
+        sources = glob.glob(os.path.join(infile, '*.txt'))
+        for src in sources:
+            outfile = src[:src.rfind('.')] + '.xml'
+            busline, directions = parse(src)
+            makeXML(busline, directions, outfile)
+    else:
+        outfile = infile[:infile.rfind('.')] + '.xml'
+        busline, directions = parse(infile)
+        makeXML(busline, directions, outfile)
 
 if __name__ == '__main__':
     main()
