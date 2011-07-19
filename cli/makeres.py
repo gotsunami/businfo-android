@@ -101,17 +101,14 @@ def parse(infile):
     CIRCULATION_PAT = 'circulation='
     DIRECTION_PAT = 'direction='
     CITY_PAT = 'city='
-
-    for line in data:
-        if line.startswith(BUSLINE_PAT):
-            busline = re.sub(BUSLINE_PAT, '', line)
-            break
+    FROM_PAT = 'from='
+    TO_PAT = 'to='
 
     k = -1
     curCity = None
     curLines = None
     for line in data:
-        if line == DIRECTION_PAT:
+        if line.startswith(DIRECTION_PAT):
             directions.append([])
             k += 1
         elif line.startswith(CIRCULATION_PAT):
@@ -119,10 +116,17 @@ def parse(infile):
         elif line.startswith(CITY_PAT):
             curCity = re.sub(CITY_PAT, '', line)
         elif line.startswith(BUSLINE_PAT):
+            busline = re.sub(BUSLINE_PAT, '', line).encode('latin-1')
+        elif line.startswith(FROM_PAT):
+            pass
+        elif line.startswith(TO_PAT):
             pass
         else:
             # This is a station line
             sts = line.split(';')
+            if len(sts) < 5:
+                # No station line??
+                raise ValueError, "Not a station line: %s" % line
             stops = sts[1:]
             allstops = []
             nextPolicy = dfltCirculationPolicy
