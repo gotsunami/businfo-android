@@ -99,11 +99,11 @@ public class BusLine {
                 }
                 else if(s.equals("direction")) {
                     String id = xrp.getAttributeValue(null, "id");
-                    if (id.equals(direction))
+                    if (matchLine && id.equals(direction))
                         matchDirection = true;
                 }
                 else if(s.equals("city")) {
-                    if (matchDirection) {
+                    if (matchLine && matchDirection) {
                         city = xrp.getAttributeValue(null, "id");
                         stations.put(city, new ArrayList<BusStation>());
                         matchCity = true;
