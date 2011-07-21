@@ -1,4 +1,4 @@
-package com.monnerville.tranports.herault;
+package com.monnerville.transports.herault;
 
 import android.util.Log;
 import android.app.ListActivity;
@@ -25,12 +25,12 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import com.commonsware.android.listview.SectionedAdapter;
 
-import static com.monnerville.tranports.herault.core.Application.TAG;
+import static com.monnerville.transports.herault.core.Application.TAG;
 
-import com.monnerville.tranports.herault.core.BusLine;
-import com.monnerville.tranports.herault.core.BusManager;
-import com.monnerville.tranports.herault.core.BusStation;
-import com.monnerville.tranports.herault.core.BusStop;
+import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.BusStation;
+import com.monnerville.transports.herault.core.BusStop;
 
 /**
  *

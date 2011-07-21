@@ -1,4 +1,4 @@
-package com.monnerville.tranports.herault.core;
+package com.monnerville.transports.herault.core;
 
 /**
  *

@@ -1,4 +1,4 @@
-package com.monnerville.tranports.herault;
+package com.monnerville.transports.herault;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -23,8 +23,8 @@ import java.util.logging.Logger;
 import java.util.List;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.monnerville.tranports.herault.core.BusLine;
-import com.monnerville.tranports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusManager;
 
 public class AllLinesActivity extends ListActivity
 {
