@@ -36,12 +36,18 @@
     <!-- Required pre-setup import -->
     <import file="${sdk.dir}/tools/ant/pre_setup.xml" />
 
+    <target name="-pre-build">
+        <echo message="Generating lines resource file lines.xml" />
+        <exec failonerror="true" executable="./cli/makeres.py">
+            <arg value="-g" />
+            <arg value="cli/raw" />
+        </exec>
+        <copy file="cli/raw/lines.xml" tofile="res/xml/lines.xml"/>
+    </target>
 
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 <!--
-    <target name="-pre-build">
-    </target>
     <target name="-pre-compile">
     </target>
 
