@@ -18,6 +18,9 @@ STOP_CIRC_PAT = r'^(\d{1,2}:\d{2})\*(.*)\*$'
 INDENT = 2
 DEBUG = False
 dfltCirculationPolicy = DFLT_CIRC_POLICY
+XML_HEADER = """<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED AUTOMATICALLY BY THE makeres.py SCRIPT. DO NOT MODIFY! -->
+"""
 
 def makeXML(busline, directions, outfile):
     global dfltCirculationPolicy
@@ -34,9 +37,7 @@ def makeXML(busline, directions, outfile):
     # Used to count distinct entries
     tmpCities = tmpStations = []
 
-    f.write("""<?xml version="1.0" encoding="utf-8"?>\n""")
-    f.write("<!-- GENERATED AUTOMATICALLY BY THE makeres.py SCRIPT. DO NOT MODIFY!\n")
-    f.write("     LINE %s\n-->\n" % busline)
+    f.write(XML_HEADER)
     f.write("""<line id="%s">\n""" % busline)
     for data in directions:
         curDirection = data[-1]['city']
@@ -155,8 +156,10 @@ def parse(infile):
 
 def main():
     global DEBUG
+
     parser = OptionParser(usage="Usage: %prog [-d] (raw_line.txt|dir)")
-    parser.add_option("-d", action="store_true", dest="debug", default=False)
+    parser.add_option("-d", action="store_true", dest="debug", default=False, help='more debugging')
+    parser.add_option("-g", action="store_true", dest="globalxml", default=False, help='generates global lines.xml')
     options, args = parser.parse_args()
 
     if len(args) != 1:
@@ -171,6 +174,20 @@ def main():
             outfile = src[:src.rfind('.')] + '.xml'
             busline, directions = parse(src)
             makeXML(busline, directions, outfile)
+
+        if options.globalxml:
+            xmls = glob.glob(os.path.join(infile, '*.xml'))
+            f = open(os.path.join(infile, 'lines.xml'), 'w')
+            f.write(XML_HEADER)
+            f.write('<lines>\n')
+            for src in xmls:
+                s = open(src)
+                f.write(''.join(s.readlines()[2:]) + '\n')
+                f.flush()
+                s.close()
+            f.write('</lines>\n')
+            f.close()
+            print "Generated global %s" % os.path.join(infile, 'lines.xml')
     else:
         outfile = infile[:infile.rfind('.')] + '.xml'
         busline, directions = parse(infile)
