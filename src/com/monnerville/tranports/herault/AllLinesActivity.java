@@ -1,6 +1,5 @@
 package com.monnerville.tranports.herault;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -8,9 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.commonsware.android.listview.SectionedAdapter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.monnerville.tranports.herault.core.BusLine;
