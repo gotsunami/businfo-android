@@ -45,6 +45,17 @@
         <copy file="cli/raw/lines.xml" tofile="res/xml/lines.xml"/>
     </target>
 
+	<target name="api">
+		<javadoc 
+			classpath="${sdk.dir}/platforms/android-2.1/android.jar" 
+			destdir="api" 
+			sourcepath="src" 
+			packagenames="com.monnerville.transports.herault.*" 
+			author="true" 
+            stylesheetfile="android.css"
+			version="true" />
+	</target>
+
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 <!--
