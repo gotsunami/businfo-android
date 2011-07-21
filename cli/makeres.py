@@ -149,8 +149,8 @@ def parse(infile):
                         allstops.append((m.group(1), m.group(2)))
 
             directions[k].append({
-                'city': curCity.capitalize(), 
-                'station': sts[0].capitalize(), 
+                'city': curCity.strip().capitalize(), 
+                'station': sts[0].strip(), 
                 'stops': allstops,
             })
 
