@@ -56,9 +56,9 @@ def makeXML(busline, directions, outfile):
             f.write(' ' *3*INDENT + """<station id="%s">\n""" % station['station'].encode('utf-8'))
             for stop in station['stops']:
                 if type(stop) == types.TupleType:
-                    f.write(' ' *4*INDENT + """<stop t="%s" c="%s"/>\n""" % (stop[0], stop[1]))
+                    f.write(' ' *4*INDENT + """<s t="%s" c="%s"/>\n""" % (stop[0], stop[1]))
                 else:
-                    f.write(' ' *4*INDENT + """<stop t="%s" />\n""" % stop)
+                    f.write(' ' *4*INDENT + """<s t="%s"/>\n""" % stop)
                 
                 nbStops += 1
             f.write(' ' *3*INDENT + "</station>\n")
