@@ -4,8 +4,6 @@ from=2011-07-02
 to=2011-09-04
 circulation=1-7
 
-#LàS LàV LàD LàD LàD LàD LàD LàD LàD LàD LàD LàD LàD LàD
-
 direction=
 
 city=MONTPELLIER 
