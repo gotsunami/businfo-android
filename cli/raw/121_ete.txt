@@ -1,0 +1,29 @@
+# Line 121 ete
+name=121 été
+from=2011-07-01
+to=2011-08-31
+circulation=1-7
+
+
+direction=
+
+city=MAUGUIO
+Départ Av. Jean Moulin, arrêt Cimetière;9:30;11:00;14:15
+Le foyer/Les cabanes;9:32;11:02;14:17
+Ecole/Gendarmerie/Les ormilles;9:35;11:05;14:20
+
+city=CARNON
+Avranche;9:50;11:20;14:35
+Petit Travers;9:55;11:25;14:40
+
+
+direction=
+
+city=CARNON
+Petit Travers;11:30;17:00;18:30
+Avranche;11:40;17:10;18:40
+
+city=MAUGUIO
+Les ormilles/Gendarmerie/Ecole;11:55;17:25;18:55
+Les cabanes/Le foyer;11:58;17:28;18:58
+Terminus Av. Jean Moulin, arret Cimetière;12:00;17:30;19:00
