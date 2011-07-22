@@ -127,7 +127,7 @@ def parse(infile):
         else:
             # This is a station line
             sts = line.split(';')
-            if len(sts) < 5:
+            if len(sts) < 3:
                 # No station line??
                 raise ValueError, "Not a station line: %s" % line
             stops = sts[1:]
