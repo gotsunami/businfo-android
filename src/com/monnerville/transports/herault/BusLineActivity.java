@@ -68,12 +68,14 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
             if (!stationsPerCity.isEmpty()) {
                 List<String> cities = line.getCities(mDirection);
+                List<BusStation> allStations = new ArrayList<BusStation>();
                 for (String city : cities) {
                     List<BusStation> stations = stationsPerCity.get(city);
+                    allStations.addAll(stations);
                     mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
-                    new StationsStopsRetreiverTask().execute(stations);
                 }
                 setListAdapter(mAdapter);
+                new StationsStopsRetreiverTask().execute(allStations);
             }
             else {
                 Log.w(TAG, "Direction '" + mDirection + "' not found");
