@@ -86,7 +86,7 @@ public class BusStation {
                     if (station.equals(mName))
                         match = true;
                 }
-                else if(s.equals("stop")) {
+                else if(s.equals("s")) {
                     if (match) {
                         Date d = BusStop.TIME_FORMATTER.parse(xrp.getAttributeValue(null, "t"));
                         d.setYear(now.getYear());
