@@ -172,6 +172,7 @@ def main():
     infile = args[0]
     if os.path.isdir(infile):
         sources = glob.glob(os.path.join(infile, '*.txt'))
+        sources.sort()
         for src in sources:
             outfile = src[:src.rfind('.')] + '.xml'
             busline, directions = parse(src)
@@ -182,6 +183,7 @@ def main():
             if os.path.exists(dst):
                 os.remove(dst)
             xmls = glob.glob(os.path.join(infile, '*.xml'))
+            xmls.sort()
             f = open(dst, 'w')
             f.write(XML_HEADER)
             f.write('<lines>\n')
