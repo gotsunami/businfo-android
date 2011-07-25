@@ -42,7 +42,7 @@
             <arg value="-g" />
             <arg value="cli/raw" />
         </exec>
-        <copy file="cli/raw/lines.xml" tofile="res/xml/lines.xml"/>
+        <copy file="/tmp/lines.xml" tofile="res/xml/lines.xml"/>
     </target>
 
 	<target name="api">

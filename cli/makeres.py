@@ -8,7 +8,7 @@ Make Android XML resources for bus lines from row text.
 Raw text is a copy of the PDF content using evince
 """
 
-import sys, re, types, os.path, glob
+import sys, re, types, os.path, glob, tempfile
 from optparse import OptionParser
 
 DFLT_CIRC_POLICY = '1-6'
@@ -21,6 +21,7 @@ dfltCirculationPolicy = DFLT_CIRC_POLICY
 XML_HEADER = """<?xml version="1.0" encoding="utf-8"?>
 <!-- GENERATED AUTOMATICALLY BY THE makeres.py SCRIPT. DO NOT MODIFY! -->
 """
+TMP_DIR = tempfile.gettempdir()
 
 def makeXML(busline, directions, outfile):
     global dfltCirculationPolicy
@@ -174,15 +175,15 @@ def main():
         sources = glob.glob(os.path.join(infile, '*.txt'))
         sources.sort()
         for src in sources:
-            outfile = src[:src.rfind('.')] + '.xml'
+            outfile = os.path.join(TMP_DIR, os.path.basename(src[:src.rfind('.')] + '.xml'))
             busline, directions = parse(src)
             makeXML(busline, directions, outfile)
 
         if options.globalxml:
-            dst = os.path.join(infile, 'lines.xml')
+            dst = os.path.join(TMP_DIR, 'lines.xml')
             if os.path.exists(dst):
                 os.remove(dst)
-            xmls = glob.glob(os.path.join(infile, '*.xml'))
+            xmls = glob.glob(os.path.join(TMP_DIR, '*.xml'))
             xmls.sort()
             f = open(dst, 'w')
             f.write(XML_HEADER)
@@ -195,7 +196,7 @@ def main():
             f.flush()
             f.write('</lines>\n')
             f.close()
-            print "Generated global %s" % os.path.join(infile, 'lines.xml')
+            print "Generated global %s" % os.path.join(TMP_DIR, 'lines.xml')
     else:
         outfile = infile[:infile.rfind('.')] + '.xml'
         busline, directions = parse(infile)
