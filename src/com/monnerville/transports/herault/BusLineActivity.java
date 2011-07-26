@@ -102,7 +102,8 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout itemView;
-            BusStation station = getItem(position);
+            final BusStation station = getItem(position);
+            final int j = position;
 
             if (convertView == null) {
                 itemView = new LinearLayout(mContext);
@@ -115,6 +116,17 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(station.getName());
             TextView time = (TextView)itemView.findViewById(R.id.time);
+            ImageView star = (ImageView)itemView.findViewById(R.id.star);
+            star.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    station.setStarred(!station.isStarred());
+                    mAdapter.notifyDataSetChanged();
+                }
+            });
+            star.setImageResource(station.isStarred() ? android.R.drawable.btn_star_big_on :
+               android.R.drawable.btn_star_big_off);
+
             try {
                 BusStop stop = station.getNextStop(true);
                 // We have a non-cached value
@@ -196,9 +208,13 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         }
     }
 
+    /*
     public void starOnClickHandler(View v) {
         if (v == null) return;
         ImageView iv = (ImageView)v;
-        iv.setImageResource(android.R.drawable.btn_star_big_on);
+        getListView().get
+//        iv.setImageResource(android.R.drawable.btn_star_big_on);
     }
+     *
+     */
 }

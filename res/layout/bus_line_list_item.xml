@@ -36,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dip"
                 android:src="@android:drawable/btn_star_big_off"
-                android:onClick="starOnClickHandler"
                 android:layout_alignParentRight="true"
                 android:scaleType="fitCenter" />
         </RelativeLayout>
