@@ -48,7 +48,8 @@ public class AllLinesActivity extends ListActivity
 
         try {
             List<BusLine> lines = manager.getBusLines();
-            mAdapter.addSection(getString(R.string.all_lines_header), new LineListAdapter(this, R.layout.all_lines_list_item, lines));
+            mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
+                new LineListAdapter(this, R.layout.all_lines_list_item, lines));
             setListAdapter(mAdapter);
         } catch(XmlPullParserException err) {
             Log.e("TAG", "Parsing error: " + err.getMessage());

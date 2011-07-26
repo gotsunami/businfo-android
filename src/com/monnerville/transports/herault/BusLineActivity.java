@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.busline);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_line_title_bar);
+        getListView().setItemsCanFocus(true);
 
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
@@ -192,5 +194,11 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         protected void onPostExecute(Void none) {
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void starOnClickHandler(View v) {
+        if (v == null) return;
+        ImageView iv = (ImageView)v;
+        iv.setImageResource(android.R.drawable.btn_star_big_on);
     }
 }
