@@ -28,10 +28,10 @@ GPS_CACHE_FILE = 'gps.csv'
 GPS_RSRC_FILE = 'gps.xml'
 g_cities = []
 
-def get_cities_in_cache():
+def get_cities_in_cache(cache_file):
     ccities = []
     try:
-        f = open(GPS_CACHE_FILE)
+        f = open(cache_file)
         data = f.readlines()
         for line in data:
             ccities.append(line.split(';')[0])
@@ -41,9 +41,9 @@ def get_cities_in_cache():
 
     return ccities
 
-def get_gps_coords_from_cache(city):
+def get_gps_coords_from_cache(city, cache_file):
     try:
-        f = open(GPS_CACHE_FILE)
+        f = open(cache_file)
         data = f.readlines()
         for line in data:
             k = line[:-1].split(';')
@@ -217,11 +217,13 @@ def parse(infile):
 def main():
     global DEBUG
 
-    parser = OptionParser(usage="Usage: %prog [-d|-g|--gps] (raw_line.txt|dir)")
+    parser = OptionParser(usage="Usage: %prog [-d|-g|--gps|--gps-cache file] (raw_line.txt|dir)")
     parser.add_option("-d", action="store_true", dest="debug", default=False, help='more debugging')
     parser.add_option("-v", '--verbose', action="store_true", dest="verbose", default=False, help='verbose output')
     parser.add_option("-g", action="store_true", dest="globalxml", default=False, help='generates global lines.xml')
     parser.add_option("", '--gps', action="store_true", dest="getgps", default=False, help='retreives cities GPS coordinates')
+    parser.add_option("", '--gps-cache', action="store", dest="gpscache", default=GPS_CACHE_FILE, 
+        help='use gps cache file')
     options, args = parser.parse_args()
 
     if len(args) != 1:
@@ -263,11 +265,11 @@ def main():
 
     if options.getgps:
         print "Getting GPS coordinates of cities ..."
-        print "Using cache file %s ..." % GPS_CACHE_FILE
-        ccities = get_cities_in_cache() # cities in cache
+        print "Using cache file %s ..." % options.gpscache
+        ccities = get_cities_in_cache(options.gpscache) # cities in cache
         ncities = []                    # not in cache yet
 
-        f = open(GPS_CACHE_FILE, 'a')
+        f = open(options.gpscache, 'a')
         for city in g_cities:
             if city not in ccities:
                 lat, lng = fetch_gps_coords(city)
@@ -276,7 +278,7 @@ def main():
                 ncities.append(city)
                 print "N %-25s @%f, %f" % (city, lat, lng)
             else:
-                lat, lng = get_gps_coords_from_cache(city)
+                lat, lng = get_gps_coords_from_cache(city, options.gpscache)
                 if lat == 0 and lng == 0:
                     print "%s not found in cache... ANOMALY" % city
                     sys.exit(1)
@@ -290,7 +292,7 @@ def main():
 
         ores = os.path.join(TMP_DIR, GPS_RSRC_FILE)
         print "Generating resource file %s ..." % ores
-        f = open(GPS_CACHE_FILE)
+        f = open(options.gpscache)
         data = f.readlines()
         f.close()
 
