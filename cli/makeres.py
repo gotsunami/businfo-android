@@ -22,9 +22,62 @@ XML_HEADER = """<?xml version="1.0" encoding="utf-8"?>
 <!-- GENERATED AUTOMATICALLY BY THE makeres.py SCRIPT. DO NOT MODIFY! -->
 """
 TMP_DIR = tempfile.gettempdir()
+#
+FETCH_GPS_URL = """http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false"""
+GPS_CACHE_FILE = 'gps.csv'
+g_cities = []
+
+def get_cities_in_cache():
+    ccities = []
+    try:
+        f = open(GPS_CACHE_FILE)
+        data = f.readlines()
+        for line in data:
+            ccities.append(line.split(';')[0])
+        f.close()
+    except IOError:
+        print 'No cache found'
+
+    return ccities
+
+def get_gps_coords_from_cache(city):
+    try:
+        f = open(GPS_CACHE_FILE)
+        data = f.readlines()
+        for line in data:
+            k = line.split(';')
+            c = k[0]
+            if city == c:
+                return map(lambda x: float(x), k[1:])
+        # Not found in cache
+        return float(0), float(0)
+        f.close()
+    except IOError:
+        print 'No cache found'
+        sys.exit(1)
+
+def fetch_gps_coords(city):
+    """
+    Uses Google Geocoding API.
+    See http://code.google.com/intl/fr/apis/maps/documentation/geocoding/
+    """
+    import urllib, urllib2, json
+    lat = lng = 0
+    #print FETCH_GPS_URL % urllib.quote(city + u', France')
+    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(city + u', France'))
+    r = json.loads(s.read())
+    if r['status'] != 'OK':
+        print "Bad status %s, could not get data from city: %s" % (city, r['status'])
+    else:
+        gps = r['results'][0]['geometry']['location']
+        lat, lng = gps['lat'], gps['lng']
+
+    return lat, lng
 
 def makeXML(busline, directions, outfile):
     global dfltCirculationPolicy
+    global g_cities
+
     try:
         f = open(outfile, 'w')
     except IOError, e:
@@ -54,6 +107,8 @@ def makeXML(busline, directions, outfile):
                     tmpCities.append(city)
                     nbCities += 1
                 curCity = city
+                if city not in g_cities:
+                    g_cities.append(city)
             f.write(' ' *3*INDENT + """<station id="%s">\n""" % station['station'].encode('utf-8'))
             for stop in station['stops']:
                 if type(stop) == types.TupleType:
@@ -73,6 +128,7 @@ def makeXML(busline, directions, outfile):
     f.write("</line>")
     f.close()
 
+    g_cities.sort()
     print "[%-15s] %-30s (Dir: %d, Cit: %2d, Stations: %2d, Stops: %2d)" % (busline, "Generated %s" % outfile, nbDirections, nbCities, nbStations, nbStops)
     if DEBUG: print directions
 
@@ -160,9 +216,11 @@ def parse(infile):
 def main():
     global DEBUG
 
-    parser = OptionParser(usage="Usage: %prog [-d] (raw_line.txt|dir)")
+    parser = OptionParser(usage="Usage: %prog [-d|-g|--gps] (raw_line.txt|dir)")
     parser.add_option("-d", action="store_true", dest="debug", default=False, help='more debugging')
+    parser.add_option("-v", '--verbose', action="store_true", dest="verbose", default=False, help='verbose output')
     parser.add_option("-g", action="store_true", dest="globalxml", default=False, help='generates global lines.xml')
+    parser.add_option("", '--gps', action="store_true", dest="getgps", default=False, help='retreives cities GPS coordinates')
     options, args = parser.parse_args()
 
     if len(args) != 1:
@@ -202,5 +260,34 @@ def main():
         busline, directions = parse(infile)
         makeXML(busline, directions, outfile)
 
+    if options.getgps:
+        print "Getting GPS coordinates of cities ..."
+        print "Using cache file %s ..." % GPS_CACHE_FILE
+        ccities = get_cities_in_cache() # cities in cache
+        ncities = []                    # not in cache yet
+
+        f = open(GPS_CACHE_FILE, 'a')
+        for city in g_cities:
+            if city not in ccities:
+                lat, lng = fetch_gps_coords(city)
+                f.write(';'.join([city, str(lat), str(lng)]) + '\n')
+                ccities.append(city)
+                ncities.append(city)
+                print "N %-25s @%f, %f" % (city, lat, lng)
+            else:
+                lat, lng = get_gps_coords_from_cache(city)
+                if lat == 0 and lng == 0:
+                    print "%s not found in cache... ANOMALY" % city
+                    sys.exit(1)
+                else:
+                    if options.verbose:
+                        print "C %-25s @%f, %f" % (city, lat, lng)
+        f.close()
+
+        print "%d cities in cache" % len(ccities)
+        print "%d cities added in cache" % len(ncities)
+
+
 if __name__ == '__main__':
     main()
+
