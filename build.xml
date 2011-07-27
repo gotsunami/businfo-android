@@ -40,9 +40,12 @@
         <echo message="Generating lines resource file lines.xml" />
         <exec failonerror="true" executable="./cli/makeres.py">
             <arg value="-g" />
+            <arg value="--gps" />
+            <arg line="--gps-cache cli/gps.csv" />
             <arg value="cli/raw" />
         </exec>
         <copy file="/tmp/lines.xml" tofile="res/xml/lines.xml"/>
+        <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
     </target>
 
 	<target name="api">
