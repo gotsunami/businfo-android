@@ -35,7 +35,9 @@ public class BusStation {
         mName = name;
         mIsStarred = false;
     }
+
     public String getName() { return mName; }
+    public final BusLine getLine() { return mLine; }
     public boolean isStarred() { return mIsStarred; }
     public void setStarred(boolean on) { mIsStarred = on; }
 

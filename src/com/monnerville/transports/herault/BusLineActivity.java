@@ -121,6 +121,13 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 @Override
                 public void onClick(View v) {
                     station.setStarred(!station.isStarred());
+                    try {
+                        Log.d("TO", "" + station.getCity() + "; " + station.getName() + "; " + station.getLine().getName() + "; " + mDirection);
+                    } catch (XmlPullParserException ex) {
+                        Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     mAdapter.notifyDataSetChanged();
                 }
             });
