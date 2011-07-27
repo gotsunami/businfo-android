@@ -25,6 +25,7 @@ TMP_DIR = tempfile.gettempdir()
 #
 FETCH_GPS_URL = """http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false"""
 GPS_CACHE_FILE = 'gps.csv'
+GPS_RSRC_FILE = 'gps.xml'
 g_cities = []
 
 def get_cities_in_cache():
@@ -45,7 +46,7 @@ def get_gps_coords_from_cache(city):
         f = open(GPS_CACHE_FILE)
         data = f.readlines()
         for line in data:
-            k = line.split(';')
+            k = line[:-1].split(';')
             c = k[0]
             if city == c:
                 return map(lambda x: float(x), k[1:])
@@ -286,6 +287,20 @@ def main():
 
         print "%d cities in cache" % len(ccities)
         print "%d cities added in cache" % len(ncities)
+
+        ores = os.path.join(TMP_DIR, GPS_RSRC_FILE)
+        print "Generating resource file %s ..." % ores
+        f = open(GPS_CACHE_FILE)
+        data = f.readlines()
+        f.close()
+
+        f = open(ores, 'w')
+        f.write(XML_HEADER)
+        f.write('<gps>\n')
+        for line in data:
+            k = line[:-1].split(';')
+            f.write(' ' * INDENT + '<city name="%s" lat="%s" lng="%s" />\n' % (k[0], k[1], k[2]))
+        f.write('</gps>\n')
 
 
 if __name__ == '__main__':
