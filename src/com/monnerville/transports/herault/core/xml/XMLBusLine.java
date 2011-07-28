@@ -1,7 +1,9 @@
-package com.monnerville.transports.herault.core;
+package com.monnerville.transports.herault.core.xml;
 
 import android.content.res.XmlResourceParser;
 import android.util.Log;
+import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusStation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;

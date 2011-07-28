@@ -32,7 +32,7 @@ import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
-import com.monnerville.transports.herault.core.XMLBusManager;
+import com.monnerville.transports.herault.core.xml.XMLBusManager;
 
 /**
  *

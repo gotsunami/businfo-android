@@ -20,7 +20,7 @@ import com.monnerville.transports.herault.core.BusLine;
 import java.util.List;
 
 import com.monnerville.transports.herault.core.BusManager;
-import com.monnerville.transports.herault.core.XMLBusManager;
+import com.monnerville.transports.herault.core.xml.XMLBusManager;
 
 public class AllLinesActivity extends ListActivity
 {

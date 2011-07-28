@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author mathias
  */
-public class BusStop {
+public final class BusStop {
     private String mLine;
     private String mCircul;
     private BusStation mStation;
