@@ -2,12 +2,11 @@ package com.monnerville.transports.herault.core.xml;
 
 import android.content.res.XmlResourceParser;
 import android.util.Log;
+import com.monnerville.transports.herault.core.AbstractBusStation;
 import com.monnerville.transports.herault.core.BusLine;
-import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,40 +18,22 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  * @author mathias
  */
-public class XMLBusStation implements BusStation {
-    private String mName;
-    private BusLine mLine;
-    private boolean mIsStarred;
+public class XMLBusStation extends AbstractBusStation {
     /**
      * Cached city value
      */
     private String mCity = null;
-    /**
-     * Cache stop
-     */
-    private BusStop mNextStop = null;
-    private List<BusStop> mStops = new ArrayList<BusStop>();
 
     public XMLBusStation(BusLine line, String name) {
-        mLine = line;
-        mName = name;
-        mIsStarred = false;
+        super(line, name);
     }
-
-    @Override
-    public String getName() { return mName; }
-    @Override
-    public final BusLine getLine() { return mLine; }
-    @Override
-    public boolean isStarred() { return mIsStarred; }
-    @Override
-    public void setStarred(boolean on) { mIsStarred = on; }
 
     /**
      * Get city name for this station
      *
      * @return city name
      */
+    @Override
     public String getCity() {
         if (mCity != null) return mCity;
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
@@ -130,38 +111,5 @@ public class XMLBusStation implements BusStation {
         }
         xrp.close();
         return mStops;
-    }
-
-    /**
-     * Returns next bus stop related to current time, do not use the cached value.
-     * Equivalent to {@code getNextStop(false)}.
-     *
-     * @return
-     */
-    @Override
-    public BusStop getNextStop() {
-        return getNextStop(false);
-    }
-
-    /**
-     * Returns next bus stop related to current time and caches the value
-     *
-     * @param cache cache the BusStop instance if set to true
-     * @return a BusStop instance or null if none found or null if cache
-     *         is set to true but no value is yet cached
-     */
-    @Override
-    public BusStop getNextStop(boolean cache) {
-        if (cache) return mNextStop;
-        if (mStops.isEmpty())
-            getStops();
-        Date now = new Date();
-        for (BusStop st : mStops) {
-            if (st.getTime().after(now)) {
-                mNextStop = st;
-                return st;
-            }
-        }
-        return null;
     }
 }
