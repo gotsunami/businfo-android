@@ -36,26 +36,12 @@ public class AllLinesActivity extends ListActivity
         setTitle(R.string.lines_activity_title);
 
         BusManager manager = BusManager.getInstance();
-        try {
-            manager.setResources(getResources(), R.xml.lines);
-        } catch(Resources.NotFoundException err) {
-            Log.e("RES", err.getMessage());
-        } catch(XmlPullParserException err) {
-            Log.e("RES", err.getMessage());
-        } catch(IOException err) {
-            Log.e("RES", err.getMessage());
-        }
+        manager.setResources(getResources(), R.xml.lines);
 
-        try {
-            List<BusLine> lines = manager.getBusLines();
-            mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
-                new LineListAdapter(this, R.layout.all_lines_list_item, lines));
-            setListAdapter(mAdapter);
-        } catch(XmlPullParserException err) {
-            Log.e("TAG", "Parsing error: " + err.getMessage());
-        } catch(IOException err) {
-            Log.e("TAG", "Error: " + err.getMessage());
-        }
+        List<BusLine> lines = manager.getBusLines();
+        mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
+            new LineListAdapter(this, R.layout.all_lines_list_item, lines));
+        setListAdapter(mAdapter);
     }
 
     private class LineListAdapter extends ArrayAdapter<BusLine> {
