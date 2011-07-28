@@ -84,7 +84,7 @@ public class XMLBusStation implements BusStation {
     /**
      * Get stops times for current bus station
      *
-     * @return list of dates
+     * @return list of bus stops
      */
     @Override
     public List<BusStop> getStops() {
