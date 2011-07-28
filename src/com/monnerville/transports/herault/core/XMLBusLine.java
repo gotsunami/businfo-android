@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -14,7 +16,7 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  * @author mathias
  */
-public class XMLBusLine {
+public class XMLBusLine implements BusLine {
     private String mName;
     /**
      * Cities related to this line
@@ -24,6 +26,7 @@ public class XMLBusLine {
     public XMLBusLine(String name) {
         mName = name;
     }
+    @Override
     public String getName() { return mName; }
 
     /**
@@ -34,38 +37,46 @@ public class XMLBusLine {
      * @throws XmlPullParserException
      * @throws IOException
      */
-    public List<BusStation> getStations(String direction) throws XmlPullParserException, IOException {
-        List<BusStation> stations = new ArrayList<BusStation>();
+    @Override
+    public List<XMLBusStation> getStations(String direction) {
+        List<XMLBusStation> stations = new ArrayList<XMLBusStation>();
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean matchLine = false;
         boolean matchDirection = false;
-        while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
-            if (xrp.getEventType() == XmlPullParser.START_TAG) {
-                String s = xrp.getName();
-                if (s.equals("line")) {
-                    String id = xrp.getAttributeValue(null, "id");
-                    if (id.equals(mName))
-                        matchLine = true;
+        try {
+            while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
+                if (xrp.getEventType() == XmlPullParser.START_TAG) {
+                    String s = xrp.getName();
+                    if (s.equals("line")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (id.equals(mName)) {
+                            matchLine = true;
+                        }
+                    } else if (s.equals("direction")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (matchLine && id.equals(direction)) {
+                            matchDirection = true;
+                        }
+                    } else if (s.equals("station")) {
+                        if (matchLine && matchDirection) {
+                            stations.add(new XMLBusStation(this, xrp.getAttributeValue(null, "id")));
+                        }
+                    }
+                } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
+                    // Matches end of line
+                    String s = xrp.getName();
+                    if (s.equals("direction")) {
+                        if (matchDirection) {
+                            return stations;
+                        }
+                    }
                 }
-                else if(s.equals("direction")) {
-                    String id = xrp.getAttributeValue(null, "id");
-                    if (matchLine && id.equals(direction))
-                        matchDirection = true;
-                }
-                else if(s.equals("station")) {
-                    if (matchLine && matchDirection)
-                        stations.add(new BusStation(this, xrp.getAttributeValue(null, "id")));
-                }
+                xrp.next();
             }
-            else if(xrp.getEventType() == XmlPullParser.END_TAG) {
-                // Matches end of line
-                String s = xrp.getName();
-                if (s.equals("direction")) {
-                    if (matchDirection)
-                        return stations;
-                }
-            }
-            xrp.next();
+        } catch (IOException ex) {
+            Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (XmlPullParserException ex) {
+            Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
         }
         xrp.close();
         if (!matchDirection) return null;
@@ -80,49 +91,54 @@ public class XMLBusLine {
      * @throws XmlPullParserException
      * @throws IOException
      */
-    public Map<String, List<BusStation>> getStationsPerCity(String direction)
-        throws XmlPullParserException, IOException {
-
-        Map<String, List<BusStation>> stations = new HashMap<String, List<BusStation>>();
+    @Override
+    public Map<String, List<XMLBusStation>> getStationsPerCity(String direction) {
+        Map<String, List<XMLBusStation>> stations = new HashMap<String, List<XMLBusStation>>();
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean matchLine = false;
         boolean matchDirection = false;
         boolean matchCity = false;
         String city = null;
-        while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
-            if (xrp.getEventType() == XmlPullParser.START_TAG) {
-                String s = xrp.getName();
-                if (s.equals("line")) {
-                    String id = xrp.getAttributeValue(null, "id");
-                    if (id.equals(mName))
-                        matchLine = true;
-                }
-                else if(s.equals("direction")) {
-                    String id = xrp.getAttributeValue(null, "id");
-                    if (matchLine && id.equals(direction))
-                        matchDirection = true;
-                }
-                else if(s.equals("city")) {
-                    if (matchLine && matchDirection) {
-                        city = xrp.getAttributeValue(null, "id");
-                        stations.put(city, new ArrayList<BusStation>());
-                        matchCity = true;
+        try {
+            while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
+                if (xrp.getEventType() == XmlPullParser.START_TAG) {
+                    String s = xrp.getName();
+                    if (s.equals("line")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (id.equals(mName)) {
+                            matchLine = true;
+                        }
+                    } else if (s.equals("direction")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (matchLine && id.equals(direction)) {
+                            matchDirection = true;
+                        }
+                    } else if (s.equals("city")) {
+                        if (matchLine && matchDirection) {
+                            city = xrp.getAttributeValue(null, "id");
+                            stations.put(city, new ArrayList<XMLBusStation>());
+                            matchCity = true;
+                        }
+                    } else if (s.equals("station")) {
+                        if (matchDirection && matchCity) {
+                            stations.get(city).add(new XMLBusStation(this, xrp.getAttributeValue(null, "id")));
+                        }
+                    }
+                } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
+                    // Matches end of line
+                    String s = xrp.getName();
+                    if (s.equals("direction")) {
+                        if (matchDirection) {
+                            return stations;
+                        }
                     }
                 }
-                else if(s.equals("station")) {
-                    if (matchDirection && matchCity)
-                        stations.get(city).add(new BusStation(this, xrp.getAttributeValue(null, "id")));
-                }
+                xrp.next();
             }
-            else if(xrp.getEventType() == XmlPullParser.END_TAG) {
-                // Matches end of line
-                String s = xrp.getName();
-                if (s.equals("direction")) {
-                    if (matchDirection)
-                        return stations;
-                }
-            }
-            xrp.next();
+        } catch (IOException ex) {
+            Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (XmlPullParserException ex) {
+            Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
         }
         xrp.close();
         if (!matchDirection) return null;
@@ -136,38 +152,46 @@ public class XMLBusLine {
      * @throws XmlPullParserException
      * @throws IOException
      */
-    public List<String> getCities(String direction) throws XmlPullParserException, IOException {
+    @Override
+    public List<String> getCities(String direction) {
         List<String> cities = new ArrayList<String>();
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean matchLine = false;
         boolean matchDirection = false;
-        while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
-            if (xrp.getEventType() == XmlPullParser.START_TAG) {
-                String s = xrp.getName();
-                if (s.equals("line")) {
-                    String id = xrp.getAttributeValue(null, "id");
-                    if (id.equals(mName))
-                        matchLine = true;
+        try {
+            while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
+                if (xrp.getEventType() == XmlPullParser.START_TAG) {
+                    String s = xrp.getName();
+                    if (s.equals("line")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (id.equals(mName)) {
+                            matchLine = true;
+                        }
+                    } else if (s.equals("direction")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (matchLine && id.equals(direction)) {
+                            matchDirection = true;
+                        }
+                    } else if (s.equals("city")) {
+                        if (matchLine && matchDirection) {
+                            cities.add(xrp.getAttributeValue(null, "id"));
+                        }
+                    }
+                } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
+                    // Matches end of line
+                    String s = xrp.getName();
+                    if (s.equals("direction")) {
+                        if (matchDirection) {
+                            return cities;
+                        }
+                    }
                 }
-                else if(s.equals("direction")) {
-                    String id = xrp.getAttributeValue(null, "id");
-                    if (matchLine && id.equals(direction))
-                        matchDirection = true;
-                }
-                else if(s.equals("city")) {
-                    if (matchLine && matchDirection)
-                        cities.add(xrp.getAttributeValue(null, "id"));
-                }
+                xrp.next();
             }
-            else if(xrp.getEventType() == XmlPullParser.END_TAG) {
-                // Matches end of line
-                String s = xrp.getName();
-                if (s.equals("direction")) {
-                    if (matchDirection)
-                        return cities;
-                }
-            }
-            xrp.next();
+        } catch (IOException ex) {
+            Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (XmlPullParserException ex) {
+            Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
         }
         xrp.close();
         if (!matchDirection) return null;
@@ -181,35 +205,42 @@ public class XMLBusLine {
      * @throws XmlPullParserException
      * @throws IOException
      */
-    public String[] getDirections() throws XmlPullParserException, IOException {
+    @Override
+    public String[] getDirections() {
         if (mDirections[0] != null) return mDirections;
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean match = false;
         int k = 0;
-        while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
-            if (xrp.getEventType() == XmlPullParser.START_TAG) {
-                String s = xrp.getName();
-                if (s.equals("line")) {
-                    String id = xrp.getAttributeValue(null, "id");
-                    if (id.equals(mName))
-                        match = true;
-                }
-                else if(s.equals("direction")) {
-                    if (match)
-                        mDirections[k++] = xrp.getAttributeValue(null, "id");
-                }
-            }
-            else if(xrp.getEventType() == XmlPullParser.END_TAG) {
-                // Matches end of line
-                String s = xrp.getName();
-                if (s.equals("line")) {
-                    if (match) {
-                        match = false;
-                        return mDirections;
+        try {
+            while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
+                if (xrp.getEventType() == XmlPullParser.START_TAG) {
+                    String s = xrp.getName();
+                    if (s.equals("line")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (id.equals(mName)) {
+                            match = true;
+                        }
+                    } else if (s.equals("direction")) {
+                        if (match) {
+                            mDirections[k++] = xrp.getAttributeValue(null, "id");
+                        }
+                    }
+                } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
+                    // Matches end of line
+                    String s = xrp.getName();
+                    if (s.equals("line")) {
+                        if (match) {
+                            match = false;
+                            return mDirections;
+                        }
                     }
                 }
+                xrp.next();
             }
-            xrp.next();
+        } catch (IOException ex) {
+            Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (XmlPullParserException ex) {
+            Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
         }
         xrp.close();
         return mDirections;

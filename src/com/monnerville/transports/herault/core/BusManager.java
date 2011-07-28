@@ -8,7 +8,7 @@ import java.util.List;
  * @author mathias
  */
 public interface BusManager {
-    public List<XMLBusLine> getBusLines();
-    public XMLBusLine getBusLine(String name);
+    public List<BusLine> getBusLines();
+    public BusLine getBusLine(String name);
     public void setResources(Resources appRes, int resid);
 }

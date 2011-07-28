@@ -27,10 +27,10 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.commonsware.android.listview.SectionedAdapter;
 
 import static com.monnerville.transports.herault.core.Application.TAG;
+import com.monnerville.transports.herault.core.BusLine;
 
-import com.monnerville.transports.herault.core.XMLBusLine;
 import com.monnerville.transports.herault.core.BusManager;
-import com.monnerville.transports.herault.core.BusStation;
+import com.monnerville.transports.herault.core.XMLBusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.XMLBusManager;
 
@@ -65,36 +65,30 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
         BusManager manager = XMLBusManager.getInstance();
-        try {
-            XMLBusLine line = manager.getBusLine(mLine);
-            // Computes all next bus stops
-            Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
-            if (!stationsPerCity.isEmpty()) {
-                List<String> cities = line.getCities(mDirection);
-                List<BusStation> allStations = new ArrayList<BusStation>();
-                for (String city : cities) {
-                    List<BusStation> stations = stationsPerCity.get(city);
-                    allStations.addAll(stations);
-                    mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
-                }
-                setListAdapter(mAdapter);
-                new StationsStopsRetreiverTask().execute(allStations);
+        BusLine line = manager.getBusLine(mLine);
+        // Computes all next bus stops
+        Map<String, List<XMLBusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
+        if (!stationsPerCity.isEmpty()) {
+            List<String> cities = line.getCities(mDirection);
+            List<XMLBusStation> allStations = new ArrayList<XMLBusStation>();
+            for (String city : cities) {
+                List<XMLBusStation> stations = stationsPerCity.get(city);
+                allStations.addAll(stations);
+                mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
             }
-            else {
-                Log.w(TAG, "Direction '" + mDirection + "' not found");
-            }
-        } catch (XmlPullParserException ex) {
-            Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+            setListAdapter(mAdapter);
+            new StationsStopsRetreiverTask().execute(allStations);
+        }
+        else {
+            Log.w(TAG, "Direction '" + mDirection + "' not found");
         }
     }
 
-    private class StationListAdapter extends ArrayAdapter<BusStation> {
+    private class StationListAdapter extends ArrayAdapter<XMLBusStation> {
         private int mResource;
         private Context mContext;
 
-        StationListAdapter(Context context, int resource, List<BusStation> items) {
+        StationListAdapter(Context context, int resource, List<XMLBusStation> items) {
             super(context, resource, items);
             mResource = resource;
             mContext = context;
@@ -103,7 +97,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout itemView;
-            final BusStation station = getItem(position);
+            final XMLBusStation station = getItem(position);
             final int j = position;
 
             if (convertView == null) {
@@ -167,7 +161,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, BusStationActivity.class);
-        BusStation station = (BusStation)getListView().getItemAtPosition(position);
+        XMLBusStation station = (XMLBusStation)getListView().getItemAtPosition(position);
         intent.putExtra("line", mLine);
         intent.putExtra("direction", mDirection);
         intent.putExtra("station", station.getName());
@@ -189,12 +183,12 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     /**
      * Retrieves next stops for all bus stations in a background thread
      */
-    private class StationsStopsRetreiverTask extends AsyncTask<List<BusStation>, Void, Void> {
+    private class StationsStopsRetreiverTask extends AsyncTask<List<XMLBusStation>, Void, Void> {
         @Override
-        protected Void doInBackground(List<BusStation>... st) {
-            List<BusStation> stations = st[0];
+        protected Void doInBackground(List<XMLBusStation>... st) {
+            List<XMLBusStation> stations = st[0];
             try {
-                for (BusStation station : stations) {
+                for (XMLBusStation station : stations) {
                     try {
                         // Get a fresh, non-cached value
                         BusStop nextStop = station.getNextStop();

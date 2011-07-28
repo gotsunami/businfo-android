@@ -42,9 +42,9 @@ public class XMLBusManager implements BusManager {
     }
 
     @Override
-    public List<XMLBusLine> getBusLines() {
+    public List<BusLine> getBusLines() {
         if (mAppResources == null) return null;
-        List<XMLBusLine> lines = new ArrayList<XMLBusLine>();
+        List<BusLine> lines = new ArrayList<BusLine>();
         XmlResourceParser xrp = mAppResources.getXml(mLinesId);
         try {
             while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
@@ -74,7 +74,7 @@ public class XMLBusManager implements BusManager {
      * @return a BusLine instance or null if not found
      */
     @Override
-    public XMLBusLine getBusLine(String name) {
+    public BusLine getBusLine(String name) {
         if (mAppResources == null) return null;
         XmlResourceParser xrp = mAppResources.getXml(mLinesId);
         try {

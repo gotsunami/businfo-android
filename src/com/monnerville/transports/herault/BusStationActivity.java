@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import com.monnerville.transports.herault.core.BusLine;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -19,9 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.monnerville.transports.herault.core.XMLBusLine;
 import com.monnerville.transports.herault.core.BusManager;
-import com.monnerville.transports.herault.core.BusStation;
+import com.monnerville.transports.herault.core.XMLBusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.XMLBusManager;
 
@@ -34,7 +34,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
     private String mStation = null;
     private String mDirection = null;
     private List<BusStop> mStops;
-    private BusStation mCurrentStation;
+    private XMLBusStation mCurrentStation;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -65,9 +65,9 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         setTitle(mLine + " - Station " + mStation);
         BusManager manager = XMLBusManager.getInstance();
         try {
-            XMLBusLine line = manager.getBusLine(mLine);
-            List<BusStation> stations = line.getStations(mDirection);
-            for (BusStation st : stations) {
+            BusLine line = manager.getBusLine(mLine);
+            List<XMLBusStation> stations = line.getStations(mDirection);
+            for (XMLBusStation st : stations) {
                 if (st.getName().equals(mStation)) {
                     mStops = st.getStops();
                     mCurrentStation = st;
