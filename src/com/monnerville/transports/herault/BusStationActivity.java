@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.XMLBusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
@@ -65,7 +65,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         setTitle(mLine + " - Station " + mStation);
         BusManager manager = XMLBusManager.getInstance();
         try {
-            BusLine line = manager.getBusLine(mLine);
+            XMLBusLine line = manager.getBusLine(mLine);
             List<BusStation> stations = line.getStations(mDirection);
             for (BusStation st : stations) {
                 if (st.getName().equals(mStation)) {

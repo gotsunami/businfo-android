@@ -28,7 +28,7 @@ import com.commonsware.android.listview.SectionedAdapter;
 
 import static com.monnerville.transports.herault.core.Application.TAG;
 
-import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.XMLBusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
@@ -66,7 +66,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
 
         BusManager manager = XMLBusManager.getInstance();
         try {
-            BusLine line = manager.getBusLine(mLine);
+            XMLBusLine line = manager.getBusLine(mLine);
             // Computes all next bus stops
             Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
             if (!stationsPerCity.isEmpty()) {

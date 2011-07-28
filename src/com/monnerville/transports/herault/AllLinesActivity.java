@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import java.util.List;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.XMLBusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.XMLBusManager;
 
@@ -39,17 +39,17 @@ public class AllLinesActivity extends ListActivity
         BusManager manager = XMLBusManager.getInstance();
         manager.setResources(getResources(), R.xml.lines);
 
-        List<BusLine> lines = manager.getBusLines();
+        List<XMLBusLine> lines = manager.getBusLines();
         mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
             new LineListAdapter(this, R.layout.all_lines_list_item, lines));
         setListAdapter(mAdapter);
     }
 
-    private class LineListAdapter extends ArrayAdapter<BusLine> {
+    private class LineListAdapter extends ArrayAdapter<XMLBusLine> {
         private int mResource;
         private Context mContext;
 
-        LineListAdapter(Context context, int resource, List<BusLine> items) {
+        LineListAdapter(Context context, int resource, List<XMLBusLine> items) {
             super(context, resource, items);
             mResource = resource;
             mContext = context;
@@ -58,7 +58,7 @@ public class AllLinesActivity extends ListActivity
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout itemView;
-            BusLine line = getItem(position);
+            XMLBusLine line = getItem(position);
 
             if (convertView == null) {
                 itemView = new LinearLayout(mContext);
@@ -85,7 +85,7 @@ public class AllLinesActivity extends ListActivity
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        final BusLine line = (BusLine)getListView().getItemAtPosition(position);
+        final XMLBusLine line = (XMLBusLine)getListView().getItemAtPosition(position);
         final String[] directions;
         try {
             directions = line.getDirections();

@@ -18,7 +18,7 @@ import org.xmlpull.v1.XmlPullParserException;
  */
 public class BusStation {
     private String mName;
-    private BusLine mLine;
+    private XMLBusLine mLine;
     private boolean mIsStarred;
     /**
      * Cached city value
@@ -30,14 +30,14 @@ public class BusStation {
     private BusStop mNextStop = null;
     private List<BusStop> mStops = new ArrayList<BusStop>();
 
-    public BusStation(BusLine line, String name) {
+    public BusStation(XMLBusLine line, String name) {
         mLine = line;
         mName = name;
         mIsStarred = false;
     }
 
     public String getName() { return mName; }
-    public final BusLine getLine() { return mLine; }
+    public final XMLBusLine getLine() { return mLine; }
     public boolean isStarred() { return mIsStarred; }
     public void setStarred(boolean on) { mIsStarred = on; }
 

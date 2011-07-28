@@ -14,14 +14,14 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  * @author mathias
  */
-public class BusLine {
+public class XMLBusLine {
     private String mName;
     /**
      * Cities related to this line
      */
     private String[] mDirections = {null, null};
 
-    public BusLine(String name) {
+    public XMLBusLine(String name) {
         mName = name;
     }
     public String getName() { return mName; }

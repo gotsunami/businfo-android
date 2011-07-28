@@ -12,7 +12,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 /**
- * Handles everything related to buslines management
+ * Handles everything related to buslines management. This is an
+ * implementation using XML raw data and a XML SAX parser.
  *
  * @author mathias
  */
@@ -41,16 +42,16 @@ public class XMLBusManager implements BusManager {
     }
 
     @Override
-    public List<BusLine> getBusLines() {
+    public List<XMLBusLine> getBusLines() {
         if (mAppResources == null) return null;
-        List<BusLine> lines = new ArrayList<BusLine>();
+        List<XMLBusLine> lines = new ArrayList<XMLBusLine>();
         XmlResourceParser xrp = mAppResources.getXml(mLinesId);
         try {
             while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
                 if (xrp.getEventType() == XmlPullParser.START_TAG) {
                     String s = xrp.getName();
                     if (s.equals("line")) {
-                        BusLine line = new BusLine(xrp.getAttributeValue(null, "id"));
+                        XMLBusLine line = new XMLBusLine(xrp.getAttributeValue(null, "id"));
                         lines.add(line);
                     }
                 }
@@ -73,7 +74,7 @@ public class XMLBusManager implements BusManager {
      * @return a BusLine instance or null if not found
      */
     @Override
-    public BusLine getBusLine(String name) {
+    public XMLBusLine getBusLine(String name) {
         if (mAppResources == null) return null;
         XmlResourceParser xrp = mAppResources.getXml(mLinesId);
         try {
@@ -82,7 +83,7 @@ public class XMLBusManager implements BusManager {
                     String s = xrp.getName();
                     if (s.equals("line")) {
                         if (xrp.getAttributeValue(null, "id").equals(name)) {
-                            return new BusLine(name);
+                            return new XMLBusLine(name);
                         }
                     }
                 }
