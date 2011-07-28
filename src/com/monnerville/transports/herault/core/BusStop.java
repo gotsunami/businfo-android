@@ -14,7 +14,7 @@ import java.util.List;
 public class BusStop {
     private String mLine;
     private String mCircul;
-    private XMLBusStation mStation;
+    private BusStation mStation;
     private Date mTime;
     private boolean mSchoolOnly = false;
     /**
@@ -28,7 +28,7 @@ public class BusStop {
      */
     public static final DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm");
 
-    public BusStop(XMLBusStation station, Date time, String line, String circul, boolean schoolOnly) {
+    public BusStop(BusStation station, Date time, String line, String circul, boolean schoolOnly) {
         mStation = station;
         mTime = time;
         mLine = line;
@@ -39,6 +39,6 @@ public class BusStop {
     public Date getTime() { return mTime; }
     public String getLine() { return mLine; }
     public String getCirculationPattern() { return mCircul; }
-    public XMLBusStation getStation() { return mStation; }
+    public BusStation getStation() { return mStation; }
     public boolean isSchoolOnly() { return mSchoolOnly; }
 }

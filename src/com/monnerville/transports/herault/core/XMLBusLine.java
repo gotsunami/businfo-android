@@ -38,8 +38,8 @@ public class XMLBusLine implements BusLine {
      * @throws IOException
      */
     @Override
-    public List<XMLBusStation> getStations(String direction) {
-        List<XMLBusStation> stations = new ArrayList<XMLBusStation>();
+    public List<BusStation> getStations(String direction) {
+        List<BusStation> stations = new ArrayList<BusStation>();
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean matchLine = false;
         boolean matchDirection = false;
@@ -92,8 +92,8 @@ public class XMLBusLine implements BusLine {
      * @throws IOException
      */
     @Override
-    public Map<String, List<XMLBusStation>> getStationsPerCity(String direction) {
-        Map<String, List<XMLBusStation>> stations = new HashMap<String, List<XMLBusStation>>();
+    public Map<String, List<BusStation>> getStationsPerCity(String direction) {
+        Map<String, List<BusStation>> stations = new HashMap<String, List<BusStation>>();
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean matchLine = false;
         boolean matchDirection = false;
@@ -116,7 +116,7 @@ public class XMLBusLine implements BusLine {
                     } else if (s.equals("city")) {
                         if (matchLine && matchDirection) {
                             city = xrp.getAttributeValue(null, "id");
-                            stations.put(city, new ArrayList<XMLBusStation>());
+                            stations.put(city, new ArrayList<BusStation>());
                             matchCity = true;
                         }
                     } else if (s.equals("station")) {

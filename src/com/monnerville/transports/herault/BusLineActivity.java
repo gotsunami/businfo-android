@@ -30,7 +30,7 @@ import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.BusLine;
 
 import com.monnerville.transports.herault.core.BusManager;
-import com.monnerville.transports.herault.core.XMLBusStation;
+import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.XMLBusManager;
 
@@ -67,12 +67,12 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         BusManager manager = XMLBusManager.getInstance();
         BusLine line = manager.getBusLine(mLine);
         // Computes all next bus stops
-        Map<String, List<XMLBusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
+        Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
         if (!stationsPerCity.isEmpty()) {
             List<String> cities = line.getCities(mDirection);
-            List<XMLBusStation> allStations = new ArrayList<XMLBusStation>();
+            List<BusStation> allStations = new ArrayList<BusStation>();
             for (String city : cities) {
-                List<XMLBusStation> stations = stationsPerCity.get(city);
+                List<BusStation> stations = stationsPerCity.get(city);
                 allStations.addAll(stations);
                 mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
             }
@@ -84,11 +84,11 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         }
     }
 
-    private class StationListAdapter extends ArrayAdapter<XMLBusStation> {
+    private class StationListAdapter extends ArrayAdapter<BusStation> {
         private int mResource;
         private Context mContext;
 
-        StationListAdapter(Context context, int resource, List<XMLBusStation> items) {
+        StationListAdapter(Context context, int resource, List<BusStation> items) {
             super(context, resource, items);
             mResource = resource;
             mContext = context;
@@ -97,7 +97,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout itemView;
-            final XMLBusStation station = getItem(position);
+            final BusStation station = getItem(position);
             final int j = position;
 
             if (convertView == null) {
@@ -116,31 +116,17 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 @Override
                 public void onClick(View v) {
                     station.setStarred(!station.isStarred());
-                    try {
-                        Log.d("TO", "" + station.getCity() + "; " + station.getName() + "; " + station.getLine().getName() + "; " + mDirection);
-                    } catch (XmlPullParserException ex) {
-                        Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    Log.d("TO", "" + station.getCity() + "; " + station.getName() + "; " + station.getLine().getName() + "; " + mDirection);
                     mAdapter.notifyDataSetChanged();
                 }
             });
             star.setImageResource(station.isStarred() ? android.R.drawable.btn_star_big_on :
                android.R.drawable.btn_star_big_off);
 
-            try {
-                BusStop stop = station.getNextStop(true);
-                // We have a non-cached value
-                if (stop != null) {
-                    time.setText(BusStop.TIME_FORMATTER.format(stop.getTime()));
-                }
-            } catch (XmlPullParserException ex) {
-                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+            BusStop stop = station.getNextStop(true);
+            // We have a non-cached value
+            if (stop != null) {
+                time.setText(BusStop.TIME_FORMATTER.format(stop.getTime()));
             }
             return itemView;
         }
@@ -161,7 +147,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, BusStationActivity.class);
-        XMLBusStation station = (XMLBusStation)getListView().getItemAtPosition(position);
+        BusStation station = (BusStation)getListView().getItemAtPosition(position);
         intent.putExtra("line", mLine);
         intent.putExtra("direction", mDirection);
         intent.putExtra("station", station.getName());
@@ -183,23 +169,13 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     /**
      * Retrieves next stops for all bus stations in a background thread
      */
-    private class StationsStopsRetreiverTask extends AsyncTask<List<XMLBusStation>, Void, Void> {
+    private class StationsStopsRetreiverTask extends AsyncTask<List<BusStation>, Void, Void> {
         @Override
-        protected Void doInBackground(List<XMLBusStation>... st) {
-            List<XMLBusStation> stations = st[0];
-            try {
-                for (XMLBusStation station : stations) {
-                    try {
-                        // Get a fresh, non-cached value
-                        BusStop nextStop = station.getNextStop();
-                    } catch (ParseException ex) {
-                        Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            } catch (XmlPullParserException ex) {
-                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(BusLineActivity.class.getName()).log(Level.SEVERE, null, ex);
+        protected Void doInBackground(List<BusStation>... st) {
+            List<BusStation> stations = st[0];
+            for (BusStation station : stations) {
+                // Get a fresh, non-cached value
+                BusStop nextStop = station.getNextStop();
             }
             return null;
         }

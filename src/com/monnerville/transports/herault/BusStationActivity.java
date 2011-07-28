@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.monnerville.transports.herault.core.BusManager;
-import com.monnerville.transports.herault.core.XMLBusStation;
+import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.XMLBusManager;
 
@@ -34,7 +34,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
     private String mStation = null;
     private String mDirection = null;
     private List<BusStop> mStops;
-    private XMLBusStation mCurrentStation;
+    private BusStation mCurrentStation;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -64,34 +64,26 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
 
         setTitle(mLine + " - Station " + mStation);
         BusManager manager = XMLBusManager.getInstance();
-        try {
-            BusLine line = manager.getBusLine(mLine);
-            List<XMLBusStation> stations = line.getStations(mDirection);
-            for (XMLBusStation st : stations) {
-                if (st.getName().equals(mStation)) {
-                    mStops = st.getStops();
-                    mCurrentStation = st;
-                    break;
-                }
+        BusLine line = manager.getBusLine(mLine);
+        List<BusStation> stations = line.getStations(mDirection);
+        for (BusStation st : stations) {
+            if (st.getName().equals(mStation)) {
+                mStops = st.getStops();
+                mCurrentStation = st;
+                break;
             }
-            if (mCurrentStation != null) {
-                BusStop nextStop = mCurrentStation.getNextStop();
-                if (nextStop != null)
-                    board.setText(BusStop.TIME_FORMATTER.format(mCurrentStation.getNextStop().getTime()));
-                else
-                    board.setText(R.string.no_more_stop);
-            }
-            ListAdapter adapter = new SimpleAdapter(this, getData(mStops),
-                R.layout.bus_station_list_item, new String[] {"time", "line"},
-                new int[] {android.R.id.text1, android.R.id.text2});
-            setListAdapter(adapter);
-        } catch (ParseException ex) {
-            Logger.getLogger(BusStationActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (XmlPullParserException ex) {
-            Logger.getLogger(BusStationActivity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(BusStationActivity.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (mCurrentStation != null) {
+            BusStop nextStop = mCurrentStation.getNextStop();
+            if (nextStop != null)
+                board.setText(BusStop.TIME_FORMATTER.format(mCurrentStation.getNextStop().getTime()));
+            else
+                board.setText(R.string.no_more_stop);
+        }
+        ListAdapter adapter = new SimpleAdapter(this, getData(mStops),
+            R.layout.bus_station_list_item, new String[] {"time", "line"},
+            new int[] {android.R.id.text1, android.R.id.text2});
+        setListAdapter(adapter);
     }
 
     private List getData(List<BusStop> stops) {
