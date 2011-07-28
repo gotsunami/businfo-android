@@ -36,7 +36,7 @@ public class BusLine {
      */
     public List<BusStation> getStations(String direction) throws XmlPullParserException, IOException {
         List<BusStation> stations = new ArrayList<BusStation>();
-        XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
+        XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean matchLine = false;
         boolean matchDirection = false;
         while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
@@ -84,7 +84,7 @@ public class BusLine {
         throws XmlPullParserException, IOException {
 
         Map<String, List<BusStation>> stations = new HashMap<String, List<BusStation>>();
-        XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
+        XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean matchLine = false;
         boolean matchDirection = false;
         boolean matchCity = false;
@@ -138,7 +138,7 @@ public class BusLine {
      */
     public List<String> getCities(String direction) throws XmlPullParserException, IOException {
         List<String> cities = new ArrayList<String>();
-        XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
+        XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean matchLine = false;
         boolean matchDirection = false;
         while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
@@ -183,7 +183,7 @@ public class BusLine {
      */
     public String[] getDirections() throws XmlPullParserException, IOException {
         if (mDirections[0] != null) return mDirections;
-        XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
+        XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean match = false;
         int k = 0;
         while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {

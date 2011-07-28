@@ -25,6 +25,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.XMLBusManager;
 
 public class AllLinesActivity extends ListActivity
 {
@@ -35,7 +36,7 @@ public class AllLinesActivity extends ListActivity
         setContentView(R.layout.main);
         setTitle(R.string.lines_activity_title);
 
-        BusManager manager = BusManager.getInstance();
+        BusManager manager = XMLBusManager.getInstance();
         manager.setResources(getResources(), R.xml.lines);
 
         List<BusLine> lines = manager.getBusLines();

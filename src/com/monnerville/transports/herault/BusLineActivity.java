@@ -32,6 +32,7 @@ import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
+import com.monnerville.transports.herault.core.XMLBusManager;
 
 /**
  *
@@ -63,7 +64,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         setPrimaryTitle(getString(R.string.current_line_title, mLine));
         setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
-        BusManager manager = BusManager.getInstance();
+        BusManager manager = XMLBusManager.getInstance();
         try {
             BusLine line = manager.getBusLine(mLine);
             // Computes all next bus stops

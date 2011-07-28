@@ -50,7 +50,7 @@ public class BusStation {
      */
     public String getCity() throws XmlPullParserException, IOException {
         if (mCity != null) return mCity;
-        XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
+        XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         String lastCity = "Unknown";
         while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
             if (xrp.getEventType() == XmlPullParser.START_TAG) {
@@ -81,7 +81,7 @@ public class BusStation {
      */
     public List<BusStop> getStops() throws XmlPullParserException, IOException, ParseException {
         if (!mStops.isEmpty()) return mStops;
-        XmlResourceParser xrp = BusManager.getInstance().getResourceParser();
+        XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         Date now = new Date();
         boolean match = false;
         while(xrp.getEventType() != XmlPullParser.END_DOCUMENT) {

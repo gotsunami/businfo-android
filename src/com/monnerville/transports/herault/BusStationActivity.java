@@ -23,6 +23,7 @@ import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
+import com.monnerville.transports.herault.core.XMLBusManager;
 
 /**
  *
@@ -62,7 +63,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         setSecondaryTitle(getString(R.string.station_line_direction_title, mLine, mDirection));
 
         setTitle(mLine + " - Station " + mStation);
-        BusManager manager = BusManager.getInstance();
+        BusManager manager = XMLBusManager.getInstance();
         try {
             BusLine line = manager.getBusLine(mLine);
             List<BusStation> stations = line.getStations(mDirection);
