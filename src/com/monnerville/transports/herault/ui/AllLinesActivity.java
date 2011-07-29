@@ -1,4 +1,4 @@
-package com.monnerville.transports.herault;
+package com.monnerville.transports.herault.ui;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.commonsware.android.listview.SectionedAdapter;
+import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import java.util.List;
 

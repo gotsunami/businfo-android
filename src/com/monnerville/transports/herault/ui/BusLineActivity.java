@@ -1,4 +1,4 @@
-package com.monnerville.transports.herault;
+package com.monnerville.transports.herault.ui;
 
 import android.util.Log;
 import android.app.ListActivity;
@@ -25,6 +25,8 @@ import java.util.logging.Logger;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.commonsware.android.listview.SectionedAdapter;
+import com.monnerville.transports.herault.HeaderTitle;
+import com.monnerville.transports.herault.R;
 
 import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.BusLine;

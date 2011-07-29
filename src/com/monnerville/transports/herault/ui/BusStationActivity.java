@@ -1,4 +1,4 @@
-package com.monnerville.transports.herault;
+package com.monnerville.transports.herault.ui;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.view.Window;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import com.monnerville.transports.herault.HeaderTitle;
+import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import java.io.IOException;
 import java.text.ParseException;
