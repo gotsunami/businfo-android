@@ -10,7 +10,6 @@ cli/raw/*.xml
 res/xml/lines.xml
 proguard/*.jar
 proguard/*.txt
-doc
 libs
 gen
 api
