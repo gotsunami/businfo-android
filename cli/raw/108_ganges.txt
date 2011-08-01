@@ -59,7 +59,7 @@ St Julien Nef;07:48;14:00;18:49;*7r*;10:54;13:55;18:49
 city=ST ANDRE-DE-M. 
 Pont d'Hérault/Le Rey;07:58;14:09;18:56;*7r*;11:02;14:03;18:56
 
-city=LE VIGAN;
+city=LE VIGAN
 Gare SNCF/Chataîgniers;08:10;14:15;19:03;*7r*;11:10;14:10;19:03
 
 
