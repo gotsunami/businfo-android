@@ -8,6 +8,7 @@ cli/java/doc
 cli/java/build
 cli/raw/*.xml
 res/xml/lines.xml
+res/xml/gps.xml
 proguard/*.jar
 proguard/*.txt
 libs
