@@ -4,17 +4,17 @@
       android:versionCode="1"
       android:versionName="1.0">
       <application android:label="@string/app_name" android:icon="@drawable/icon" android:theme="@style/OfficialTheme">
-        <activity android:name="AllLinesActivity"
+        <activity android:name=".ui.AllLinesActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="BusLineActivity"
+        <activity android:name=".ui.BusLineActivity"
                   android:label="@string/busline_activity_title">
         </activity>
-        <activity android:name="BusStationActivity"
+        <activity android:name=".ui.BusStationActivity"
                   android:label="@string/busline_activity_title">
         </activity>
     </application>

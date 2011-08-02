@@ -17,11 +17,6 @@ public final class BusStop {
     private BusStation mStation;
     private Date mTime;
     private boolean mSchoolOnly = false;
-    /**
-     * Cached city value
-     */
-    private String mCity = null;
-    private List<Date> mStops = new ArrayList<Date>();
 
     /**
      * Time formatter used accross the app

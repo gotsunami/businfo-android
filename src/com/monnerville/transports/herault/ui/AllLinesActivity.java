@@ -11,11 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.commonsware.android.listview.SectionedAdapter;
+import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import java.util.List;
@@ -23,14 +27,25 @@ import java.util.List;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
 
-public class AllLinesActivity extends ListActivity
-{
+public class AllLinesActivity extends ListActivity implements HeaderTitle {
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        //setTitle(R.string.lines_activity_title);
+
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.main);
-        setTitle(R.string.lines_activity_title);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.all_lines_title_bar);
+
+        // Remove top parent padding (all but left padding)
+        ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+        LinearLayout root = (LinearLayout) decorView.getChildAt(0);
+        FrameLayout titleContainer = (FrameLayout) root.getChildAt(0);
+        titleContainer.setPadding(titleContainer.getPaddingLeft(), 0, 0, 0);
+
+        setPrimaryTitle(getString(R.string.app_name));
+        //setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
         BusManager manager = XMLBusManager.getInstance();
         manager.setResources(getResources(), R.xml.lines);
@@ -39,6 +54,26 @@ public class AllLinesActivity extends ListActivity
         mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
             new LineListAdapter(this, R.layout.all_lines_list_item, lines));
         setListAdapter(mAdapter);
+
+        Button searchButton = (Button)findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Toast.makeText(AllLinesActivity.this, "Searching!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void setPrimaryTitle(String title) {
+        TextView t= (TextView)findViewById(R.id.primary);
+        t.setText(title);
+    }
+
+    @Override
+    public void setSecondaryTitle(String title) {
+        TextView t= (TextView)findViewById(R.id.secondary);
+        t.setText(title);
     }
 
     private class LineListAdapter extends ArrayAdapter<BusLine> {
