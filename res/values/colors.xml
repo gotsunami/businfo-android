@@ -13,6 +13,7 @@
 	<color name="home_tertiary_text_blue">#5682d8</color>
     <color name="board_background">#111111</color>
     <color name="board_time">#dcffffff</color>
-    <color name="ht_official_orange">#e75012</color>
+    <color name="ht_orange">#e4571c</color>
+    <color name="ht_blue">#004a9c</color>
 </resources>
 
