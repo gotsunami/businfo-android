@@ -59,7 +59,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Toast.makeText(AllLinesActivity.this, "Searching!", Toast.LENGTH_SHORT).show();
+                // Open search dialog
+                onSearchRequested();
             }
         });
     }

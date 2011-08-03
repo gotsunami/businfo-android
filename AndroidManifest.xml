@@ -10,12 +10,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchableActivity" />
         </activity>
         <activity android:name=".ui.BusLineActivity"
                   android:label="@string/busline_activity_title">
         </activity>
         <activity android:name=".ui.BusStationActivity"
                   android:label="@string/busline_activity_title">
+        </activity>
+        <activity android:name=".ui.SearchableActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
         </activity>
     </application>
 </manifest> 
