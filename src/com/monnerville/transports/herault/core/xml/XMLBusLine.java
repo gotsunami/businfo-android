@@ -36,8 +36,6 @@ public class XMLBusLine implements BusLine {
      *
      * @param direction direction of the line
      * @return a list of bus stations or null if the direction is non-existent
-     * @throws XmlPullParserException
-     * @throws IOException
      */
     @Override
     public List<BusStation> getStations(String direction) {
@@ -90,8 +88,6 @@ public class XMLBusLine implements BusLine {
      *
      * @param direction bus line direction
      * @return list of bus stations per city or empty map if no city section at all
-     * @throws XmlPullParserException
-     * @throws IOException
      */
     @Override
     public Map<String, List<BusStation>> getStationsPerCity(String direction) {
@@ -151,8 +147,6 @@ public class XMLBusLine implements BusLine {
      * Returns a list of all related cities that come accross this line
      * @param direction direction of the line
      * @return a list of strings
-     * @throws XmlPullParserException
-     * @throws IOException
      */
     @Override
     public List<String> getCities(String direction) {
@@ -201,11 +195,10 @@ public class XMLBusLine implements BusLine {
     }
 
     /**
-     * Returns line directions (2 entries)
+     * Returns line directions (2 entries). Found values are cached for
+     * faster retrieval.
      *
      * @return array of strings for the directions
-     * @throws XmlPullParserException
-     * @throws IOException
      */
     @Override
     public String[] getDirections() {
