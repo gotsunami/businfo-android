@@ -9,7 +9,9 @@
     <string name="current_line_title">Line %1$s</string>
     <string name="line_direction_title">Direction %s</string>
     <string name="station_line_direction_title">Line %1$s to %2$s</string>
+    <string name="all_lines_bookmarks_header">Bookmarks</string>
     <string name="all_lines_header">All lines (%1$d)</string>
+    <string name="bookmark_info">Line %1$s to %2$s</string>
     <string name="no_data">No data.</string>
     <string name="search_hint">Search line, city, station</string>
 </resources>

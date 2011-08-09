@@ -11,7 +11,8 @@ import java.util.List;
  * @author mathias
  */
 public abstract class AbstractBusStation implements BusStation {
-    protected String mName;
+    private String mName;
+    private String mDirection;
     protected List<BusStop> mStops = new ArrayList<BusStop>();
     private BusLine mLine;
     private boolean mIsStarred;
@@ -20,16 +21,19 @@ public abstract class AbstractBusStation implements BusStation {
      */
     private BusStop mNextStop = null;
 
-    public AbstractBusStation(BusLine line, String name) {
+    public AbstractBusStation(BusLine line, String name, String direction) {
         mLine = line;
         mName = name;
         mIsStarred = false;
+        mDirection = direction;
     }
 
     @Override
     public final String getName() { return mName; }
     @Override
     public final BusLine getLine() { return mLine; }
+    @Override
+    public final String getDirection() { return mDirection; }
     @Override
     public final boolean isStarred() { return mIsStarred; }
     @Override
@@ -66,5 +70,23 @@ public abstract class AbstractBusStation implements BusStation {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof BusStation))
+            return false;
+        BusStation st = (BusStation)o;
+        return (st.getName().equals(getName()) && st.getCity().equals(getCity()) &&
+            st.getDirection().equals(getDirection()) && st.getLine().getName().equals(getLine().getName()));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + (this.mName != null ? this.mName.hashCode() : 0);
+        hash = 83 * hash + (this.mDirection != null ? this.mDirection.hashCode() : 0);
+        hash = 83 * hash + (this.mLine != null ? this.mLine.getName().hashCode() : 0);
+        return hash;
     }
 }

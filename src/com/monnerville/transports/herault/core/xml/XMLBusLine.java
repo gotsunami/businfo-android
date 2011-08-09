@@ -2,6 +2,7 @@ package com.monnerville.transports.herault.core.xml;
 
 import android.content.res.XmlResourceParser;
 import android.util.Log;
+import com.monnerville.transports.herault.core.AbstractBusLine;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
 import java.io.IOException;
@@ -18,18 +19,11 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  * @author mathias
  */
-public class XMLBusLine implements BusLine {
-    private String mName;
-    /**
-     * Cities related to this line
-     */
-    private String[] mDirections = {null, null};
+public class XMLBusLine extends AbstractBusLine {
 
     public XMLBusLine(String name) {
-        mName = name;
+        super(name);
     }
-    @Override
-    public String getName() { return mName; }
 
     /**
      * Returns a list of all available bus stations on that line
@@ -49,7 +43,7 @@ public class XMLBusLine implements BusLine {
                     String s = xrp.getName();
                     if (s.equals("line")) {
                         String id = xrp.getAttributeValue(null, "id");
-                        if (id.equals(mName)) {
+                        if (id.equals(getName())) {
                             matchLine = true;
                         }
                     } else if (s.equals("direction")) {
@@ -59,7 +53,7 @@ public class XMLBusLine implements BusLine {
                         }
                     } else if (s.equals("station")) {
                         if (matchLine && matchDirection) {
-                            stations.add(new XMLBusStation(this, xrp.getAttributeValue(null, "id")));
+                            stations.add(new XMLBusStation(this, xrp.getAttributeValue(null, "id"), direction));
                         }
                     }
                 } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
@@ -103,7 +97,7 @@ public class XMLBusLine implements BusLine {
                     String s = xrp.getName();
                     if (s.equals("line")) {
                         String id = xrp.getAttributeValue(null, "id");
-                        if (id.equals(mName)) {
+                        if (id.equals(getName())) {
                             matchLine = true;
                         }
                     } else if (s.equals("direction")) {
@@ -119,7 +113,7 @@ public class XMLBusLine implements BusLine {
                         }
                     } else if (s.equals("station")) {
                         if (matchDirection && matchCity) {
-                            stations.get(city).add(new XMLBusStation(this, xrp.getAttributeValue(null, "id")));
+                            stations.get(city).add(new XMLBusStation(this, xrp.getAttributeValue(null, "id"), direction));
                         }
                     }
                 } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
@@ -160,7 +154,7 @@ public class XMLBusLine implements BusLine {
                     String s = xrp.getName();
                     if (s.equals("line")) {
                         String id = xrp.getAttributeValue(null, "id");
-                        if (id.equals(mName)) {
+                        if (id.equals(getName())) {
                             matchLine = true;
                         }
                     } else if (s.equals("direction")) {
@@ -202,7 +196,7 @@ public class XMLBusLine implements BusLine {
      */
     @Override
     public String[] getDirections() {
-        if (mDirections[0] != null) return mDirections;
+        if (directions[0] != null) return directions;
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         boolean match = false;
         int k = 0;
@@ -212,12 +206,12 @@ public class XMLBusLine implements BusLine {
                     String s = xrp.getName();
                     if (s.equals("line")) {
                         String id = xrp.getAttributeValue(null, "id");
-                        if (id.equals(mName)) {
+                        if (id.equals(getName())) {
                             match = true;
                         }
                     } else if (s.equals("direction")) {
                         if (match) {
-                            mDirections[k++] = xrp.getAttributeValue(null, "id");
+                            directions[k++] = xrp.getAttributeValue(null, "id");
                         }
                     }
                 } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
@@ -226,7 +220,7 @@ public class XMLBusLine implements BusLine {
                     if (s.equals("line")) {
                         if (match) {
                             match = false;
-                            return mDirections;
+                            return directions;
                         }
                     }
                 }
@@ -238,6 +232,6 @@ public class XMLBusLine implements BusLine {
             Logger.getLogger(XMLBusLine.class.getName()).log(Level.SEVERE, null, ex);
         }
         xrp.close();
-        return mDirections;
+        return directions;
     }
 }

@@ -1,11 +1,17 @@
 package com.monnerville.transports.herault.ui;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -109,5 +115,36 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
     public void setSecondaryTitle(String title) {
         TextView t= (TextView)findViewById(R.id.secondary);
         t.setText(title);
+    }
+
+    static public class BookmarkStationListAdapter extends ArrayAdapter<BusStation> {
+        private int mResource;
+        private Context mContext;
+
+        BookmarkStationListAdapter(Context context, int resource, List<BusStation> items) {
+            super(context, resource, items);
+            mResource = resource;
+            mContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LinearLayout itemView;
+            BusStation station = getItem(position);
+
+            if (convertView == null) {
+                itemView = new LinearLayout(mContext);
+                LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                li.inflate(mResource, itemView, true);
+            }
+            else
+                itemView = (LinearLayout)convertView;
+
+            TextView name = (TextView)itemView.findViewById(android.R.id.text1);
+            name.setText(station.getName());
+            TextView info = (TextView)itemView.findViewById(android.R.id.text2);
+            info.setText(mContext.getString(R.string.bookmark_info, station.getLine().getName(), station.getDirection()));
+            return itemView;
+        }
     }
 }

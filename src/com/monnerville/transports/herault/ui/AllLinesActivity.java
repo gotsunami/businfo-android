@@ -5,7 +5,9 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.ListView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,12 +24,18 @@ import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusStation;
 import java.util.List;
 
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
+import java.util.ArrayList;
+import java.util.Observable;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
+    private SharedPreferences mPrefs;
+    private List<BusStation> mStarredStations;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -50,7 +58,13 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         BusManager manager = XMLBusManager.getInstance();
         manager.setResources(getResources(), R.xml.lines);
 
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mStarredStations = new ArrayList<BusStation>();
+        Log.d("OT", "" + mStarredStations);
+
         List<BusLine> lines = manager.getBusLines();
+        mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
+            new BusStationActivity.BookmarkStationListAdapter(this, R.layout.bus_line_bookmark_list_item, mStarredStations));
         mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
             new LineListAdapter(this, R.layout.all_lines_list_item, lines));
         setListAdapter(mAdapter);
@@ -66,6 +80,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        updateBookmarks();
+    }
+
+    @Override
     public void setPrimaryTitle(String title) {
         TextView t= (TextView)findViewById(R.id.primary);
         t.setText(title);
@@ -75,6 +95,17 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     public void setSecondaryTitle(String title) {
         TextView t= (TextView)findViewById(R.id.secondary);
         t.setText(title);
+    }
+
+    private void updateBookmarks() {
+        BusManager manager = XMLBusManager.getInstance();
+        List<BusStation> sts = manager.getStarredStations(this);
+        mStarredStations.clear();
+        for (BusStation st : sts) {
+            mStarredStations.add(st);
+        }
+        mAdapter.notifyDataSetChanged();
+        Log.d("TO", ""+ mStarredStations);
     }
 
     private class LineListAdapter extends ArrayAdapter<BusLine> {
@@ -111,25 +142,28 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        final BusLine line = (BusLine)getListView().getItemAtPosition(position);
-        final String[] directions;
-        directions = line.getDirections();
-        if (directions[0] == null || directions[1] == null) {
-            Toast.makeText(this, R.string.toast_null_direction, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.pick_direction_title);
-        builder.setItems(directions, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                Intent intent = new Intent(AllLinesActivity.this, BusLineActivity.class);
-                intent.putExtra("line", line.getName());
-                intent.putExtra("direction", directions[item]);
-                startActivity(intent);
+        Object obj = getListView().getItemAtPosition(position);
+        if (obj instanceof BusLine) {
+            final BusLine line = (BusLine)getListView().getItemAtPosition(position);
+            final String[] directions;
+            directions = line.getDirections();
+            if (directions[0] == null || directions[1] == null) {
+                Toast.makeText(this, R.string.toast_null_direction, Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
-        builder.show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.pick_direction_title);
+            builder.setItems(directions, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+                    Intent intent = new Intent(AllLinesActivity.this, BusLineActivity.class);
+                    intent.putExtra("line", line.getName());
+                    intent.putExtra("direction", directions[item]);
+                    startActivity(intent);
+                }
+            });
+            builder.show();
+        }
     }
 
 	final SectionedAdapter mAdapter = new SectionedAdapter() {

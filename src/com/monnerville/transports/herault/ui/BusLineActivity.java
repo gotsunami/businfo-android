@@ -4,8 +4,10 @@ import android.util.Log;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,9 @@ import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.SortedSet;
 
 /**
  *
@@ -43,6 +48,8 @@ import com.monnerville.transports.herault.core.xml.XMLBusManager;
 public class BusLineActivity extends ListActivity implements HeaderTitle {
     private String mLine;
     private String mDirection;
+    private List<BusStation> mStarredStations;
+    private SharedPreferences mPrefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -66,8 +73,19 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         setPrimaryTitle(getString(R.string.current_line_title, mLine));
         setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
+        // Starred stations, if any
+        mStarredStations = new ArrayList<BusStation>();
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         BusManager manager = XMLBusManager.getInstance();
         BusLine line = manager.getBusLine(mLine);
+
+        String starredStations = mPrefs.getString("starredStations", null);
+        if (starredStations != null) {
+            Log.d("TO", starredStations);
+
+        }
+
         // Computes all next bus stops
         Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
         if (!stationsPerCity.isEmpty()) {
@@ -84,6 +102,21 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         else {
             Log.w(TAG, "Direction '" + mDirection + "' not found");
         }
+    }
+
+    /**
+     * Save any starred bus station (permanent storage)
+     */
+    @Override
+    protected void onPause() {
+        BusManager manager = XMLBusManager.getInstance();
+        manager.saveStarredStations(mStarredStations, this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private class StationListAdapter extends ArrayAdapter<BusStation> {
@@ -119,6 +152,10 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 public void onClick(View v) {
                     station.setStarred(!station.isStarred());
                     Log.d("TO", "" + station.getCity() + "; " + station.getName() + "; " + station.getLine().getName() + "; " + mDirection);
+                    if (station.isStarred())
+                        mStarredStations.add(station);
+                    else
+                        mStarredStations.remove(station);
                     mAdapter.notifyDataSetChanged();
                 }
             });
@@ -172,14 +209,24 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
      * Retrieves next stops for all bus stations in a background thread
      */
     private class StationsStopsRetreiverTask extends AsyncTask<List<BusStation>, Void, Void> {
+        private List<BusStation> starredStations;
+
         @Override
         protected Void doInBackground(List<BusStation>... st) {
             List<BusStation> stations = st[0];
             for (BusStation station : stations) {
                 // Get a fresh, non-cached value
                 BusStop nextStop = station.getNextStop();
+                station.setStarred(starredStations.contains(station));
             }
             return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // Executes on the UI thread
+            BusManager manager = XMLBusManager.getInstance();
+            starredStations = manager.getStarredStations(BusLineActivity.this);
         }
 
         @Override
@@ -187,14 +234,4 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             mAdapter.notifyDataSetChanged();
         }
     }
-
-    /*
-    public void starOnClickHandler(View v) {
-        if (v == null) return;
-        ImageView iv = (ImageView)v;
-        getListView().get
-//        iv.setImageResource(android.R.drawable.btn_star_big_on);
-    }
-     *
-     */
 }

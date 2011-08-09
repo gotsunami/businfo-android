@@ -18,6 +18,11 @@ public interface BusStation {
      */
     public BusLine getLine();
     /**
+     * Gets current associated line direction
+     * @return direction name
+     */
+    public String getDirection();
+    /**
      * Gets name of the bus station
      * @return bus station's name
      */

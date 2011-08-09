@@ -24,8 +24,8 @@ public class XMLBusStation extends AbstractBusStation {
      */
     private String mCity = null;
 
-    public XMLBusStation(BusLine line, String name) {
-        super(line, name);
+    public XMLBusStation(BusLine line, String name, String direction) {
+        super(line, name, direction);
     }
 
     /**
@@ -45,7 +45,7 @@ public class XMLBusStation extends AbstractBusStation {
                     if (s.equals("city")) {
                         lastCity = xrp.getAttributeValue(null, "id");
                     } else if (s.equals("station")) {
-                        if (xrp.getAttributeValue(null, "id").equals(mName)) {
+                        if (xrp.getAttributeValue(null, "id").equals(getName())) {
                             mCity = lastCity;
                             return mCity;
                         }
@@ -79,7 +79,7 @@ public class XMLBusStation extends AbstractBusStation {
                     String s = xrp.getName();
                     if (s.equals("station")) {
                         String station = xrp.getAttributeValue(null, "id");
-                        if (station.equals(mName)) {
+                        if (station.equals(getName())) {
                             match = true;
                         }
                     } else if (s.equals("s")) {
