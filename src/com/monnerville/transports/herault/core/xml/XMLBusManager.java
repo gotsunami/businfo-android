@@ -119,31 +119,42 @@ public class XMLBusManager implements BusManager {
     public void saveStarredStations(List<BusStation> stations, Context ctx) {
         if (stations.isEmpty()) return;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+
         // Checks for any existing bookmarked stations
         List<BusStation> savedStations = getStarredStations(ctx);
 
-        SharedPreferences.Editor ed = prefs.edit();
-        StringBuilder vals = new StringBuilder(prefs.getString("starredStations", null));
-        if (vals.length() > 0)
-            vals.append(";");
+        // Since we know the line and direction, first locate those matching
+        // stations and remove them from bookmark list
+        BusLine line = stations.get(0).getLine();
+        String direction = stations.get(0).getDirection();
+        for (BusStation st : savedStations) {
+            if (st.getLine().equals(line) && st.getDirection().equals(direction))
+                savedStations.remove(st);
+        }
+
+        // Now we can save the new statiosn for that line/direction
         for (BusStation st : stations) {
-            if (!savedStations.contains(st)) {
-                Log.d("TO", "Not in saved stations: saving...");
-                vals.append(st.getDirection()).append("__")
-                    .append(st.getName()).append("__")
-                    .append(st.getLine().getName())
-                    .append(";");
-            }
+            savedStations.add(st);
+        }
+
+        // Now serialize data
+        SharedPreferences.Editor ed = prefs.edit();
+        StringBuilder vals = new StringBuilder();
+        for (BusStation st : savedStations) {
+            vals.append(st.getDirection()).append("__")
+                .append(st.getName()).append("__")
+                .append(st.getLine().getName())
+                .append(";");
         }
         String raw = vals.delete(vals.length()-1, vals.length()).toString();
-        Log.d("TO", raw);
         ed.putString("starredStations", raw);
         ed.commit();
+        Log.d("COMMIT", raw);
     }
 
     /**
-     * Returns a list of all bookmarked bus stations. The XML preferences file is
-     * deserialized in order to build the list.
+     * Returns a list of all bookmarked bus stations. This is an implementation using 
+     * the XML preferences file which is deserialized in order to build the list.
      *
      * @param ctx application context for accessing the preferences
      * @return list of bus stations

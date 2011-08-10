@@ -17,14 +17,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.xmlpull.v1.XmlPullParserException;
 
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
@@ -37,9 +32,6 @@ import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.SortedSet;
 
 /**
  *
@@ -151,11 +143,12 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 @Override
                 public void onClick(View v) {
                     station.setStarred(!station.isStarred());
-                    Log.d("TO", "" + station.getCity() + "; " + station.getName() + "; " + station.getLine().getName() + "; " + mDirection);
                     if (station.isStarred())
                         mStarredStations.add(station);
                     else
                         mStarredStations.remove(station);
+                    for (BusStation st : mStarredStations)
+                        Log.d("ST", st.getName());
                     mAdapter.notifyDataSetChanged();
                 }
             });
