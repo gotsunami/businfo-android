@@ -65,18 +65,13 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         setPrimaryTitle(getString(R.string.current_line_title, mLine));
         setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
-        // Starred stations, if any
-        mStarredStations = new ArrayList<BusStation>();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         BusManager manager = XMLBusManager.getInstance();
         BusLine line = manager.getBusLine(mLine);
 
-        String starredStations = mPrefs.getString("starredStations", null);
-        if (starredStations != null) {
-            Log.d("TO", starredStations);
-
-        }
+        // Starred stations, if any
+        mStarredStations = new ArrayList<BusStation>();
 
         // Computes all next bus stops
         Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
@@ -102,6 +97,17 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     @Override
     protected void onPause() {
         BusManager manager = XMLBusManager.getInstance();
+        mStarredStations.clear();
+        for (int i=0; i < mAdapter.getCount(); i++) {
+            Object o = mAdapter.getItem(i);
+            if (o instanceof BusStation) {
+                BusStation st = (BusStation)mAdapter.getItem(i);
+                if (st.isStarred())
+                    mStarredStations.add(st);
+            }
+        }
+        Log.d("PRESAVE", "" + mStarredStations);
+
         manager.saveStarredStations(mStarredStations, this);
         super.onPause();
     }

@@ -28,7 +28,7 @@ public abstract class AbstractBusLine implements BusLine {
     public boolean equals(Object o) {
         if (!(o instanceof BusLine)) return false;
         BusLine line = (BusLine)o;
-        return line.getName() == mName;
+        return line.getName().equals(mName);
     }
 
     @Override

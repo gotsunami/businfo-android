@@ -122,25 +122,26 @@ public class XMLBusManager implements BusManager {
 
         // Checks for any existing bookmarked stations
         List<BusStation> savedStations = getStarredStations(ctx);
+        List<BusStation> newStarredStations = new ArrayList<BusStation>();
 
         // Since we know the line and direction, first locate those matching
         // stations and remove them from bookmark list
         BusLine line = stations.get(0).getLine();
         String direction = stations.get(0).getDirection();
         for (BusStation st : savedStations) {
-            if (st.getLine().equals(line) && st.getDirection().equals(direction))
-                savedStations.remove(st);
+            if (!(st.getLine().equals(line) && st.getDirection().equals(direction)))
+                newStarredStations.add(st);
         }
 
-        // Now we can save the new statiosn for that line/direction
+        // Now we can save the new stations for that line/direction
         for (BusStation st : stations) {
-            savedStations.add(st);
+            newStarredStations.add(st);
         }
 
         // Now serialize data
         SharedPreferences.Editor ed = prefs.edit();
         StringBuilder vals = new StringBuilder();
-        for (BusStation st : savedStations) {
+        for (BusStation st : newStarredStations) {
             vals.append(st.getDirection()).append("__")
                 .append(st.getName()).append("__")
                 .append(st.getLine().getName())
@@ -149,7 +150,6 @@ public class XMLBusManager implements BusManager {
         String raw = vals.delete(vals.length()-1, vals.length()).toString();
         ed.putString("starredStations", raw);
         ed.commit();
-        Log.d("COMMIT", raw);
     }
 
     /**

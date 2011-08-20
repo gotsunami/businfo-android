@@ -14,4 +14,5 @@
     <string name="bookmark_info">Line %1$s to %2$s</string>
     <string name="no_data">No data.</string>
     <string name="search_hint">Search line, city, station</string>
+    <string name="bookmark_menu_title">Bookmark</string>
 </resources>

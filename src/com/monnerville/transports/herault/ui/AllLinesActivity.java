@@ -10,10 +10,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ListView;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -60,7 +65,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mStarredStations = new ArrayList<BusStation>();
-        Log.d("OT", "" + mStarredStations);
 
         List<BusLine> lines = manager.getBusLines();
         mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
@@ -143,6 +147,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Object obj = getListView().getItemAtPosition(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (obj instanceof BusLine) {
             final BusLine line = (BusLine)getListView().getItemAtPosition(position);
             final String[] directions;
@@ -151,7 +156,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                 Toast.makeText(this, R.string.toast_null_direction, Toast.LENGTH_SHORT).show();
                 return;
             }
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.pick_direction_title);
             builder.setItems(directions, new DialogInterface.OnClickListener() {
                 @Override
@@ -160,6 +164,16 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                     intent.putExtra("line", line.getName());
                     intent.putExtra("direction", directions[item]);
                     startActivity(intent);
+                }
+            });
+            builder.show();
+        }
+        else if(obj instanceof BusStation) {
+            builder.setTitle(R.string.bookmark_menu_title);
+            builder.setItems(R.array.bookmark_options, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+                    throw new UnsupportedOperationException("Not supported yet.");
                 }
             });
             builder.show();
