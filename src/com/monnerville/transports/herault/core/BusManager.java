@@ -13,6 +13,6 @@ public interface BusManager {
     public List<BusLine> getBusLines();
     public BusLine getBusLine(String name);
     public void setResources(Resources appRes, int resid);
-    public void saveStarredStations(List<BusStation> stations, Context ctx);
+    public void saveStarredStations(BusLine line, String direction, List<BusStation> stations, Context ctx);
     public List<BusStation> getStarredStations(Context ctx);
 }

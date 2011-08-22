@@ -109,7 +109,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             mStarredStations.add(st);
         }
         mAdapter.notifyDataSetChanged();
-        Log.d("TO", ""+ mStarredStations);
     }
 
     private class LineListAdapter extends ArrayAdapter<BusLine> {

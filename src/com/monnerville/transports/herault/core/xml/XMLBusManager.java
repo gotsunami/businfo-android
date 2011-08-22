@@ -26,6 +26,7 @@ import org.xmlpull.v1.XmlPullParserException;
  */
 public class XMLBusManager implements BusManager {
     private static final XMLBusManager INSTANCE = new XMLBusManager();
+    private static final String SERIALIZE_SEPARATOR = "__";
     private XMLBusManager() {}
 
     private Resources mAppResources = null;
@@ -111,13 +112,15 @@ public class XMLBusManager implements BusManager {
      * Serializes bus stations in a string and stores the result with the SharedPreferences
      * editor (XML). Note that all stations are members of the same bus line.
      *
-     * @param stations list of all stations to bookmark (save)
-     * @param ctx activity context to retreive the preference manager
-     * @param prefs
+     * @param line bus line related to the stations. Must be provided since the stations
+     *        parameter can be empty.
+     * @param direction line direction, which must be provided in case the stations parameter
+     *        is empty.
+     * @param stations list of all stations to bookmark. This can be an empty list.
+     * @param ctx activity context to retrieve the preference manager
      */
     @Override
-    public void saveStarredStations(List<BusStation> stations, Context ctx) {
-        if (stations.isEmpty()) return;
+    public void saveStarredStations(BusLine line, String direction, List<BusStation> stations, Context ctx) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 
         // Checks for any existing bookmarked stations
@@ -126,8 +129,6 @@ public class XMLBusManager implements BusManager {
 
         // Since we know the line and direction, first locate those matching
         // stations and remove them from bookmark list
-        BusLine line = stations.get(0).getLine();
-        String direction = stations.get(0).getDirection();
         for (BusStation st : savedStations) {
             if (!(st.getLine().equals(line) && st.getDirection().equals(direction)))
                 newStarredStations.add(st);
@@ -142,8 +143,8 @@ public class XMLBusManager implements BusManager {
         SharedPreferences.Editor ed = prefs.edit();
         StringBuilder vals = new StringBuilder();
         for (BusStation st : newStarredStations) {
-            vals.append(st.getDirection()).append("__")
-                .append(st.getName()).append("__")
+            vals.append(st.getDirection()).append(SERIALIZE_SEPARATOR)
+                .append(st.getName()).append(SERIALIZE_SEPARATOR)
                 .append(st.getLine().getName())
                 .append(";");
         }
@@ -167,7 +168,7 @@ public class XMLBusManager implements BusManager {
         if (starredStations != null) {
             String[] vals = starredStations.split(";");
             for (String val : vals) {
-                String[] parts = val.split("__");
+                String[] parts = val.split(SERIALIZE_SEPARATOR);
                 stars.add(new XMLBusStation(new XMLBusLine(parts[2]), parts[1], parts[0]));
             }
         }

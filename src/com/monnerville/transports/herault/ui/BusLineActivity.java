@@ -40,7 +40,6 @@ import com.monnerville.transports.herault.core.xml.XMLBusManager;
 public class BusLineActivity extends ListActivity implements HeaderTitle {
     private String mLine;
     private String mDirection;
-    private List<BusStation> mStarredStations;
     private SharedPreferences mPrefs;
 
     @Override
@@ -70,9 +69,6 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         BusManager manager = XMLBusManager.getInstance();
         BusLine line = manager.getBusLine(mLine);
 
-        // Starred stations, if any
-        mStarredStations = new ArrayList<BusStation>();
-
         // Computes all next bus stops
         Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
         if (!stationsPerCity.isEmpty()) {
@@ -97,18 +93,16 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     @Override
     protected void onPause() {
         BusManager manager = XMLBusManager.getInstance();
-        mStarredStations.clear();
+        List <BusStation> starredStations = new ArrayList<BusStation>();
         for (int i=0; i < mAdapter.getCount(); i++) {
             Object o = mAdapter.getItem(i);
             if (o instanceof BusStation) {
                 BusStation st = (BusStation)mAdapter.getItem(i);
                 if (st.isStarred())
-                    mStarredStations.add(st);
+                    starredStations.add(st);
             }
         }
-        Log.d("PRESAVE", "" + mStarredStations);
-
-        manager.saveStarredStations(mStarredStations, this);
+        manager.saveStarredStations(manager.getBusLine(mLine), mDirection, starredStations, this);
         super.onPause();
     }
 
@@ -149,12 +143,6 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 @Override
                 public void onClick(View v) {
                     station.setStarred(!station.isStarred());
-                    if (station.isStarred())
-                        mStarredStations.add(station);
-                    else
-                        mStarredStations.remove(station);
-                    for (BusStation st : mStarredStations)
-                        Log.d("ST", st.getName());
                     mAdapter.notifyDataSetChanged();
                 }
             });
