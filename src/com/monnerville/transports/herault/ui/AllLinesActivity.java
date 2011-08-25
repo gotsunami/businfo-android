@@ -145,7 +145,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Object obj = getListView().getItemAtPosition(position);
+        final Object obj = getListView().getItemAtPosition(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (obj instanceof BusLine) {
             final BusLine line = (BusLine)getListView().getItemAtPosition(position);
@@ -172,7 +172,19 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             builder.setItems(R.array.bookmark_options, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int item) {
-                    throw new UnsupportedOperationException("Not supported yet.");
+                    switch (item) {
+                        case 2: // Remove
+                            for (BusStation st : mStarredStations) {
+                                if (st == obj) {
+                                    mStarredStations.remove(st);
+                                    break;
+                                }
+                            }
+                            mAdapter.notifyDataSetChanged();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             });
             builder.show();
