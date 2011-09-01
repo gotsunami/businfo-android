@@ -148,9 +148,11 @@ public class XMLBusManager implements BusManager {
                 .append(st.getLine().getName())
                 .append(";");
         }
-        String raw = vals.delete(vals.length()-1, vals.length()).toString();
-        ed.putString("starredStations", raw);
-        ed.commit();
+        if (vals.length() > 0) {
+            String raw = vals.delete(vals.length()-1, vals.length()).toString();
+            ed.putString("starredStations", raw);
+            ed.commit();
+        }
     }
 
     /**
