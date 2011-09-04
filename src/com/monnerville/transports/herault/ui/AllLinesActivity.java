@@ -37,7 +37,6 @@ import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Observable;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
@@ -95,6 +94,15 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         super.onResume();
         updateBookmarks();
     }
+
+    @Override
+    protected void onPause() {
+        BusManager manager = XMLBusManager.getInstance();
+        // Overwrite existing saved stations with the current list
+        manager.overwriteStarredStations(mStarredStations, this);
+        super.onPause();
+    }
+
 
     @Override
     public void setPrimaryTitle(String title) {

@@ -141,13 +141,7 @@ public class XMLBusManager implements BusManager {
 
         // Now serialize data
         SharedPreferences.Editor ed = prefs.edit();
-        StringBuilder vals = new StringBuilder();
-        for (BusStation st : newStarredStations) {
-            vals.append(st.getDirection()).append(SERIALIZE_SEPARATOR)
-                .append(st.getName()).append(SERIALIZE_SEPARATOR)
-                .append(st.getLine().getName())
-                .append(";");
-        }
+        StringBuilder vals = getSerializedData(stations);
         if (vals.length() > 0) {
             String raw = vals.delete(vals.length()-1, vals.length()).toString();
             ed.putString("starredStations", raw);
@@ -167,13 +161,56 @@ public class XMLBusManager implements BusManager {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         String starredStations = prefs.getString("starredStations", null);
         List<BusStation> stars = new ArrayList<BusStation>();
+        // Has key?
         if (starredStations != null) {
-            String[] vals = starredStations.split(";");
-            for (String val : vals) {
-                String[] parts = val.split(SERIALIZE_SEPARATOR);
-                stars.add(new XMLBusStation(new XMLBusLine(parts[2]), parts[1], parts[0]));
+            // Has perninent content?
+            if (starredStations.length() > 0) {
+                String[] vals = starredStations.split(";");
+                for (String val : vals) {
+                    String[] parts = val.split(SERIALIZE_SEPARATOR);
+                    stars.add(new XMLBusStation(new XMLBusLine(parts[2]), parts[1], parts[0]));
+                }
             }
         }
         return stars;
+    }
+
+    /**
+     * Different version of BusManager's implementation. Here the starred stations may
+     * belong to any line/direction. The current list of saved stations is erased and
+     * overwritten with the current content.
+     *
+     * @param stations current stations list to use to overwritte any existing value
+     * @param ctx application context for accessing the preferences
+     */
+    @Override
+    public void overwriteStarredStations(List<BusStation> stations, Context ctx) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        SharedPreferences.Editor ed = prefs.edit();
+
+        StringBuilder vals = getSerializedData(stations);
+        String raw;
+        if (vals.length() > 0) 
+            raw = vals.delete(vals.length()-1, vals.length()).toString();
+        else
+            raw = vals.toString();
+        ed.putString("starredStations", raw);
+        ed.commit();
+    }
+
+    /**
+     * Serializes data from a list of stations
+     * @param stations list of bus stations
+     * @return a string builder ready to be saved to the preferences
+     */
+    private StringBuilder getSerializedData(List<BusStation> stations) {
+        StringBuilder vals = new StringBuilder();
+        for (BusStation st : stations) {
+            vals.append(st.getDirection()).append(SERIALIZE_SEPARATOR)
+                .append(st.getName()).append(SERIALIZE_SEPARATOR)
+                .append(st.getLine().getName())
+                .append(";");
+        }
+        return vals;
     }
 }
