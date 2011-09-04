@@ -63,7 +63,8 @@ public class XMLBusStation extends AbstractBusStation {
     }
 
     /**
-     * Get stops times for current bus station
+     * Get stops times for current bus station. Matches are cached the first time they are found. Successive
+     * calls return the cached value.
      *
      * @return list of bus stops
      */
@@ -72,15 +73,29 @@ public class XMLBusStation extends AbstractBusStation {
         if (!mStops.isEmpty()) return mStops;
         XmlResourceParser xrp = XMLBusManager.getInstance().getResourceParser();
         Date now = new Date();
+        boolean matchLine = false;
+        boolean matchDirection = false;
         boolean match = false;
         try {
             while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
                 if (xrp.getEventType() == XmlPullParser.START_TAG) {
                     String s = xrp.getName();
-                    if (s.equals("station")) {
-                        String station = xrp.getAttributeValue(null, "id");
-                        if (station.equals(getName())) {
-                            match = true;
+                    if (s.equals("line")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (id.equals(getLine().getName())) {
+                            matchLine = true;
+                        }
+                    } else if (s.equals("direction")) {
+                        String id = xrp.getAttributeValue(null, "id");
+                        if (matchLine && id.equals(getDirection())) {
+                            matchDirection = true;
+                        }
+                    } else if (s.equals("station")) {
+                        if (matchLine && matchDirection) {
+                            String station = xrp.getAttributeValue(null, "id");
+                            if (station.equals(getName())) {
+                                match = true;
+                            }
                         }
                     } else if (s.equals("s")) {
                         if (match) {
