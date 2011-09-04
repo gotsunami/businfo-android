@@ -187,11 +187,27 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             builder.show();
         }
         else if(obj instanceof BusStation) {
+            final BusStation station = (BusStation)obj;
             builder.setTitle(R.string.bookmark_menu_title);
             builder.setItems(R.array.bookmark_options, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int item) {
                     switch (item) {
+                        case 0: { // Show station
+                            Intent intent = new Intent(AllLinesActivity.this, BusStationActivity.class);
+                            intent.putExtra("line", station.getLine().getName());
+                            intent.putExtra("direction", station.getDirection());
+                            intent.putExtra("station", station.getName());
+                            startActivity(intent);
+                            break;
+                        }
+                        case 1: { // Show line
+                            Intent intent = new Intent(AllLinesActivity.this, BusLineActivity.class);
+                            intent.putExtra("line", station.getLine().getName());
+                            intent.putExtra("direction", station.getDirection());
+                            startActivity(intent);
+                            break;
+                        }
                         case 2: // Remove
                             for (BusStation st : mStarredStations) {
                                 if (st == obj) {
