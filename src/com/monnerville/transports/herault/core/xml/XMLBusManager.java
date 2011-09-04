@@ -141,7 +141,7 @@ public class XMLBusManager implements BusManager {
 
         // Now serialize data
         SharedPreferences.Editor ed = prefs.edit();
-        StringBuilder vals = getSerializedData(stations);
+        StringBuilder vals = getSerializedData(newStarredStations);
         if (vals.length() > 0) {
             String raw = vals.delete(vals.length()-1, vals.length()).toString();
             ed.putString("starredStations", raw);
