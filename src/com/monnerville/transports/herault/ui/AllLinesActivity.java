@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ListView;
@@ -35,11 +36,14 @@ import java.util.List;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
     private List<BusStation> mStarredStations;
+    // Cached directions for all available lines
+    private List<List<String>> mDirections;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -64,9 +68,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         manager.setResources(getResources(), R.xml.lines);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mDirections = new ArrayList<List<String>>();
         mStarredStations = new ArrayList<BusStation>();
 
         List<BusLine> lines = manager.getBusLines();
+        new DirectionsRetreiverTask().execute(lines);
+
         mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
             new BusStationActivity.BookmarkStationListAdapter(this, R.layout.bus_line_bookmark_list_item, mStarredStations));
         mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
@@ -137,8 +144,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(line.getName());
             TextView direction = (TextView)itemView.findViewById(android.R.id.text2);
-            String[] dirs = line.getDirections();
-            direction.setText(dirs[0] + " - " + dirs[1]);
+
+            try {
+                List<String> dirs = mDirections.get(position);
+                direction.setText(dirs.get(0) + " - " + dirs.get(1));
+            } catch(IndexOutOfBoundsException ex) {}
+
             return itemView;
         }
     }
@@ -202,5 +213,27 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 			return(result);
 		}
 	};
+
+    /**
+     * Retrieves all lines directions in a background thread
+     */
+    private class DirectionsRetreiverTask extends AsyncTask<List<BusLine>, Void, Void> {
+        private List<BusStation> starredStations;
+
+        @Override
+        protected Void doInBackground(List<BusLine>... lis) {
+            List<BusLine> lines = lis[0];
+            for (BusLine line : lines) {
+                String[] dirs = line.getDirections();
+                mDirections.add(Arrays.asList(dirs));
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void none) {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 
 }
