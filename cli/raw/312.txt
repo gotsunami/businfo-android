@@ -58,7 +58,8 @@ St Martin RD 130 / Rte de Campagnan;06:12;10:17;13:02;*7r*;10:07;16:07
 city=BELARGA 
 Centre;-;-;13:05;-;-
 
-city=CAMPAGNAN Centre (Ancienne Gare);06:15;10:20;13:10;*7r*;10:10;16:10
+city=CAMPAGNAN 
+Centre (Ancienne Gare);06:15;10:20;13:10;*7r*;10:10;16:10
 
 city=ST PARGOIRE 
 Racafol;06:20;10:24;13:13;*7r*;10:14;16:14
