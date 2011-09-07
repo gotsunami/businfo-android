@@ -2,6 +2,7 @@ package com.monnerville.transports.herault.ui;
 
 import android.util.Log;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -197,6 +198,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
      */
     private class StationsStopsRetreiverTask extends AsyncTask<List<BusStation>, Void, Void> {
         private List<BusStation> starredStations;
+        private ProgressDialog mDialog;
 
         @Override
         protected Void doInBackground(List<BusStation>... st) {
@@ -214,11 +216,14 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             // Executes on the UI thread
             BusManager manager = XMLBusManager.getInstance();
             starredStations = manager.getStarredStations(BusLineActivity.this);
+            mDialog = ProgressDialog.show(BusLineActivity.this, "",
+                getString(R.string.pd_loading_bus_schedules), true);
         }
 
         @Override
         protected void onPostExecute(Void none) {
             mAdapter.notifyDataSetChanged();
+            mDialog.cancel();
         }
     }
 }

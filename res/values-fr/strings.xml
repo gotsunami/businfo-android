@@ -11,5 +11,8 @@
     <string name="all_lines_header">Toutes les lignes (%1$d)</string>
     <string name="bookmark_info">Ligne %1$s vers %2$s</string>
     <string name="no_data">Pas de données.</string>
+    <string name="search_hint">Entrez un mot clef</string>
     <string name="bookmark_menu_title">Favori</string>
+    <string name="pd_loading_bus_schedules">Chargement des horaires</string>
+    <string name="pd_loading_bus_lines">Chargement des lignes de bus</string>
 </resources>
