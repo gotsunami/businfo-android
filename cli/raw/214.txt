@@ -1,0 +1,106 @@
+# Line 214
+# FIXME: ne circule pas jours feries (f)
+name=214
+circulation=1-6
+#from=F
+
+direction=
+
+city=BEZIERS 
+Gare routière;8:00;11:18;12:18;16:18;17:18;18:18
+Gare SNCF / Place des Alliés;8:05;11:23;12:23;16:23;17:23;18:23
+Lézigno;8:15;11:30;12:30;16:30;17:30;18:30
+
+city=MAUREILHAN 
+Maison de retraite / Centre;8:20;11:35;12:35;16:35;17:35;18:35
+
+city=PUISSERGUIER 
+Lussau;8:30;11:45;12:45;16:45;17:45;18:45
+La Voulte / Centre;8:30;11:45;12:45;16:45;17:45;18:45
+
+city=CREISSAN 
+Emb. RD 612;8:35;11:50;12:50;16:50;17:50;18:50
+Centre / Av. de Béziers;8:35;11:50;12:50;16:50;17:50;18:50
+
+city=CEBAZAN 
+Coopérative / Centre;8:40;11:55;12:55;16:55;17:55;18:55
+
+city=ST CHINIAN 
+Esplanande;8:45;12:00;13:00;17:00;18:00;19:00
+
+city=VILLESPASSANS 
+Centre;12:20*5*;-;18:20*3*;-
+
+city=ASSIGNAN 
+Centre;12:30*5*;-;18:30*3*;-
+
+city=PIERRERUE 
+Centre / Combejean;12:10*2*;18:10*4*
+
+city=PRADES 
+Mairie;12:20*2*;18:20*4*
+
+city=BABEAU BOULDOUX 
+Emb. RD 612;8:55;13:05;17:05;19:05
+Centre;-;13:10;-;18:20;19:07
+
+city=ST PONS 
+Le Foirail;9:15;11:30;13:30;17:30;19:30
+
+city=LE SOULIE 
+Eglise;11:50;18:00
+
+city=LA SALVETAT 
+Esplanade;12:10;18:15
+
+direction=
+
+city=LA SALVETAT 
+Esplanade;7:40;13:15
+
+city=LE SOULIE 
+Eglise;7:55;13:30
+
+city=ST PONS 
+Le Foirail;6:30;8:30;13:55;16:00
+
+city=BABEAU BOULDOUX 
+Centre;6:45;-;-;-
+Emb. RD 612;8:45;14:25 16:25
+
+city=PRADES 
+Mairie;7:25;12:30
+
+city=PIERRERUE 
+Combejean / Centre;7:35;12:40
+
+city=ASSIGNAN 
+Centre;7:25;- 12:20 -
+
+city=VILLESPASSANS 
+Centre;7:35;- 12:30 -
+
+city=ST CHINIAN 
+Esplanade 
+7:00;7:45 7:45 7:45 9:00 12:40 12:50 12:50 14:30 16:30
+
+city=CEBAZAN 
+Centre / Coopérative;7:05;7:50;9:05;12:55;14:35;16:35
+
+city=CREISSAN 
+Av. de Béziers;7:10;7:55;9:10;13:00;14:40;16:40
+Centre / Emb. RD 612;7:10;7:55;9:10;13:00;14:40;16:40
+
+city=PUISSERGUIER 
+Centre;7:15;8:00;9:15;13:05;14:45;16:45
+La Voulte / Lussau;7:15;8:00;9:15;13:05;14:45;16:45
+
+city=MAUREILHAN 
+Centre;7:25;8:10;9:25;13:15;14:55;16:55
+Maison de retraite;7:25;8:10;9:25;13:15;14:55;16:55
+
+city=BEZIERS 
+Lézigno;7:30;8:15;9:30;13:20;15:00;17:00
+Place des Alliés / Gare SNCF;7:35;8:25;9:35;13:25;15:05;17:05
+Gare routière;7:45;8:35;9:45;13:40;15:15;17:15
+Lycée J.Moulin;7:50;8:40
