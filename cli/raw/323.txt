@@ -1,0 +1,67 @@
+# Line 323
+# s: school days only
+# S: non school days only
+# FIXME: ^*S* rules not clear
+name=323
+circulation=1-6
+from=2010-09-02
+
+direction=
+
+city=SETE 
+Gare SNCF;11:00;12:20*3,6s*;18:05
+Théatre / Pont de Pierre;11:02;12:22*3,6s*;18:07
+L'Epi d'Or;11:10;12:25*3,6s*;18:15
+Notre Dame Souveraine du Monde;11:12;12:27*3,6s*;18:17
+Promenade de Neubourg;11:15;12:30*3,6s*;18:20
+Le Castellas;11:25;12:40*3,6s*;18:30
+
+city=MARSEILLAN Plage 
+Maison du tourisme;11:30;12:45*3,6s*;18:35
+
+city=MARSEILLAN 
+Les Onglous;11:35;12:50*3,6s*;18:40
+Les Mougères;11:36;12:51*3,6s*;18:41
+Gare routière;11:40;12:55*3,6s*;18:45
+Av. Victor Hugo;11:42;12:57*3,6s*;18:47
+
+city=FLORENSAC 
+Av Mioch / Gare routière;11:50;13:05*3,6s*;18:55
+Rte de Pomerols /C.Commercial;11:52;13:07*3,6s*;18:57
+
+city=POMEROLS 
+La croix / Centre;11:55;13:10*3,6s*;19:00
+
+city=PINET 
+Le Mail / Picpoul de Pinet;12:00;13:15*3,6s*;19:05
+
+direction=
+
+city=PINET 
+Picpoul de Pinet / Le Mail;6:55;13:25
+
+city=POMEROLS 
+Centre / La croix;7:00;13:30
+
+city=FLORENSAC 
+C.Commercial / Rte de Pomerols;7:04;13:33
+Gare routière / Av Mioch;7:05;13:35
+
+city=MARSEILLAN 
+Av. Victor Hugo;7:13;13:43
+Gare routière;7:15;13:45
+Les Mougères;7:20;13:47
+Les Onglous;7:22;13:47
+
+city=MARSEILLAN Plage 
+Maison du tourisme;7:25;13:50
+
+city=SETE 
+Le Castellas;7:30;14:00
+Notre Dame Souveraine du Monde;7:37;14:05
+Promenade de Neubourg;7:40;14:10
+Pont de la Savonnerie;7:45;14:15
+Pont de Pierre / Théâtre;7:50;14:20
+Gare SNCF;7:55;14:25
+
+
