@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.QueryManager;
+import com.monnerville.transports.herault.core.xml.XMLQueryManager;
 
 /**
  *
@@ -33,7 +35,17 @@ public class SearchableActivity extends Activity {
      *
      * @param query what to search for
      */
-    void startSearching(String query) {
+    void startSearching(final String query) {
+        final QueryManager finder = XMLQueryManager.getInstance();
         Log.d("QUER", query);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final long start = System.currentTimeMillis();
+                Log.d("RESCITIES", "" +  finder.findCities(query));
+                final long end = System.currentTimeMillis();
+                Log.d("BENCH", "Took " + (end-start) + "ms to compute");
+            }
+        }).start();
     }
 }

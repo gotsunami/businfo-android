@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Mathias Monnerville
  */
-public interface SearchManager {
+public interface QueryManager {
     /**
      * Looks for existing cities
      * @param query
