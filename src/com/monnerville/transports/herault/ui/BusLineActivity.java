@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     private String mLine;
     private String mDirection;
     private SharedPreferences mPrefs;
+    private boolean mShowToast;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -58,6 +61,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         if (bun != null) {
             mLine = bun.getString("line");
             mDirection = bun.getString("direction");
+            mShowToast = bun.getBoolean("showToast");
         }
         else
             finish();
@@ -67,7 +71,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        BusManager manager = XMLBusManager.getInstance();
+        final BusManager manager = XMLBusManager.getInstance();
         BusLine line = manager.getBusLine(mLine);
 
         // Computes all next bus stops
@@ -86,6 +90,24 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         else {
             Log.w(TAG, "Direction '" + mDirection + "' not found");
         }
+
+        Button flipButton = (Button)findViewById(R.id.btn_flip_direction);
+        flipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // Switch to other line direction
+                Intent intent = new Intent(BusLineActivity.this, BusLineActivity.class);
+                String[] directions = manager.getBusLine(mLine).getDirections();
+                for (String dir : directions) {
+                    if (!dir.equals(mDirection)) {
+                        intent.putExtra("line", mLine);
+                        intent.putExtra("direction", dir);
+                        intent.putExtra("showToast", true);
+                        startActivity(intent);
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -224,6 +246,10 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         protected void onPostExecute(Void none) {
             mAdapter.notifyDataSetChanged();
             mDialog.cancel();
+            if (mShowToast) {
+                Toast.makeText(BusLineActivity.this, getString(R.string.toast_current_direction,
+                    mDirection), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
