@@ -135,7 +135,7 @@ def makeXML(busline, directions, outfile):
 
 def createDB():
     # Create DB structure
-    print("""
+    print """
 DROP TABLE IF EXISTS line;
 CREATE TABLE line (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -151,8 +151,8 @@ CREATE TABLE city (
     name TEXT,
     latitude REAL,
     longitude REAL,
-    UNIQUE(name),
-    UNIQUE(latitude, longitude)
+    UNIQUE(name)
+--    UNIQUE(latitude, longitude)
 );
 
 DROP TABLE IF EXISTS station;
@@ -162,15 +162,15 @@ CREATE TABLE station (
     latitude REAL,
     longitude REAL,
     city_id INTEGER,
-    UNIQUE(name, city_id),
-    UNIQUE(latitude, longitude)
+    UNIQUE(name, city_id)
+--    UNIQUE(latitude, longitude)
 );
 
 DROP TABLE IF EXISTS schedule;
 CREATE TABLE schedule (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time DATETIME,
-    station_id INTEGER,
+    station_id INTEGER
 );
 
 DROP TABLE IF EXISTS line_station;
@@ -222,99 +222,68 @@ BEGIN
     SELECT RAISE(ROLLBACK, 'insert on table "schedule" violates foreign key constraint "fk_station_id"')
     WHERE (SELECT id FROM station WHERE id = NEW.station_id) IS NULL;
 END;
-""");
+"""
 
 def makeSQL(sources):
     global dfltCirculationPolicy
     global g_cities
-
-    try:
-        f = open('/tmp/db.sql', 'w')
-    except IOError, e:
-        print "Error: %s" % e
-        sys.exit(1)
 
     cities = set()
     stations = set()
     lines = set()
     for src in sources:
         busline, directions = parse(src)
-        #print directions[0]
-        lines.add(busline)
+#        print busline, directions[0]
+        lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city']))
         for direct in directions:
             for data in direct:
                 cities.add(data['city'])
-                stations.add(data['station'])
-#    print cities, len(cities)
-#    print stations, len(stations)
-    k = 1
+                stations.add((data['station'], data['city']))
+
+    pk = 1
     cs = []
     for city in cities:
-        cs.append((k, city))
-        k += 1
+        cs.append((pk, city))
+        pk += 1
 
-    print "Writing INSERTs for cities..."
     for city in cs:
-        f.write("INSERT INTO city VALUES(%d, \"%s\", 0, 0);\n" % (city[0], city[1]))
+        print("INSERT INTO city VALUES(%d, \"%s\", 0, 0);" % (city[0], city[1]))
 
-    print "Writing INSERTs for stations..."
+    pk = 1
+    pk_city = 0
     for st in stations:
-        f.write("INSERT INTO station VALUES(\"%s\", 0, 0);\n" % st.encode('utf-8'))
-    print lines, len(lines)
+        for city in cs:
+            if city[1] == st[1]:
+                pk_city = city[0]
+                break
+        if pk_city == 0:
+            print "Error: city id not found!"
+            sys.exit(1)
+        print("INSERT INTO station VALUES(%d, \"%s\", 0, 0, %d);" % (pk, st[0].encode('utf-8'), pk_city))
+        pk += 1
 
+    pk_from = pk_to = 0
+    pk = 1
+    for line in lines:
+        for city in cs:
+            if city[1] == line[1]:
+                pk_from = city[0]
+                break
+        for city in cs:
+            if city[1] == line[2]:
+                pk_to = city[0]
+                break
+        if pk_from == 0 or pk_to == 0:
+            print "Error: pk_from(%d) or pk_to(%d) id not found!" % (pk_from, pk_to)
+            print "Line: " + str(line)
+            sys.exit(1)
+        print("INSERT INTO line VALUES(%d, \"%s\", %d, %d);" % (
+            pk, line[0], pk_from, pk_to))
+        pk += 1
 
-
-
-    f.close()
-    return
-
-    nbDirections = 0
-    nbCities = 0
-    nbStations = 0
-    nbStops = 0
-    # Used to count distinct entries
-    tmpCities = tmpStations = []
-
-#    f.write("CREATE TABLE )
-    f.write("""<line id="%s">\n""" % busline)
-    for data in directions:
-        curDirection = data[-1]['city']
-        f.write(' ' * INDENT + """<direction id="%s" c="%s">\n""" % (curDirection.encode('utf-8'), dfltCirculationPolicy))
-        curCity = None
-        for station in data:
-            city = station['city']
-            if city != curCity:
-                if curCity != None:
-                    f.write(' ' *2*INDENT + "</city>\n")
-                f.write(' ' *2*INDENT + """<city id="%s">\n""" % city.encode('utf-8'))
-                if city not in tmpCities:
-                    tmpCities.append(city)
-                    nbCities += 1
-                curCity = city
-                if city not in g_cities:
-                    g_cities.append(city)
-            f.write(' ' *3*INDENT + """<station id="%s">\n""" % station['station'].encode('utf-8'))
-            for stop in station['stops']:
-                if type(stop) == types.TupleType:
-                    f.write(' ' *4*INDENT + """<s t="%s" c="%s"/>\n""" % (stop[0], stop[1]))
-                else:
-                    f.write(' ' *4*INDENT + """<s t="%s"/>\n""" % stop)
-                
-                nbStops += 1
-            f.write(' ' *3*INDENT + "</station>\n")
-            if station['station'] not in tmpStations:
-                tmpStations.append(station['station'])
-                nbStations += 1
-        f.flush()
-        f.write(' ' *2*INDENT + "</city>\n")
-        f.write(' ' * INDENT + "</direction>\n")
-        nbDirections += 1
-    f.write("</line>")
-    f.close()
-
-    g_cities.sort()
-    print "[%-15s] %-30s (Dir: %d, Cit: %2d, Stations: %2d, Stops: %2d)" % (busline, "Generated %s" % outfile, nbDirections, nbCities, nbStations, nbStops)
-    if DEBUG: print directions
+#    print "Lines: %d" % len(lines)
+#    print "Cities: %d" % len(cities)
+#    print "Stations: %d" % len(stations)
 
 def parse(infile):
     """
@@ -424,8 +393,12 @@ generate SQL data.""")
         sources = glob.glob(os.path.join(infile, '*.txt'))
         sources.sort()
         if options.sql:
+            # Grouping all INSERTs in a single transaction really 
+            # speeds up the whole thing
+            print "BEGIN TRANSACTION;"
             createDB()
-            makeSQL(sources)#busline, directions, outfile)
+            makeSQL(sources)
+            print "END TRANSACTION;"
             return
 
         for src in sources:
