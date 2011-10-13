@@ -231,6 +231,7 @@ def makeSQL(sources):
     cities = set()
     stations = set()
     lines = set()
+    lines_stations = set()
     for src in sources:
         busline, directions = parse(src)
 #        print busline, directions[0]
@@ -239,6 +240,7 @@ def makeSQL(sources):
             for data in direct:
                 cities.add(data['city'])
                 stations.add((data['station'], data['city']))
+                lines_stations.add((busline, data['station']))
 
     pk = 1
     cs = []
@@ -251,6 +253,7 @@ def makeSQL(sources):
 
     pk = 1
     pk_city = 0
+    pk_stations = {}
     for st in stations:
         for city in cs:
             if city[1] == st[1]:
@@ -260,6 +263,7 @@ def makeSQL(sources):
             print "Error: city id not found!"
             sys.exit(1)
         print("INSERT INTO station VALUES(%d, \"%s\", 0, 0, %d);" % (pk, st[0].encode('utf-8'), pk_city))
+        pk_stations[st[0].encode('utf-8')] = pk
         pk += 1
 
     pk_from = pk_to = 0
@@ -281,9 +285,22 @@ def makeSQL(sources):
             pk, line[0], pk_from, pk_to))
         pk += 1
 
-#    print "Lines: %d" % len(lines)
-#    print "Cities: %d" % len(cities)
-#    print "Stations: %d" % len(stations)
+    pk_line = pk_station = 0
+    pk = 1
+    for ls in lines_stations:
+        j = 1
+        h = 1
+        for line in lines:
+            if ls[0] == line[0]:
+                pk_line = j
+                break
+            j += 1
+        if pk_line == 0:
+            print "Error: pk_line is 0!"
+            sys.exit(1)
+        print("INSERT INTO line_station VALUES(%d, %d, %d);" % (
+            pk, pk_line, pk_stations[ls[1].encode('utf-8')]))
+        pk += 1
 
 def parse(infile):
     """
