@@ -244,19 +244,19 @@ def makeSQL(sources):
     lines_stations = set()
     for src in sources:
         busline, directions = parse(src)
-#        print busline, directions[0]
         lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city']))
         k = 0
         for direct in directions:
             rank = 1
             for data in direct:
-                #print data, len(direct)
-                #print data
                 cities.add(data['city'])
-                stations.add((data['station'], data['city']))
+                print busline
+                print data['stops']
+                stations.add((data['station'], data['city'], ';'.join(data['stops'])))
                 lines_stations.add((busline, data['station'], rank, directions[k][-1]['city']))
                 rank += 1
             k += 1
+#            print direct; sys.exit(2)
 
     pk = 1
     cs = []
@@ -267,7 +267,7 @@ def makeSQL(sources):
     for city in cs:
         print("INSERT INTO city VALUES(%d, \"%s\", 0, 0);" % (city[0], city[1]))
 
-    pk = 1
+    pk = s_pk = 1
     pk_city = 0
     pk_stations = {}
     for st in stations:
@@ -280,6 +280,9 @@ def makeSQL(sources):
             sys.exit(1)
         print("INSERT INTO station VALUES(%d, \"%s\", 0, 0, %d);" % (pk, st[0].encode('utf-8'), pk_city))
         pk_stations[st[0].encode('utf-8')] = pk
+        for t in st[2].split(';'):
+            print("INSERT INTO schedule VALUES(%d, \"%s\", 0, 0, %d);" % (s_pk, t, pk))
+            s_pk += 1
         pk += 1
 
     pk_from = pk_to = 0
