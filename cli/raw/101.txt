@@ -38,7 +38,7 @@ Vauban;-;-;13:44;-;-;-
 Le Levant/Porte de la mer;-;-;13:45;-;11:51;-
 
 city=MARSILLARGUES 
-La Bascule11:18;13:20;18:50;11:45;18:10
+La Bascule;11:18;13:20;18:50;11:45;18:10
 
 direction=
 
