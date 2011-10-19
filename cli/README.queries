@@ -1,4 +1,8 @@
 select ls.id, ls.line_id, st.name from line_station as ls,  station as st where ls.line_id=1 and st.id=ls.station_id order by ls.id;
 
-select ls.id, ls.line_id, st.name, ls.rank from line_station as ls,  station as st, line where ls.line_id=22 and st.id=ls.station_id and line.from_city_id=35 and ls.line_id=line.id order by ls.rank;
-
+select ls.id, ls.line_id, st.name, ls.rank, ls.direction 
+from line_station as ls, station as st 
+where ls.line_id=1 
+and ls.direction=63  
+and st.id=ls.station_id 
+order by ls.rank;

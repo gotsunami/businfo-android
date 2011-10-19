@@ -178,8 +178,9 @@ CREATE TABLE line_station (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     line_id INTEGER,
     station_id INTEGER,
-    rank INTEGER,			-- station's rank order on line
-    UNIQUE(line_id, station_id, rank)
+    rank INTEGER,			                -- station's rank order on line
+    direction_id INTEGER,			        -- city id for direction
+    UNIQUE(line_id, station_id, rank, direction_id)
 );
 
 CREATE TRIGGER fki_line_from_city_id
@@ -217,6 +218,14 @@ BEGIN
     WHERE (SELECT id FROM station WHERE id = NEW.station_id) IS NULL;
 END;
 
+-- Must be an existing city
+CREATE TRIGGER fki_line_station_direction_id
+BEFORE INSERT ON line_station
+BEGIN
+    SELECT RAISE(ROLLBACK, 'insert on table "line_station" violates foreign key constraint "fk_direction_id"')
+    WHERE (SELECT id FROM city WHERE id = NEW.direction_id) IS NULL;
+END;
+
 CREATE TRIGGER fki_schedule_station_id
 BEFORE INSERT ON schedule
 BEGIN
@@ -248,10 +257,6 @@ def makeSQL(sources):
                 lines_stations.add((busline, data['station'], rank, directions[k][-1]['city']))
                 rank += 1
             k += 1
-       # print len(directions)
-       # print src
-       # print cities
-       # print lines_stations
 
     pk = 1
     cs = []
@@ -296,7 +301,7 @@ def makeSQL(sources):
             pk, line[0], pk_from, pk_to))
         pk += 1
 
-    pk_line = pk_station = 0
+    pk_line = pk_station = pk_direction = 0
     pk = 1
     for ls in lines_stations:
         j = 1
@@ -309,8 +314,15 @@ def makeSQL(sources):
         if pk_line == 0:
             print "Error: pk_line is 0!"
             sys.exit(1)
-        print("INSERT INTO line_station VALUES(%d, %d, %d, %d);" % (
-            pk, pk_line, pk_stations[ls[1].encode('utf-8')], ls[2]))
+        for city in cs:
+            if city[1] == ls[3]:
+                pk_direction = city[0]
+                break
+        if pk_direction == 0:
+            print "Error: pk_direction is 0!"
+            sys.exit(1)
+        print("INSERT INTO line_station VALUES(%d, %d, %d, %d, %d);" % (
+            pk, pk_line, pk_stations[ls[1].encode('utf-8')], ls[2], pk_direction))
         pk += 1
 
 def parse(infile):
