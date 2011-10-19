@@ -66,8 +66,8 @@ Racafol;06:20;10:24;13:13;*7r*;10:14;16:14
 Poste / Coopérative;06:21;10:25;13:15;*7r*;10:15;16:15
 
 city=VILLEVEYRAC 
-Rte de Paulhan arrivée;06:35;10:35;13:20;*7r*;10:25;16:25
-Rte de Paulhan départ;06:35;10:40;13:25;*7r*;10:25;16:25
+Rte de Paulhan Arrivée;06:35;10:35;13:20;*7r*;10:25;16:25
+Rte de Paulhan Départ;06:35;10:40;13:25;*7r*;10:25;16:25
 Centre / Lacoste;06:37;10:42;13:27;*7r*;10:27;16:27
 
 city=POUSSAN 
