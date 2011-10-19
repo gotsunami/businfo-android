@@ -178,7 +178,8 @@ CREATE TABLE line_station (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     line_id INTEGER,
     station_id INTEGER,
-    UNIQUE(line_id, station_id)
+    rank INTEGER,			-- station's rank order on line
+    UNIQUE(line_id, station_id, rank)
 );
 
 CREATE TRIGGER fki_line_from_city_id
@@ -236,11 +237,21 @@ def makeSQL(sources):
         busline, directions = parse(src)
 #        print busline, directions[0]
         lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city']))
+        k = 0
         for direct in directions:
+            rank = 1
             for data in direct:
+                #print data, len(direct)
+                #print data
                 cities.add(data['city'])
                 stations.add((data['station'], data['city']))
-                lines_stations.add((busline, data['station']))
+                lines_stations.add((busline, data['station'], rank, directions[k][-1]['city']))
+                rank += 1
+            k += 1
+       # print len(directions)
+       # print src
+       # print cities
+       # print lines_stations
 
     pk = 1
     cs = []
@@ -298,8 +309,8 @@ def makeSQL(sources):
         if pk_line == 0:
             print "Error: pk_line is 0!"
             sys.exit(1)
-        print("INSERT INTO line_station VALUES(%d, %d, %d);" % (
-            pk, pk_line, pk_stations[ls[1].encode('utf-8')]))
+        print("INSERT INTO line_station VALUES(%d, %d, %d, %d);" % (
+            pk, pk_line, pk_stations[ls[1].encode('utf-8')], ls[2]))
         pk += 1
 
 def parse(infile):
@@ -387,7 +398,7 @@ def main():
     global DEBUG
 
     parser = OptionParser(usage="""
-%prog [-d|-g|--gps|--gps-cache file] (raw_line.txt|dir)
+%prog [-d|-g|--gps|--gps-cache file|--sql] (raw_line.txt|dir)
 
 Default behaviour is to output XML content. Use --sql to instead
 generate SQL data.""")
