@@ -170,6 +170,7 @@ DROP TABLE IF EXISTS schedule;
 CREATE TABLE schedule (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time DATETIME,
+    circpat TEXT,           -- circulation pattern
     station_id INTEGER
 );
 
@@ -250,13 +251,10 @@ def makeSQL(sources):
             rank = 1
             for data in direct:
                 cities.add(data['city'])
-                print busline
-                print data['stops']
-                stations.add((data['station'], data['city'], ';'.join(data['stops'])))
+                stations.add((data['station'], data['city']))
                 lines_stations.add((busline, data['station'], rank, directions[k][-1]['city']))
                 rank += 1
             k += 1
-#            print direct; sys.exit(2)
 
     pk = 1
     cs = []
@@ -267,7 +265,7 @@ def makeSQL(sources):
     for city in cs:
         print("INSERT INTO city VALUES(%d, \"%s\", 0, 0);" % (city[0], city[1]))
 
-    pk = s_pk = 1
+    pk = 1
     pk_city = 0
     pk_stations = {}
     for st in stations:
@@ -280,9 +278,6 @@ def makeSQL(sources):
             sys.exit(1)
         print("INSERT INTO station VALUES(%d, \"%s\", 0, 0, %d);" % (pk, st[0].encode('utf-8'), pk_city))
         pk_stations[st[0].encode('utf-8')] = pk
-        for t in st[2].split(';'):
-            print("INSERT INTO schedule VALUES(%d, \"%s\", 0, 0, %d);" % (s_pk, t, pk))
-            s_pk += 1
         pk += 1
 
     pk_from = pk_to = 0
@@ -327,6 +322,22 @@ def makeSQL(sources):
         print("INSERT INTO line_station VALUES(%d, %d, %d, %d, %d);" % (
             pk, pk_line, pk_stations[ls[1].encode('utf-8')], ls[2], pk_direction))
         pk += 1
+
+    # Handle stops
+    k = 1
+    for src in sources:
+        busline, directions = parse(src)
+        lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city']))
+        for direct in directions:
+            for data in direct:
+                for stop in data['stops']:
+                    s_id = pk_stations[data['station'].encode('utf-8')]
+                    if type(stop) == types.TupleType:
+                        st, pat = stop[0], stop[1]
+                    else:
+                        st, pat = stop, ''
+                    print("INSERT INTO schedule VALUES(%d, \"%s\", \"%s\", %d);" % (k, st, pat, s_id))
+                    k += 1
 
 def parse(infile):
     """
