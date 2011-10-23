@@ -1,0 +1,36 @@
+graph mcd {
+    labeldistance = 40.0;
+
+    /* Entities */
+    node [shape=record];
+    city [label="{ City | id\nName\nLatitude\nLongitude }"];
+    line [label="{ Line | id\nName }"];
+    stop [label="{ Stop | id\ntime\ncirculation pattern }"];
+    station [label="{ Station | id\nname\nlatitude\nlongitude }"];
+
+    node [shape=ellipse];
+    node1 [label="has"]; 
+    node2 [label="direction"]
+    node3 [label="has"]; 
+    node4 [label="has"]; 
+    node5 [label="belongs to"]; 
+    node6 [label="direction"]
+
+    city -- node1 [label="  1,n"];
+    node1 -- line [label="  1,n"];
+
+    line -- node2 [label="  1,2"];
+    node2 -- city [label="  1,1"];
+
+    line -- node3 [label="  1,n"];
+    node3 -- station [label="  1,n"];
+
+    station -- node4 [label="  1,n"];
+    node4 -- stop [label="  1,1"];
+
+    stop -- node5 [label="  1,1"];
+    node5 -- line [label="  1,n"];
+
+    stop -- node6 [label="  1,1"];
+    node6 -- city [label="  1,n"];
+};
