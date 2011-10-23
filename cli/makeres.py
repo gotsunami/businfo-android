@@ -166,12 +166,16 @@ CREATE TABLE station (
 --    UNIQUE(latitude, longitude)
 );
 
-DROP TABLE IF EXISTS schedule;
-CREATE TABLE schedule (
+DROP TABLE IF EXISTS stop;
+CREATE TABLE stop (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time DATETIME,
     circpat TEXT,           -- circulation pattern
-    station_id INTEGER
+    station_id INTEGER,
+    line_id INTEGER,
+    direction_id INTEGER,    -- city
+    city_id INTEGER          -- location of station
+-- TODO: UNIQUE (time, circpat, station_id, line_id, direction_id, city_id)
 );
 
 DROP TABLE IF EXISTS line_station;
@@ -227,11 +231,35 @@ BEGIN
     WHERE (SELECT id FROM city WHERE id = NEW.direction_id) IS NULL;
 END;
 
-CREATE TRIGGER fki_schedule_station_id
-BEFORE INSERT ON schedule
+--
+-- Constraints on stop table
+--
+CREATE TRIGGER fki_stop_station_id
+BEFORE INSERT ON stop
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "schedule" violates foreign key constraint "fk_station_id"')
+    SELECT RAISE(ROLLBACK, 'insert on table "stop" violates foreign key constraint "fk_station_id"')
     WHERE (SELECT id FROM station WHERE id = NEW.station_id) IS NULL;
+END;
+
+CREATE TRIGGER fki_stop_line_id
+BEFORE INSERT ON stop
+BEGIN
+    SELECT RAISE(ROLLBACK, 'insert on table "stop" violates foreign key constraint "fk_line_id"')
+    WHERE (SELECT id FROM line WHERE id = NEW.line_id) IS NULL;
+END;
+
+CREATE TRIGGER fki_stop_direction_id
+BEFORE INSERT ON stop
+BEGIN
+    SELECT RAISE(ROLLBACK, 'insert on table "stop" violates foreign key constraint "fk_direction_id"')
+    WHERE (SELECT id FROM city WHERE id = NEW.direction_id) IS NULL;
+END;
+
+CREATE TRIGGER fki_stop_city_id
+BEFORE INSERT ON stop
+BEGIN
+    SELECT RAISE(ROLLBACK, 'insert on table "stop" violates foreign key constraint "fk_city_id"')
+    WHERE (SELECT id FROM city WHERE id = NEW.city_id) IS NULL;
 END;
 """
 
@@ -256,6 +284,7 @@ def makeSQL(sources):
                 rank += 1
             k += 1
 
+    # Build cities IDs
     pk = 1
     cs = []
     for city in cities:
@@ -323,20 +352,58 @@ def makeSQL(sources):
             pk, pk_line, pk_stations[ls[1].encode('utf-8')], ls[2], pk_direction))
         pk += 1
 
+#CREATE TABLE stop (
+#    id INTEGER PRIMARY KEY AUTOINCREMENT,
+#    time DATETIME,
+#    circpat TEXT,           -- circulation pattern
+#    station_id INTEGER,
+#    line_id INTEGER,
+#    direction_id INTEGER,    -- city id
+#    UNIQUE (time, station_id, line_id, direciton_id)
+#);
+
     # Handle stops
     k = 1
     for src in sources:
         busline, directions = parse(src)
-        lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city']))
         for direct in directions:
             for data in direct:
                 for stop in data['stops']:
+                    # Station id
                     s_id = pk_stations[data['station'].encode('utf-8')]
                     if type(stop) == types.TupleType:
                         st, pat = stop[0], stop[1]
                     else:
                         st, pat = stop, ''
-                    print("INSERT INTO schedule VALUES(%d, \"%s\", \"%s\", %d);" % (k, st, pat, s_id))
+                    # Direction id
+                    direction_id = 0
+                    for c in cs:
+                        if direct[-1]['city'] == c[1]:
+                            direction_id = c[0]
+                            break
+                    if direction_id == 0:
+                        print "Error: direction_id is 0!"
+                    # City id
+                    city_id = 0
+                    for c in cs:
+                        if data['city'] == c[1]:
+                            city_id = c[0]
+                            break
+                    if city_id == 0:
+                        print "Error: city_id is 0!"
+                    # Line id
+                    line_id = 0
+                    j = 1
+                    for line in lines:
+                        if busline == line[0]:
+                            line_id = j
+                            break
+                        j += 1
+                    if line_id == 0:
+                        print "Error: line_id is 0!"
+
+                    print("INSERT INTO stop VALUES(%d, \"%s\", \"%s\", %d, %d, %d, %d);" % 
+                        (k, st, pat, s_id, line_id, direction_id, city_id))
                     k += 1
 
 def parse(infile):

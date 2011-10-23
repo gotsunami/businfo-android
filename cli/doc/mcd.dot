@@ -12,7 +12,7 @@ graph mcd {
     node1 [label="has"]; 
     node2 [label="direction"]
     node3 [label="has"]; 
-    node4 [label="has"]; 
+    node4 [label="at"]; 
     node5 [label="belongs to"]; 
     node6 [label="direction"]
 
