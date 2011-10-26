@@ -1,14 +1,31 @@
 select ls.id, ls.line_id, st.name from line_station as ls,  station as st where ls.line_id=1 and st.id=ls.station_id order by ls.id;
 
-select ls.id, ls.line_id, st.name, ls.rank, ls.direction 
-from line_station as ls, station as st 
-where ls.line_id=1 
-and ls.direction=63  
-and st.id=ls.station_id 
-order by ls.rank;
 
-#
+# Get a line's directions
+
 SELECT name FROM city 
 WHERE id = (SELECT from_city_id FROM line WHERE line.name='312') 
 OR id=(SELECT to_city_id FROM line WHERE line.name='312');
 
+# All stations from a line and direction
+
+SELECT station.name FROM line_station, line, station, city 
+WHERE line_station.station_id=station.id 
+AND line.name="312" 
+AND city.name="Adissan" 
+AND line.id=line_station.line_id 
+AND line_station.direction_id=city.id 
+ORDER BY line_station.rank;
+
+# Get all cities of a line with a direction
+
+SELECT city.name FROM city
+WHERE city.id in (
+    SELECT station.city_id FROM line_station, line, station, city 
+    WHERE line_station.station_id=station.id 
+    AND line.name="312" 
+    AND city.name="Adissan" 
+    AND line.id=line_station.line_id 
+    AND line_station.direction_id=city.id 
+    ORDER BY line_station.rank
+);

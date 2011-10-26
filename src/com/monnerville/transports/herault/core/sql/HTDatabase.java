@@ -114,12 +114,12 @@ class HTDatabase extends SQLiteOpenHelper {
 
     /**
      * Returns a list of directions for a given bus line
-     * @param name name of bus line
+     * @param line name of bus line
      * @return
      */
-    public String[] getDirections(String name) {
+    public String[] getDirections(String line) {
         Cursor c = getReadableDatabase().rawQuery(mContext.getString(R.string.query_getdirections_from_line),
-			new String[] {name, name}
+			new String[] {line, line}
         );
         String[] directions = new String[2];
         for (int j=0; j < c.getCount(); j++) {
@@ -128,5 +128,21 @@ class HTDatabase extends SQLiteOpenHelper {
         }
 		c.close();
         return directions;
+    }
+
+    /**
+     * Returns a list of all related cities that come accross this line
+     * @param line name of bus line
+     * @param direction direction of the line
+     * @return a list of strings
+     */
+    public List<String> getCities(String line, String direction) {
+        List<String> cities = new ArrayList<String>();
+        /*
+        Cursor c = getReadableDatabase().rawQuery(mContext.getString(R.string.query_getdirections_from_line),
+			new String[] {name, name}
+        );
+         */
+        return cities;
     }
 }

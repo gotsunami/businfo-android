@@ -14,6 +14,9 @@ SELECT name FROM city
 WHERE id = (SELECT from_city_id FROM line WHERE line.name=?)
 OR id=(SELECT to_city_id FROM line WHERE line.name=?)
 "</string>
+	<string name="query_getcities_from_line">"
+"</string>
+
     <!-- Table names -->
     <string name="db_line_table_name">line</string>
     <string name="db_line_station_table_name">line_station</string>

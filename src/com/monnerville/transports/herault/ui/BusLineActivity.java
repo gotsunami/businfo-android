@@ -34,6 +34,7 @@ import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
+import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
 
 /**
@@ -71,7 +72,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final BusManager manager = XMLBusManager.getInstance();
+        final BusManager manager = SQLBusManager.getInstance();
         BusLine line = manager.getBusLine(mLine);
 
         // Computes all next bus stops
@@ -115,7 +116,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
      */
     @Override
     protected void onPause() {
-        BusManager manager = XMLBusManager.getInstance();
+        BusManager manager = SQLBusManager.getInstance();
         List <BusStation> starredStations = new ArrayList<BusStation>();
         for (int i=0; i < mAdapter.getCount(); i++) {
             Object o = mAdapter.getItem(i);
@@ -236,7 +237,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
-            BusManager manager = XMLBusManager.getInstance();
+            BusManager manager = SQLBusManager.getInstance();
             starredStations = manager.getStarredStations(BusLineActivity.this);
             mDialog = ProgressDialog.show(BusLineActivity.this, "",
                 getString(R.string.pd_loading_bus_schedules), true);

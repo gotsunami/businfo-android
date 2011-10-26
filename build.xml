@@ -37,15 +37,17 @@
     <import file="${sdk.dir}/tools/ant/pre_setup.xml" />
 
     <target name="-pre-build">
+        <!--
         <echo message="Generating lines resource file lines.xml" />
         <exec failonerror="true" executable="./cli/makeres.py">
             <arg value="-g" />
-            <arg value="--gps" />
-            <arg line="--gps-cache cli/gps.csv" />
+            <arg value="-gps" />
+            <arg line="-gps-cache cli/gps.csv" />
             <arg value="cli/raw" />
         </exec>
         <copy file="/tmp/lines.xml" tofile="res/xml/lines.xml"/>
         <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
+        -->
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
         <exec failonerror="true" executable="./cli/gendb.sh"/>
