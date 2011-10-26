@@ -24,3 +24,4 @@ cache
 nbproject
 cli/java/pre.dist
 res/values/revision.xml
+res/values/db.xml

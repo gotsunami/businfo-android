@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- Database setup -->
-	<string name="htdb_onCreate">"
-CREATE TABLE archive (id INTEGER PRIMARY KEY AUTOINCREMENT, full_path TEXT, name TEXT, nb_files INTEGER, size INTEGER, last_position INTEGER, date_added DATE, accessed INTEGER, UNIQUE(full_path), UNIQUE(name));
-CREATE TABLE tag (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, UNIQUE(name));
-CREATE TABLE tag_archive (id INTEGER PRIMARY KEY AUTOINCREMENT, tag_id INTEGER, archive_id INTEGER, archive_position INTEGER, UNIQUE(tag_id, archive_id, archive_position));
-CREATE TRIGGER insert_archive_date_added AFTER INSERT ON archive BEGIN UPDATE archive SET date_added = DATETIME('NOW') WHERE rowid = new.rowid; END;
-INSERT INTO tag (name) VALUES ('Star');
-"</string>
     <!-- Custom queries -->
 	<string name="query_getimagetags">"
 SELECT t.name FROM tag_archive AS ta, archive AS a, tag AS t 
@@ -17,21 +9,15 @@ AND a.full_path=?
 AND a.size=? 
 AND ta.archive_position=?
 "</string>
-	<string name="query_getimagesposfortags">"
-SELECT ta.archive_position FROM tag_archive AS ta, archive AS a, tag AS t 
-WHERE ta.tag_id=t.id 
-AND ta.archive_id=a.id 
-AND a.full_path=? 
-AND a.size=? 
-AND t.name IN (%s)
+	<string name="query_getdirections_from_line">"
+SELECT name FROM city
+WHERE id = (SELECT from_city_id FROM line WHERE line.name=?)
+OR id=(SELECT to_city_id FROM line WHERE line.name=?)
 "</string>
     <!-- Table names -->
-    <string name="db_archive_table_name">archive</string>
-    <string name="db_tag_table_name">tag</string>
-    <string name="db_tag_archive_table_name">tag_archive</string>
-    <string name="db_archive_col_hack">full_path</string>
-    <string name="db_tag_col_hack">name</string>
-    <string name="db_tag_ro_name">Star</string>
-    <string name="db_tag_archive_col_hack">tag_id</string>
-    <string name="db_new_archive_name">My Archive</string>
+    <string name="db_line_table_name">line</string>
+    <string name="db_line_station_table_name">line_station</string>
+    <string name="db_city_table_name">city</string>
+    <string name="db_station_table_name">station</string>
+    <string name="db_stop_table_name">stop</string>
 </resources>

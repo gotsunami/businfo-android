@@ -3,12 +3,13 @@ package com.monnerville.transports.herault.core.sql;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
-import com.monnerville.transports.herault.ui.AllLinesActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +21,28 @@ import java.util.List;
  */
 public class SQLBusManager implements BusManager {
     private static final SQLBusManager INSTANCE = new SQLBusManager();
-    private SQLBusManager() {}
-
-    private Resources mAppResources = null;
-    private int mLinesId;
+    private static HTDatabase mDB;
 
     public static SQLBusManager getInstance() { return INSTANCE; }
+    private SQLBusManager() {
+        mDB = null;
+    }
+
+    /**
+     * Must be called in order to pass the context to the database handler
+     * @param ctx
+     */
+    public void initDB(Context ctx) {
+        if (mDB == null) {
+            mDB = new HTDatabase(ctx);
+            // Actually creates the DB if not existing
+            SQLiteDatabase rdb = mDB.getReadableDatabase();
+            rdb.close();
+        }
+    }
+
+    public SQLiteOpenHelper getDB() { return mDB; }
+
     /**
      * Sets manager application resources
      * @param appRes available application resources
@@ -33,15 +50,14 @@ public class SQLBusManager implements BusManager {
      */
     @Override
     public void setResources(Resources appRes, int resid) {
-        mAppResources = appRes;
-        mLinesId = resid;
     }
 
     @Override
+    /**
+     * Wrapper
+     */
     public List<BusLine> getBusLines() {
-        List<BusLine> lines = new ArrayList<BusLine>();
-        //                XMLBusLine line = new XMLBusLine(xrp.getAttributeValue(null, "id"));
-        return lines;
+        return mDB.getBusLines();
     }
 
     /**
@@ -105,4 +121,5 @@ public class SQLBusManager implements BusManager {
     public void overwriteStarredStations(List<BusStation> stations, Context ctx) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
     }
+
 }

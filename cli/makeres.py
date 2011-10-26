@@ -191,35 +191,35 @@ CREATE TABLE line_station (
 CREATE TRIGGER fki_line_from_city_id
 BEFORE INSERT ON line
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "line" violates foreign key constraint "fk_from_city_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'line' violates foreign key constraint 'fk_from_city_id'")
     WHERE (SELECT id FROM city WHERE id = NEW.from_city_id) IS NULL;
 END;
 
 CREATE TRIGGER fki_line_to_city_id
 BEFORE INSERT ON line
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "line" violates foreign key constraint "fk_to_city_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'line' violates foreign key constraint 'fk_to_city_id'")
     WHERE (SELECT id FROM city WHERE id = NEW.to_city_id) IS NULL;
 END;
 
 CREATE TRIGGER fki_station_city_id
 BEFORE INSERT ON station
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "station" violates foreign key constraint "fk_city_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'station' violates foreign key constraint 'fk_city_id'")
     WHERE (SELECT id FROM city WHERE id = NEW.city_id) IS NULL;
 END;
 
 CREATE TRIGGER fki_line_station_line_id
 BEFORE INSERT ON line_station
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "line_station" violates foreign key constraint "fk_line_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'line_station' violates foreign key constraint 'fk_line_id'")
     WHERE (SELECT id FROM line WHERE id = NEW.line_id) IS NULL;
 END;
 
 CREATE TRIGGER fki_line_station_station_id
 BEFORE INSERT ON line_station
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "line_station" violates foreign key constraint "fk_station_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'line_station' violates foreign key constraint 'fk_station_id'")
     WHERE (SELECT id FROM station WHERE id = NEW.station_id) IS NULL;
 END;
 
@@ -227,7 +227,7 @@ END;
 CREATE TRIGGER fki_line_station_direction_id
 BEFORE INSERT ON line_station
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "line_station" violates foreign key constraint "fk_direction_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'line_station' violates foreign key constraint 'fk_direction_id'")
     WHERE (SELECT id FROM city WHERE id = NEW.direction_id) IS NULL;
 END;
 
@@ -237,28 +237,28 @@ END;
 CREATE TRIGGER fki_stop_station_id
 BEFORE INSERT ON stop
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "stop" violates foreign key constraint "fk_station_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'stop' violates foreign key constraint 'fk_station_id'")
     WHERE (SELECT id FROM station WHERE id = NEW.station_id) IS NULL;
 END;
 
 CREATE TRIGGER fki_stop_line_id
 BEFORE INSERT ON stop
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "stop" violates foreign key constraint "fk_line_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'stop' violates foreign key constraint 'fk_line_id'")
     WHERE (SELECT id FROM line WHERE id = NEW.line_id) IS NULL;
 END;
 
 CREATE TRIGGER fki_stop_direction_id
 BEFORE INSERT ON stop
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "stop" violates foreign key constraint "fk_direction_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'stop' violates foreign key constraint 'fk_direction_id'")
     WHERE (SELECT id FROM city WHERE id = NEW.direction_id) IS NULL;
 END;
 
 CREATE TRIGGER fki_stop_city_id
 BEFORE INSERT ON stop
 BEGIN
-    SELECT RAISE(ROLLBACK, 'insert on table "stop" violates foreign key constraint "fk_city_id"')
+    SELECT RAISE(ROLLBACK, "insert on table 'stop' violates foreign key constraint 'fk_city_id'")
     WHERE (SELECT id FROM city WHERE id = NEW.city_id) IS NULL;
 END;
 """
@@ -497,7 +497,7 @@ Default behaviour is to output XML content. Use --sql to instead
 generate SQL data.""")
     parser.add_option("-d", action="store_true", dest="debug", default=False, help='more debugging')
     parser.add_option("-v", '--verbose', action="store_true", dest="verbose", default=False, help='verbose output')
-    parser.add_option("-g", action="store_true", dest="globalxml", default=False, help='generates global lines.xml')
+    parser.add_option("-g", action="store_true", dest="globalxml", default=False, help='generates global lines.xml or sql.xml')
     parser.add_option("", '--gps', action="store_true", dest="getgps", default=False, help='retreives cities GPS coordinates')
     parser.add_option("", '--gps-cache', action="store", dest="gpscache", default=GPS_CACHE_FILE, 
         help='use gps cache file')
@@ -539,6 +539,9 @@ generate SQL data.""")
             f.write(XML_HEADER)
             f.write('<lines>\n')
             for src in xmls:
+                # FIXME
+                if src.find('db.xml') > 0 or src.find('gps.xml') > 0:
+                    continue
                 s = open(src)
                 f.write(''.join(s.readlines()[2:]) + '\n')
                 f.flush()

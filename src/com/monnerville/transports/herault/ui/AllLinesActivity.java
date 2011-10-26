@@ -35,9 +35,11 @@ import com.monnerville.transports.herault.core.BusStation;
 import java.util.List;
 
 import com.monnerville.transports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.net.ssl.ManagerFactoryParameters;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
@@ -64,8 +66,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         setPrimaryTitle(getString(R.string.app_name));
         //setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
-        BusManager manager = XMLBusManager.getInstance();
-        manager.setResources(getResources(), R.xml.lines);
+        BusManager manager = SQLBusManager.getInstance();
+        new DBCreateOrUpdateTask().execute();
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mDirections = new ArrayList<List<String>>();
@@ -93,14 +95,16 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     @Override
     protected void onResume() {
         super.onResume();
-        updateBookmarks();
+        // FIXME updateBookmarks();
     }
 
     @Override
     protected void onPause() {
+        /** FIXME
         BusManager manager = XMLBusManager.getInstance();
         // Overwrite existing saved stations with the current list
         manager.overwriteStarredStations(mStarredStations, this);
+         * */
         super.onPause();
     }
 
@@ -245,6 +249,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private class DirectionsRetreiverTask extends AsyncTask<List<BusLine>, Void, Void> {
         private List<BusStation> starredStations;
         private ProgressDialog mDialog;
+        private long mStart; // benchmark
 
         @Override
         protected Void doInBackground(List<BusLine>... lis) {
@@ -261,6 +266,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             // Executes on the UI thread
             mDialog = ProgressDialog.show(AllLinesActivity.this, "",
                 getString(R.string.pd_loading_bus_lines), true);
+            mStart = System.currentTimeMillis();
         }
 
         @Override
@@ -268,7 +274,37 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             // Back to the UI thread
             mAdapter.notifyDataSetChanged();
             mDialog.cancel();
+            Log.d("BENCH1", "duration: " + (System.currentTimeMillis() - mStart) + "ms");
         }
     }
 
+    /**
+     * Asynchronous database creating/updating
+     */
+    private class DBCreateOrUpdateTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog mDialog;
+        private long mStart; // benchmark
+
+        @Override
+        protected Void doInBackground(Void... none) {
+            SQLBusManager.getInstance().initDB(AllLinesActivity.this);
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // Executes on the UI thread
+            mDialog = ProgressDialog.show(AllLinesActivity.this, "",
+                getString(R.string.pd_updating_database), true);
+            mStart = System.currentTimeMillis();
+        }
+
+        @Override
+        protected void onPostExecute(Void none) {
+            // Back to the UI thread
+            mAdapter.notifyDataSetChanged();
+            mDialog.cancel();
+            Log.d("BENCH0", "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
+        }
+    }
 }

@@ -6,3 +6,9 @@ where ls.line_id=1
 and ls.direction=63  
 and st.id=ls.station_id 
 order by ls.rank;
+
+#
+SELECT name FROM city 
+WHERE id = (SELECT from_city_id FROM line WHERE line.name='312') 
+OR id=(SELECT to_city_id FROM line WHERE line.name='312');
+

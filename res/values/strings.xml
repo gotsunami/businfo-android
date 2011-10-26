@@ -18,4 +18,5 @@
     <string name="bookmark_menu_title">Bookmark</string>
     <string name="pd_loading_bus_schedules">Loading bus schedules</string>
     <string name="pd_loading_bus_lines">Loading bus lines</string>
+    <string name="pd_updating_database">Updating database, this may take about 30 seconds...</string>
 </resources>
