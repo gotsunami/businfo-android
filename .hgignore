@@ -7,7 +7,7 @@ bin
 cli/java/doc
 cli/java/build
 cli/raw/*.xml
-res/xml/lines.xml
+res/xml/db.xml
 res/xml/gps.xml
 proguard/*.jar
 proguard/*.txt
@@ -24,4 +24,3 @@ cache
 nbproject
 cli/java/pre.dist
 res/values/revision.xml
-res/values/db.xml
