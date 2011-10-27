@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Custom queries -->
+    <!-- FIXME -->
+    <string name="ht_createdb"></string>
 	<string name="query_getimagetags">"
 SELECT t.name FROM tag_archive AS ta, archive AS a, tag AS t 
 WHERE ta.tag_id=t.id 
