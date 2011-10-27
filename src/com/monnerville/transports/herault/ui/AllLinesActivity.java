@@ -73,15 +73,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         mDirections = new ArrayList<List<String>>();
         mStarredStations = new ArrayList<BusStation>();
 
-        List<BusLine> lines = manager.getBusLines();
-        new DirectionsRetreiverTask().execute(lines);
-
-        mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
-            new BusStationActivity.BookmarkStationListAdapter(this, R.layout.bus_line_bookmark_list_item, mStarredStations));
-        mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
-            new LineListAdapter(this, R.layout.all_lines_list_item, lines));
-        setListAdapter(mAdapter);
-
         Button searchButton = (Button)findViewById(R.id.btn_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +82,20 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             }
         });
     }
+
+    private void setupAdapter() {
+        BusManager manager = SQLBusManager.getInstance();
+        List<BusLine> lines = manager.getBusLines();
+        new DirectionsRetreiverTask().execute(lines);
+
+        mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
+            new BusStationActivity.BookmarkStationListAdapter(this,
+                R.layout.bus_line_bookmark_list_item, mStarredStations));
+        mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
+            new LineListAdapter(this, R.layout.all_lines_list_item, lines));
+        setListAdapter(mAdapter);
+    }
+
 
     @Override
     protected void onResume() {
@@ -248,7 +253,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      */
     private class DirectionsRetreiverTask extends AsyncTask<List<BusLine>, Void, Void> {
         private List<BusStation> starredStations;
-        private ProgressDialog mDialog;
         private long mStart; // benchmark
 
         @Override
@@ -264,8 +268,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
-            mDialog = ProgressDialog.show(AllLinesActivity.this, "",
-                getString(R.string.pd_loading_bus_lines), true);
             mStart = System.currentTimeMillis();
         }
 
@@ -273,7 +275,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         protected void onPostExecute(Void none) {
             // Back to the UI thread
             mAdapter.notifyDataSetChanged();
-            mDialog.cancel();
             Log.d("BENCH1", "duration: " + (System.currentTimeMillis() - mStart) + "ms");
         }
     }
@@ -302,9 +303,10 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
-            mAdapter.notifyDataSetChanged();
             mDialog.cancel();
-            Log.d("BENCH0", "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
+            Log.d("BENCH0", "DB create duration: " + (System.currentTimeMillis() - mStart) + "ms");
+            mAdapter.notifyDataSetChanged();
+            setupAdapter();
         }
     }
 }

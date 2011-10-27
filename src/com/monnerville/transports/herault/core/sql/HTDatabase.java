@@ -1,5 +1,7 @@
 package com.monnerville.transports.herault.core.sql;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.List;
 import android.database.sqlite.*;
 import android.database.SQLException;
@@ -103,7 +105,6 @@ class HTDatabase extends SQLiteOpenHelper {
             null,  // No having
             "name" // Order by
         );
-        Log.d("DB", "getBusLines: " + c.getCount());
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
             lines.add(new SQLBusLine(c.getString(0)));

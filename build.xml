@@ -60,7 +60,7 @@
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
         <exec failonerror="true" executable="./cli/gendb.sh"/>
-        <copy file="/tmp/db.xml" tofile="res/xml/db.xml"/>
+        <copy file="/tmp/db.xml" tofile="res/values/db.xml"/>
         <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
     </target>
 
