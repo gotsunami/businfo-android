@@ -67,8 +67,7 @@ public class SQLBusManager implements BusManager {
      */
     @Override
     public BusLine getBusLine(String name) {
-        //                    return new XMLBusLine(name);
-        return null;
+        return new SQLBusLine(name);
     }
 
     /**

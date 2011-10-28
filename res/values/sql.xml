@@ -14,7 +14,23 @@ SELECT name FROM city
 WHERE id = (SELECT from_city_id FROM line WHERE line.name=?)
 OR id=(SELECT to_city_id FROM line WHERE line.name=?)
 "</string>
+<!-- Parameters are not allowed in views -->
+	<string name="query_getcities_from_line_create_view">"
+CREATE VIEW IF NOT EXISTS cities_of_line AS
+SELECT station.city_id AS id FROM line_station, line, station, city
+WHERE line_station.station_id=station.id
+AND line.name=\"%1$s\"
+AND city.name=\"%2$s\"
+AND line.id=line_station.line_id
+AND line_station.direction_id=city.id
+ORDER BY line_station.rank
+"</string>
 	<string name="query_getcities_from_line">"
+SELECT DISTINCT(name) FROM city, cities_of_line AS v
+WHERE city.id=v.id
+"</string>
+	<string name="query_getcities_from_line_drop_view">"
+DROP VIEW cities_of_line
 "</string>
 
     <!-- Table names -->

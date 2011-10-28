@@ -1,5 +1,4 @@
-select ls.id, ls.line_id, st.name from line_station as ls,  station as st where ls.line_id=1 and st.id=ls.station_id order by ls.id;
-
+# Some useful queries 
 
 # Get a line's directions
 
@@ -17,15 +16,18 @@ AND line.id=line_station.line_id
 AND line_station.direction_id=city.id 
 ORDER BY line_station.rank;
 
-# Get all cities of a line with a direction
+# Get all cities of a line (with a direction)
 
-SELECT city.name FROM city
-WHERE city.id in (
-    SELECT station.city_id FROM line_station, line, station, city 
-    WHERE line_station.station_id=station.id 
-    AND line.name="312" 
-    AND city.name="Adissan" 
-    AND line.id=line_station.line_id 
-    AND line_station.direction_id=city.id 
-    ORDER BY line_station.rank
-);
+CREATE VIEW if not exists cities_of_line as 
+SELECT station.city_id FROM line_station, line, station, city
+WHERE line_station.station_id=station.id
+AND line.name="312"
+AND city.name="Adissan"
+AND line.id=line_station.line_id
+AND line_station.direction_id=city.id
+ORDER BY line_station.rank;
+
+SELECT DISTINCT(name) FROM city, city_id_adissan AS v
+WHERE city.id=v.city_id;
+
+DROP VIEW cities_of_line;

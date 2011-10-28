@@ -34,6 +34,8 @@ class HTDatabase extends SQLiteOpenHelper {
 		mContext = context;
 	}
 
+    public Context getContext() { return mContext; }
+
 	/**
 	 * Used for DB creation
 	 *

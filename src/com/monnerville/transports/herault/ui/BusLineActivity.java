@@ -75,6 +75,10 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         final BusManager manager = SQLBusManager.getInstance();
         BusLine line = manager.getBusLine(mLine);
 
+        // DEBUG
+        List<String> cities = line.getCities(mDirection);
+        Log.d("CITIES", "" + cities);
+/*
         // Computes all next bus stops
         Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
         if (!stationsPerCity.isEmpty()) {
@@ -91,6 +95,8 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         else {
             Log.w(TAG, "Direction '" + mDirection + "' not found");
         }
+ *
+ */
 
         Button flipButton = (Button)findViewById(R.id.btn_flip_direction);
         flipButton.setOnClickListener(new View.OnClickListener() {
