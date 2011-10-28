@@ -34,6 +34,14 @@ public class SQLBusLine extends AbstractBusLine {
     @Override
     public List<BusStation> getStations(String direction) {
         List<BusStation> stations = new ArrayList<BusStation>();
+        Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
+            R.string.query_getstations_from_line), new String[] {getName(), direction}
+        );
+        for (int j=0; j < c.getCount(); j++) {
+            c.moveToPosition(j);
+            stations.add(new SQLBusStation(this, c.getString(0), direction, c.getInt(1)));
+        }
+		c.close();
         return stations;
     }
 
@@ -45,20 +53,18 @@ public class SQLBusLine extends AbstractBusLine {
      */
     @Override
     public Map<String, List<BusStation>> getStationsPerCity(String direction) {
-        Map<String, List<BusStation>> stations = new HashMap<String, List<BusStation>>();
-        /*
-        Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(R.string.query_getdirections_from_line),
-			new String[] {line, line}
-        );
-        String[] directions = new String[2];
-        for (int j=0; j < c.getCount(); j++) {
-            c.moveToPosition(j);
-            directions[j] = c.getString(0);
+        Map<String, List<BusStation>> map = new HashMap<String, List<BusStation>>();
+        List<String> cities = getCities(direction);
+        List<BusStation> stations = getStations(direction);
+        for (String city : cities) {
+            map.put(city, new ArrayList<BusStation>());
+            for (BusStation st : stations) {
+                if (st.getCity().equals(city)) {
+                    map.get(city).add(st);
+                }
+            }
         }
-		c.close();
-         *
-         */
-        return stations;
+        return map;
     }
 
     /**

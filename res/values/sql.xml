@@ -32,6 +32,16 @@ WHERE city.id=v.id
 	<string name="query_getcities_from_line_drop_view">"
 DROP VIEW cities_of_line
 "</string>
+	<string name="query_getstations_from_line">"
+SELECT station.name, station.city_id
+FROM line_station, line, station, city
+WHERE line_station.station_id=station.id
+AND line.name=?
+AND city.name=?
+AND line.id=line_station.line_id
+AND line_station.direction_id=city.id
+ORDER BY line_station.rank
+"</string>
 
     <!-- Table names -->
     <string name="db_line_table_name">line</string>
