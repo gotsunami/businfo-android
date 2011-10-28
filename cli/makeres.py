@@ -280,7 +280,7 @@ def makeSQL(sources):
             for data in direct:
                 cities.add(data['city'])
                 stations.add((data['station'], data['city']))
-                lines_stations.add((busline, data['station'], rank, directions[k][-1]['city']))
+                lines_stations.add((busline, data['station'], rank, directions[k][-1]['city'], data['city']))
                 rank += 1
             k += 1
 
@@ -306,7 +306,7 @@ def makeSQL(sources):
             print "Error: city id not found!"
             sys.exit(1)
         print("INSERT INTO station VALUES(%d, \"%s\", 0, 0, %d);" % (pk, st[0].encode('utf-8'), pk_city))
-        pk_stations[st[0].encode('utf-8')] = pk
+        pk_stations[(st[0].encode('utf-8'), pk_city)] = pk
         pk += 1
 
     pk_from = pk_to = 0
@@ -328,7 +328,7 @@ def makeSQL(sources):
             pk, line[0], pk_from, pk_to))
         pk += 1
 
-    pk_line = pk_station = pk_direction = 0
+    pk_line = pk_station = pk_direction = pk_city = 0
     pk = 1
     for ls in lines_stations:
         j = 1
@@ -348,19 +348,16 @@ def makeSQL(sources):
         if pk_direction == 0:
             print "Error: pk_direction is 0!"
             sys.exit(1)
+        for city in cs:
+            if city[1] == ls[4]:
+                pk_city = city[0]
+                break
+        if pk_city == 0:
+            print "Error: pk_city is 0!"
+            sys.exit(1)
         print("INSERT INTO line_station VALUES(%d, %d, %d, %d, %d);" % (
-            pk, pk_line, pk_stations[ls[1].encode('utf-8')], ls[2], pk_direction))
+            pk, pk_line, pk_stations[(ls[1].encode('utf-8'), pk_city)], ls[2], pk_direction))
         pk += 1
-
-#CREATE TABLE stop (
-#    id INTEGER PRIMARY KEY AUTOINCREMENT,
-#    time DATETIME,
-#    circpat TEXT,           -- circulation pattern
-#    station_id INTEGER,
-#    line_id INTEGER,
-#    direction_id INTEGER,    -- city id
-#    UNIQUE (time, station_id, line_id, direciton_id)
-#);
 
     # Handle stops
     k = 1
@@ -369,8 +366,16 @@ def makeSQL(sources):
         for direct in directions:
             for data in direct:
                 for stop in data['stops']:
+                    # City id
+                    city_id = 0
+                    for c in cs:
+                        if data['city'] == c[1]:
+                            city_id = c[0]
+                            break
+                    if city_id == 0:
+                        print "Error: city_id is 0!"
                     # Station id
-                    s_id = pk_stations[data['station'].encode('utf-8')]
+                    s_id = pk_stations[data['station'].encode('utf-8'), city_id]
                     if type(stop) == types.TupleType:
                         st, pat = stop[0], stop[1]
                     else:
@@ -383,14 +388,6 @@ def makeSQL(sources):
                             break
                     if direction_id == 0:
                         print "Error: direction_id is 0!"
-                    # City id
-                    city_id = 0
-                    for c in cs:
-                        if data['city'] == c[1]:
-                            city_id = c[0]
-                            break
-                    if city_id == 0:
-                        print "Error: city_id is 0!"
                     # Line id
                     line_id = 0
                     j = 1
