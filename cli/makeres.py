@@ -27,6 +27,13 @@ FETCH_GPS_URL = """http://maps.googleapis.com/maps/api/geocode/json?address=%s&s
 GPS_CACHE_FILE = 'gps.csv'
 GPS_RSRC_FILE = 'gps.xml'
 g_cities = []
+#
+RAW_DB_FILE = 'htdb.sql'
+RES_DB_FILE = 'htdb.xml'
+CHKSUM_DB_FILE = 'dbversion.xml'
+CHUNK_DB_FILE = 'htdb-chunks.xml'
+CHUNK_PREFIX = 'htdb-chunk'
+CHUNK_SIZE = 256
 
 def get_cities_in_cache(cache_file):
     ccities = []
@@ -133,9 +140,9 @@ def makeXML(busline, directions, outfile):
     print "[%-15s] %-30s (Dir: %d, Cit: %2d, Stations: %2d, Stops: %2d)" % (busline, "Generated %s" % outfile, nbDirections, nbCities, nbStations, nbStops)
     if DEBUG: print directions
 
-def createDB():
+def createDB(out):
     # Create DB structure
-    print """
+    out.write("""
 DROP TABLE IF EXISTS line;
 CREATE TABLE line (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -261,9 +268,9 @@ BEGIN
     SELECT RAISE(ROLLBACK, "insert on table 'stop' violates foreign key constraint 'fk_city_id'")
     WHERE (SELECT id FROM city WHERE id = NEW.city_id) IS NULL;
 END;
-"""
+""")
 
-def makeSQL(sources):
+def makeSQL(sources, out):
     global dfltCirculationPolicy
     global g_cities
 
@@ -292,7 +299,7 @@ def makeSQL(sources):
         pk += 1
 
     for city in cs:
-        print("INSERT INTO city VALUES(%d, \"%s\", 0, 0);" % (city[0], city[1]))
+        out.write("INSERT INTO city VALUES(%d, \"%s\", 0, 0);\n" % (city[0], city[1]))
 
     pk = 1
     pk_city = 0
@@ -305,7 +312,7 @@ def makeSQL(sources):
         if pk_city == 0:
             print "Error: city id not found!"
             sys.exit(1)
-        print("INSERT INTO station VALUES(%d, \"%s\", 0, 0, %d);" % (pk, st[0].encode('utf-8'), pk_city))
+        out.write("INSERT INTO station VALUES(%d, \"%s\", 0, 0, %d);\n" % (pk, st[0].encode('utf-8'), pk_city))
         pk_stations[(st[0].encode('utf-8'), pk_city)] = pk
         pk += 1
 
@@ -324,7 +331,7 @@ def makeSQL(sources):
             print "Error: pk_from(%d) or pk_to(%d) id not found!" % (pk_from, pk_to)
             print "Line: " + str(line)
             sys.exit(1)
-        print("INSERT INTO line VALUES(%d, \"%s\", %d, %d);" % (
+        out.write("INSERT INTO line VALUES(%d, \"%s\", %d, %d);\n" % (
             pk, line[0], pk_from, pk_to))
         pk += 1
 
@@ -355,7 +362,7 @@ def makeSQL(sources):
         if pk_city == 0:
             print "Error: pk_city is 0!"
             sys.exit(1)
-        print("INSERT INTO line_station VALUES(%d, %d, %d, %d, %d);" % (
+        out.write("INSERT INTO line_station VALUES(%d, %d, %d, %d, %d);\n" % (
             pk, pk_line, pk_stations[(ls[1].encode('utf-8'), pk_city)], ls[2], pk_direction))
         pk += 1
 
@@ -399,7 +406,7 @@ def makeSQL(sources):
                     if line_id == 0:
                         print "Error: line_id is 0!"
 
-                    print("INSERT INTO stop VALUES(%d, \"%s\", \"%s\", %d, %d, %d, %d);" % 
+                    out.write("INSERT INTO stop VALUES(%d, \"%s\", \"%s\", %d, %d, %d, %d);\n" % 
                         (k, st, pat, s_id, line_id, direction_id, city_id))
                     k += 1
 
@@ -484,73 +491,214 @@ def parse(infile):
 
     return (busline, directions)
 
+def get_md5(filename):
+    import hashlib
+    ck = open(filename)
+    m = hashlib.md5()
+    while True:
+        data = ck.read(128)
+        if not data:
+            break
+        m.update(data)
+    ck.close()
+    return m.hexdigest()
+
 def main():
     global DEBUG
 
     parser = OptionParser(usage="""
-%prog [-d|-g|--gps|--gps-cache file|--sql] (raw_line.txt|dir)
+%prog [--android|-d|-g|--gps|--gps-cache file] action (raw_line.txt|dir)
 
-Default behaviour is to output XML content. Use --sql to instead
-generate SQL data.""")
+where action is one of:
+  xml    generates XML content from sources
+  sql    generates SQL content from sources""")
+    parser.add_option("", '--android', action="store_true", dest="android", default=False, help='SQL resource formatting for Android [action: sql]')
+    parser.add_option("", '--use-chunks', action="store_true", dest="chunks", default=False, help='Split data in several chunks [action: sql]')
+    parser.add_option("", '--db-compare-with', action="store", dest="dbcompare", default=False, help="compares current database checksum with an external XML file [action: sql]")
+    parser.add_option("", '--chunk-size', type="int", action="store", dest="chunksize", default=False, help="set chunk size in kB [default: %d, action: sql]" % CHUNK_SIZE)
     parser.add_option("-d", action="store_true", dest="debug", default=False, help='more debugging')
     parser.add_option("-v", '--verbose', action="store_true", dest="verbose", default=False, help='verbose output')
-    parser.add_option("-g", action="store_true", dest="globalxml", default=False, help='generates global lines.xml or sql.xml')
+    parser.add_option("-g", action="store_true", dest="globalxml", default=False, help='generates global lines.xml [action: sql]')
     parser.add_option("", '--gps', action="store_true", dest="getgps", default=False, help='retreives cities GPS coordinates')
     parser.add_option("", '--gps-cache', action="store", dest="gpscache", default=GPS_CACHE_FILE, 
-        help='use gps cache file')
-    parser.add_option("", '--sql', action="store_true", dest="sql", default=False, help='generates SQL content only')
+        help="use gps cache file [default: %s]" % GPS_CACHE_FILE)
     options, args = parser.parse_args()
 
-    if len(args) != 1:
+    if len(args) != 2:
         parser.print_usage()
         sys.exit(2)
 
     DEBUG = options.debug
-    infile = args[0]
+    action, infile = args
+    action = action.lower()
+    if action not in ('xml', 'sql'):
+        parser.error("Unsupported action '%s'." % action)
+
+    if options.globalxml and action == 'sql':
+        parser.error("-g and sql action are mutually exclusive!")
+
+    if options.android and action == 'xml':
+        parser.error("--android and xml action are mutually exclusive!")
+
+    if options.chunks and action == 'xml':
+        parser.error("--use-chunks and xml action are mutually exclusive!")
+
+    if options.chunks and not options.android:
+        parser.error("--use-chunks requires the --android option!")
+
+    if options.dbcompare and not options.android:
+        parser.error("--db-compare-with requires the --android option!")
+
     if os.path.isdir(infile):
         sources = glob.glob(os.path.join(infile, '*.txt'))
         sources.sort()
-        if options.sql:
+        if action == 'sql':
             # Grouping all INSERTs in a single transaction really 
             # speeds up the whole thing
-            print "BEGIN TRANSACTION;"
-            createDB()
-            makeSQL(sources)
-            print "END TRANSACTION;"
-            return
+            outname = os.path.join(TMP_DIR, RAW_DB_FILE)
+            print "[%-18s] raw SQL content (for SQLite)..." % outname,
+            sys.stdout.flush()
+            out = open(outname, 'w')
+            out.write("BEGIN TRANSACTION;\n")
+            createDB(out)
+            makeSQL(sources, out)
+            out.write("END TRANSACTION;\n")
+            out.close()
+            print "done."
+            if options.android:
+                rawname = os.path.join(TMP_DIR, RAW_DB_FILE)
+                outname = os.path.join(TMP_DIR, RES_DB_FILE)
+                print "[%-18s] XML DB resource for Android..." % outname,
+                sys.stdout.flush()
+                out = open(outname, 'w')
+                out.write(XML_HEADER)
+                out.write("""
+<resources>
+  <string name="ht_createdb">"
+""")
+                for line in open(rawname): 
+                    if line.startswith('BEGIN TRANSACTION;') or line.startswith('END TRANSACTION;') or line.startswith('END;'):
+                        continue
+                    # Order matters
+                    for pat, sub in (   (r'--.*$', ''), (r'"', '\\"'), (r'$', ' '), 
+                                        (r'IS NULL;', 'IS NULL## END;'), (r'^[ \t]*', ''), 
+                                        (r'\n', ''), (r';', '\n'), (r'##', ';') ):
+                        line = re.sub(pat, sub, line)
+                    out.write(line)
+                out.write("""
+"</string>
+</resources>
+""")
+                out.close()
+                print "done."
 
-        for src in sources:
-            busline, directions = parse(src)
-            ext = '.xml'
-            f = makeXML
-            outfile = os.path.join(TMP_DIR, os.path.basename(src[:src.rfind('.')] + ext))
-            f(busline, directions, outfile)
+                # Writing checksum and version file
+                chkname = os.path.join(TMP_DIR, CHKSUM_DB_FILE)
+                out = open(chkname, 'w')
+                out.write(XML_HEADER)
+                print "[%-18s] making checksum file..." % chkname,
+                sys.stdout.flush()
+                chksum = get_md5(outname)
+                out.write("""
+<resources>
+  <string name="db_checksum">%s</string>
+</resources>
+""" % chksum)
+                out.close()
+                print "done."
 
-        if options.globalxml:
-            dst = os.path.join(TMP_DIR, 'lines.xml')
-            if os.path.exists(dst):
-                os.remove(dst)
-            xmls = glob.glob(os.path.join(TMP_DIR, '*.xml'))
-            xmls.sort()
-            f = open(dst, 'w')
-            f.write(XML_HEADER)
-            f.write('<lines>\n')
-            for src in xmls:
-                # FIXME
-                if src.find('db.xml') > 0 or src.find('gps.xml') > 0:
-                    continue
-                s = open(src)
-                f.write(''.join(s.readlines()[2:]) + '\n')
+                # Check database version against an external XML file?
+                if options.dbcompare:
+                    if not os.path.exists(options.dbcompare):
+                        print "[%-18s] external XML file not found, copying current checksum file..." % 'dbcompare',
+                        sys.stdout.flush()
+                        out = open(options.dbcompare, 'w')
+                        out.write(XML_HEADER)
+                        out.write("""
+<resources>
+  <string name="checksum">%s</string>
+  <string name="old_version">1</string>
+  <string name="version">1</string>
+</resources>
+""" % chksum)
+                        out.close()
+                        print "done."
+                    else:
+                        print "[%-18s] found external XML file, checking DB version..." % 'dbcompare'
+                        old_chksum = old_version = None
+                        for line in open(options.dbcompare):
+                            m = re.search(r'checksum">(.*?)</string>', line)
+                            if m:
+                                old_chksum = m.group(1)
+                            m = re.search(r'"old_version">(.*?)</string>', line)
+                            if m:
+                                old_version = m.group(1)
+                        if old_chksum == None or old_version == None:
+                            print "Error: checksum or old_version is None"
+                            sys.exit(1)
+
+                        if chksum != old_chksum:
+                            print "[%-18s] database changed, incrementing version..." % 'UPGRADE',
+                            new_version = int(old_version) + 2
+                            sys.stdout.flush()
+                            out = open(options.dbcompare, 'w')
+                            out.write(XML_HEADER)
+                            out.write("""
+<resources>
+  <string name="checksum">%s</string>
+  <string name="old_version">%d</string>
+  <string name="version">%d</string>
+</resources>
+""" % (chksum, int(old_version)+1, new_version))
+                            out.close()
+                            print "to v%d. Done." % new_version
+                        else:
+                            print "[%-18s] database NOT updated" % 'IDEM'
+                        print "[%-18s] done." % 'dbcompare'
+
+                # Make chunks of data?
+                if options.chunks:
+                    print "Making chunks..."
+#CHUNK_DB_FILE = 'htdb-chunks.xml'
+#CHUNK_PREFIX = 'htdb-chunk'
+        else:
+            # Action is 'xml'
+            for src in sources:
+                busline, directions = parse(src)
+                ext = '.xml'
+                outfile = os.path.join(TMP_DIR, os.path.basename(src[:src.rfind('.')] + ext))
+                makeXML(busline, directions, outfile)
+
+            if options.globalxml:
+                dst = os.path.join(TMP_DIR, 'lines.xml')
+                if os.path.exists(dst):
+                    os.remove(dst)
+                xmls = glob.glob(os.path.join(TMP_DIR, '*.xml'))
+                xmls.sort()
+                f = open(dst, 'w')
+                f.write(XML_HEADER)
+                f.write('<lines>\n')
+                for src in xmls:
+                    # FIXME
+                    if src.find('db.xml') > 0 or src.find('gps.xml') > 0:
+                        continue
+                    s = open(src)
+                    f.write(''.join(s.readlines()[2:]) + '\n')
+                    f.flush()
+                    s.close()
                 f.flush()
-                s.close()
-            f.flush()
-            f.write('</lines>\n')
-            f.close()
-            print "Generated global %s" % os.path.join(TMP_DIR, 'lines.xml')
+                f.write('</lines>\n')
+                f.close()
+                print "Generated global %s" % os.path.join(TMP_DIR, 'lines.xml')
     else:
-        outfile = infile[:infile.rfind('.')] + '.xml'
-        busline, directions = parse(infile)
-        makeXML(busline, directions, outfile)
+        if action == 'sql':
+            print "Error: does not support one file, only full parent directory"
+            sys.exit(2)
+        else:
+            # xml
+            outfile = infile[:infile.rfind('.')] + '.xml'
+            busline, directions = parse(infile)
+            makeXML(busline, directions, outfile)
 
     if options.getgps:
         print "Getting GPS coordinates of cities ..."
