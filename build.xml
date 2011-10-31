@@ -46,21 +46,17 @@
     />
 
     <target name="-pre-build">
-        <echo message="Generating lines resource file lines.xml" />
-        <exec failonerror="true" executable="./cli/makeres.py">
-            <arg value="-g" />
-            <arg value="--gps" />
-            <arg line="--gps-cache cli/gps.csv" />
-            <arg value="cli/raw" />
-        </exec>
-        <!--
-        <copy file="/tmp/lines.xml" tofile="res/xml/lines.xml"/>
-        <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
-        -->
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
-        <exec failonerror="true" executable="./cli/gendb.sh"/>
-        <copy file="/tmp/db.xml" tofile="res/values/db.xml"/>
+        <exec failonerror="true" executable="./cli/makeres.py">
+            <arg value="sql" />
+            <arg value="cli/raw" />
+            <arg value="--android" />
+            <arg line="--db-compare-with res/values/dbversion.xml" />
+            <arg value="--gps" />
+            <arg line="--gps-cache cli/gps.csv" />
+        </exec>
+        <copy file="/tmp/htdb.xml" tofile="res/values/db.xml"/>
         <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
     </target>
 
