@@ -1,7 +1,6 @@
 package com.monnerville.transports.herault.core;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import java.util.List;
 

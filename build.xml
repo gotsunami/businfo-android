@@ -45,6 +45,7 @@
             unless="sdk.dir"
     />
 
+    <exec executable="tools/makerev.sh"/>
     <target name="-pre-build">
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
