@@ -3,5 +3,5 @@
 
 <resources>
   <string name="dbchecksum">2818e080cbd8564dcd675a80fdf2cce3</string>
-  <string name="dbversion">1</string>
+  <string name="dbversion">3</string>
 </resources>

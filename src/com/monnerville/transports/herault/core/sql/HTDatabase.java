@@ -30,7 +30,7 @@ class HTDatabase extends SQLiteOpenHelper {
 	private static final String mDatePattern = "yyyy-MM-dd HH:mm:ss";
 
 	public HTDatabase(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context, DATABASE_NAME, null, Integer.parseInt(context.getString(R.string.dbversion)));
 		mContext = context;
 	}
 
@@ -42,18 +42,9 @@ class HTDatabase extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-        Log.d("DB", "Creating database");
-		String[] sql = mContext.getString(R.string.ht_createdb).split("\n");
-		db.beginTransaction();
-		try {
-			executeMultiSQL(db, sql);
-			db.setTransactionSuccessful();
-		} catch(SQLException err) {
-			Log.e(TAG, "Error creating database: " + err.getMessage());
-			throw err;
-		} finally {
-			db.endTransaction();
-		}
+        Log.d(TAG, "Creating the database");
+        flushDatabase(db);
+        Log.d(TAG, "Database created.");
 	}
 
 	/**
@@ -62,8 +53,29 @@ class HTDatabase extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d("DB", "Upgrading database");
+        Log.d(TAG, "Upgrading the database to version " + newVersion);
+        flushDatabase(db);
+        Log.d(TAG, "Database updated.");
 	}
+
+    /**
+     * Destroy and recreate most tables.
+     * 
+     * @param db database instance
+     */
+    private void flushDatabase(SQLiteDatabase db) {
+		String[] sql = mContext.getString(R.string.ht_createdb).split("\n");
+		db.beginTransaction();
+		try {
+			executeMultiSQL(db, sql);
+			db.setTransactionSuccessful();
+		} catch(SQLException err) {
+			Log.e(TAG, "Error flushing the database: " + err.getMessage());
+			throw err;
+		} finally {
+			db.endTransaction();
+		}
+    }
 
 	private void executeMultiSQL(SQLiteDatabase db, String[] sql) {
 		for(String s : sql) 
