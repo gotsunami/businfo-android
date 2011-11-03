@@ -13,6 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.lang.reflect.*;
 
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
@@ -64,10 +65,23 @@ class HTDatabase extends SQLiteOpenHelper {
      * @param db database instance
      */
     private void flushDatabase(SQLiteDatabase db) {
-		String[] sql = mContext.getString(R.string.ht_createdb).split("\n");
 		db.beginTransaction();
 		try {
-			executeMultiSQL(db, sql);
+            Class res = Class.forName("R");
+            res.getField(TAG);
+            int chunks = Integer.parseInt(mContext.getString(R.string.numchunks));
+            for (int j=1; j <= chunks; j++) {
+                /*
+                String[] sql = (mContext.getString(R.string.ht_createdb_) +
+                    Integer.toString(j)).split("\n");
+                 *
+                 */
+//                String[] sql = mContext.getString(res.getField("ht_createdb_" + Integer.toString(j)));
+                Field t = res.getField("ht_createdb_1");
+                t.
+
+                executeMultiSQL(db, sql);
+            }
 			db.setTransactionSuccessful();
 		} catch(SQLException err) {
 			Log.e(TAG, "Error flushing the database: " + err.getMessage());
