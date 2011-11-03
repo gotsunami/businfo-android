@@ -9,6 +9,7 @@ Raw text is a copy of the PDF content using evince
 """
 
 import sys, re, types, os.path, glob, tempfile
+import hashlib
 from optparse import OptionParser
 
 DFLT_CIRC_POLICY = '1-6'
@@ -34,115 +35,8 @@ CHKSUM_DB_FILE = 'dbversion.xml'
 CHUNK_DB_FILE = 'htdb-chunks.xml'
 CHUNK_PREFIX = 'htdb-chunk'
 CHUNK_SIZE = 256
-
-def get_cities_in_cache(cache_file):
-    ccities = []
-    try:
-        f = open(cache_file)
-        data = f.readlines()
-        for line in data:
-            ccities.append(line.split(';')[0])
-        f.close()
-    except IOError:
-        print 'No cache found'
-
-    return ccities
-
-def get_gps_coords_from_cache(city, cache_file):
-    try:
-        f = open(cache_file)
-        data = f.readlines()
-        for line in data:
-            k = line[:-1].split(';')
-            c = k[0]
-            if city == c:
-                return map(lambda x: float(x), k[1:])
-        # Not found in cache
-        return float(0), float(0)
-        f.close()
-    except IOError:
-        print 'No cache found'
-        sys.exit(1)
-
-def fetch_gps_coords(city):
-    """
-    Uses Google Geocoding API.
-    See http://code.google.com/intl/fr/apis/maps/documentation/geocoding/
-    """
-    import urllib, urllib2, json
-    lat = lng = 0
-    #print FETCH_GPS_URL % urllib.quote(city + u', France')
-    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(city + u', France'))
-    r = json.loads(s.read())
-    if r['status'] != 'OK':
-        print "Bad status %s, could not get data from city: %s" % (city, r['status'])
-    else:
-        gps = r['results'][0]['geometry']['location']
-        lat, lng = gps['lat'], gps['lng']
-
-    return lat, lng
-
-def makeXML(busline, directions, outfile):
-    global dfltCirculationPolicy
-    global g_cities
-
-    try:
-        f = open(outfile, 'w')
-    except IOError, e:
-        print "Error: %s" % e
-        sys.exit(1)
-
-    nbDirections = 0
-    nbCities = 0
-    nbStations = 0
-    nbStops = 0
-    # Used to count distinct entries
-    tmpCities = tmpStations = []
-
-    f.write(XML_HEADER)
-    f.write("""<line id="%s">\n""" % busline)
-    for data in directions:
-        curDirection = data[-1]['city']
-        f.write(' ' * INDENT + """<direction id="%s" c="%s">\n""" % (curDirection.encode('utf-8'), dfltCirculationPolicy))
-        curCity = None
-        for station in data:
-            city = station['city']
-            if city != curCity:
-                if curCity != None:
-                    f.write(' ' *2*INDENT + "</city>\n")
-                f.write(' ' *2*INDENT + """<city id="%s">\n""" % city.encode('utf-8'))
-                if city not in tmpCities:
-                    tmpCities.append(city)
-                    nbCities += 1
-                curCity = city
-                if city not in g_cities:
-                    g_cities.append(city)
-            f.write(' ' *3*INDENT + """<station id="%s">\n""" % station['station'].encode('utf-8'))
-            for stop in station['stops']:
-                if type(stop) == types.TupleType:
-                    f.write(' ' *4*INDENT + """<s t="%s" c="%s"/>\n""" % (stop[0], stop[1]))
-                else:
-                    f.write(' ' *4*INDENT + """<s t="%s"/>\n""" % stop)
-                
-                nbStops += 1
-            f.write(' ' *3*INDENT + "</station>\n")
-            if station['station'] not in tmpStations:
-                tmpStations.append(station['station'])
-                nbStations += 1
-        f.flush()
-        f.write(' ' *2*INDENT + "</city>\n")
-        f.write(' ' * INDENT + "</direction>\n")
-        nbDirections += 1
-    f.write("</line>")
-    f.close()
-
-    g_cities.sort()
-    print "[%-15s] %-30s (Dir: %d, Cit: %2d, Stations: %2d, Stops: %2d)" % (busline, "Generated %s" % outfile, nbDirections, nbCities, nbStations, nbStops)
-    if DEBUG: print directions
-
-def createDB(out):
-    # Create DB structure
-    out.write("""
+#
+DBSTRUCT = """
 DROP TABLE IF EXISTS line;
 CREATE TABLE line (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -268,7 +162,112 @@ BEGIN
     SELECT RAISE(ROLLBACK, "insert on table 'stop' violates foreign key constraint 'fk_city_id'")
     WHERE (SELECT id FROM city WHERE id = NEW.city_id) IS NULL;
 END;
-""")
+"""
+
+def get_cities_in_cache(cache_file):
+    ccities = []
+    try:
+        f = open(cache_file)
+        data = f.readlines()
+        for line in data:
+            ccities.append(line.split(';')[0])
+        f.close()
+    except IOError:
+        print 'No cache found'
+
+    return ccities
+
+def get_gps_coords_from_cache(city, cache_file):
+    try:
+        f = open(cache_file)
+        data = f.readlines()
+        for line in data:
+            k = line[:-1].split(';')
+            c = k[0]
+            if city == c:
+                return map(lambda x: float(x), k[1:])
+        # Not found in cache
+        return float(0), float(0)
+        f.close()
+    except IOError:
+        print 'No cache found'
+        sys.exit(1)
+
+def fetch_gps_coords(city):
+    """
+    Uses Google Geocoding API.
+    See http://code.google.com/intl/fr/apis/maps/documentation/geocoding/
+    """
+    import urllib, urllib2, json
+    lat = lng = 0
+    #print FETCH_GPS_URL % urllib.quote(city + u', France')
+    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(city + u', France'))
+    r = json.loads(s.read())
+    if r['status'] != 'OK':
+        print "Bad status %s, could not get data from city: %s" % (city, r['status'])
+    else:
+        gps = r['results'][0]['geometry']['location']
+        lat, lng = gps['lat'], gps['lng']
+
+    return lat, lng
+
+def makeXML(busline, directions, outfile):
+    global dfltCirculationPolicy
+    global g_cities
+
+    try:
+        f = open(outfile, 'w')
+    except IOError, e:
+        print "Error: %s" % e
+        sys.exit(1)
+
+    nbDirections = 0
+    nbCities = 0
+    nbStations = 0
+    nbStops = 0
+    # Used to count distinct entries
+    tmpCities = tmpStations = []
+
+    f.write(XML_HEADER)
+    f.write("""<line id="%s">\n""" % busline)
+    for data in directions:
+        curDirection = data[-1]['city']
+        f.write(' ' * INDENT + """<direction id="%s" c="%s">\n""" % (curDirection.encode('utf-8'), dfltCirculationPolicy))
+        curCity = None
+        for station in data:
+            city = station['city']
+            if city != curCity:
+                if curCity != None:
+                    f.write(' ' *2*INDENT + "</city>\n")
+                f.write(' ' *2*INDENT + """<city id="%s">\n""" % city.encode('utf-8'))
+                if city not in tmpCities:
+                    tmpCities.append(city)
+                    nbCities += 1
+                curCity = city
+                if city not in g_cities:
+                    g_cities.append(city)
+            f.write(' ' *3*INDENT + """<station id="%s">\n""" % station['station'].encode('utf-8'))
+            for stop in station['stops']:
+                if type(stop) == types.TupleType:
+                    f.write(' ' *4*INDENT + """<s t="%s" c="%s"/>\n""" % (stop[0], stop[1]))
+                else:
+                    f.write(' ' *4*INDENT + """<s t="%s"/>\n""" % stop)
+                
+                nbStops += 1
+            f.write(' ' *3*INDENT + "</station>\n")
+            if station['station'] not in tmpStations:
+                tmpStations.append(station['station'])
+                nbStations += 1
+        f.flush()
+        f.write(' ' *2*INDENT + "</city>\n")
+        f.write(' ' * INDENT + "</direction>\n")
+        nbDirections += 1
+    f.write("</line>")
+    f.close()
+
+    g_cities.sort()
+    print "[%-15s] %-30s (Dir: %d, Cit: %2d, Stations: %2d, Stops: %2d)" % (busline, "Generated %s" % outfile, nbDirections, nbCities, nbStations, nbStops)
+    if DEBUG: print directions
 
 def makeSQL(sources, out):
     global dfltCirculationPolicy
@@ -492,7 +491,6 @@ def parse(infile):
     return (busline, directions)
 
 def get_md5(filename):
-    import hashlib
     ck = open(filename)
     m = hashlib.md5()
     while True:
@@ -502,6 +500,24 @@ def get_md5(filename):
         m.update(data)
     ck.close()
     return m.hexdigest()
+
+def compute_db_checksum(srcdir):
+    """
+    Checksum of the database is performed using a global checksum of 
+    all the raw/*.txt file and the DBSTRUCT content. It's supposed to 
+    be a portable solution between different Python versions. Indeed, 
+    different Python versions could handle ordering of elements in 
+    Set() in different ways, thus making issues when creating cheksums 
+    against the generated .sql or .xml file. It's better to operate 
+    directly on source files.
+    """
+    sources = glob.glob(os.path.join(srcdir, '*.txt'))
+    sources.sort()
+    final = hashlib.md5()
+    final.update(DBSTRUCT)
+    for src in sources:
+        final.update(get_md5(src))
+    return final.hexdigest()
 
 def main():
     global DEBUG
@@ -560,7 +576,7 @@ where action is one of:
             sys.stdout.flush()
             out = open(outname, 'w')
             out.write("BEGIN TRANSACTION;\n")
-            createDB(out)
+            out.write(DBSTRUCT)
             makeSQL(sources, out)
             out.write("END TRANSACTION;\n")
             out.close()
@@ -598,7 +614,8 @@ where action is one of:
                 out.write(XML_HEADER)
                 print "[%-18s] making checksum file..." % chkname,
                 sys.stdout.flush()
-                chksum = get_md5(rawname)
+                # TODO chksum = get_md5(rawname)
+                chksum = compute_db_checksum(infile)
                 out.write("""
 <resources>
   <string name="checksum">%s</string>
