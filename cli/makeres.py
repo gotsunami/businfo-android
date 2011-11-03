@@ -598,10 +598,10 @@ where action is one of:
                 out.write(XML_HEADER)
                 print "[%-18s] making checksum file..." % chkname,
                 sys.stdout.flush()
-                chksum = get_md5(outname)
+                chksum = get_md5(rawname)
                 out.write("""
 <resources>
-  <string name="db_checksum">%s</string>
+  <string name="checksum">%s</string>
 </resources>
 """ % chksum)
                 out.close()
@@ -617,7 +617,6 @@ where action is one of:
                         out.write("""
 <resources>
   <string name="checksum">%s</string>
-  <string name="old_version">1</string>
   <string name="version">1</string>
 </resources>
 """ % chksum)
@@ -630,26 +629,28 @@ where action is one of:
                             m = re.search(r'checksum">(.*?)</string>', line)
                             if m:
                                 old_chksum = m.group(1)
-                            m = re.search(r'"old_version">(.*?)</string>', line)
+                            m = re.search(r'"version">(.*?)</string>', line)
                             if m:
                                 old_version = m.group(1)
-                        if old_chksum == None or old_version == None:
-                            print "Error: checksum or old_version is None"
+                        if old_version == None:
+                            print "Error: version is None"
+                            sys.exit(1)
+                        if old_chksum == None:
+                            print "Error: checksum is None"
                             sys.exit(1)
 
                         if chksum != old_chksum:
                             print "[%-18s] database changed, incrementing version..." % 'UPGRADE',
-                            new_version = int(old_version) + 2
+                            new_version = int(old_version) + 1
                             sys.stdout.flush()
                             out = open(options.dbcompare, 'w')
                             out.write(XML_HEADER)
                             out.write("""
 <resources>
   <string name="checksum">%s</string>
-  <string name="old_version">%d</string>
   <string name="version">%d</string>
 </resources>
-""" % (chksum, int(old_version)+1, new_version))
+""" % (chksum, new_version))
                             out.close()
                             print "to v%d. Done." % new_version
                         else:
