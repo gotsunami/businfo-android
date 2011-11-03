@@ -2,7 +2,6 @@
 <!-- GENERATED AUTOMATICALLY BY THE makeres.py SCRIPT. DO NOT MODIFY! -->
 
 <resources>
-  <string name="checksum">b98e99bd462358864d462678a739035a</string>
-  <string name="old_version">1</string>
-  <string name="version">1</string>
+  <string name="checksum">ca7a80a8be3df84b26e8054aaa86ebd9</string>
+  <string name="version">4</string>
 </resources>
