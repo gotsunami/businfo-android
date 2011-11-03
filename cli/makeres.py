@@ -618,7 +618,7 @@ where action is one of:
                 chksum = compute_db_checksum(infile)
                 out.write("""
 <resources>
-  <string name="checksum">%s</string>
+  <string name="dbchecksum">%s</string>
 </resources>
 """ % chksum)
                 out.close()
@@ -633,8 +633,8 @@ where action is one of:
                         out.write(XML_HEADER)
                         out.write("""
 <resources>
-  <string name="checksum">%s</string>
-  <string name="version">1</string>
+  <string name="dbchecksum">%s</string>
+  <string name="dbversion">1</string>
 </resources>
 """ % chksum)
                         out.close()
@@ -643,17 +643,17 @@ where action is one of:
                         print "[%-18s] found external XML file, checking DB version..." % 'dbcompare'
                         old_chksum = old_version = None
                         for line in open(options.dbcompare):
-                            m = re.search(r'checksum">(.*?)</string>', line)
+                            m = re.search(r'"dbchecksum">(.*?)</string>', line)
                             if m:
                                 old_chksum = m.group(1)
-                            m = re.search(r'"version">(.*?)</string>', line)
+                            m = re.search(r'"dbversion">(.*?)</string>', line)
                             if m:
                                 old_version = m.group(1)
                         if old_version == None:
-                            print "Error: version is None"
+                            print "Error: dbversion is None"
                             sys.exit(1)
                         if old_chksum == None:
-                            print "Error: checksum is None"
+                            print "Error: dbchecksum is None"
                             sys.exit(1)
 
                         if chksum != old_chksum:
@@ -664,8 +664,8 @@ where action is one of:
                             out.write(XML_HEADER)
                             out.write("""
 <resources>
-  <string name="checksum">%s</string>
-  <string name="version">%d</string>
+  <string name="dbchecksum">%s</string>
+  <string name="dbversion">%d</string>
 </resources>
 """ % (chksum, new_version))
                             out.close()
