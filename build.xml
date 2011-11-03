@@ -57,7 +57,14 @@
             <arg value="--gps" />
             <arg line="--gps-cache cli/gps.csv" />
         </exec>
-        <copy file="/tmp/htdb.xml" tofile="res/values/db.xml"/>
+        <!--
+        <copy file="/tmp/htdb-chunk-*.xml" todir="res/values/"/>
+        -->
+        <copy todir="res/values/">
+            <fileset dir="/tmp">
+                <include name="**/htdb-chunk*.xml"/>
+            </fileset>
+        </copy>
         <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
     </target>
 

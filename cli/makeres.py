@@ -30,11 +30,10 @@ GPS_RSRC_FILE = 'gps.xml'
 g_cities = []
 #
 RAW_DB_FILE = 'htdb.sql'
-RES_DB_FILE = 'htdb.xml'
 CHKSUM_DB_FILE = 'dbversion.xml'
 CHUNK_DB_FILE = 'htdb-chunks.xml'
 CHUNK_PREFIX = 'htdb-chunk'
-CHUNK_SIZE = 256
+CHUNK_SIZE = 256 * 1024
 #
 DBSTRUCT = """
 DROP TABLE IF EXISTS line;
@@ -519,6 +518,65 @@ def compute_db_checksum(srcdir):
         final.update(get_md5(src))
     return final.hexdigest()
 
+def make_chunks(rawname, chunksize=0):
+    """
+    Only one chunk if chunksize is null.
+    Returns the number of chunks created.
+    """
+    size = os.path.getsize(rawname)
+    chunk = 1
+    num_chunks = 1
+    if chunksize > 0:
+        num_chunks = size / chunksize
+        if size % chunksize > 0:
+            num_chunks += 1
+
+    outname = os.path.join(TMP_DIR, "%s-%d.xml" % (CHUNK_PREFIX, chunk))
+    print "[%-18s] new chunk file %s..." % ("chunk %02d" % chunk, outname),
+    out = open(outname, 'w')
+    out.write(XML_HEADER)
+    seek = 0
+    out.write("""
+<resources>
+<string name="ht_createdb_%d">"
+""" % chunk)
+    for line in open(rawname): 
+        if line.startswith('BEGIN TRANSACTION;') or line.startswith('END TRANSACTION;') or line.startswith('END;'):
+            continue
+        # Order matters
+        for pat, sub in (   (r'--.*$', ''), (r'"', '\\"'), (r'$', ' '), 
+                            (r'IS NULL;', 'IS NULL## END;'), (r'^[ \t]*', ''), 
+                            (r'\n', ''), (r';', '\n'), (r'##', ';') ):
+            line = re.sub(pat, sub, line)
+        out.write(line)
+        seek += len(line)
+        if chunksize > 0 and seek > chunksize:
+            seek = 0
+            chunk += 1
+            out.write("""
+"</string>
+</resources>
+""")
+            out.close()
+            print "done."
+
+            # New chunk
+            outname = os.path.join(TMP_DIR, "%s-%d.xml" % (CHUNK_PREFIX, chunk))
+            print "[%-18s] new chunk file %s..." % ("chunk %02d" % chunk, outname),
+            out = open(outname, 'w')
+            out.write(XML_HEADER)
+            out.write("""
+<resources>
+<string name="ht_createdb_%d">"
+""" % chunk)
+    out.write("""
+"</string>
+</resources>
+""")
+    out.close()
+    print "done."
+    return num_chunks
+
 def main():
     global DEBUG
 
@@ -531,7 +589,7 @@ where action is one of:
     parser.add_option("", '--android', action="store_true", dest="android", default=False, help='SQL resource formatting for Android [action: sql]')
     parser.add_option("", '--use-chunks', action="store_true", dest="chunks", default=False, help='Split data in several chunks [action: sql]')
     parser.add_option("", '--db-compare-with', action="store", dest="dbcompare", default=False, help="compares current database checksum with an external XML file [action: sql]")
-    parser.add_option("", '--chunk-size', type="int", action="store", dest="chunksize", default=False, help="set chunk size in kB [default: %d, action: sql]" % CHUNK_SIZE)
+    parser.add_option("", '--chunk-size', type="int", action="store", dest="chunksize", default=CHUNK_SIZE, help="set chunk size in kB [default: %d, action: sql]" % CHUNK_SIZE)
     parser.add_option("-d", action="store_true", dest="debug", default=False, help='more debugging')
     parser.add_option("-v", '--verbose', action="store_true", dest="verbose", default=False, help='verbose output')
     parser.add_option("-g", action="store_true", dest="globalxml", default=False, help='generates global lines.xml [action: sql]')
@@ -583,30 +641,11 @@ where action is one of:
             print "done."
             if options.android:
                 rawname = os.path.join(TMP_DIR, RAW_DB_FILE)
-                outname = os.path.join(TMP_DIR, RES_DB_FILE)
-                print "[%-18s] XML DB resource for Android..." % outname,
+                print "[%-18s] XML DB resource for Android..." % 'chunks'
                 sys.stdout.flush()
-                out = open(outname, 'w')
-                out.write(XML_HEADER)
-                out.write("""
-<resources>
-  <string name="ht_createdb">"
-""")
-                for line in open(rawname): 
-                    if line.startswith('BEGIN TRANSACTION;') or line.startswith('END TRANSACTION;') or line.startswith('END;'):
-                        continue
-                    # Order matters
-                    for pat, sub in (   (r'--.*$', ''), (r'"', '\\"'), (r'$', ' '), 
-                                        (r'IS NULL;', 'IS NULL## END;'), (r'^[ \t]*', ''), 
-                                        (r'\n', ''), (r';', '\n'), (r'##', ';') ):
-                        line = re.sub(pat, sub, line)
-                    out.write(line)
-                out.write("""
-"</string>
-</resources>
-""")
-                out.close()
-                print "done."
+                # Only one chunk
+                num_chunks = make_chunks(rawname, options.chunksize)
+                print "[%-18s] done, wrote %d chunk(s)" % ('chunks', num_chunks)
 
                 # Writing checksum and version file
                 chkname = os.path.join(TMP_DIR, CHKSUM_DB_FILE)
@@ -619,8 +658,9 @@ where action is one of:
                 out.write("""
 <resources>
   <string name="dbchecksum">%s</string>
+  <string name="numchunks">%d</string>
 </resources>
-""" % chksum)
+""" % (chksum, num_chunks))
                 out.close()
                 print "done."
 
@@ -633,10 +673,11 @@ where action is one of:
                         out.write(XML_HEADER)
                         out.write("""
 <resources>
+  <string name="numchunks">%d</string>
   <string name="dbchecksum">%s</string>
   <string name="dbversion">1</string>
 </resources>
-""" % chksum)
+""" % (num_chunks, chksum))
                         out.close()
                         print "done."
                     else:
@@ -664,10 +705,11 @@ where action is one of:
                             out.write(XML_HEADER)
                             out.write("""
 <resources>
+  <string name="numchunks">%d</string>
   <string name="dbchecksum">%s</string>
   <string name="dbversion">%d</string>
 </resources>
-""" % (chksum, new_version))
+""" % (num_chunks, chksum, new_version))
                             out.close()
                             print "to v%d. Done." % new_version
                         else:
