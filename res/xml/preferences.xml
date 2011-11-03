@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:key="root_pref"
+	android:title="@string/menu_preferences"
+	android:summary="Main preferences for application">
+	<PreferenceCategory
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:key="cat_about"
+		android:title="@string/cat_about_title"
+		android:summary="@string/cat_about_sum">
+		<Preference
+			android:key="pref_about_about"
+			android:title="@string/pref_about_about_title"/>
+            <!--
+		<Preference
+			android:key="pref_about_release_notes"
+			android:title="@string/pref_about_release_notes_title"/>
+            -->
+		<Preference
+			android:key="pref_about_changelog"
+			android:title="@string/pref_about_changelog_title"/>
+            <!--
+		<com.monnerville.fotostop.EULADialogPreference
+			android:key="pref_terms"
+			android:title="@string/pref_terms_title"
+			android:summary="@string/pref_terms_sum"
+			android:dialogMessage="@string/terms_content"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/license"
+			android:dialogTitle="@string/terms_title"/>
+            -->
+		<Preference
+			android:key="pref_about_version"
+			android:title="@string/pref_about_title"
+			android:enabled="false"
+			android:summary="@string/app_version" />
+		<Preference
+			android:key="pref_about_db_version"
+			android:title="@string/pref_about_db_version_title"
+			android:summary="@string/dbversion"
+			android:enabled="false" />
+		<Preference
+			android:key="pref_about_build"
+			android:title="@string/pref_about_build_title"
+			android:enabled="false"
+			android:summary="@string/app_revision" />
+		<Preference
+			android:key="pref_author"
+			android:title="@string/pref_author_title"
+			android:enabled="false"
+			android:summary="@string/app_author" />
+	</PreferenceCategory>
+</PreferenceScreen> 

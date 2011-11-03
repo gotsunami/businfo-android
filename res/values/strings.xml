@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Hérault Transports</string>
     <string name="lines_activity_title">Hérault Transports - Bus Lines</string>
     <string name="busline_activity_title">Bus line</string>
     <string name="no_more_stop">No more stop today</string>
@@ -19,4 +18,16 @@
     <string name="pd_loading_bus_schedules">Loading bus schedules</string>
     <string name="pd_loading_bus_lines">Loading bus lines</string>
     <string name="pd_updating_database">Updating database, this may take about 30 seconds...</string>
+
+    <string name="menu_settings_title">Settings</string>
+    <string name="menu_preferences">Settings</string>
+    <string name="cat_about_title">About</string>
+    <string name="cat_about_sum">About application</string>
+    <string name="pref_about_title">Version</string>
+    <string name="pref_about_build_title">Build number</string>
+    <string name="pref_author_title">Author</string>
+    <string name="pref_about_about_title">About</string>
+    <string name="pref_about_changelog_title">ChangeLog</string>
+    <string name="pref_about_changelog_summary">"See what's new in this version"</string>
+    <string name="pref_about_db_version_title">Database Version</string>
 </resources>

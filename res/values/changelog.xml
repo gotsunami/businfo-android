@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- DO NOT TRANSLATE THE FOLLOWING -->
+	<!-- Application credits -->
+    <string name="app_name">Hérault Transports</string>
+    <string name="short_app_name">Herault Transport</string>
+    <string name="app_version">0.9</string>
+    <string name="app_author">Mathias Monnerville</string>
+	<string name="app_changelog">"
+<b>0.9</b>:\n
+  - First public release\n
+"</string>
+</resources>
