@@ -7,7 +7,6 @@ bin
 cli/java/doc
 cli/java/build
 cli/raw/*.xml
-res/values/db.xml
 res/xml/gps.xml
 proguard/*.jar
 proguard/*.txt

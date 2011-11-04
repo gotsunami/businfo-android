@@ -67,9 +67,8 @@ class HTDatabase extends SQLiteOpenHelper {
     private void flushDatabase(SQLiteDatabase db) {
 		db.beginTransaction();
 		try {
-            Class res = Class.forName("R");
-            res.getField(TAG);
             int chunks = Integer.parseInt(mContext.getString(R.string.numchunks));
+            mContext.getResources().getXml(R.xml.htdb_chunk_1);
             for (int j=1; j <= chunks; j++) {
                 /*
                 String[] sql = (mContext.getString(R.string.ht_createdb_) +
@@ -77,10 +76,7 @@ class HTDatabase extends SQLiteOpenHelper {
                  *
                  */
 //                String[] sql = mContext.getString(res.getField("ht_createdb_" + Integer.toString(j)));
-                Field t = res.getField("ht_createdb_1");
-                t.
-
-                executeMultiSQL(db, sql);
+                //executeMultiSQL(db, sql);
             }
 			db.setTransactionSuccessful();
 		} catch(SQLException err) {

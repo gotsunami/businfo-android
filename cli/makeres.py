@@ -32,7 +32,7 @@ g_cities = []
 RAW_DB_FILE = 'htdb.sql'
 CHKSUM_DB_FILE = 'dbversion.xml'
 CHUNK_DB_FILE = 'htdb-chunks.xml'
-CHUNK_PREFIX = 'htdb-chunk'
+CHUNK_PREFIX = 'htdb_chunk'
 CHUNK_SIZE = 256 * 1024
 #
 DBSTRUCT = """
@@ -531,7 +531,7 @@ def make_chunks(rawname, chunksize=0):
         if size % chunksize > 0:
             num_chunks += 1
 
-    outname = os.path.join(TMP_DIR, "%s-%d.xml" % (CHUNK_PREFIX, chunk))
+    outname = os.path.join(TMP_DIR, "%s_%d.xml" % (CHUNK_PREFIX, chunk))
     print "[%-18s] new chunk file %s..." % ("chunk %02d" % chunk, outname),
     out = open(outname, 'w')
     out.write(XML_HEADER)
@@ -561,7 +561,7 @@ def make_chunks(rawname, chunksize=0):
             print "done."
 
             # New chunk
-            outname = os.path.join(TMP_DIR, "%s-%d.xml" % (CHUNK_PREFIX, chunk))
+            outname = os.path.join(TMP_DIR, "%s_%d.xml" % (CHUNK_PREFIX, chunk))
             print "[%-18s] new chunk file %s..." % ("chunk %02d" % chunk, outname),
             out = open(outname, 'w')
             out.write(XML_HEADER)
