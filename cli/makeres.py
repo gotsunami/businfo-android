@@ -33,7 +33,7 @@ RAW_DB_FILE = 'htdb.sql'
 CHKSUM_DB_FILE = 'dbversion.xml'
 CHUNK_DB_FILE = 'htdb-chunks.xml'
 CHUNK_PREFIX = 'htdb_chunk'
-CHUNK_SIZE = 256 * 1024
+CHUNK_SIZE = 192 * 1024
 #
 DBSTRUCT = """
 DROP TABLE IF EXISTS line;
@@ -537,14 +537,14 @@ def make_chunks(rawname, chunksize=0):
     out.write(XML_HEADER)
     seek = 0
     out.write("""
-<resources>
-<string name="ht_createdb_%d">"
-""" % chunk)
+<string name="ht_createdb">
+""")
     for line in open(rawname): 
         if line.startswith('BEGIN TRANSACTION;') or line.startswith('END TRANSACTION;') or line.startswith('END;'):
             continue
         # Order matters
-        for pat, sub in (   (r'--.*$', ''), (r'"', '\\"'), (r'$', ' '), 
+        #for pat, sub in (   (r'--.*$', ''), (r'"', '\\"'), (r'$', ' '), 
+        for pat, sub in (   (r'--.*$', ''), (r'$', ' '), 
                             (r'IS NULL;', 'IS NULL## END;'), (r'^[ \t]*', ''), 
                             (r'\n', ''), (r';', '\n'), (r'##', ';') ):
             line = re.sub(pat, sub, line)
@@ -554,8 +554,7 @@ def make_chunks(rawname, chunksize=0):
             seek = 0
             chunk += 1
             out.write("""
-"</string>
-</resources>
+</string>
 """)
             out.close()
             print "done."
@@ -566,12 +565,10 @@ def make_chunks(rawname, chunksize=0):
             out = open(outname, 'w')
             out.write(XML_HEADER)
             out.write("""
-<resources>
-<string name="ht_createdb_%d">"
-""" % chunk)
+<string name="ht_createdb">
+""")
     out.write("""
-"</string>
-</resources>
+</string>
 """)
     out.close()
     print "done."

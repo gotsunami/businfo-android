@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.core.sql;
 
+import org.xmlpull.v1.XmlPullParser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
@@ -7,17 +8,16 @@ import android.database.sqlite.*;
 import android.database.SQLException;
 import android.database.Cursor;
 import android.content.*;
+import android.content.res.XmlResourceParser;
 import android.util.Log;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.lang.reflect.*;
 
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import static com.monnerville.transports.herault.core.Application.TAG;
+import org.xmlpull.v1.XmlPullParserException;
 
 
 /**
@@ -68,23 +68,54 @@ class HTDatabase extends SQLiteOpenHelper {
 		db.beginTransaction();
 		try {
             int chunks = Integer.parseInt(mContext.getString(R.string.numchunks));
-            mContext.getResources().getXml(R.xml.htdb_chunk_1);
+            XmlResourceParser xrp;
             for (int j=1; j <= chunks; j++) {
-                /*
-                String[] sql = (mContext.getString(R.string.ht_createdb_) +
-                    Integer.toString(j)).split("\n");
-                 *
-                 */
-//                String[] sql = mContext.getString(res.getField("ht_createdb_" + Integer.toString(j)));
-                //executeMultiSQL(db, sql);
+                xrp = getXMLParserResourceByName("htdb_chunk_" + Integer.toString(j));
+                boolean found = false;
+                while (xrp.getEventType() != XmlPullParser.END_DOCUMENT) {
+                    if (xrp.getEventType() == XmlPullParser.START_TAG) {
+                        String s = xrp.getName();
+                        if (s.equals("string")) {
+                            String name = xrp.getAttributeValue(null, "name");
+                            if (name.equals("ht_createdb")) {
+                                found = true;
+                            }
+                        }
+                    } else if (xrp.getEventType() == XmlPullParser.TEXT && found) {
+                        Log.d(TAG, "Processing chunk " + j);
+                        String sql[] = xrp.getText().split("\n");
+                        executeMultiSQL(db, sql);
+                    }
+                    xrp.next();
+                }
+                xrp.close();
             }
 			db.setTransactionSuccessful();
-		} catch(SQLException err) {
+		} catch (IOException ex) {
+            Logger.getLogger(HTDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (XmlPullParserException ex) {
+            Logger.getLogger(HTDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(SQLException err) {
 			Log.e(TAG, "Error flushing the database: " + err.getMessage());
 			throw err;
 		} finally {
 			db.endTransaction();
 		}
+    }
+
+    /**
+     * Gets string resource by name
+     */
+    private String getStringResourceByName(String str) {
+        String packageName = "com.monnerville.transports.herault";
+        int resId = mContext.getResources().getIdentifier(str, "string", packageName);
+        return mContext.getString(resId);
+    }
+
+    private XmlResourceParser getXMLParserResourceByName(String str) {
+        String packageName = "com.monnerville.transports.herault";
+        int resId = mContext.getResources().getIdentifier(str, "xml", packageName);
+        return mContext.getResources().getXml(resId);
     }
 
 	private void executeMultiSQL(SQLiteDatabase db, String[] sql) {
