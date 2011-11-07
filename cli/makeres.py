@@ -277,17 +277,22 @@ def makeSQL(sources, out):
     lines = set()
     lines_stations = set()
     for src in sources:
-        busline, directions = parse(src)
-        lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city']))
-        k = 0
-        for direct in directions:
-            rank = 1
-            for data in direct:
-                cities.add(data['city'])
-                stations.add((data['station'], data['city']))
-                lines_stations.add((busline, data['station'], rank, directions[k][-1]['city'], data['city']))
-                rank += 1
-            k += 1
+        try:
+            busline, directions = parse(src)
+            lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city']))
+            k = 0
+            for direct in directions:
+                rank = 1
+                for data in direct:
+                    cities.add(data['city'])
+                    stations.add((data['station'], data['city']))
+                    lines_stations.add((busline, data['station'], rank, directions[k][-1]['city'], data['city']))
+                    rank += 1
+                k += 1
+        except Exception, e:
+            print
+            print "ERROR: processing line %s" % busline
+            raise
 
     # Build cities IDs
     pk = 1
