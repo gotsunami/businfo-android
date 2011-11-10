@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.QueryManager;
-import com.monnerville.transports.herault.core.xml.XMLQueryManager;
+import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 
 /**
  *
@@ -36,13 +36,15 @@ public class SearchableActivity extends Activity {
      * @param query what to search for
      */
     void startSearching(final String query) {
-        final QueryManager finder = XMLQueryManager.getInstance();
+        final QueryManager finder = SQLQueryManager.getInstance();
         Log.d("QUER", query);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 final long start = System.currentTimeMillis();
-                Log.d("RESCITIES", "" +  finder.findCities(query));
+                Log.d("CITIES", "" +  finder.findCities(query));
+                Log.d("STATIONS", "" +  finder.findStations(query));
+                Log.d("LINES", "" +  finder.findLines(query));
                 final long end = System.currentTimeMillis();
                 Log.d("BENCH", "Took " + (end-start) + "ms to compute");
             }

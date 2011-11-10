@@ -19,11 +19,11 @@ public interface QueryManager {
      * @param query
      * @return list of stations
      */
-    public List<BusStation> findStations(String query);
+    public List<String> findStations(String query);
     /**
      * Looks for existing bus lines
      * @param query
      * @return list of bus lines
      */
-    public List<BusLine> findLines(String query);
+    public List<String> findLines(String query);
 }

@@ -43,12 +43,12 @@ public class XMLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<BusStation> findStations(String query) {
+    public List<String> findStations(String query) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public List<BusLine> findLines(String query) {
+    public List<String> findLines(String query) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
