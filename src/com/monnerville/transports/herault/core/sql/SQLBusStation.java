@@ -7,6 +7,7 @@ import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.AbstractBusStation;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStop;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -56,8 +57,33 @@ public class SQLBusStation extends AbstractBusStation {
      */
     @Override
     public List<BusStop> getStops() {
+        // FIXME: optimize things!
         if (!mStops.isEmpty()) return mStops;
-        // TODO
+        mStops.clear();
+        Date now = new Date();
+        Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
+            R.string.query_getstops_from_station), new String[] {getLine().getName(), getName(), getCity()}
+        );
+        for (int j=0; j < c.getCount(); j++) {
+            c.moveToPosition(j);
+            Date d;
+            try {
+                d = BusStop.TIME_FORMATTER.parse(c.getString(1));
+                d.setYear(now.getYear());
+                d.setMonth(now.getMonth());
+                d.setDate(now.getDate());
+                mStops.add(new BusStop(
+                    this,                // Station
+                    d,                   // Time
+                    getLine().getName(), // Line
+                    c.getString(2),      // Circulation pattern
+                    false                // FIXME: school days only
+                ));
+            } catch (ParseException ex) {
+                Logger.getLogger(SQLBusStation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+		c.close();
         return mStops;
     }
 }
