@@ -254,7 +254,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      */
     private class DirectionsRetreiverTask extends AsyncTask<List<BusLine>, Void, Void> {
         private List<BusStation> starredStations;
-        private long mStart; // benchmark
 
         @Override
         protected Void doInBackground(List<BusLine>... lis) {
@@ -269,14 +268,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
-            mStart = System.currentTimeMillis();
         }
 
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
             mAdapter.notifyDataSetChanged();
-            Log.d("BENCH1", "duration: " + (System.currentTimeMillis() - mStart) + "ms");
         }
     }
 

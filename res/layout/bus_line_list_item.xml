@@ -40,7 +40,7 @@
                 android:scaleType="fitCenter" />
         </RelativeLayout>
         <TextView android:id="@+id/time"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="?android:attr/textColorSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

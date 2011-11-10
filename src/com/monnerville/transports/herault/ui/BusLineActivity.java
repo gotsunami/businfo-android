@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,13 +30,13 @@ import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 
 import static com.monnerville.transports.herault.core.Application.TAG;
-import com.monnerville.transports.herault.core.BusLine;
 
+import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
+
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
-import com.monnerville.transports.herault.core.xml.XMLBusManager;
 
 /**
  *
@@ -177,7 +178,13 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             BusStop stop = station.getNextStop(true);
             // We have a non-cached value
             if (stop != null) {
+                time.setTextColor(getResources().getColor(R.color.list_item_bus_time));
                 time.setText(BusStop.TIME_FORMATTER.format(stop.getTime()));
+            }
+            else {
+                time.setTextColor(getResources().getColor(R.color.list_item_no_more_stop));
+                time.setTypeface(null, Typeface.ITALIC);
+                time.setText(R.string.no_more_stop);
             }
             return itemView;
         }
@@ -223,13 +230,14 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     private class StationsStopsRetreiverTask extends AsyncTask<List<BusStation>, Void, Void> {
         private List<BusStation> starredStations;
         private ProgressDialog mDialog;
+        private long mStart;
 
         @Override
         protected Void doInBackground(List<BusStation>... st) {
             List<BusStation> stations = st[0];
             for (BusStation station : stations) {
                 // Get a fresh, non-cached value
-                BusStop nextStop = station.getNextStop();
+                station.getNextStop();
                 station.setStarred(starredStations.contains(station));
             }
             return null;
@@ -242,10 +250,12 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             starredStations = manager.getStarredStations(BusLineActivity.this);
             mDialog = ProgressDialog.show(BusLineActivity.this, "",
                 getString(R.string.pd_loading_bus_schedules), true);
+            mStart = System.currentTimeMillis();
         }
 
         @Override
         protected void onPostExecute(Void none) {
+            Log.d(TAG, "duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mAdapter.notifyDataSetChanged();
             mDialog.cancel();
             if (mShowToast) {

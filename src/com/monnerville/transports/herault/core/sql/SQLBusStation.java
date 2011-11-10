@@ -57,16 +57,15 @@ public class SQLBusStation extends AbstractBusStation {
      */
     @Override
     public List<BusStop> getStops() {
-        // FIXME: optimize things!
         if (!mStops.isEmpty()) return mStops;
         mStops.clear();
         Date now = new Date();
         Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
             R.string.query_getstops_from_station), new String[] {getLine().getName(), getName(), getCity()}
         );
+        Date d;
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            Date d;
             try {
                 d = BusStop.TIME_FORMATTER.parse(c.getString(1));
                 d.setYear(now.getYear());

@@ -29,5 +29,5 @@
     <string name="pref_about_changelog_title">Historique des versions</string>
     <string name="pref_about_changelog_summary">"Nouveautés de cette version"</string>
     <string name="pref_about_db_version_title">Base de données</string>
-    <string name="pref_about_db_version_summary">"Version %1$s avec %2$s lignes, %3$s villes et %4$s stations"</string>
+    <string name="pref_about_db_version_summary">"Version %1$s comprenant %2$s lignes de bus, %3$s villes traversées et %4$s arrêts desservis"</string>
 </resources>
