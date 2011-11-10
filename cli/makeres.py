@@ -31,6 +31,7 @@ g_cities = []
 #
 RAW_DB_FILE = 'htdb.sql'
 CHKSUM_DB_FILE = 'dbversion.xml'
+DB_STATS_FILE = 'dbstats.xml'
 CHUNK_DB_FILE = 'htdb-chunks.xml'
 CHUNK_PREFIX = 'htdb_chunk'
 CHUNK_SIZE = 192 * 1024
@@ -270,7 +271,8 @@ def makeXML(busline, directions, outfile):
 
 def makeSQL(sources, out):
     global dfltCirculationPolicy
-    global g_cities
+    global db_city_count, db_line_count, db_station_count
+    db_city_count = db_line_count = db_station_count = 0
 
     cities = set()
     stations = set()
@@ -303,6 +305,7 @@ def makeSQL(sources, out):
 
     for city in cs:
         out.write("INSERT INTO city VALUES(%d, \"%s\", 0, 0);\n" % (city[0], city[1]))
+        db_city_count += 1
 
     pk = 1
     pk_city = 0
@@ -317,6 +320,7 @@ def makeSQL(sources, out):
             sys.exit(1)
         out.write("INSERT INTO station VALUES(%d, \"%s\", 0, 0, %d);\n" % (pk, st[0].encode('utf-8'), pk_city))
         pk_stations[(st[0].encode('utf-8'), pk_city)] = pk
+        db_station_count += 1
         pk += 1
 
     pk_from = pk_to = 0
@@ -336,6 +340,7 @@ def makeSQL(sources, out):
             sys.exit(1)
         out.write("INSERT INTO line VALUES(%d, \"%s\", %d, %d);\n" % (
             pk, line[0], pk_from, pk_to))
+        db_line_count += 1
         pk += 1
 
     pk_line = pk_station = pk_direction = pk_city = 0
@@ -649,13 +654,28 @@ where action is one of:
                 num_chunks = make_chunks(rawname, options.chunksize)
                 print "[%-18s] done, wrote %d chunk(s)" % ('chunks', num_chunks)
 
+                # Writing DB stats file resource
+                statsname = os.path.join(TMP_DIR, DB_STATS_FILE)
+                print "[%-18s] making DB stats file..." % statsname,
+                sys.stdout.flush()
+                out = open(statsname, 'w')
+                out.write(XML_HEADER)
+                out.write("""
+<resources>
+  <string name="num_lines">%d</string>
+  <string name="num_cities">%d</string>
+  <string name="num_stations">%d</string>
+</resources>
+""" % (db_line_count, db_city_count, db_station_count))
+                out.close()
+                print "done."
+
                 # Writing checksum and version file
                 chkname = os.path.join(TMP_DIR, CHKSUM_DB_FILE)
                 out = open(chkname, 'w')
                 out.write(XML_HEADER)
                 print "[%-18s] making checksum file..." % chkname,
                 sys.stdout.flush()
-                # TODO chksum = get_md5(rawname)
                 chksum = compute_db_checksum(infile)
                 out.write("""
 <resources>

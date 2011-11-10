@@ -29,5 +29,6 @@
     <string name="pref_about_about_title">About</string>
     <string name="pref_about_changelog_title">ChangeLog</string>
     <string name="pref_about_changelog_summary">"See what's new in this version"</string>
-    <string name="pref_about_db_version_title">Database Version</string>
+    <string name="pref_about_db_version_title">Database</string>
+    <string name="pref_about_db_version_summary">"Version %1$s with %2$s lines, %3$s cities and %4$s stations"</string>
 </resources>

@@ -62,6 +62,7 @@
                 <include name="**/htdb_chunk*.xml"/>
             </fileset>
         </copy>
+        <copy file="/tmp/dbstats.xml" tofile="res/values/dbstats.xml"/>
         <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
     </target>
 
@@ -76,6 +77,7 @@
 			version="true" />
 	</target>
 
+    <target name="nbdebug" depends="debug,install" />
 
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
