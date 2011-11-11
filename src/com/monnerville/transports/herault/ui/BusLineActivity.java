@@ -183,7 +183,6 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             }
             else {
                 time.setTextColor(getResources().getColor(R.color.list_item_no_more_stop));
-                time.setTypeface(null, Typeface.ITALIC);
                 time.setText(R.string.no_more_stop);
             }
             return itemView;

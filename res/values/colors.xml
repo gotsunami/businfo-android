@@ -15,7 +15,7 @@
     <color name="board_time">#dcffffff</color>
     <color name="ht_orange">#e4571c</color>
     <color name="ht_blue">#004a9c</color>
-    <color name="list_item_bus_time">#0000ff</color>
-    <color name="list_item_no_more_stop">#ff0000</color>
+    <color name="list_item_bus_time">#e4571c</color>
+    <color name="list_item_no_more_stop">#888888</color>
 </resources>
 
