@@ -1,0 +1,39 @@
+# Line 487
+name=487
+circulation=1,2,4,5
+
+direction=
+
+city=BEDARIEUX
+Jean Jaurès;11:15;12:05*3s*;17:10
+Place Cot;11:15;12:05*3s*;17:10
+Clair Logis;11:15;12:05*3s*;17:10
+
+city=LA TOUR SUR ORB 
+Embr. Mas Blanc;11:20;12:15*3s*;17:15
+Centre;11:20;12:15*3s*;17:15
+
+city=CAMPLONG 
+Centre;11:35;12:25*3s*;17:30
+
+city=GRAISSESSAC 
+Centre;11:45;12:35*3s*;17:40
+
+direction=
+
+city=GRAISSESSAC 
+Centre;7:15*1-5s*;9:00;14:00
+
+city=CAMPLONG 
+Centre;7:23*1-5s*;9:06;14:06
+
+city=LA TOUR SUR ORB 
+Centre;7:30*1-5s*;9:15;14:15
+Embr. Mas Blanc;7:30*1-5s*;9:15;14:15
+
+city=BEDARIEUX
+Clair Logis;7:45*1-5s*;9:30;14:30
+Auguste Blanqui;7:45*1-5s*;9:30;14:30
+Jean Jaurès;7:45*1-5s*;9:30;14:30
+Place Cot;7:45*1-5s*;9:30;14:30
+
