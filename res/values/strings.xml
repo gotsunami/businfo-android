@@ -22,6 +22,7 @@
 
     <string name="menu_settings_title">Settings</string>
     <string name="menu_preferences">Settings</string>
+
     <string name="cat_about_title">About</string>
     <string name="cat_about_sum">About application</string>
     <string name="pref_about_title">Version</string>
@@ -32,4 +33,10 @@
     <string name="pref_about_changelog_summary">"See what's new in this version"</string>
     <string name="pref_about_db_version_title">Database</string>
     <string name="pref_about_db_version_summary">"Version %1$s coming with %2$s bus lines, %3$s cities and %4$s stations"</string>
+
+    <string name="cat_tts_title">Speech Synthesis</string>
+    <string name="cat_tts_sum">Text-To-Speech</string>
+    <string name="pref_use_tts_title">Use Text-To-Speech</string>
+    <string name="pref_use_tts_sumon">Will use speech synthesis (TTS) to read information</string>
+    <string name="pref_use_tts_sumoff">Will not use speech synthesis (TTS) at all</string>
 </resources>

@@ -12,7 +12,7 @@
     <ImageView android:id="@+id/icon"
         android:layout_width="@android:dimen/app_icon_size"
         android:layout_height="@android:dimen/app_icon_size"
-        android:src="@drawable/ic_menu_link"
+        android:src="@drawable/flatbus"
         android:scaleType="fitCenter" />
 
     <LinearLayout

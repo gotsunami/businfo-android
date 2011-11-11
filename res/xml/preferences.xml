@@ -7,6 +7,19 @@
 	<PreferenceCategory
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:key="cat_about"
+		android:title="@string/cat_tts_title"
+		android:summary="@string/cat_tts_sum">
+        <!-- Text-to-speech -->
+        <CheckBoxPreference
+            android:key="pref_use_tts"
+            android:title="@string/pref_use_tts_title"
+            android:defaultValue="true"
+            android:summaryOn="@string/pref_use_tts_sumon"
+            android:summaryOff="@string/pref_use_tts_sumoff" />
+	</PreferenceCategory>
+	<PreferenceCategory
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:key="cat_about"
 		android:title="@string/cat_about_title"
 		android:summary="@string/cat_about_sum">
 		<Preference

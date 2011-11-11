@@ -20,6 +20,7 @@
 
     <string name="menu_settings_title">Paramètres</string>
     <string name="menu_preferences">Paramètres</string>
+
     <string name="cat_about_title">À propos</string>
     <string name="cat_about_sum">"À propos de l'application"</string>
     <string name="pref_about_title">Version</string>
@@ -30,4 +31,10 @@
     <string name="pref_about_changelog_summary">"Nouveautés de cette version"</string>
     <string name="pref_about_db_version_title">Base de données</string>
     <string name="pref_about_db_version_summary">"Version %1$s comprenant %2$s lignes de bus, %3$s villes traversées et %4$s arrêts desservis"</string>
+
+    <string name="cat_tts_title">Synthèse vocale</string>
+    <string name="cat_tts_sum">Text-To-Speech</string>
+    <string name="pref_use_tts_title">Parole artificielle</string>
+    <string name="pref_use_tts_sumon">Lis les informations à voix haute</string>
+    <string name="pref_use_tts_sumoff">Ne donne aucune indication ou information à voix haute</string>
 </resources>
