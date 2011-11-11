@@ -1,0 +1,67 @@
+# Line 486
+name=486
+circulation=1,2,4,5
+
+direction=
+
+city=ROSIS 
+Andabre;6:45*1-5s*;8:45;13:10
+
+city=ST GENIES DE VARENSAL 
+Plaisance RD922;6:46*1-5s*;8:46;13:11
+
+city=ST GERVAIS SUR MARE 
+Peyremale RD922;6:55*1-5s*;8:55;13:20
+Ecole / Rongas;6:55*1-5s*;8:55;13:20
+Castanet le Bas;6:55*1-5s*;8:55;13:20
+
+city=ST ETIENNE ESTRECHOUX 
+Vérenoux;7:05*1-5s*;9:05;13:30
+Boulodrome;7:05*1-5s*;9:05;13:30
+Route de Villemagne;7:05*1-5s*;9:05;13:30
+
+city=VILLEMAGNE 
+La Gure Embr.;7:20*1-5s*;9:20;13:45
+Centre;7:20*1-5s*;9:20;13:45
+
+city=HEREPIAN 
+Centre;7:25*1-5s*;9:25;13:50
+
+city=BEDARIEUX 
+Intermarché;7:45*1-5s*;9:35;14:00
+Gare SNCF;7:45*1-5s*;9:35;14:00
+Jean Jaurès;7:45*1-5s*;9:35;14:00
+Place Cot;7:45*1-5s*;9:35;14:00
+
+direction=
+
+city=BEDARIEUX 
+Place Cot;11:45;17:05
+Auguste Blanqui;11:45;17:05
+Jean Jaurès;11:45;17:05
+Gare Sncf;11:45;17:05
+Intermarché;11:45;17:05
+
+city=HEREPIAN 
+Centre;11:55;17:10
+
+city=VILLEMAGNE 
+Centre;12:00;17:20
+La Gure RD922;12:00;17:20
+
+city=ST ETIENNE ESTRECHOUX 
+Rte de Villemagne;12:15;17:35
+Boulodrome;12:15;17:35
+Vérenoux;12:15;17:35
+
+city=ST GERVAIS SUR MARE 
+Castanet le Bas;12:30;17:50
+Rongas / Ecole;12:30;17:50
+Peyremale RD922;12:30;17:50
+
+city=ST GENIES DE VARENSAL 
+Plaisance RD922;12:34;17:51
+
+city=ROSIS 
+Andabre;12:35;18:00
+
