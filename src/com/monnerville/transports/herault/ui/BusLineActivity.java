@@ -11,6 +11,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -261,6 +264,24 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 Toast.makeText(BusLineActivity.this, getString(R.string.toast_current_direction,
                     mDirection), Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                startActivity(new Intent(this, AppPreferenceActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
