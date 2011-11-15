@@ -23,6 +23,7 @@ import java.util.List;
 public class SQLBusManager implements BusManager {
     private static final SQLBusManager INSTANCE = new SQLBusManager();
     private static HTDatabase mDB;
+    public static final int FLUSH_DATABASE_INIT = 99;
     public static final int FLUSH_DATABASE_PROGRESS = 100;
     public static final int FLUSH_DATABASE_UPGRADED = 200;
 

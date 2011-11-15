@@ -70,6 +70,8 @@ class HTDatabase extends SQLiteOpenHelper {
      * @param db database instance
      */
     private void flushDatabase(SQLiteDatabase db) {
+        // Notify that the process will begin
+        mHandler.sendEmptyMessage(SQLBusManager.FLUSH_DATABASE_INIT);
 		db.beginTransaction();
 		try {
             int chunks = Integer.parseInt(mContext.getString(R.string.numchunks));

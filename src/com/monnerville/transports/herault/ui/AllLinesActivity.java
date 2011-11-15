@@ -290,6 +290,9 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what) {
+                case SQLBusManager.FLUSH_DATABASE_INIT:
+                    mPd.show();
+                    break;
                 case SQLBusManager.FLUSH_DATABASE_PROGRESS:
                     int progress = (Integer)msg.obj;
                     Log.d("PG", "PROGRESS: " + progress + "%");
@@ -297,6 +300,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                     break;
                 case SQLBusManager.FLUSH_DATABASE_UPGRADED:
                     mPd.setProgress(100);
+                    mPd.cancel();
                     break;
                 default:
                     break;
@@ -325,7 +329,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             mDialog.setMessage(getString(R.string.pd_updating_database));
             mDialog.setCancelable(false);
             mDialog.setProgress(0);
-            mDialog.show();
             mStart = System.currentTimeMillis();
             mHandler = new DBHandler(mDialog);
         }
@@ -333,7 +336,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
-            mDialog.cancel();
             Log.d("BENCH0", "DB create duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mAdapter.notifyDataSetChanged();
             mHandler = null;
