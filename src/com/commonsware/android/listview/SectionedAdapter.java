@@ -31,7 +31,7 @@ abstract public class SectionedAdapter extends BaseAdapter {
         View convertView,
         ViewGroup parent);
 	
-	private List<Section> sections=new ArrayList<Section>();
+	private List<Section> sections = new ArrayList<Section>();
 	private static int TYPE_SECTION_HEADER=0;
 
 	public SectionedAdapter() {
@@ -41,6 +41,10 @@ abstract public class SectionedAdapter extends BaseAdapter {
 	public void addSection(String caption, Adapter adapter) {
 		sections.add(new Section(caption, adapter));
 	}
+
+    public void insertSection(int pos, String caption, Adapter adapter) {
+        sections.add(pos, new Section(caption, adapter));
+    }
 
     @Override
 	public Object getItem(int position) {

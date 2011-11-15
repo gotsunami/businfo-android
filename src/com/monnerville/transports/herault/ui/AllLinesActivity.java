@@ -47,6 +47,7 @@ import javax.net.ssl.ManagerFactoryParameters;
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
     private List<BusStation> mStarredStations;
+    private List<String> mMainActions;
     // Cached directions for all available lines
     private List<List<String>> mDirections;
 
@@ -75,6 +76,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mDirections = new ArrayList<List<String>>();
         mStarredStations = new ArrayList<BusStation>();
+        mMainActions = new ArrayList<String>();
+        mMainActions.add(getString(R.string.action_speak_destination));
 
         Button searchButton = (Button)findViewById(R.id.btn_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -86,14 +89,21 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         });
     }
 
+    /**
+     * Sets up the adapter for the list
+     */
     private void setupAdapter() {
         BusManager manager = SQLBusManager.getInstance();
         List<BusLine> lines = manager.getBusLines();
         new DirectionsRetreiverTask().execute(lines);
 
+        if (mStarredStations.size() > 0) {
         mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
             new BusStationActivity.BookmarkStationListAdapter(this,
                 R.layout.bus_line_bookmark_list_item, mStarredStations));
+        }
+        mAdapter.addSection(getString(R.string.quick_actions_header),
+            new ActionListAdapter(this, R.layout.main_action_list_item, mMainActions));
         mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
             new LineListAdapter(this, R.layout.all_lines_list_item, lines));
         setListAdapter(mAdapter);
@@ -175,6 +185,39 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         }
     }
 
+    /**
+     * List adapater for main actions (voice recognition etc.)
+     */
+    private class ActionListAdapter extends ArrayAdapter<String> {
+        private int mResource;
+        private Context mContext;
+
+        ActionListAdapter(Context context, int resource, List<String> items) {
+            super(context, resource, items);
+            mResource = resource;
+            mContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LinearLayout itemView;
+            String action = getItem(position);
+
+            if (convertView == null) {
+                itemView = new LinearLayout(mContext);
+                LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                li.inflate(mResource, itemView, true);
+            }
+            else
+                itemView = (LinearLayout)convertView;
+
+            TextView name = (TextView)itemView.findViewById(android.R.id.text1);
+            name.setText(action);
+
+            return itemView;
+        }
+    }
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         final Object obj = getListView().getItemAtPosition(position);
@@ -247,7 +290,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 				result = (TextView)getLayoutInflater().inflate(R.layout.list_header, null);
 			}
 			result.setText(caption);
-			return(result);
+			return result;
 		}
 	};
 
@@ -295,7 +338,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                     break;
                 case SQLBusManager.FLUSH_DATABASE_PROGRESS:
                     int progress = (Integer)msg.obj;
-                    Log.d("PG", "PROGRESS: " + progress + "%");
                     mPd.setProgress(progress);
                     break;
                 case SQLBusManager.FLUSH_DATABASE_UPGRADED:
@@ -355,6 +397,10 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         switch (item.getItemId()) {
             case R.id.menu_settings:
                 startActivity(new Intent(this, AppPreferenceActivity.class));
+                return true;
+            case R.id.menu_search:
+                // Open search dialog
+                onSearchRequested();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

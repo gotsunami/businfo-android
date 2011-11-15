@@ -10,6 +10,7 @@
     <string name="line_direction_title">Direction %s</string>
     <string name="station_line_direction_title">Line %1$s to %2$s</string>
     <string name="all_lines_bookmarks_header">Bookmarks</string>
+    <string name="quick_actions_header">Quick actions</string>
     <string name="all_lines_header">All lines (%1$d)</string>
     <string name="bookmark_info">Line %1$s to %2$s</string>
     <string name="no_data">No data.</string>
@@ -19,9 +20,11 @@
     <string name="pd_loading_bus_lines">Loading bus lines</string>
     <string name="pd_updating_database">Updating schedules, please wait...</string>
     <string name="pd_searching">Searching...</string>
+    <string name="action_speak_destination">Speak destination</string>
 
     <string name="menu_settings_title">Settings</string>
     <string name="menu_preferences">Settings</string>
+    <string name="menu_search_title">Search</string>
 
     <string name="cat_about_title">About</string>
     <string name="cat_about_sum">About application</string>
