@@ -9,6 +9,8 @@ import android.database.SQLException;
 import android.database.Cursor;
 import android.content.*;
 import android.content.res.XmlResourceParser;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.io.*;
@@ -30,9 +32,12 @@ class HTDatabase extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String mDatePattern = "yyyy-MM-dd HH:mm:ss";
 
-	public HTDatabase(Context context) {
+    private Handler mHandler;
+
+	public HTDatabase(Context context, Handler handler) {
 		super(context, DATABASE_NAME, null, Integer.parseInt(context.getString(R.string.dbversion)));
 		mContext = context;
+        mHandler = handler;
 	}
 
     public Context getContext() { return mContext; }
@@ -82,15 +87,20 @@ class HTDatabase extends SQLiteOpenHelper {
                             }
                         }
                     } else if (xrp.getEventType() == XmlPullParser.TEXT && found) {
-                        Log.d(TAG, "Processing chunk " + j);
                         String sql[] = xrp.getText().split("\n");
                         executeMultiSQL(db, sql);
                     }
                     xrp.next();
                 }
                 xrp.close();
+                // Notify on progress
+                mHandler.sendMessage(Message.obtain(mHandler, SQLBusManager.FLUSH_DATABASE_PROGRESS, 
+                    (Integer)(j*100/chunks)));
             }
 			db.setTransactionSuccessful();
+            // Upgrade complete
+            mHandler.sendMessage(Message.obtain(mHandler, SQLBusManager.FLUSH_DATABASE_UPGRADED, 
+                (Integer)100));
 		} catch (IOException ex) {
             Logger.getLogger(HTDatabase.class.getName()).log(Level.SEVERE, null, ex);
         } catch (XmlPullParserException ex) {

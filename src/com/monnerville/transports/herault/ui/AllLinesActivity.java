@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.widget.ListView;
 import android.util.Log;
@@ -277,25 +279,55 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         }
     }
 
+    private class DBHandler extends Handler {
+        ProgressDialog mPd;
+
+        public DBHandler(ProgressDialog pd) {
+            super();
+            mPd = pd;
+        }
+        
+        @Override
+        public void handleMessage(Message msg) {
+            switch(msg.what) {
+                case SQLBusManager.FLUSH_DATABASE_PROGRESS:
+                    int progress = (Integer)msg.obj;
+                    Log.d("PG", "PROGRESS: " + progress + "%");
+                    mPd.setProgress(progress);
+                    break;
+                case SQLBusManager.FLUSH_DATABASE_UPGRADED:
+                    mPd.setProgress(100);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     /**
      * Asynchronous database creating/updating
      */
     private class DBCreateOrUpdateTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog mDialog;
         private long mStart; // benchmark
+        private DBHandler mHandler;
 
         @Override
         protected Void doInBackground(Void... none) {
-            SQLBusManager.getInstance().initDB(AllLinesActivity.this);
+            SQLBusManager.getInstance().initDB(AllLinesActivity.this, mHandler);
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
-            mDialog = ProgressDialog.show(AllLinesActivity.this, "",
-                getString(R.string.pd_updating_database), true);
+            mDialog = new ProgressDialog(AllLinesActivity.this);
+            mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mDialog.setMessage(getString(R.string.pd_updating_database));
+            mDialog.setCancelable(false);
+            mDialog.setProgress(0);
+            mDialog.show();
             mStart = System.currentTimeMillis();
+            mHandler = new DBHandler(mDialog);
         }
 
         @Override
@@ -304,6 +336,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             mDialog.cancel();
             Log.d("BENCH0", "DB create duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mAdapter.notifyDataSetChanged();
+            mHandler = null;
             setupAdapter();
         }
     }

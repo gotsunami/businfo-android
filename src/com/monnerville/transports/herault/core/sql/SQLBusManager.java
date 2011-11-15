@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import com.monnerville.transports.herault.core.BusLine;
@@ -22,6 +23,8 @@ import java.util.List;
 public class SQLBusManager implements BusManager {
     private static final SQLBusManager INSTANCE = new SQLBusManager();
     private static HTDatabase mDB;
+    public static final int FLUSH_DATABASE_PROGRESS = 100;
+    public static final int FLUSH_DATABASE_UPGRADED = 200;
 
     public static SQLBusManager getInstance() { return INSTANCE; }
     private SQLBusManager() {
@@ -31,10 +34,11 @@ public class SQLBusManager implements BusManager {
     /**
      * Must be called in order to pass the context to the database handler
      * @param ctx
+     * @param handler  custom Handler to notify on progress
      */
-    public void initDB(Context ctx) {
+    public void initDB(Context ctx, Handler handler) {
         if (mDB == null) {
-            mDB = new HTDatabase(ctx);
+            mDB = new HTDatabase(ctx, handler);
             // Actually creates the DB if not existing
             SQLiteDatabase rdb = mDB.getReadableDatabase();
             rdb.close();
