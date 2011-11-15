@@ -34,7 +34,7 @@ CHKSUM_DB_FILE = 'dbversion.xml'
 DB_STATS_FILE = 'dbstats.xml'
 CHUNK_DB_FILE = 'htdb-chunks.xml'
 CHUNK_PREFIX = 'htdb_chunk'
-CHUNK_SIZE = 192 * 1024
+CHUNK_SIZE = 64 * 1024
 #
 DBSTRUCT = """
 DROP TABLE IF EXISTS line;
