@@ -20,7 +20,7 @@
     <string name="pd_loading_bus_lines">Loading bus lines</string>
     <string name="pd_updating_database">Updating schedules, please wait...</string>
     <string name="pd_searching">Searching...</string>
-    <string name="action_speak_destination">Speak destination</string>
+    <string name="action_speak_destination">Speak keyword</string>
 
     <string name="menu_settings_title">Settings</string>
     <string name="menu_preferences">Settings</string>
