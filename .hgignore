@@ -8,6 +8,7 @@ cli/java/doc
 cli/java/build
 cli/raw/*.xml
 res/xml/gps.xml
+res/xml/htdb_chunk*.xml
 proguard/*.jar
 proguard/*.txt
 libs
@@ -23,3 +24,4 @@ cache
 nbproject
 cli/java/pre.dist
 res/values/revision.xml
+res/values/dbstats.xml

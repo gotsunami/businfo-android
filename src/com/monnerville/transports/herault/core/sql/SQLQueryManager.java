@@ -33,7 +33,7 @@ public class SQLQueryManager implements QueryManager {
         List<String> rcities = new ArrayList<String>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_city_table_name), new String[] {"name"}, "name LIKE ?",
-            new String[] {"%" + query + "%"}, null, null, null
+            new String[] {"%" + query + "%"}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
@@ -48,7 +48,7 @@ public class SQLQueryManager implements QueryManager {
         List<String> rstations = new ArrayList<String>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_station_table_name), new String[] {"name"}, "name LIKE ?",
-            new String[] {"%" + query + "%"}, null, null, null
+            new String[] {"%" + query + "%"}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
@@ -63,7 +63,7 @@ public class SQLQueryManager implements QueryManager {
         List<String> lines = new ArrayList<String>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_line_table_name), new String[] {"name"}, "name LIKE ?",
-            new String[] {"%" + query + "%"}, null, null, null
+            new String[] {"%" + query + "%"}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);

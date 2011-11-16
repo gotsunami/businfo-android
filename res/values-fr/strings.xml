@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="lines_activity_title">Hérault Transports - Lignes de bus</string>
+    <string name="slogan">Horaire des bus</string>
     <string name="busline_activity_title">Ligne de bus</string>
     <string name="no_more_stop">Pas avant demain</string>
     <string name="pick_direction_title">Choix direction</string>
@@ -10,6 +11,9 @@
     <string name="station_line_direction_title">Ligne %1$s vers %2$s</string>
     <string name="all_lines_bookmarks_header">Favoris</string>
     <string name="quick_actions_header">Raccourcis</string>
+    <string name="result_city_header">Villes</string>
+    <string name="result_station_header">Stations</string>
+    <string name="result_line_header">Lignes</string>
     <string name="all_lines_header">Toutes les lignes (%1$d)</string>
     <string name="bookmark_info">Ligne %1$s vers %2$s</string>
     <string name="no_data">Pas de données.</string>
@@ -19,6 +23,7 @@
     <string name="pd_loading_bus_lines">Chargement des lignes de bus</string>
     <string name="pd_updating_database">"Mise à jour des horaires, veuillez patienter..."</string>
     <string name="action_speak_destination">Énoncer un mot clef</string>
+    <string name="result_no_match">Aucun résultat</string>
 
     <string name="menu_settings_title">Paramètres</string>
     <string name="menu_preferences">Paramètres</string>

@@ -68,7 +68,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         titleContainer.setPadding(titleContainer.getPaddingLeft(), 0, 0, 0);
 
         setPrimaryTitle(getString(R.string.app_name));
-        //setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
+        setSecondaryTitle(getString(R.string.slogan));
 
         BusManager manager = SQLBusManager.getInstance();
         new DBCreateOrUpdateTask().execute();

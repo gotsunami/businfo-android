@@ -54,8 +54,8 @@
         <!-- Inherits @android:style/Widget.TextView.ListSeparator style -->
         <item name="android:background">@color/ht_separator</item>
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">40dip</item>
-        <item name="android:height">40dip</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:height">50dip</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">19sp</item>

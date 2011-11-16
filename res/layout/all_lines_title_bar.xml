@@ -7,7 +7,6 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:paddingTop="2dip"
         android:paddingLeft="5dip"
         android:layout_height="fill_parent" >
         <TextView
@@ -29,8 +28,9 @@
             android:layout_width="5dip"
             android:layout_height="48dip"
             android:src="@drawable/titlebar_divider"/>
-        <Button android:layout_width="48dip"
+        <Button
             android:id="@+id/btn_search"
+            android:layout_width="48dip"
             android:layout_height="48dip"
             android:scaleType="center"
             android:background="@drawable/btn_search"/>
