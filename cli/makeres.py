@@ -272,6 +272,7 @@ def makeXML(busline, directions, outfile):
 def makeSQL(sources, out):
     global dfltCirculationPolicy
     global db_city_count, db_line_count, db_station_count
+    global g_cities
     db_city_count = db_line_count = db_station_count = 0
 
     cities = set()
@@ -306,6 +307,7 @@ def makeSQL(sources, out):
     for city in cs:
         out.write("INSERT INTO city VALUES(%d, \"%s\", 0, 0);\n" % (city[0], city[1]))
         db_city_count += 1
+        g_cities.append(city[1])
 
     pk = 1
     pk_city = 0
