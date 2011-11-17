@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="lines_activity_title">Hérault Transports - Lignes de bus</string>
-    <string name="slogan">Horaire des bus</string>
+    <string name="slogan">Horaires des bus</string>
     <string name="busline_activity_title">Ligne de bus</string>
     <string name="no_more_stop">Pas avant demain</string>
     <string name="pick_direction_title">Choix direction</string>
