@@ -31,3 +31,19 @@ SELECT DISTINCT(name) FROM city, city_id_adissan AS v
 WHERE city.id=v.city_id;
 
 DROP VIEW cities_of_line;
+
+# Get all lines in a city
+SELECT name FROM line 
+WHERE id IN (
+  SELECT DISTINCT(line_station.line_id) FROM line_station
+  WHERE line_station.station_id IN (
+    SELECT station.id FROM station, city
+    WHERE city.id=(
+      SELECT id FROM city WHERE name LIKE "gigean"
+    )
+    AND station.city_id=city.id
+  )
+)
+ORDER BY name;
+
+

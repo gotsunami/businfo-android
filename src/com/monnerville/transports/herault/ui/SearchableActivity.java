@@ -12,11 +12,15 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
@@ -48,6 +52,8 @@ public class SearchableActivity extends ListActivity {
         }
         else
             finish();
+
+        getListView().setFastScrollEnabled(true);
     }
 
     private class StartSearchingTask extends AsyncTask<String, Void, Void> {
@@ -168,6 +174,33 @@ public class SearchableActivity extends ListActivity {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);
             }
+            else {
+                // We have some matches
+                QueryManager finder = SQLQueryManager.getInstance();
+                LinearLayout lay = (LinearLayout)itemView.findViewById(R.id.label_layout);
+//                lay.removeAllViews();
+                List<String> lines = finder.findLinesInCity(city);
+                LinearLayout.LayoutParams zp = new LinearLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                zp.setMargins(2, 2, 2, 2);
+                TextView tv;
+                View[] vs = new View[lines.size()];
+                int k = 0;
+                for (String line : lines) {
+                    tv = new TextView(mContext);
+                    //tv.setTextSize(size);
+                    tv.setPadding(4, 2, 4 , 2);
+                    tv.setLayoutParams(zp);
+//                    tv.setShadowLayer(1, 1, 1, Color.BLACK);
+                    tv.setTextColor(Color.WHITE);
+                    tv.setBackgroundResource(R.layout.tag_background);
+                    tv.setText(line);
+//                    lay.addView(tv);
+                    vs[k] = tv;
+                    k ++;
+                }
+                populateText(lay, vs, mContext);
+            }
 
             return itemView;
         }
@@ -239,6 +272,55 @@ public class SearchableActivity extends ListActivity {
 
             return itemView;
         }
+    }
+
+    private void populateText(LinearLayout ll, View[] views, Context ctx) {
+        Display display = getWindowManager().getDefaultDisplay();
+        ll.removeAllViews();
+        //int maxWidth = display.getWidth() - 100;
+        int maxWidth = ll.getMeasuredWidth() - 5;
+
+        LinearLayout LL;
+        LinearLayout.LayoutParams params;
+        LinearLayout newLL = new LinearLayout(ctx);
+        newLL.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.WRAP_CONTENT));
+        newLL.setGravity(Gravity.LEFT);
+        newLL.setOrientation(LinearLayout.HORIZONTAL);
+
+        int widthSoFar = 0;
+
+        for (int i = 0 ; i < views.length ; i++ ){
+            LL = new LinearLayout(ctx);
+            LL.setOrientation(LinearLayout.HORIZONTAL);
+            LL.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM);
+            LL.setLayoutParams(new ListView.LayoutParams(
+                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            views[i].measure(0,0);
+            params = new LinearLayout.LayoutParams(views[i].getMeasuredWidth(),
+                    LayoutParams.WRAP_CONTENT);
+            params.setMargins(2, 2, 2, 2);
+            LL.addView(views[i], params);
+            LL.measure(0, 0);
+            widthSoFar += views[i].getMeasuredWidth();
+            if (widthSoFar >= maxWidth) {
+                ll.addView(newLL);
+
+                newLL = new LinearLayout(ctx);
+                newLL.setLayoutParams(new LayoutParams(
+                        LayoutParams.FILL_PARENT,
+                        LayoutParams.WRAP_CONTENT));
+                newLL.setOrientation(LinearLayout.HORIZONTAL);
+                newLL.setGravity(Gravity.LEFT);
+                params = new LinearLayout.LayoutParams(LL
+                        .getMeasuredWidth(), LL.getMeasuredHeight());
+                newLL.addView(LL, params);
+                widthSoFar = LL.getMeasuredWidth();
+            } else {
+                newLL.addView(LL);
+            }
+        }
+        ll.addView(newLL);
     }
 
 }

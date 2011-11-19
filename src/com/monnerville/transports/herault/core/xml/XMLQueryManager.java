@@ -51,4 +51,9 @@ public class XMLQueryManager implements QueryManager {
     public List<String> findLines(String query) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public List<String> findLinesInCity(String city) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

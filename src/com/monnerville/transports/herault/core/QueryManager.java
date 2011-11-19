@@ -26,4 +26,10 @@ public interface QueryManager {
      * @return list of bus lines
      */
     public List<String> findLines(String query);
+    /**
+     * Looks for lines in city 
+     * @param city
+     * @return list of bus lines
+     */
+    public List<String> findLinesInCity(String city);
 }

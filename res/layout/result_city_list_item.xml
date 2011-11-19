@@ -5,8 +5,7 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
-    android:paddingLeft="10dip"
-    android:paddingRight="15dip">
+    android:paddingLeft="10dip">
 
     <!-- Activity icon when presenting dialog -->
     <ImageView android:id="@+id/icon"
@@ -15,10 +14,34 @@
         android:src="@drawable/city"
         android:scaleType="fitCenter" />
 
+<!--
     <TextView android:id="@android:id/text1"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dip" />
+        -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <!-- Activity name -->
+        <TextView
+            android:id="@android:id/text1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/ht_orange"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip" />
+        <LinearLayout
+            android:id="@+id/label_layout"
+            android:paddingLeft="10dip"
+            android:orientation="vertical"
+            android:gravity="top"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
-

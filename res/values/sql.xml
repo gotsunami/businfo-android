@@ -53,6 +53,20 @@ AND station.id=stop.station_id
 AND city.id=stop.city_id
 ORDER BY stop.id
 "</string>
+    <string name="query_getlines_in_city">"
+SELECT name FROM line
+WHERE id IN (
+  SELECT DISTINCT(line_station.line_id) FROM line_station
+  WHERE line_station.station_id IN (
+    SELECT station.id FROM station, city
+    WHERE city.id=(
+      SELECT id FROM city WHERE name LIKE ?
+    )
+    AND station.city_id=city.id
+  )
+)
+ORDER BY name
+"</string>
 
     <!-- Table names -->
     <string name="db_line_table_name">line</string>

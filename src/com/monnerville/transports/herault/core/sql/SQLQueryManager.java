@@ -72,4 +72,18 @@ public class SQLQueryManager implements QueryManager {
 		c.close();
         return lines;
     }
+
+    @Override
+    public List<String> findLinesInCity(String city) {
+        List<String> lines = new ArrayList<String>();
+        Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
+            R.string.query_getlines_in_city), new String[] {city}
+        );
+        for (int j=0; j < c.getCount(); j++) {
+            c.moveToPosition(j);
+            lines.add(c.getString(0));
+        }
+		c.close();
+        return lines;
+    }
 }
