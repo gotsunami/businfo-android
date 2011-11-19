@@ -9,7 +9,7 @@ Raw text is a copy of the PDF content using evince
 """
 
 import sys, re, types, os.path, glob, tempfile
-import hashlib
+import hashlib, shutil
 from optparse import OptionParser
 
 DFLT_CIRC_POLICY = '1-6'
@@ -28,7 +28,7 @@ FETCH_GPS_URL = """http://maps.googleapis.com/maps/api/geocode/json?address=%s&s
 GPS_CACHE_FILE = 'gps.csv'
 GPS_RSRC_FILE = 'gps.xml'
 g_cities = []
-g_city_post_map = ''
+g_prefilter = None
 #
 RAW_DB_FILE = 'htdb.sql'
 CHKSUM_DB_FILE = 'dbversion.xml'
@@ -273,7 +273,7 @@ def makeXML(busline, directions, outfile):
 def makeSQL(sources, out):
     global dfltCirculationPolicy
     global db_city_count, db_line_count, db_station_count
-    global g_cities, g_city_post_map
+    global g_cities
     db_city_count = db_line_count = db_station_count = 0
 
     cities = set()
@@ -589,7 +589,7 @@ def make_chunks(rawname, chunksize=0):
 
 def main():
     global DEBUG
-    global g_city_post_map
+    global g_prefilter
 
     parser = OptionParser(usage="""
 %prog [--android|-d|-g|--gps|--gps-cache file] action (raw_line.txt|dir)
@@ -600,7 +600,7 @@ where action is one of:
     parser.add_option("", '--android', action="store_true", dest="android", default=False, help='SQL resource formatting for Android [action: sql]')
     parser.add_option("", '--use-chunks', action="store_true", dest="chunks", default=False, help='Split data in several chunks [action: sql]')
     parser.add_option("", '--db-compare-with', action="store", dest="dbcompare", default=False, help="compares current database checksum with an external XML file [action: sql]")
-    parser.add_option("", '--city-post-map', action="store", dest="citypostmap", default='', help="applies a mapping of city names after reading the raw data and before creating the SQL content")
+    parser.add_option("", '--pre-filter', action="store", dest="prefilter", default=None, help="applies a filter mapping on all raw input (useful to substitute content)")
     parser.add_option("", '--chunk-size', type="int", action="store", dest="chunksize", default=CHUNK_SIZE, help="set chunk size in kB [default: %d, action: sql]" % CHUNK_SIZE)
     parser.add_option("-d", action="store_true", dest="debug", default=False, help='more debugging')
     parser.add_option("-v", '--verbose', action="store_true", dest="verbose", default=False, help='verbose output')
@@ -629,7 +629,7 @@ where action is one of:
     if options.chunks and action == 'xml':
         parser.error("--use-chunks and xml action are mutually exclusive!")
 
-    if options.citypostmap and action == 'xml':
+    if options.prefilter and action == 'xml':
         parser.error("--city-post-map and xml action are mutually exclusive!")
 
     if options.chunks and not options.android:
@@ -638,9 +638,38 @@ where action is one of:
     if options.dbcompare and not options.android:
         parser.error("--db-compare-with requires the --android option!")
 
-    g_city_post_map = options.citypostmap
+    g_prefilter = options.prefilter
 
     if os.path.isdir(infile):
+        # Applies pre-filter before parsing any raw content
+        prefilter_data = {}
+        prefilter_matches = 0
+        if options.prefilter:
+            if not os.path.exists(g_prefilter):
+                raise ValueError, "pre filter not a file"
+            filter_dir = os.path.join(TMP_DIR, 'pre-filter')
+            # Clean up target
+            shutil.rmtree(filter_dir)
+            shutil.copytree(infile, filter_dir)
+            infile = filter_dir
+            # TODO: check map format (old_name=new_name)
+            import string
+            for src in glob.glob(os.path.join(filter_dir, '*.txt')):
+                with open(src) as src_file:
+                    lines = src_file.readlines()
+                with open(src, 'w') as src_file:
+                    for line in lines:
+                        src_file.write(re.sub("SETE", unicode("TOTà").encode('utf-8'), line))
+
+            for pmap in open(g_prefilter):
+                # Old entry, new entry
+                oe, ne = map(string.strip, pmap.split('='))
+#                city_map[oc.capitalize()] = nc.capitalize()
+            print "[%-18s] applying filter %s (%d entries)" % ('pre-filter', g_prefilter, len(prefilter_data.keys()))
+
+#        if g_prefilter:
+#            print "[%-18s] %d city substitutions" % ('city map', city_map_matches)
+
         sources = glob.glob(os.path.join(infile, '*.txt'))
         sources.sort()
         if action == 'sql':
@@ -656,23 +685,6 @@ where action is one of:
             out.write("END TRANSACTION;\n")
             out.close()
             print "done."
-
-            # Applies city post map, if any
-            city_map = {}
-            city_map_matches = 0
-            if g_city_post_map:
-                if not os.path.exists(g_city_post_map):
-                    raise ValueError, "post map not a file"
-                # TODO: check map format (old_name=new_name)
-                import string
-                for pmap in open(g_city_post_map):
-                    # Old city, new city
-                    oc, nc = map(string.strip, pmap.split('='))
-                    city_map[oc.capitalize()] = nc.capitalize()
-                print "[%-18s] applying filter %s (%d entries)" % ('city map', g_city_post_map, len(city_map.keys()))
-
-            if g_city_post_map:
-                print "[%-18s] %d city substitutions" % ('city map', city_map_matches)
 
             if options.android:
                 rawname = os.path.join(TMP_DIR, RAW_DB_FILE)
