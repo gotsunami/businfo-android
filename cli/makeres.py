@@ -202,7 +202,8 @@ def fetch_gps_coords(city):
     import urllib, urllib2, json
     lat = lng = 0
     #print FETCH_GPS_URL % urllib.quote(city + u', France')
-    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(city + u', France'))
+    print type(city)
+    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(unicode(city + ', France', 'utf-8')))
     r = json.loads(s.read())
     if r['status'] != 'OK':
         print "Bad status %s, could not get data from city: %s" % (city, r['status'])
@@ -302,7 +303,7 @@ def makeSQL(sources, out):
     pk = 1
     cs = []
     for city in cities:
-        cs.append((pk, city))
+        cs.append((pk, unicode(city).encode('utf-8')))
         pk += 1
 
     for city in cs:
@@ -387,7 +388,7 @@ def makeSQL(sources, out):
                     # City id
                     city_id = 0
                     for c in cs:
-                        if data['city'] == c[1]:
+                        if data['city'].encode('utf-8') == c[1]:
                             city_id = c[0]
                             break
                     if city_id == 0:
@@ -401,7 +402,7 @@ def makeSQL(sources, out):
                     # Direction id
                     direction_id = 0
                     for c in cs:
-                        if direct[-1]['city'] == c[1]:
+                        if direct[-1]['city'].encode('utf-8') == c[1]:
                             direction_id = c[0]
                             break
                     if direction_id == 0:
@@ -649,6 +650,8 @@ where action is one of:
                 raise ValueError, "pre filter not a file"
             filter_dir = os.path.join(TMP_DIR, 'pre-filter')
             # Clean up target
+            if not os.path.exists(filter_dir):
+                os.mkdir(filter_dir)
             shutil.rmtree(filter_dir)
             shutil.copytree(infile, filter_dir)
             infile = filter_dir
@@ -659,7 +662,7 @@ where action is one of:
                     lines = src_file.readlines()
                 with open(src, 'w') as src_file:
                     for line in lines:
-                        src_file.write(re.sub("SETE", unicode("TOTà").encode('utf-8'), line))
+                        src_file.write(re.sub("SETE", u"Sète".encode('latin-1'), line))
 
             for pmap in open(g_prefilter):
                 # Old entry, new entry
@@ -716,6 +719,8 @@ where action is one of:
                 out.write(XML_HEADER)
                 print "[%-18s] making checksum file..." % chkname,
                 sys.stdout.flush()
+                if options.prefilter:
+                    infile = filter_dir
                 chksum = compute_db_checksum(infile)
                 out.write("""
 <resources>

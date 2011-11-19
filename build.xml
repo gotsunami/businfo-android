@@ -54,8 +54,11 @@
             <arg value="cli/raw" />
             <arg value="--android" />
             <arg line="--db-compare-with res/values/dbversion.xml" />
-            <arg value="--gps" />
-            <arg line="--gps-cache cli/gps.csv" />
+            <!--
+            <arg value="-gps" />
+            <arg line="-gps-cache cli/gps.csv" />
+            -->
+            <arg line="--pre-filter cli/filter.map" />
         </exec>
         <copy todir="res/xml/">
             <fileset dir="/tmp">
