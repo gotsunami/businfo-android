@@ -201,9 +201,7 @@ def fetch_gps_coords(city):
     """
     import urllib, urllib2, json
     lat = lng = 0
-    #print FETCH_GPS_URL % urllib.quote(city + u', France')
-    print type(city)
-    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(unicode(city + ', France', 'utf-8')))
+    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(city + ', France'))
     r = json.loads(s.read())
     if r['status'] != 'OK':
         print "Bad status %s, could not get data from city: %s" % (city, r['status'])
@@ -656,19 +654,16 @@ where action is one of:
             shutil.copytree(infile, filter_dir)
             infile = filter_dir
             # TODO: check map format (old_name=new_name)
+            import subprocess
             import string
-            for src in glob.glob(os.path.join(filter_dir, '*.txt')):
-                with open(src) as src_file:
-                    lines = src_file.readlines()
-                with open(src, 'w') as src_file:
-                    for line in lines:
-                        src_file.write(re.sub("SETE", u"Sète".encode('latin-1'), line))
-
+            subs = 0
             for pmap in open(g_prefilter):
                 # Old entry, new entry
                 oe, ne = map(string.strip, pmap.split('='))
-#                city_map[oc.capitalize()] = nc.capitalize()
-            print "[%-18s] applying filter %s (%d entries)" % ('pre-filter', g_prefilter, len(prefilter_data.keys()))
+                cmd = "sed -i 's,%s,%s,gI' %s" % (oe, ne, os.path.join(filter_dir, '*.txt'))
+                subprocess.call(cmd, shell=True)
+                subs += 1
+            print "[%-18s] applying filter %s (%d entries)" % ('pre-filter', g_prefilter, subs)
 
 #        if g_prefilter:
 #            print "[%-18s] %d city substitutions" % ('city map', city_map_matches)
