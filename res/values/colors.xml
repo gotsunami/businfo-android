@@ -18,5 +18,7 @@
     <color name="ht_blue">#3974f8</color>
     <color name="list_item_bus_time">#e4571c</color>
     <color name="list_item_no_more_stop">#888888</color>
+    <color name="lines_by_city">#888888</color>
+    <color name="result_city_name">#11155D</color>
 </resources>
 

@@ -177,9 +177,19 @@ public class SearchableActivity extends ListActivity {
             else {
                 // We have some matches
                 QueryManager finder = SQLQueryManager.getInstance();
-                LinearLayout lay = (LinearLayout)itemView.findViewById(R.id.label_layout);
-//                lay.removeAllViews();
+                TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
                 List<String> lines = finder.findLinesInCity(city);
+                StringBuilder sb = new StringBuilder();
+                for (String line : lines) {
+                    sb.append(line).append(", ");
+                }
+                sb.replace(sb.length()-2, sb.length(), "");
+
+                String ls = getString(lines.size() == 1 ? R.string.city_served_by_line :
+                    R.string.city_served_by_lines, sb.toString());
+                tv.setText(ls);
+
+                /*
                 LinearLayout.LayoutParams zp = new LinearLayout.LayoutParams(
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                 zp.setMargins(2, 2, 2, 2);
@@ -199,7 +209,10 @@ public class SearchableActivity extends ListActivity {
                     vs[k] = tv;
                     k ++;
                 }
+                Log.d("POP", "POPULATE TEXT");
                 populateText(lay, vs, mContext);
+                 *
+                 */
             }
 
             return itemView;
@@ -274,11 +287,12 @@ public class SearchableActivity extends ListActivity {
         }
     }
 
+    /*
     private void populateText(LinearLayout ll, View[] views, Context ctx) {
         Display display = getWindowManager().getDefaultDisplay();
         ll.removeAllViews();
         //int maxWidth = display.getWidth() - 100;
-        int maxWidth = ll.getMeasuredWidth() - 5;
+        int maxWidth = ll.getMeasuredWidth() - 10;
 
         LinearLayout LL;
         LinearLayout.LayoutParams params;
@@ -322,5 +336,6 @@ public class SearchableActivity extends ListActivity {
         }
         ll.addView(newLL);
     }
-
+     *
+     */
 }
