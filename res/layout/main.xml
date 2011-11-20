@@ -8,8 +8,9 @@
         android:layout_height="fill_parent"
         android:fastScrollEnabled="true"
         android:drawSelectorOnTop="false"/>
-    <TextView android:id="@android:id/empty"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="No data"/>
+    <ImageView android:id="@android:id/empty"
+        android:background="@drawable/ht_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 </LinearLayout>

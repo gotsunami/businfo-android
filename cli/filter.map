@@ -1,4 +1,18 @@
-beziers = Béziers
-sete = Sète
-meze = Mèze
-bedarieux = Bédarieux
+# Order matters!
+
+beziers;Béziers
+sete;Sète
+meze;Mèze
+bedarieux;Bédarieux
+st bres;Saint-Brès
+andre;André
+st ;Saint 
+clement de riviere;Clément-de-Rivière
+riviere;rivière
+clement;Clément
+genies;Génies
+jean de vedas;Jean-de-Védas
+jean-de-vedas;Jean-de-Védas
+thibery;Thibéry
+etienne;Étienne
+gervais sur mare;Gervais-sur-Mare

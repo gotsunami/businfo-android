@@ -658,8 +658,11 @@ where action is one of:
             import string
             subs = 0
             for pmap in open(g_prefilter):
+                if pmap.strip().startswith('#') or len(pmap.strip()) == 0:
+                    continue
                 # Old entry, new entry
-                oe, ne = map(string.strip, pmap.split('='))
+                oe, ne = pmap.split(';')
+                ne = ne.replace('\n', '')
                 cmd = "sed -i 's,%s,%s,gI' %s" % (oe, ne, os.path.join(filter_dir, '*.txt'))
                 subprocess.call(cmd, shell=True)
                 subs += 1
