@@ -46,4 +46,11 @@ WHERE id IN (
 )
 ORDER BY name;
 
+# Get all lines for a bus station
+SELECT station.id, station.name, line.name 
+FROM station, line, line_station
+WHERE station.name LIKE 'gendarmerie%'
+AND line_station.line_id=line.id
+AND line_station.station_id=station.id
+GROUP BY line.name
 
