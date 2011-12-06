@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED AUTOMATICALLY BY THE getcolors.py SCRIPT. DO NOT MODIFY! -->
+<linecolors>
+  <line name="216" color="#000099" />
+  <line name="214" color="#00CC00" />
+  <line name="215" color="#660099" />
+  <line name="213" color="#DFDB00" />
+  <line name="210" color="#FFFF66" />
+  <line name="312" color="#660099" />
+  <line name="311" color="#00CC00" />
+  <line name="112" color="#FFFF00" />
+  <line name="115" color="#CC9966" />
+  <line name="114" color="#99FF33" />
+  <line name="117" color="#00CC00" />
+  <line name="303/485" color="#FF33CC" />
+  <line name="111" color="#99FF33" />
+  <line name="482/485" color="#CCCCFF" />
+  <line name="232" color="#660099" />
+  <line name="Aéroport" color="#FFFF66" />
+  <line name="Aéroport Béziers Cap d'Agde" color="#FFFF66" />
+  <line name="322" color="#FF33CC" />
+  <line name="323" color="#FFCCFF" />
+  <line name="320" color="#FFCCCC" />
+  <line name="321" color="#FF0000" />
+  <line name="308" color="#CC6600" />
+  <line name="301/381" color="#99FF33" />
+  <line name="301/380" color="#99FF33" />
+  <line name="201" color="#660099" />
+  <line name="309" color="#990033" />
+  <line name="203" color="#FFFF00" />
+  <line name="202" color="#6699FF" />
+  <line name="205" color="#FF0000" />
+  <line name="204" color="#33CCFF" />
+  <line name="209" color="#33CCFF" />
+  <line name="208" color="#990033" />
+  <line name="302" color="#CC9966" />
+  <line name="304" color="#FFCCCC" />
+  <line name="305" color="#000099" />
+  <line name="306" color="#33CCFF" />
+  <line name="307" color="#00CC00" />
+  <line name="120" color="#FFCCFF" />
+  <line name="125" color="#660099" />
+  <line name="102" color="#FFFF00" />
+  <line name="103" color="#33CCFF" />
+  <line name="101" color="#FFCCFF" />
+  <line name="106" color="#3399CC" />
+  <line name="107" color="#99FF33" />
+  <line name="480" color="#00CC00" />
+  <line name="131" color="#990033" />
+  <line name="116" color="#FF0000" />
+  <line name="310" color="#6699FF" />
+  <line name="103/312" color="#33CCFF" />
+</linecolors>
