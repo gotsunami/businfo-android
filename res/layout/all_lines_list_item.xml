@@ -5,15 +5,20 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
-    android:paddingLeft="10dip"
-    android:paddingRight="15dip">
+    android:paddingLeft="8dip"
+    android:paddingRight="5dip">
 
     <!-- Activity icon when presenting dialog -->
-    <ImageView android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/flatbus"
-        android:scaleType="fitCenter" />
+    <TextView android:id="@+id/line_color"
+        android:background="@layout/round_corners"
+        android:text="\?"
+        android:textColor="@android:color/white"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:scaleType="fitCenter"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -25,15 +30,15 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/ht_orange"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dip" />
+            android:paddingLeft="8dip" />
         <TextView android:id="@android:id/text2"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="?android:attr/textColorSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dip" />
+            android:paddingLeft="8dip" />
     </LinearLayout>
 </LinearLayout>
 

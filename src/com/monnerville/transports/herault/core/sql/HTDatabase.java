@@ -115,15 +115,6 @@ class HTDatabase extends SQLiteOpenHelper {
 		}
     }
 
-    /**
-     * Gets string resource by name
-     */
-    private String getStringResourceByName(String str) {
-        String packageName = "com.monnerville.transports.herault";
-        int resId = mContext.getResources().getIdentifier(str, "string", packageName);
-        return mContext.getString(resId);
-    }
-
     private XmlResourceParser getXMLParserResourceByName(String str) {
         String packageName = "com.monnerville.transports.herault";
         int resId = mContext.getResources().getIdentifier(str, "xml", packageName);

@@ -1,6 +1,7 @@
 package com.monnerville.transports.herault.ui;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -176,6 +177,13 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             name.setText(line.getName());
             TextView direction = (TextView)itemView.findViewById(android.R.id.text2);
 
+            TextView col = (TextView)itemView.findViewById(R.id.line_color);
+            int colorid = getResourceId(mContext, "@color/line_" + line.getName());
+            if (colorid > 0) {
+                col.setText("");
+                col.setBackgroundResource(colorid);
+            }
+
             try {
                 List<String> dirs = mDirections.get(position);
                 direction.setText(dirs.get(0) + " - " + dirs.get(1));
@@ -183,6 +191,11 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
             return itemView;
         }
+    }
+
+    private int getResourceId(Context ctx, String str) {
+        String packageName = "com.monnerville.transports.herault";
+        return ctx.getResources().getIdentifier(str, null, packageName);
     }
 
     /**

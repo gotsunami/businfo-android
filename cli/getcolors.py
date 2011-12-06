@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: latin-1 -*-
 
 import urllib2, re
 PAGE = 'http://www.herault-transport.fr/horaires_tarifs_hiver.html'
@@ -9,10 +10,10 @@ def make_resource(lines):
     """
     print """<?xml version="1.0" encoding="utf-8"?>
 <!-- GENERATED AUTOMATICALLY BY THE getcolors.py SCRIPT. DO NOT MODIFY! -->
-<linecolors>"""
+<resources>"""
     for line, color in lines.iteritems():
-        print """  <line name="%s" color="%s" />""" % (line, color)
-    print "</linecolors>"
+        print """  <color name="line_%s">%s</color>""" % (line, color)
+    print "</resources>"
 
 def main():
     f = urllib2.urlopen(PAGE)
@@ -25,7 +26,8 @@ def main():
         line = re.search(r'<strong>(.*?)</strong>', res).group(1)
         line = re.sub('<a.*>', '', line)
         line = re.sub('</a>', '', line)
-        line = line.strip()
+        line = line.strip().replace(' ', '_').replace('\'', '_').replace('/', '__')
+        line = re.sub('[éèê]', 'e', line)
         color = color.strip()
         lines[line] = color
     del lines['']
