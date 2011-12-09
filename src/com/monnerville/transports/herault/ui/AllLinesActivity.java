@@ -183,6 +183,10 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                 col.setText("");
                 col.setBackgroundResource(colorid);
             }
+            else {
+                col.setText("?");
+                col.setBackgroundResource(R.layout.round_corners);
+            }
 
             try {
                 List<String> dirs = mDirections.get(position);
