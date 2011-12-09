@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -179,14 +181,23 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
             int colorid = getResourceId(mContext, "@color/line_" + line.getName());
+
+            GradientDrawable gd;
             if (colorid > 0) {
                 col.setText("");
-                col.setBackgroundResource(colorid);
+                int buscol = Color.parseColor(mContext.getString(colorid));
+                int colors[] = { buscol, AllLinesActivity.getLighterColor(buscol, 2) };
+                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                col.setBackgroundDrawable(gd);
             }
             else {
+                int grey = 0x44cccccc;
+                int colors[] = { grey, AllLinesActivity.getLighterColor(grey, 2) };
+                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                col.setBackgroundDrawable(gd);
                 col.setText("?");
-                col.setBackgroundResource(R.layout.round_corners);
             }
+            gd.setCornerRadius(5);
 
             try {
                 List<String> dirs = mDirections.get(position);
@@ -195,6 +206,32 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
             return itemView;
         }
+    }
+
+    /**
+     * Computes a lighter color
+     * @param startCol source color to compute from
+     * @param fn times factor
+     * @return new color
+     */
+    public static int getLighterColor(int startCol, int fn) {
+        return Color.rgb(
+            fn*Color.red(startCol),
+            fn*Color.green(startCol),
+            fn*Color.blue(startCol));
+    }
+
+    /**
+     * Computes a darker color
+     * @param startCol source color to compute from
+     * @param fn times factor
+     * @return new color
+     */
+    public static int getDarkerColor(int startCol, int fn) {
+        return Color.rgb(
+            Color.red(startCol)/fn,
+            Color.green(startCol)/fn,
+            Color.blue(startCol)/fn);
     }
 
     private int getResourceId(Context ctx, String str) {
