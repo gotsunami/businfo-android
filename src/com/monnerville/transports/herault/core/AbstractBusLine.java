@@ -11,7 +11,9 @@ import java.util.List;
  * @author mathias
  */
 public abstract class AbstractBusLine implements BusLine {
-    private String mName;
+    final private String mName;
+    private int mColor = UNKNOWN_COLOR;
+
     /**
      * Cities related to this line
      */
@@ -36,5 +38,21 @@ public abstract class AbstractBusLine implements BusLine {
         int hash = 7;
         hash = 73 * hash + (this.mName != null ? this.mName.hashCode() : 0);
         return hash;
+    }
+
+    /**
+     * Get bus line color
+     * @return line color
+     */
+    @Override
+    public int getColor() { return mColor; }
+
+    /**
+     * Get bus line color
+     * @return line color
+     */
+    @Override
+    public void setColor(int color) {
+        mColor = color;
     }
 }

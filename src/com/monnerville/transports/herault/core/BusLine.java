@@ -8,6 +8,9 @@ import java.util.Map;
  * @author mathias
  */
 public interface BusLine {
+    public static final int UNKNOWN_COLOR = 0x44cccccc;
+    public int getColor();
+    public void setColor(int color);
     public String getName();
     public List<String> getCities(String direction);
     public String[] getDirections();

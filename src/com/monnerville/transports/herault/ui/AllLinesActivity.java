@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.AbstractBusLine;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
 import java.util.List;
@@ -178,21 +179,17 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(line.getName());
             TextView direction = (TextView)itemView.findViewById(android.R.id.text2);
-
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
-            int colorid = getResourceId(mContext, "@color/line_" + line.getName());
 
             GradientDrawable gd;
-            if (colorid > 0) {
+            if (line.getColor() != 0) {
                 col.setText("");
-                int buscol = Color.parseColor(mContext.getString(colorid));
-                int colors[] = { buscol, AllLinesActivity.getLighterColor(buscol, 2) };
+                int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
                 gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
                 col.setBackgroundDrawable(gd);
             }
             else {
-                int grey = 0x44cccccc;
-                int colors[] = { grey, AllLinesActivity.getLighterColor(grey, 2) };
+                int colors[] = { BusLine.UNKNOWN_COLOR, AllLinesActivity.getLighterColor(BusLine.UNKNOWN_COLOR, 2) };
                 gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
                 col.setBackgroundDrawable(gd);
                 col.setText("?");
@@ -353,11 +350,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      */
     private class DirectionsRetreiverTask extends AsyncTask<List<BusLine>, Void, Void> {
         private List<BusStation> starredStations;
+        private List<BusLine> mLines;
 
         @Override
         protected Void doInBackground(List<BusLine>... lis) {
-            List<BusLine> lines = lis[0];
-            for (BusLine line : lines) {
+            mLines = lis[0];
+            for (BusLine line : mLines) {
                 String[] dirs = line.getDirections();
                 mDirections.add(Arrays.asList(dirs));
             }
@@ -372,6 +370,11 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
+            for (BusLine line : mLines) {
+                int colorid = getResourceId(AllLinesActivity.this, "@color/line_" + line.getName());
+                int buscol = colorid > 0 ? Color.parseColor(AllLinesActivity.this.getString(colorid)) : 0;
+                line.setColor(buscol);
+            }
             mAdapter.notifyDataSetChanged();
         }
     }
