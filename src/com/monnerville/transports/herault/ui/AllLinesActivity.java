@@ -108,7 +108,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         }
         mAdapter.addSection(getString(R.string.quick_actions_header),
             new ActionListAdapter(this, R.layout.main_action_list_item, mMainActions));
-        mAdapter.addSection(getString(R.string.all_lines_header, lines.size()),
+        mAdapter.addSection(getString(R.string.all_lines_header),
             new LineListAdapter(this, R.layout.all_lines_list_item, lines));
         setListAdapter(mAdapter);
     }
@@ -333,17 +333,28 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         }
     }
 
-	final SectionedAdapter mAdapter = new SectionedAdapter() {
+    final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
         @Override
 		protected View getHeaderView(String caption, int index, View convertView, ViewGroup parent) {
-			TextView result = (TextView)convertView;
-			if (convertView == null) {
-				result = (TextView)getLayoutInflater().inflate(R.layout.list_header, null);
-			}
-			result.setText(caption);
-			return result;
+            View v = super.getHeaderView(caption, index, convertView, parent);
+            // No right counter in quick actions header
+            if (caption.equals(getString(R.string.quick_actions_header))) {
+                LinearLayout result = (LinearLayout)convertView;
+                if (convertView == null) {
+                    result = (LinearLayout)getLayoutInflater().inflate(R.layout.list_counter_header, null);
+                }
+                TextView num = (TextView)result.findViewById(R.id.result_num_match);
+                num.setText("");
+            }
+            return v;
 		}
-	};
+
+        @Override
+        protected int getMatches(String caption) {
+            BusManager manager = SQLBusManager.getInstance();
+            return manager.getBusLines().size();
+        }
+    };
 
     /**
      * Retrieves all lines directions in a background thread

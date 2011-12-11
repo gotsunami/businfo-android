@@ -14,7 +14,7 @@
     <string name="result_city_header">Villes</string>
     <string name="result_station_header">Stations</string>
     <string name="result_line_header">Lignes</string>
-    <string name="all_lines_header">Toutes les lignes (%1$d)</string>
+    <string name="all_lines_header">Toutes les lignes</string>
     <string name="bookmark_info">Ligne %1$s vers %2$s</string>
     <string name="no_data">Pas de données.</string>
     <string name="search_hint">Entrez un mot clef</string>

@@ -15,7 +15,7 @@
     <string name="result_city_header">Cities</string>
     <string name="result_station_header">Stations</string>
     <string name="result_line_header">Lines</string>
-    <string name="all_lines_header">All lines (%1$d)</string>
+    <string name="all_lines_header">All lines</string>
     <string name="bookmark_info">Line %1$s to %2$s</string>
     <string name="no_data">No data.</string>
     <string name="search_hint">Enter keyword</string>

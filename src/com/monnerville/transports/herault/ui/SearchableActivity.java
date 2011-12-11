@@ -107,43 +107,25 @@ public class SearchableActivity extends ListActivity {
         setListAdapter(mAdapter);
     }
 
-    /**
-     * Get result match count depending on caption header
-     * @param caption name of header section
-     * @return number of matches
-     */
-    private int getMatches(String caption) {
-        int matches = 0;
-        int ln;
-        List<String> results = new ArrayList<String>();
-        if (caption.equals(getString(R.string.result_city_header)))
-            results = mCities;
-        else if (caption.equals(getString(R.string.result_line_header)))
-            results = mLines;
-        else if (caption.equals(getString(R.string.result_station_header)))
-            results = mStations;
-
-        ln = results.size();
-        if (ln > 0 && !results.get(0).equals(getString(R.string.result_no_match)))
-            matches = ln;
-        return matches;
-    }
-
-	final SectionedAdapter mAdapter = new SectionedAdapter() {
+    final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
         @Override
-		protected View getHeaderView(String caption, int index, View convertView, ViewGroup parent) {
-			LinearLayout result = (LinearLayout)convertView;
-			if (convertView == null) {
-				result = (LinearLayout)getLayoutInflater().inflate(R.layout.list_counter_header, null);
-			}
-            TextView tv = (TextView)result.findViewById(R.id.result_title);
-			tv.setText(caption);
+        protected int getMatches(String caption) {
+            int matches = 0;
+            int ln;
+            List<String> results = new ArrayList<String>();
+            if (caption.equals(getString(R.string.result_city_header)))
+                results = mCities;
+            else if (caption.equals(getString(R.string.result_line_header)))
+                results = mLines;
+            else if (caption.equals(getString(R.string.result_station_header)))
+                results = mStations;
 
-            TextView num = (TextView)result.findViewById(R.id.result_num_match);
-            num.setText(String.valueOf(getMatches(caption)));
-			return result;
-		}
-	};
+            ln = results.size();
+            if (ln > 0 && !results.get(0).equals(getString(R.string.result_no_match)))
+                matches = ln;
+            return matches;
+        }
+    };
 
     private class CityListAdapter extends ArrayAdapter<String> {
         private int mResource;
