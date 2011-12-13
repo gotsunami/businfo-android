@@ -99,6 +99,14 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private void setupAdapter() {
         BusManager manager = SQLBusManager.getInstance();
         List<BusLine> lines = manager.getBusLines();
+        // Set colors on lines
+        for (BusLine line : lines) {
+            int colorid = getResourceId(AllLinesActivity.this, "@color/line_" + line.getName());
+            int buscol = colorid > 0 ? Color.parseColor(AllLinesActivity.this.getString(colorid)) : 0;
+            line.setColor(buscol);
+        }
+
+        // Background line directions retreiver
         new DirectionsRetreiverTask().execute(lines);
 
         if (mStarredStations.size() > 0) {
@@ -369,11 +377,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
-            for (BusLine line : mLines) {
-                int colorid = getResourceId(AllLinesActivity.this, "@color/line_" + line.getName());
-                int buscol = colorid > 0 ? Color.parseColor(AllLinesActivity.this.getString(colorid)) : 0;
-                line.setColor(buscol);
-            }
             mAdapter.notifyDataSetChanged();
         }
     }

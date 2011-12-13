@@ -10,8 +10,6 @@
 
     <!-- Activity icon when presenting dialog -->
     <TextView android:id="@+id/line_color"
-        android:background="@layout/round_corners"
-        android:text="\?"
         android:textColor="@android:color/white"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:scaleType="fitCenter"
