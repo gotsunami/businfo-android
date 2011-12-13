@@ -28,6 +28,8 @@ import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.management.MBeanConstructorInfo;
 
 /**
  *
@@ -36,7 +38,7 @@ import java.util.List;
 public class SearchableActivity extends ListActivity {
     // Matches in the result set
     private List<String> mCities;
-    private List<String> mStations;
+    private Map<Integer, String> mStations;
     private List<String> mLines;
 
     @Override
@@ -95,7 +97,8 @@ public class SearchableActivity extends ListActivity {
         if (mCities.isEmpty())
             mCities.add(getString(R.string.result_no_match));
         if (mStations.isEmpty())
-            mStations.add(getString(R.string.result_no_match));
+            mStations.put(0, getString(R.string.result_no_match));
+
         if (mLines.isEmpty())
             mLines.add(getString(R.string.result_no_match));
         mAdapter.addSection(getString(R.string.result_city_header),
@@ -201,11 +204,11 @@ public class SearchableActivity extends ListActivity {
         }
     }
 
-    private class StationListAdapter extends ArrayAdapter<String> {
+    private class StationListAdapter extends ArrayAdapter<Map<Integer, String>> {
         private int mResource;
         private Context mContext;
 
-        StationListAdapter(Context context, int resource, List<String> stations) {
+        StationListAdapter(Context context, int resource, List<Map<Integer, String>> stations) {
             super(context, resource, stations);
             mResource = resource;
             mContext = context;
@@ -214,7 +217,7 @@ public class SearchableActivity extends ListActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout itemView;
-            String station = getItem(position);
+            Map<Integer, String> station = getItem(position);
 
             if (convertView == null) {
                 itemView = new LinearLayout(mContext);
@@ -225,7 +228,7 @@ public class SearchableActivity extends ListActivity {
                 itemView = (LinearLayout)convertView;
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
-            name.setText(station);
+            name.setText(station.get);
             if (station.equals(getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);

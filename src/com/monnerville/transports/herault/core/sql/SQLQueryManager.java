@@ -8,7 +8,9 @@ import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.R;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -44,15 +46,15 @@ public class SQLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<String> findStations(String query) {
-        List<String> rstations = new ArrayList<String>();
+    public Map<Integer, String> findStations(String query) {
+        Map<Integer, String> rstations = new HashMap<Integer, String>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
-            R.string.db_station_table_name), new String[] {"name"}, "name LIKE ?",
-            new String[] {"%" + query + "%"}, null, null, "name"
+            R.string.db_station_table_name), new String[] {"id", "name"}, "name LIKE ?",
+            new String[] {"%" + query + "%"}, null, null, "id"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            rstations.add(c.getString(0));
+            rstations.put(c.getInt(0), c.getString(0));
         }
 		c.close();
         return rstations;

@@ -1,6 +1,7 @@
 package com.monnerville.transports.herault.core;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Basic interface for initiating search requests
@@ -17,9 +18,9 @@ public interface QueryManager {
     /**
      * Looks for existing bus stations
      * @param query
-     * @return list of stations
+     * @return list of (id station, name)
      */
-    public List<String> findStations(String query);
+    public Map<Integer, String> findStations(String query);
     /**
      * Looks for existing bus lines
      * @param query
