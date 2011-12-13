@@ -101,7 +101,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         List<BusLine> lines = manager.getBusLines();
         // Set colors on lines
         for (BusLine line : lines) {
-            int colorid = getResourceId(AllLinesActivity.this, "@color/line_" + line.getName());
+            String colRes = line.getName().replace("/", "__").replace(" ", "_");
+            int colorid = getResourceId(AllLinesActivity.this, "@color/line_" + colRes);
             int buscol = colorid > 0 ? Color.parseColor(AllLinesActivity.this.getString(colorid)) : 0;
             line.setColor(buscol);
         }

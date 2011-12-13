@@ -26,6 +26,7 @@
   <color name="line_301__381">#99FF33</color>
   <color name="line_308">#CC6600</color>
   <color name="line_201">#660099</color>
+  <color name="line_207">#009900</color>
   <color name="line_309">#990033</color>
   <color name="line_203">#FFFF00</color>
   <color name="line_202">#6699FF</color>
@@ -48,6 +49,9 @@
   <color name="line_Aeeroport_Beeziers_Cap_d_Agde">#FFFF66</color>
   <color name="line_480">#00CC00</color>
   <color name="line_482__485">#CCCCFF</color>
+  <color name="line_486">#FFCCCC</color>
+  <color name="line_487">#000099</color>
+  <color name="line_490">#CCCCCC</color>
   <color name="line_131">#990033</color>
   <color name="line_303__485">#FF33CC</color>
 </resources>
