@@ -335,24 +335,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
     final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
         @Override
-		protected View getHeaderView(String caption, int index, View convertView, ViewGroup parent) {
-            View v = super.getHeaderView(caption, index, convertView, parent);
-            // No right counter in quick actions header
-            if (caption.equals(getString(R.string.quick_actions_header))) {
-                LinearLayout result = (LinearLayout)convertView;
-                if (convertView == null) {
-                    result = (LinearLayout)getLayoutInflater().inflate(R.layout.list_counter_header, null);
-                }
-                TextView num = (TextView)result.findViewById(R.id.result_num_match);
-                num.setText("");
-            }
-            return v;
-		}
-
-        @Override
         protected int getMatches(String caption) {
-            BusManager manager = SQLBusManager.getInstance();
-            return manager.getBusLines().size();
+            if (caption.equals(getString(R.string.all_lines_header))) {
+                BusManager manager = SQLBusManager.getInstance();
+                return manager.getBusLines().size();
+            }
+            return CounterSectionedAdapter.NO_MATCH;
         }
     };
 
@@ -447,9 +435,9 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         protected void onPostExecute(Void none) {
             // Back to the UI thread
             Log.d("BENCH0", "DB create duration: " + (System.currentTimeMillis() - mStart) + "ms");
-            mAdapter.notifyDataSetChanged();
             mHandler = null;
             setupAdapter();
+            mAdapter.notifyDataSetChanged();
         }
     }
 

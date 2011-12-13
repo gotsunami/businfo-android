@@ -1,6 +1,7 @@
 package com.monnerville.transports.herault.ui;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import com.monnerville.transports.herault.R;
  */
 abstract public class CounterSectionedAdapter extends SectionedAdapter {
     private Activity mContext;
+    public final static int NO_MATCH = -1;
 
     public CounterSectionedAdapter(Activity ctx) {
         super();
@@ -30,7 +32,8 @@ abstract public class CounterSectionedAdapter extends SectionedAdapter {
         tv.setText(caption);
 
         TextView num = (TextView)result.findViewById(R.id.result_num_match);
-        num.setText(String.valueOf(getMatches(caption)));
+        int m = getMatches(caption);
+        num.setText(m != NO_MATCH ? String.valueOf(m) : "");
         return result;
     }
 
