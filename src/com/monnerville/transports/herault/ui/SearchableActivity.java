@@ -26,10 +26,8 @@ import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
-import java.util.ArrayList;
+import com.monnerville.transports.herault.core.sql.DBStation;
 import java.util.List;
-import java.util.Map;
-import javax.management.MBeanConstructorInfo;
 
 /**
  *
@@ -38,7 +36,7 @@ import javax.management.MBeanConstructorInfo;
 public class SearchableActivity extends ListActivity {
     // Matches in the result set
     private List<String> mCities;
-    private Map<Integer, String> mStations;
+    private List<DBStation> mStations;
     private List<String> mLines;
 
     @Override
@@ -67,7 +65,7 @@ public class SearchableActivity extends ListActivity {
         protected Void doInBackground(String... q) {
             String query = q[0];
             mCities = finder.findCities(query);
-            mStations = finder.findStations(query);
+            mStations = (List<DBStation>)finder.findStations(query);
             mLines = finder.findLines(query);
             return null;
         }
@@ -97,7 +95,7 @@ public class SearchableActivity extends ListActivity {
         if (mCities.isEmpty())
             mCities.add(getString(R.string.result_no_match));
         if (mStations.isEmpty())
-            mStations.put(0, getString(R.string.result_no_match));
+            mStations.add(new DBStation(0, getString(R.string.result_no_match)));
 
         if (mLines.isEmpty())
             mLines.add(getString(R.string.result_no_match));
@@ -114,17 +112,23 @@ public class SearchableActivity extends ListActivity {
         @Override
         protected int getMatches(String caption) {
             int matches = 0;
-            int ln;
-            List<String> results = new ArrayList<String>();
-            if (caption.equals(getString(R.string.result_city_header)))
-                results = mCities;
-            else if (caption.equals(getString(R.string.result_line_header)))
-                results = mLines;
-            else if (caption.equals(getString(R.string.result_station_header)))
-                results = mStations;
+            int ln = 0;
+            // First match must be different from result_no_match
+            String firstMatch = getString(R.string.result_no_match);
+            if (caption.equals(getString(R.string.result_city_header))) {
+                ln = mCities.size();
+                firstMatch = mCities.get(0);
+            }
+            else if (caption.equals(getString(R.string.result_line_header))) {
+                ln = mLines.size();
+                firstMatch = mLines.get(0);
+            }
+            else if (caption.equals(getString(R.string.result_station_header))) {
+                ln = mStations.size();
+                firstMatch = mStations.get(0).name;
+            }
 
-            ln = results.size();
-            if (ln > 0 && !results.get(0).equals(getString(R.string.result_no_match)))
+            if (ln > 0 && !firstMatch.equals(getString(R.string.result_no_match)))
                 matches = ln;
             return matches;
         }
@@ -204,11 +208,11 @@ public class SearchableActivity extends ListActivity {
         }
     }
 
-    private class StationListAdapter extends ArrayAdapter<Map<Integer, String>> {
+    private class StationListAdapter extends ArrayAdapter<DBStation> {
         private int mResource;
         private Context mContext;
 
-        StationListAdapter(Context context, int resource, List<Map<Integer, String>> stations) {
+        StationListAdapter(Context context, int resource, List<DBStation> stations) {
             super(context, resource, stations);
             mResource = resource;
             mContext = context;
@@ -217,7 +221,7 @@ public class SearchableActivity extends ListActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout itemView;
-            Map<Integer, String> station = getItem(position);
+            DBStation station = getItem(position);
 
             if (convertView == null) {
                 itemView = new LinearLayout(mContext);
@@ -228,8 +232,9 @@ public class SearchableActivity extends ListActivity {
                 itemView = (LinearLayout)convertView;
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
-            name.setText(station.get);
-            if (station.equals(getString(R.string.result_no_match))) {
+            name.setText(station.name);
+            TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
+            if (station.name.equals(getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);
             }

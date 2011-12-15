@@ -2,15 +2,14 @@ package com.monnerville.transports.herault.core.sql;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.R;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -46,15 +45,15 @@ public class SQLQueryManager implements QueryManager {
     }
 
     @Override
-    public Map<Integer, String> findStations(String query) {
-        Map<Integer, String> rstations = new HashMap<Integer, String>();
+    public List<DBStation> findStations(String query) {
+        List<DBStation> rstations = new ArrayList<DBStation>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_station_table_name), new String[] {"id", "name"}, "name LIKE ?",
             new String[] {"%" + query + "%"}, null, null, "id"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            rstations.put(c.getInt(0), c.getString(0));
+            rstations.add(new DBStation(c.getInt(0), c.getString(1)));
         }
 		c.close();
         return rstations;

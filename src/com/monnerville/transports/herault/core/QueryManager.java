@@ -20,7 +20,7 @@ public interface QueryManager {
      * @param query
      * @return list of (id station, name)
      */
-    public Map<Integer, String> findStations(String query);
+    public List<? extends Object> findStations(String query);
     /**
      * Looks for existing bus lines
      * @param query
