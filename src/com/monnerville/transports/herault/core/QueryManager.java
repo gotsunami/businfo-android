@@ -33,4 +33,11 @@ public interface QueryManager {
      * @return list of bus lines
      */
     public List<String> findLinesInCity(String city);
+    /**
+     * Finds lines and city for one station
+     * @param name name of station (not unique!)
+     * @param id unique station identifier
+     * @return a map with one key (the city) and a list of stations
+     */
+    public Map<String, List<String>> findLinesAndCityFromStation(String name, String id);
 }

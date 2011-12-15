@@ -27,7 +27,10 @@ import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.core.sql.DBStation;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -165,17 +168,12 @@ public class SearchableActivity extends ListActivity {
             }
             else {
                 // We have some matches
-                QueryManager finder = SQLQueryManager.getInstance();
                 TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
+                QueryManager finder = SQLQueryManager.getInstance();
                 List<String> lines = finder.findLinesInCity(city);
-                StringBuilder sb = new StringBuilder();
-                for (String line : lines) {
-                    sb.append(line).append(", ");
-                }
-                sb.replace(sb.length()-2, sb.length(), "");
-
+                String strLines = getJoinedList(lines, ",");
                 String ls = getString(lines.size() == 1 ? R.string.city_served_by_line :
-                    R.string.city_served_by_lines, sb.toString());
+                    R.string.city_served_by_lines, strLines);
                 tv.setText(ls);
 
                 /*
@@ -208,6 +206,18 @@ public class SearchableActivity extends ListActivity {
         }
     }
 
+    /**
+     * Joins a list's elements with a string separator
+     */
+    private String getJoinedList(List<String> data, String separator) {
+        StringBuilder sb = new StringBuilder();
+        for (String d : data) {
+            sb.append(d).append(separator).append(" ");
+        }
+        sb.replace(sb.length()-1-separator.length(), sb.length(), "");
+        return sb.toString();
+    }
+
     private class StationListAdapter extends ArrayAdapter<DBStation> {
         private int mResource;
         private Context mContext;
@@ -233,7 +243,24 @@ public class SearchableActivity extends ListActivity {
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(station.name);
-            TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
+
+            QueryManager finder = SQLQueryManager.getInstance();
+            Map<String, List<String>> clines = finder.findLinesAndCityFromStation(
+                station.name, Integer.toString(station.id));
+
+            if (clines.size() > 0) {
+                TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
+                Set<String> keys = clines.keySet();
+                Iterator itr = keys.iterator();
+                String city = (String)itr.next();
+                List<String> lines = clines.get(city);
+
+                String strLines = getJoinedList(clines.get(city), ",");
+                String ls = getString(lines.size() == 1 ? R.string.city_served_by_line :
+                    R.string.city_served_by_lines, strLines);
+                tv.setText(getString(R.string.station_served_by_lines, city, ls));
+            }
+
             if (station.name.equals(getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);

@@ -3,13 +3,12 @@ package com.monnerville.transports.herault.core.sql;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-import com.monnerville.transports.herault.core.BusLine;
-import com.monnerville.transports.herault.core.BusManager;
-import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.R;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -49,7 +48,7 @@ public class SQLQueryManager implements QueryManager {
         List<DBStation> rstations = new ArrayList<DBStation>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_station_table_name), new String[] {"id", "name"}, "name LIKE ?",
-            new String[] {"%" + query + "%"}, null, null, "id"
+            new String[] {"%" + query + "%"}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
@@ -86,5 +85,27 @@ public class SQLQueryManager implements QueryManager {
         }
 		c.close();
         return lines;
+    }
+
+    @Override
+    public Map<String, List<String>> findLinesAndCityFromStation(String name, String id) {
+        Map<String, List<String>> result = new HashMap<String, List<String>>();
+        Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
+            R.string.query_get_lines_and_city_from_station), new String[] {name, id}
+        );
+        if (c.getCount() == 0) return result;
+
+        // Get the city
+        c.moveToPosition(0);
+        String city = c.getString(0);
+        result.put(city, new ArrayList<String>());
+
+        // Fill in the bus lines
+        for (int j=0; j < c.getCount(); j++) {
+            c.moveToPosition(j);
+            result.get(city).add(c.getString(1));
+        }
+		c.close();
+        return result;
     }
 }

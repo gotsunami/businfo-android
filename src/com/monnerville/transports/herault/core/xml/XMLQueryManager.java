@@ -6,6 +6,7 @@ import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.QueryManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -54,6 +55,11 @@ public class XMLQueryManager implements QueryManager {
 
     @Override
     public List<String> findLinesInCity(String city) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Map<String, List<String>> findLinesAndCityFromStation(String name, String id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
