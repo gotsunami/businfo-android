@@ -49,7 +49,7 @@ public abstract class AbstractBusLine implements BusLine {
 
     /**
      * Get bus line color
-     * @return line color
+     * @param color line color
      */
     @Override
     public void setColor(int color) {

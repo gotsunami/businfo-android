@@ -26,7 +26,7 @@ public interface QueryManager {
      * @param query
      * @return list of bus lines
      */
-    public List<String> findLines(String query);
+    public List<BusLine> findLines(String query);
     /**
      * Looks for lines in city 
      * @param city

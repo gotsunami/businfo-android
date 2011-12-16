@@ -49,7 +49,7 @@ public class XMLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<String> findLines(String query) {
+    public List<BusLine> findLines(String query) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

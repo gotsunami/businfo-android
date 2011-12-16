@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.util.Log;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.BusLine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,15 +60,15 @@ public class SQLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<String> findLines(String query) {
-        List<String> lines = new ArrayList<String>();
+    public List<BusLine> findLines(String query) {
+        List<BusLine> lines = new ArrayList<BusLine>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_line_table_name), new String[] {"name"}, "name LIKE ?",
             new String[] {"%" + query + "%"}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            lines.add(c.getString(0));
+            lines.add(new SQLBusLine(c.getString(0)));
         }
 		c.close();
         return lines;

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,9 +25,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.core.sql.DBStation;
+import com.monnerville.transports.herault.core.sql.SQLBusLine;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +43,7 @@ public class SearchableActivity extends ListActivity {
     // Matches in the result set
     private List<String> mCities;
     private List<DBStation> mStations;
-    private List<String> mLines;
+    private List<BusLine> mLines;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +104,8 @@ public class SearchableActivity extends ListActivity {
             mStations.add(new DBStation(0, getString(R.string.result_no_match)));
 
         if (mLines.isEmpty())
-            mLines.add(getString(R.string.result_no_match));
+            mLines.add(new SQLBusLine(getString(R.string.result_no_match)));
+            //mLines.add(getString(R.string.result_no_match));
         mAdapter.addSection(getString(R.string.result_city_header),
             new CityListAdapter(this, R.layout.result_city_list_item, mCities));
         mAdapter.addSection(getString(R.string.result_station_header),
@@ -124,7 +128,7 @@ public class SearchableActivity extends ListActivity {
             }
             else if (caption.equals(getString(R.string.result_line_header))) {
                 ln = mLines.size();
-                firstMatch = mLines.get(0);
+                firstMatch = mLines.get(0).getName();
             }
             else if (caption.equals(getString(R.string.result_station_header))) {
                 ln = mStations.size();
@@ -270,11 +274,11 @@ public class SearchableActivity extends ListActivity {
         }
     }
 
-    private class LineListAdapter extends ArrayAdapter<String> {
+    private class LineListAdapter extends ArrayAdapter<BusLine> {
         private int mResource;
         private Context mContext;
 
-        LineListAdapter(Context context, int resource, List<String> lines) {
+        LineListAdapter(Context context, int resource, List<BusLine> lines) {
             super(context, resource, lines);
             mResource = resource;
             mContext = context;
@@ -283,7 +287,7 @@ public class SearchableActivity extends ListActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout itemView;
-            String line = getItem(position);
+            BusLine line = getItem(position);
 
             if (convertView == null) {
                 itemView = new LinearLayout(mContext);
@@ -294,10 +298,29 @@ public class SearchableActivity extends ListActivity {
                 itemView = (LinearLayout)convertView;
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
-            name.setText(line);
-            if (line.equals(getString(R.string.result_no_match))) {
+            name.setText(line.getName());
+            if (line.getName().equals(getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);
+            }
+            else {
+                line.setColor(0xffff0000);
+                TextView direction = (TextView)itemView.findViewById(R.id.direction);
+                TextView col = (TextView)itemView.findViewById(R.id.line_color);
+
+                GradientDrawable gd;
+                if (line.getColor() != 0) {
+                    col.setText("");
+                    int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
+                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                }
+                else {
+                    int colors[] = { BusLine.UNKNOWN_COLOR, AllLinesActivity.getLighterColor(BusLine.UNKNOWN_COLOR, 2) };
+                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                    col.setText("?");
+                }
+                gd.setCornerRadius(5);
+                col.setBackgroundDrawable(gd);
             }
 
             return itemView;
