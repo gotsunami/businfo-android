@@ -1,6 +1,7 @@
 # Line 487
 name=487
 circulation=1,2,4,5
+color=#000099
 
 direction=
 

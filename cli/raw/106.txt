@@ -2,6 +2,7 @@
 # INCOMPLETE
 name=106
 circulation=1-5
+color=#3399CC
 
 direction=
 

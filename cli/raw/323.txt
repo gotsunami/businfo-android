@@ -5,6 +5,7 @@
 name=323
 circulation=1-6
 from=2010-09-02
+color=#FFCCFF
 
 direction=
 

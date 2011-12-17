@@ -3,6 +3,7 @@ name=211 été
 from=2011-07-02
 to=2011-08-31
 circulation=1-7
+color=#FF0000
 
 direction=
 

@@ -1,6 +1,7 @@
 # Line 322
 name=322
 circulation=1-6
+color=#FF33CC
 
 direction=
 

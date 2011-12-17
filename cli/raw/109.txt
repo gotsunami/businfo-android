@@ -3,6 +3,7 @@
 # S: Holydays only
 name=109
 circulation=1-6
+color=#FFFF00
 
 direction=
 

@@ -6,6 +6,7 @@
 name=103/312
 # Default circulation days
 circulation=1-6
+color=#33CCFF
 
 # Starts a new direction
 direction=

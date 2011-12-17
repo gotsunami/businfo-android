@@ -1,6 +1,7 @@
 # Line 321
 name=321
 circulation=1-6
+color=#FF0000
 
 direction=
 

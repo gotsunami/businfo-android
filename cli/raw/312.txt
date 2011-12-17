@@ -1,6 +1,7 @@
 # Line 312
 name=312
 circulation=1-6
+color=#660099
 
 direction=
 

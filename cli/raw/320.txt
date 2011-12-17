@@ -2,6 +2,7 @@
 name=320
 circulation=1-6
 from=2011-07-04
+color=#FFCCCC
 
 direction=
 

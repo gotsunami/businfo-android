@@ -5,6 +5,7 @@ name=103/312 été
 from=2011-07-04
 to=2011-08-28
 circulation=1-6
+color=#33CCFF
 
 direction=
 

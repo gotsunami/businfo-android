@@ -42,6 +42,7 @@ DROP TABLE IF EXISTS line;
 CREATE TABLE line (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
     name TEXT, 
+    color TEXT, 
     from_city_id INTEGER, 
     to_city_id INTEGER,
     UNIQUE(name)
@@ -211,7 +212,7 @@ def fetch_gps_coords(city):
 
     return lat, lng
 
-def makeXML(busline, directions, outfile):
+def makeXML(busline, directions, outfile, linecolor):
     global dfltCirculationPolicy
     global g_cities
 
@@ -229,7 +230,7 @@ def makeXML(busline, directions, outfile):
     tmpCities = tmpStations = []
 
     f.write(XML_HEADER)
-    f.write("""<line id="%s">\n""" % busline)
+    f.write("""<line id="%s" color="%s">\n""" % (busline, linecolor))
     for data in directions:
         curDirection = data[-1]['city']
         f.write(' ' * INDENT + """<direction id="%s" c="%s">\n""" % (curDirection.encode('utf-8'), dfltCirculationPolicy))
@@ -281,8 +282,8 @@ def makeSQL(sources, out):
     lines_stations = set()
     for src in sources:
         try:
-            busline, directions = parse(src)
-            lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city']))
+            busline, directions, linecolor = parse(src)
+            lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city'], linecolor))
             k = 0
             for direct in directions:
                 rank = 1
@@ -340,8 +341,8 @@ def makeSQL(sources, out):
             print "Error: pk_from(%d) or pk_to(%d) id not found!" % (pk_from, pk_to)
             print "Line: " + str(line)
             sys.exit(1)
-        out.write("INSERT INTO line VALUES(%d, \"%s\", %d, %d);\n" % (
-            pk, line[0], pk_from, pk_to))
+        out.write("INSERT INTO line VALUES(%d, \"%s\", \"%s\", %d, %d);\n" % (
+            pk, line[0], line[3], pk_from, pk_to))
         db_line_count += 1
         pk += 1
 
@@ -379,7 +380,7 @@ def makeSQL(sources, out):
     # Handle stops
     k = 1
     for src in sources:
-        busline, directions = parse(src)
+        busline, directions, linecolor = parse(src)
         for direct in directions:
             for data in direct:
                 for stop in data['stops']:
@@ -451,10 +452,12 @@ def parse(infile):
     CITY_PAT = 'city='
     FROM_PAT = 'from='
     TO_PAT = 'to='
+    COLOR_PAT = 'color='
 
     k = -1
     curCity = None
     curLines = None
+    linecolor = ""
     for line in data:
         if line.startswith(DIRECTION_PAT):
             directions.append([])
@@ -469,6 +472,8 @@ def parse(infile):
             pass
         elif line.startswith(TO_PAT):
             pass
+        elif line.startswith(COLOR_PAT):
+            linecolor = re.sub(COLOR_PAT, '', line).encode('utf-8')
         else:
             # This is a station line
             sts = line.split(';')
@@ -499,7 +504,7 @@ def parse(infile):
                 'stops': allstops,
             })
 
-    return (busline, directions)
+    return (busline, directions, linecolor)
 
 def get_md5(filename):
     ck = open(filename)
@@ -789,10 +794,10 @@ where action is one of:
         else:
             # Action is 'xml'
             for src in sources:
-                busline, directions = parse(src)
+                busline, directions, linecolor = parse(src)
                 ext = '.xml'
                 outfile = os.path.join(TMP_DIR, os.path.basename(src[:src.rfind('.')] + ext))
-                makeXML(busline, directions, outfile)
+                makeXML(busline, directions, outfile, linecolor)
 
             if options.globalxml:
                 dst = os.path.join(TMP_DIR, 'lines.xml')
@@ -822,8 +827,8 @@ where action is one of:
         else:
             # xml
             outfile = infile[:infile.rfind('.')] + '.xml'
-            busline, directions = parse(infile)
-            makeXML(busline, directions, outfile)
+            busline, directions, linecolor = parse(infile)
+            makeXML(busline, directions, outfile, linecolor)
 
     if options.getgps:
         print "Getting GPS coordinates of cities ..."

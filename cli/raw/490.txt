@@ -1,6 +1,7 @@
 # Line 490
 name=490
 circulation=1,3,5
+color=#CCCCCC
 
 direction=
 

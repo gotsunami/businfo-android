@@ -1,6 +1,7 @@
 # Line 486
 name=486
 circulation=1,2,4,5
+color=#FFCCCC
 
 direction=
 

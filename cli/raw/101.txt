@@ -1,6 +1,7 @@
 # Line 101
 name=101
 circulation=1-6
+color=#FFCCFF
 
 direction=
 

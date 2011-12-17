@@ -2,6 +2,7 @@
    
 name=108 Ganges
 circulation=1-6
+color=#FFFF00
 
 
 direction=

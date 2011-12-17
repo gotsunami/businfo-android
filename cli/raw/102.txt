@@ -1,6 +1,7 @@
 # Line 102
 name=102
 circulation=1-6
+color=#FFFF00
 
 direction=
 

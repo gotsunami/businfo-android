@@ -2,6 +2,7 @@
 name=210
 circulation=1-6
 from=2010-10-01
+color=#FFFF66
 
 direction=
 
