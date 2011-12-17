@@ -63,12 +63,12 @@ public class SQLQueryManager implements QueryManager {
     public List<BusLine> findLines(String query) {
         List<BusLine> lines = new ArrayList<BusLine>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
-            R.string.db_line_table_name), new String[] {"name"}, "name LIKE ?",
+            R.string.db_line_table_name), new String[] {"name", "color"}, "name LIKE ?",
             new String[] {"%" + query + "%"}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            lines.add(new SQLBusLine(c.getString(0)));
+            lines.add(new SQLBusLine(c.getString(0), c.getString(1)));
         }
 		c.close();
         return lines;

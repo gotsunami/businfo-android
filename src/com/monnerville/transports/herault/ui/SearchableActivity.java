@@ -304,12 +304,11 @@ public class SearchableActivity extends ListActivity {
                 name.setTypeface(null, Typeface.ITALIC);
             }
             else {
-                line.setColor(0xffff0000);
                 TextView direction = (TextView)itemView.findViewById(R.id.direction);
                 TextView col = (TextView)itemView.findViewById(R.id.line_color);
 
                 GradientDrawable gd;
-                if (line.getColor() != 0) {
+                if (line.getColor() != BusLine.UNKNOWN_COLOR) {
                     col.setText("");
                     int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
                     gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);

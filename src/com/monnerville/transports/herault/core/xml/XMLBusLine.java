@@ -1,7 +1,6 @@
 package com.monnerville.transports.herault.core.xml;
 
 import android.content.res.XmlResourceParser;
-import android.util.Log;
 import com.monnerville.transports.herault.core.AbstractBusLine;
 import com.monnerville.transports.herault.core.BusStation;
 import java.io.IOException;
@@ -22,6 +21,10 @@ public class XMLBusLine extends AbstractBusLine {
 
     public XMLBusLine(String name) {
         super(name);
+    }
+
+    public XMLBusLine(String name, String hexColor) {
+        super(name, hexColor);
     }
 
     /**

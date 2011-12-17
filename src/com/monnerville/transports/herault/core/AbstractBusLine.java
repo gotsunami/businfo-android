@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.core;
 
+import android.graphics.Color;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,9 @@ import java.util.List;
  */
 public abstract class AbstractBusLine implements BusLine {
     final private String mName;
+    /**
+     * Line background color
+     */
     private int mColor = UNKNOWN_COLOR;
 
     /**
@@ -19,8 +23,23 @@ public abstract class AbstractBusLine implements BusLine {
      */
     protected String[] directions = {null, null};
 
+    /**
+     * Primary constructor
+     * @param name name of the line
+     */
     public AbstractBusLine(String name) {
         mName = name;
+    }
+
+    /**
+     * Overloaded constructor
+     * @param name name of the line
+     * @param hexColor line's background color
+     */
+    public AbstractBusLine(String name, String hexColor) {
+        mName = name;
+        if (!hexColor.equals(""))
+            mColor = Color.parseColor(hexColor);
     }
 
     @Override
@@ -46,13 +65,4 @@ public abstract class AbstractBusLine implements BusLine {
      */
     @Override
     public int getColor() { return mColor; }
-
-    /**
-     * Get bus line color
-     * @param color line color
-     */
-    @Override
-    public void setColor(int color) {
-        mColor = color;
-    }
 }

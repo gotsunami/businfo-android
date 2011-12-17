@@ -99,13 +99,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private void setupAdapter() {
         BusManager manager = SQLBusManager.getInstance();
         List<BusLine> lines = manager.getBusLines();
-        // Set colors on lines
-        for (BusLine line : lines) {
-            String colRes = line.getName().replace("/", "__").replace(" ", "_");
-            int colorid = getResourceId(AllLinesActivity.this, "@color/line_" + colRes);
-            int buscol = colorid > 0 ? Color.parseColor(AllLinesActivity.this.getString(colorid)) : 0;
-            line.setColor(buscol);
-        }
 
         // Background line directions retreiver
         new DirectionsRetreiverTask().execute(lines);
@@ -191,7 +184,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
 
             GradientDrawable gd;
-            if (line.getColor() != 0) {
+            if (line.getColor() != BusLine.UNKNOWN_COLOR) {
                 col.setText("");
                 int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
                 gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
