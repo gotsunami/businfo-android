@@ -63,7 +63,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.main);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.all_lines_title_bar);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.search_title_bar);
 
         // Remove top parent padding (all but left padding)
         ViewGroup decorView = (ViewGroup) getWindow().getDecorView();

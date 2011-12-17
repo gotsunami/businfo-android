@@ -19,7 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,7 +53,15 @@ public class SearchableActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.search);
+
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        setContentView(R.layout.main);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.search_title_bar);
+        getListView().setFastScrollEnabled(true);
+
+        TextView tp = (TextView)findViewById(R.id.primary);
+        tp.setText(getString(R.string.app_name));
+        TextView ts = (TextView)findViewById(R.id.secondary);
 
         mDirections = new ArrayList<List<String>>();
 
@@ -59,12 +69,20 @@ public class SearchableActivity extends ListActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
+            ts.setText(getString(R.string.search_keyword, query));
             new StartSearchingTask().execute(query);
         }
         else
             finish();
 
-        getListView().setFastScrollEnabled(true);
+        Button searchButton = (Button)findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // Open search dialog
+                onSearchRequested();
+            }
+        });
     }
 
     private class StartSearchingTask extends AsyncTask<String, Void, Void> {
@@ -309,15 +327,19 @@ public class SearchableActivity extends ListActivity {
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(line.getName());
+            GradientDrawable gd;
+            TextView col = (TextView)itemView.findViewById(R.id.line_color);
+
             if (line.getName().equals(getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);
+                int colors[] = { BusLine.UNKNOWN_COLOR, AllLinesActivity.getLighterColor(BusLine.UNKNOWN_COLOR, 2) };
+                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                col.setText("?");
             }
             else {
                 TextView direction = (TextView)itemView.findViewById(R.id.direction);
-                TextView col = (TextView)itemView.findViewById(R.id.line_color);
 
-                GradientDrawable gd;
                 if (line.getColor() != BusLine.UNKNOWN_COLOR) {
                     col.setText("");
                     int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
@@ -328,14 +350,14 @@ public class SearchableActivity extends ListActivity {
                     gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
                     col.setText("?");
                 }
-                gd.setCornerRadius(5);
-                col.setBackgroundDrawable(gd);
 
                 try {
                     List<String> dirs = mDirections.get(position);
                     direction.setText(dirs.get(0) + " - " + dirs.get(1));
                 } catch(IndexOutOfBoundsException ex) {}
             }
+            gd.setCornerRadius(5);
+            col.setBackgroundDrawable(gd);
 
             return itemView;
         }
