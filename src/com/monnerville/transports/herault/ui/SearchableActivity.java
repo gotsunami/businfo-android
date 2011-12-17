@@ -30,6 +30,8 @@ import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.core.sql.DBStation;
 import com.monnerville.transports.herault.core.sql.SQLBusLine;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +46,14 @@ public class SearchableActivity extends ListActivity {
     private List<String> mCities;
     private List<DBStation> mStations;
     private List<BusLine> mLines;
+    private List<List<String>> mDirections;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.search);
+
+        mDirections = new ArrayList<List<String>>();
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
@@ -73,6 +78,11 @@ public class SearchableActivity extends ListActivity {
             mCities = finder.findCities(query);
             mStations = (List<DBStation>)finder.findStations(query);
             mLines = finder.findLines(query);
+            // Get directions
+            for (BusLine line : mLines) {
+                String[] dirs = line.getDirections();
+                mDirections.add(Arrays.asList(dirs));
+            }
             return null;
         }
 
@@ -320,61 +330,14 @@ public class SearchableActivity extends ListActivity {
                 }
                 gd.setCornerRadius(5);
                 col.setBackgroundDrawable(gd);
+
+                try {
+                    List<String> dirs = mDirections.get(position);
+                    direction.setText(dirs.get(0) + " - " + dirs.get(1));
+                } catch(IndexOutOfBoundsException ex) {}
             }
 
             return itemView;
         }
     }
-
-    /*
-    private void populateText(LinearLayout ll, View[] views, Context ctx) {
-        Display display = getWindowManager().getDefaultDisplay();
-        ll.removeAllViews();
-        //int maxWidth = display.getWidth() - 100;
-        int maxWidth = ll.getMeasuredWidth() - 10;
-
-        LinearLayout LL;
-        LinearLayout.LayoutParams params;
-        LinearLayout newLL = new LinearLayout(ctx);
-        newLL.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
-        newLL.setGravity(Gravity.LEFT);
-        newLL.setOrientation(LinearLayout.HORIZONTAL);
-
-        int widthSoFar = 0;
-
-        for (int i = 0 ; i < views.length ; i++ ){
-            LL = new LinearLayout(ctx);
-            LL.setOrientation(LinearLayout.HORIZONTAL);
-            LL.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM);
-            LL.setLayoutParams(new ListView.LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            views[i].measure(0,0);
-            params = new LinearLayout.LayoutParams(views[i].getMeasuredWidth(),
-                    LayoutParams.WRAP_CONTENT);
-            params.setMargins(2, 2, 2, 2);
-            LL.addView(views[i], params);
-            LL.measure(0, 0);
-            widthSoFar += views[i].getMeasuredWidth();
-            if (widthSoFar >= maxWidth) {
-                ll.addView(newLL);
-
-                newLL = new LinearLayout(ctx);
-                newLL.setLayoutParams(new LayoutParams(
-                        LayoutParams.FILL_PARENT,
-                        LayoutParams.WRAP_CONTENT));
-                newLL.setOrientation(LinearLayout.HORIZONTAL);
-                newLL.setGravity(Gravity.LEFT);
-                params = new LinearLayout.LayoutParams(LL
-                        .getMeasuredWidth(), LL.getMeasuredHeight());
-                newLL.addView(LL, params);
-                widthSoFar = LL.getMeasuredWidth();
-            } else {
-                newLL.addView(LL);
-            }
-        }
-        ll.addView(newLL);
-    }
-     *
-     */
 }
