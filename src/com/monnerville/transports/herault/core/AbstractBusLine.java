@@ -84,8 +84,14 @@ public abstract class AbstractBusLine implements BusLine {
         if (mColor != UNKNOWN_COLOR) return mColor;
         final QueryManager finder = SQLQueryManager.getInstance();
         String col = finder.getLineColor(mName);
-        mColor = Color.parseColor(col);
-        return col == null ? DEFAULT_COLOR : Color.parseColor(col);
+        try {
+            mColor = Color.parseColor(col);
+        }
+        catch (StringIndexOutOfBoundsException ex) {
+            // Not a valid color string #rrggbb
+            mColor = DEFAULT_COLOR;
+        }
+        return mColor;
     }
 
     /**
