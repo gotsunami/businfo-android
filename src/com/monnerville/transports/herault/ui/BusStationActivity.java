@@ -24,14 +24,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
-import com.monnerville.transports.herault.core.xml.XMLBusManager;
 
 /**
  *
@@ -99,7 +97,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         for (BusStop st : stops) {
             Map<String, String> m = new HashMap<String, String>();
             m.put("time", BusStop.TIME_FORMATTER.format(st.getTime()));
-            m.put("line", st.getLine().getName());
+            m.put("line", st.getTrafficPattern());
             data.add(m);
         }
         return data;
