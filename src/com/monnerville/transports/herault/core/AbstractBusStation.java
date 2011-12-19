@@ -13,13 +13,16 @@ import java.util.List;
 public abstract class AbstractBusStation implements BusStation {
     private String mName;
     private String mDirection;
+    /**
+     * List of all stops of a bus station
+     */
     protected List<BusStop> mStops = new ArrayList<BusStop>();
     private BusLine mLine;
     private boolean mIsStarred;
     /**
      * Cache stop
      */
-    private BusStop mNextStop = null;
+    protected BusStop mNextStop = null;
 
     public AbstractBusStation(BusLine line, String name, String direction) {
         mLine = line;

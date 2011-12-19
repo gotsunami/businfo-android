@@ -43,14 +43,14 @@ AND line_station.direction_id=city.id
 ORDER BY line_station.rank
 "</string>
 	<string name="query_getstops_from_station">"
-SELECT stop.id, stop.time, stop.circpat 
+SELECT stop.id, stop.time, stop.circpat
 FROM stop, line, station, city 
 WHERE line.name=?
 AND station.name=?
 AND city.name=?
 AND line.id=stop.line_id
 AND station.id=stop.station_id
-AND city.id=stop.city_id
+AND city.id=stop.direction_id
 ORDER BY stop.id
 "</string>
     <string name="query_getlines_in_city">"

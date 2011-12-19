@@ -61,7 +61,7 @@ public class SQLBusStation extends AbstractBusStation {
         mStops.clear();
         Date now = new Date();
         Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
-            R.string.query_getstops_from_station), new String[] {getLine().getName(), getName(), getCity()}
+            R.string.query_getstops_from_station), new String[] {getLine().getName(), getName(), getDirection()}
         );
         Date d;
         for (int j=0; j < c.getCount(); j++) {
@@ -84,5 +84,28 @@ public class SQLBusStation extends AbstractBusStation {
         }
 		c.close();
         return mStops;
+    }
+
+    /**
+     * Returns next bus stop related to current time and caches the value.
+     * Comes with some SQL optimizations
+     *
+     * @param cache cache the BusStop instance if set to true
+     * @return a BusStop instance or null if none found or null if cache
+     *         is set to true but no value is yet cached
+     */
+    @Override
+    public BusStop getNextStop(boolean cache) {
+        if (cache) return mNextStop;
+        if (mStops.isEmpty())
+            getStops();
+        Date now = new Date();
+        for (BusStop st : mStops) {
+            if (st.getTime().after(now)) {
+                mNextStop = st;
+                return st;
+            }
+        }
+        return null;
     }
 }

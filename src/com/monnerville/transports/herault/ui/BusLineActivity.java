@@ -90,6 +90,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
             }
             setListAdapter(mAdapter);
+            Log.d("TOO", "" + allStations);
             new StationsStopsRetreiverTask().execute(allStations);
         }
         else {
