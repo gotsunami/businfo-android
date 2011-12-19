@@ -78,7 +78,7 @@ public class SQLBusStation extends AbstractBusStation {
                 mStops.add(new BusStop(
                     this,                // Station
                     d,                   // Time
-                    getLine().getName(), // Line
+                    getLine(),           // Line
                     c.getString(2),      // Circulation pattern
                     false                // FIXME: school days only
                 ));
@@ -119,7 +119,7 @@ public class SQLBusStation extends AbstractBusStation {
             mNextStop = new BusStop(
                 this, 
                 BusStop.TIME_FORMATTER.parse(c.getString(0)), 
-                getLine().getName(), 
+                getLine(), 
                 c.getString(1), 
                 false);
             c.close();

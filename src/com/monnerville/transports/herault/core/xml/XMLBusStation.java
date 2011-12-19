@@ -100,10 +100,13 @@ public class XMLBusStation extends AbstractBusStation {
                     } else if (s.equals("s")) {
                         if (match) {
                             Date d = BusStop.TIME_FORMATTER.parse(xrp.getAttributeValue(null, "t"));
-                            d.setYear(now.getYear());
-                            d.setMonth(now.getMonth());
-                            d.setDate(now.getDate());
-                            mStops.add(new BusStop(this, d, xrp.getAttributeValue(null, "l"), xrp.getAttributeValue(null, "c"), xrp.getAttributeValue(null, "s") == null ? false : true));
+                            mStops.add(new BusStop(
+                                this, 
+                                d, 
+                                null, // XML implementation broken!
+                                xrp.getAttributeValue(null, "c"), 
+                                xrp.getAttributeValue(null, "s") == null ? false : true)
+                            );
                         }
                     }
                 } else if (xrp.getEventType() == XmlPullParser.END_TAG) {

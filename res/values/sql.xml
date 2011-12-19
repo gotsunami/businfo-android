@@ -64,7 +64,11 @@ AND line.id=stop.line_id
 AND station.id=stop.station_id
 AND stop.city_id=city.id
 AND stop.direction_id=(select id from city where name=?)
-AND (strftime(\"%H:%M\", stop.time) BETWEEN strftime(\"%H:%M\", ?) AND strftime(\"%H:%M\", \"23:59\"))
+AND (
+  strftime(\"%H:%M\", stop.time) 
+  BETWEEN strftime(\"%H:%M\", ?) 
+  AND strftime(\"%H:%M\", \"23:59\")
+)
 LIMIT 1
 "</string>
     <string name="query_getlines_in_city">"

@@ -99,7 +99,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         for (BusStop st : stops) {
             Map<String, String> m = new HashMap<String, String>();
             m.put("time", BusStop.TIME_FORMATTER.format(st.getTime()));
-            m.put("line", st.getLine());
+            m.put("line", st.getLine().getName());
             data.add(m);
         }
         return data;
