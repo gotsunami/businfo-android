@@ -61,7 +61,8 @@ public class SQLBusStation extends AbstractBusStation {
         mStops.clear();
         Date now = new Date();
         Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
-            R.string.query_getstops_from_station), new String[] {getLine().getName(), getName(), getDirection()}
+            R.string.query_getstops_from_station), new String[] {
+                getLine().getName(), getName(), getCity(), getDirection()}
         );
         Date d;
         for (int j=0; j < c.getCount(); j++) {
