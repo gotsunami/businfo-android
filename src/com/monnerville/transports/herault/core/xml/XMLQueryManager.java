@@ -62,4 +62,14 @@ public class XMLQueryManager implements QueryManager {
     public Map<String, List<String>> findLinesAndCityFromStation(String name, String id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public String getLineColor(String name) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getLineDefaultTrafficPattern(String name) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

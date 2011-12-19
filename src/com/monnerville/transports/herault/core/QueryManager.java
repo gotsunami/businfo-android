@@ -40,4 +40,6 @@ public interface QueryManager {
      * @return a map with one key (the city) and a list of stations
      */
     public Map<String, List<String>> findLinesAndCityFromStation(String name, String id);
+    public String getLineColor(String name);
+    public String getLineDefaultTrafficPattern(String name);
 }

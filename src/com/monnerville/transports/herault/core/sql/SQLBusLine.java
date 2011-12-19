@@ -29,6 +29,10 @@ public class SQLBusLine extends AbstractBusLine {
         super(name, hexColor);
     }
 
+    public SQLBusLine(String name, String hexColor, String defaultTrafficPattern) {
+        super(name, hexColor, defaultTrafficPattern);
+    }
+
     /**
      * Returns a list of all available bus stations on that line
      *

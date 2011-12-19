@@ -184,14 +184,14 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
 
             GradientDrawable gd;
-            if (line.getColor() != BusLine.UNKNOWN_COLOR) {
+            if (line.getColor() != BusLine.DEFAULT_COLOR) {
                 col.setText("");
                 int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
                 gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
                 col.setBackgroundDrawable(gd);
             }
             else {
-                int colors[] = { BusLine.UNKNOWN_COLOR, AllLinesActivity.getLighterColor(BusLine.UNKNOWN_COLOR, 2) };
+                int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
                 gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
                 col.setBackgroundDrawable(gd);
                 col.setText("?");

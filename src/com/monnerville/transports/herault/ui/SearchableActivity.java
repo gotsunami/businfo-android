@@ -333,20 +333,20 @@ public class SearchableActivity extends ListActivity {
             if (line.getName().equals(getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);
-                int colors[] = { BusLine.UNKNOWN_COLOR, AllLinesActivity.getLighterColor(BusLine.UNKNOWN_COLOR, 2) };
+                int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
                 gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
                 col.setText("?");
             }
             else {
                 TextView direction = (TextView)itemView.findViewById(R.id.direction);
 
-                if (line.getColor() != BusLine.UNKNOWN_COLOR) {
+                if (line.getColor() != BusLine.DEFAULT_COLOR) {
                     col.setText("");
                     int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
                     gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
                 }
                 else {
-                    int colors[] = { BusLine.UNKNOWN_COLOR, AllLinesActivity.getLighterColor(BusLine.UNKNOWN_COLOR, 2) };
+                    int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
                     gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
                     col.setText("?");
                 }

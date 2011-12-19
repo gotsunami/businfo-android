@@ -1,6 +1,10 @@
 package com.monnerville.transports.herault.core;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
+import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +28,11 @@ public abstract class AbstractBusLine implements BusLine {
     protected String[] directions = {null, null};
 
     /**
+     * Default traffic (circulation) pattern
+     */
+    private String mDefaultTrafficPattern = null;
+
+    /**
      * Primary constructor
      * @param name name of the line
      */
@@ -38,6 +47,13 @@ public abstract class AbstractBusLine implements BusLine {
      */
     public AbstractBusLine(String name, String hexColor) {
         mName = name;
+        if (!hexColor.equals(""))
+            mColor = Color.parseColor(hexColor);
+    }
+
+    public AbstractBusLine(String name, String hexColor, String defaultTrafficPattern) {
+        mName = name;
+        mDefaultTrafficPattern = defaultTrafficPattern;
         if (!hexColor.equals(""))
             mColor = Color.parseColor(hexColor);
     }
@@ -64,5 +80,23 @@ public abstract class AbstractBusLine implements BusLine {
      * @return line color
      */
     @Override
-    public int getColor() { return mColor; }
+    public int getColor() { 
+        if (mColor != UNKNOWN_COLOR) return mColor;
+        final QueryManager finder = SQLQueryManager.getInstance();
+        String col = finder.getLineColor(mName);
+        mColor = Color.parseColor(col);
+        return col == null ? DEFAULT_COLOR : Color.parseColor(col);
+    }
+
+    /**
+     * Get default traffic pattern
+     * @return traffic pattern
+     */
+    @Override
+    public String getDefaultTrafficPattern() {
+        if (mDefaultTrafficPattern != null) return mDefaultTrafficPattern;
+        final QueryManager finder = SQLQueryManager.getInstance();
+        mDefaultTrafficPattern = finder.getLineDefaultTrafficPattern(mName);
+        return mDefaultTrafficPattern;
+    }
 }

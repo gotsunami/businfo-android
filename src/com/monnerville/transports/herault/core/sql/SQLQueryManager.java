@@ -63,7 +63,7 @@ public class SQLQueryManager implements QueryManager {
     public List<BusLine> findLines(String query) {
         List<BusLine> lines = new ArrayList<BusLine>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
-            R.string.db_line_table_name), new String[] {"name", "color"}, "name LIKE ?",
+            R.string.db_line_table_name), new String[] {"name", "color", "dflt_circpat"}, "name LIKE ?",
             new String[] {"%" + query + "%"}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
@@ -108,5 +108,41 @@ public class SQLQueryManager implements QueryManager {
         }
 		c.close();
         return result;
+    }
+
+    @Override
+    public String getLineColor(String name) {
+        Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
+            R.string.db_line_table_name), new String[] {"color"}, "name=?",
+            new String[] {name}, null, null, null
+        );
+        if (c.getCount() == 0) {
+            c.close();
+            return null;
+        }
+        else {
+            c.moveToPosition(0);
+            String col = c.getString(0);
+            c.close();
+            return col;
+        }
+    }
+
+    @Override
+    public String getLineDefaultTrafficPattern(String name) {
+        Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
+            R.string.db_line_table_name), new String[] {"dflt_circpat"}, "name=?",
+            new String[] {name}, null, null, null
+        );
+        if (c.getCount() == 0) {
+            c.close();
+            return null;
+        }
+        else {
+            c.moveToPosition(0);
+            String pat = c.getString(0);
+            c.close();
+            return pat;
+        }
     }
 }
