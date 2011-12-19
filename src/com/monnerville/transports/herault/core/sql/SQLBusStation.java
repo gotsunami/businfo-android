@@ -76,11 +76,10 @@ public class SQLBusStation extends AbstractBusStation {
                  * 
                  */
                 mStops.add(new BusStop(
-                    this,                // Station
                     d,                   // Time
+                    this,                // Station
                     getLine(),           // Line
-                    c.getString(2),      // Circulation pattern
-                    false                // FIXME: school days only
+                    c.getString(2)       // Circulation pattern
                 ));
             } catch (ParseException ex) {
                 Logger.getLogger(SQLBusStation.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,11 +116,11 @@ public class SQLBusStation extends AbstractBusStation {
         try {
             c.moveToPosition(0);
             mNextStop = new BusStop(
-                this, 
-                BusStop.TIME_FORMATTER.parse(c.getString(0)), 
-                getLine(), 
-                c.getString(1), 
-                false);
+                BusStop.TIME_FORMATTER.parse(c.getString(0)),   // Time
+                this,                                           // Station
+                getLine(),                                      // Line
+                c.getString(1)                                  // Traffic pattern
+            );
             c.close();
             return mNextStop;
         } catch (ParseException ex) {

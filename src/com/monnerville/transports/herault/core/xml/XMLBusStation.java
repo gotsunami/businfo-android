@@ -101,12 +101,11 @@ public class XMLBusStation extends AbstractBusStation {
                         if (match) {
                             Date d = BusStop.TIME_FORMATTER.parse(xrp.getAttributeValue(null, "t"));
                             mStops.add(new BusStop(
-                                this, 
                                 d, 
+                                this, 
                                 null, // XML implementation broken!
-                                xrp.getAttributeValue(null, "c"), 
-                                xrp.getAttributeValue(null, "s") == null ? false : true)
-                            );
+                                xrp.getAttributeValue(null, "c")
+                            ));
                         }
                     }
                 } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
