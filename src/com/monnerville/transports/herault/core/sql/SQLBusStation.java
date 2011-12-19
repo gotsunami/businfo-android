@@ -69,9 +69,12 @@ public class SQLBusStation extends AbstractBusStation {
             c.moveToPosition(j);
             try {
                 d = BusStop.TIME_FORMATTER.parse(c.getString(1));
+                /* FIXME: remove?
                 d.setYear(now.getYear());
                 d.setMonth(now.getMonth());
                 d.setDate(now.getDate());
+                 * 
+                 */
                 mStops.add(new BusStop(
                     this,                // Station
                     d,                   // Time
@@ -97,16 +100,34 @@ public class SQLBusStation extends AbstractBusStation {
      */
     @Override
     public BusStop getNextStop(boolean cache) {
-        if (cache) return mNextStop;
-        if (mStops.isEmpty())
-            getStops();
+        if (cache && mNextStop != null) 
+            return mNextStop;
+
         Date now = new Date();
-        for (BusStop st : mStops) {
-            if (st.getTime().after(now)) {
-                mNextStop = st;
-                return st;
-            }
+        Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
+            R.string.query_get_next_stop_from_station), new String[] {
+                getLine().getName(), getName(), getCity(), getDirection(), BusStop.TIME_FORMATTER.format(now) }
+        );
+
+        if (c.getCount() == 0) {
+            c.close();
+            return null;
         }
+
+        try {
+            c.moveToPosition(0);
+            mNextStop = new BusStop(
+                this, 
+                BusStop.TIME_FORMATTER.parse(c.getString(0)), 
+                getLine().getName(), 
+                c.getString(1), 
+                false);
+            c.close();
+            return mNextStop;
+        } catch (ParseException ex) {
+            Logger.getLogger(SQLBusStation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+		c.close();
         return null;
     }
 }
