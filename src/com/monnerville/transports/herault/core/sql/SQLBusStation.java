@@ -21,14 +21,14 @@ public class SQLBusStation extends AbstractBusStation {
     /**
      * Cached city value
      */
-    private String mCity = null;
-    private int mCityId;
+    private String mCity;
     private static final SQLBusManager mManager = SQLBusManager.getInstance();
     private final Context ctx = ((HTDatabase)mManager.getDB()).getContext();
 
-    public SQLBusStation(BusLine line, String name, String direction, int city_id) {
+    public SQLBusStation(BusLine line, String name, String direction, String city) {
         super(line, name, direction);
-        mCityId = city_id;
+        assert city.length() > 0;
+        mCity = city;
     }
 
     /**
@@ -37,17 +37,7 @@ public class SQLBusStation extends AbstractBusStation {
      * @return city name
      */
     @Override
-    public String getCity() {
-        if (mCity != null) return mCity;
-        Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
-            R.string.db_city_table_name), new String[] {"name"}, "id=?",
-            new String[] {String.valueOf(mCityId)}, null, null, null
-        );
-        c.moveToPosition(0);
-        mCity = c.getString(0);
-		c.close();
-        return mCity;
-    }
+    public String getCity() { return mCity; }
 
     /**
      * Get stops times for current bus station. Matches are cached the first time they are found. Successive
@@ -69,12 +59,6 @@ public class SQLBusStation extends AbstractBusStation {
             c.moveToPosition(j);
             try {
                 d = BusStop.TIME_FORMATTER.parse(c.getString(1));
-                /* FIXME: remove?
-                d.setYear(now.getYear());
-                d.setMonth(now.getMonth());
-                d.setDate(now.getDate());
-                 * 
-                 */
                 mStops.add(new BusStop(
                     d,                   // Time
                     this,                // Station
@@ -99,8 +83,7 @@ public class SQLBusStation extends AbstractBusStation {
      */
     @Override
     public BusStop getNextStop(boolean cache) {
-        if (cache && mNextStop != null) 
-            return mNextStop;
+        if (cache) return mNextStop;
 
         Date now = new Date();
         Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(

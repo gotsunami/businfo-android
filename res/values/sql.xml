@@ -32,15 +32,24 @@ WHERE city.id=v.id
 	<string name="query_getcities_from_line_drop_view">"
 DROP VIEW cities_of_line
 "</string>
-	<string name="query_getstations_from_line">"
-SELECT station.name, station.city_id
+	<string name="query_getstations_from_line_create_view">"
+CREATE VIEW IF NOT EXISTS all_line_stations AS
+SELECT station.name AS sname, station.city_id AS cityid
 FROM line_station, line, station, city
 WHERE line_station.station_id=station.id
-AND line.name=?
-AND city.name=?
+AND line.name=\"%1$s\"
+AND city.name=\"%2$s\"
 AND line.id=line_station.line_id
 AND line_station.direction_id=city.id
 ORDER BY line_station.rank
+"</string>
+	<string name="query_getstations_from_line">"
+SELECT sname, city.name
+FROM all_line_stations, city
+WHERE city.id=all_line_stations.cityid
+"</string>
+	<string name="query_getstations_from_line_drop_view">"
+DROP VIEW all_line_stations
 "</string>
 	<string name="query_getstops_from_station">"
 SELECT stop.id, stop.time, stop.circpat, stop.direction_id

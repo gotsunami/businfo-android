@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class SQLBusManager implements BusManager {
     private static final SQLBusManager INSTANCE = new SQLBusManager();
+    private static final String SERIALIZE_SEPARATOR = "__";
     private static HTDatabase mDB;
     public static final int FLUSH_DATABASE_INIT = 99;
     public static final int FLUSH_DATABASE_PROGRESS = 100;
@@ -92,7 +93,29 @@ public class SQLBusManager implements BusManager {
 
         // Checks for any existing bookmarked stations
         List<BusStation> savedStations = getStarredStations(ctx);
-        //List<BusStation> newStarredStations = new ArrayList<BusStation>();
+        List<BusStation> newStarredStations = new ArrayList<BusStation>();
+
+        // Since we know the line and direction, first locate those matching
+        // stations and remove them from bookmark list
+        for (BusStation st : savedStations) {
+            if (!(st.getLine().equals(line) && st.getDirection().equals(direction)))
+                newStarredStations.add(st);
+        }
+
+        // Now we can save the new stations for that line/direction
+        for (BusStation st : stations) {
+            newStarredStations.add(st);
+        }
+
+        // Now serialize data
+        SharedPreferences.Editor ed = prefs.edit();
+        StringBuilder vals = getSerializedData(newStarredStations);
+        if (vals.length() > 0) {
+            String raw = vals.delete(vals.length()-1, vals.length()).toString();
+            Log.d("SERIAL", "ST: " + raw);
+            ed.putString("starredStations", raw);
+            ed.commit();
+        }
     }
 
     /**
@@ -104,12 +127,20 @@ public class SQLBusManager implements BusManager {
      */
     @Override
     public List<BusStation> getStarredStations(Context ctx) {
-        /*
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         String starredStations = prefs.getString("starredStations", null);
-         *
-         */
         List<BusStation> stars = new ArrayList<BusStation>();
+        // Has key?
+        if (starredStations != null) {
+            // Has perninent content?
+            if (starredStations.length() > 0) {
+                String[] vals = starredStations.split(";");
+                for (String val : vals) {
+                    String[] parts = val.split(SERIALIZE_SEPARATOR);
+                    stars.add(new SQLBusStation(new SQLBusLine(parts[2]), parts[1], parts[0], parts[3]));
+                }
+            }
+        }
         return stars;
     }
 
@@ -118,7 +149,7 @@ public class SQLBusManager implements BusManager {
      * belong to any line/direction. The current list of saved stations is erased and
      * overwritten with the current content.
      *
-     * @param stations current stations list to use to overwritte any existing value
+     * @param stations current stations list to use to overwrite any existing value
      * @param ctx application context for accessing the preferences
      */
     @Override
@@ -126,4 +157,20 @@ public class SQLBusManager implements BusManager {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
     }
 
+    /**
+     * Serializes data from a list of stations
+     * @param stations list of bus stations
+     * @return a string builder ready to be saved to the preferences
+     */
+    private StringBuilder getSerializedData(List<BusStation> stations) {
+        StringBuilder vals = new StringBuilder();
+        for (BusStation st : stations) {
+            vals.append(st.getDirection()).append(SERIALIZE_SEPARATOR)
+                .append(st.getName()).append(SERIALIZE_SEPARATOR)
+                .append(st.getLine().getName()).append(SERIALIZE_SEPARATOR)
+                .append(st.getCity())
+                .append(";");
+        }
+        return vals;
+    }
 }

@@ -42,14 +42,22 @@ public class SQLBusLine extends AbstractBusLine {
     @Override
     public List<BusStation> getStations(String direction) {
         List<BusStation> stations = new ArrayList<BusStation>();
-        Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
-            R.string.query_getstations_from_line), new String[] {getName(), direction}
+        SQLiteDatabase db = mManager.getDB().getWritableDatabase();
+        // First create view
+        db.execSQL(ctx.getString(
+            R.string.query_getstations_from_line_create_view, getName(), direction)
         );
+
+        // Fetch results
+		Cursor c = db.rawQuery(ctx.getString(R.string.query_getstations_from_line), null);
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            stations.add(new SQLBusStation(this, c.getString(0), direction, c.getInt(1)));
+            stations.add(new SQLBusStation(this, c.getString(0), direction, c.getString(1)));
         }
 		c.close();
+
+        // Drop view
+        db.execSQL(ctx.getString(R.string.query_getstations_from_line_drop_view));
         return stations;
     }
 
