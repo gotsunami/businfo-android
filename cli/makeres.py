@@ -492,6 +492,11 @@ def parse(infile):
                     continue
                 else:
                     if re.match(TIME_PAT, stop):
+                        # Forces to have a HH:MM time format, not H:MM as defined in 
+                        # most raw files because it can break SQL queries in the 
+                        # Android app...
+                        if len(stop) == 4:
+                            stop = '0' + stop
                         if nextPolicy == dfltCirculationPolicy:
                             allstops.append(stop)
                         else:
