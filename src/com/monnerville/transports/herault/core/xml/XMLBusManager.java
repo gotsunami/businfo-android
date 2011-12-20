@@ -151,7 +151,7 @@ public class XMLBusManager implements BusManager {
 
     /**
      * Returns a list of all bookmarked bus stations. This is an implementation using 
-     * the XML preferences file which is deserialized in order to build the list.
+     * the XML preferences file which is de-serialized in order to build the list.
      *
      * @param ctx application context for accessing the preferences
      * @return list of bus stations
@@ -180,7 +180,7 @@ public class XMLBusManager implements BusManager {
      * belong to any line/direction. The current list of saved stations is erased and
      * overwritten with the current content.
      *
-     * @param stations current stations list to use to overwritte any existing value
+     * @param stations current stations list to use to overwrite any existing value
      * @param ctx application context for accessing the preferences
      */
     @Override
