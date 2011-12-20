@@ -18,26 +18,13 @@ import java.util.logging.Logger;
  * @author mathias
  */
 public class SQLBusStation extends AbstractBusStation {
-    /**
-     * Cached city value
-     */
-    private String mCity;
     private static final SQLBusManager mManager = SQLBusManager.getInstance();
     private final Context ctx = ((HTDatabase)mManager.getDB()).getContext();
 
     public SQLBusStation(BusLine line, String name, String direction, String city) {
-        super(line, name, direction);
+        super(line, name, direction, city);
         assert city.length() > 0;
-        mCity = city;
     }
-
-    /**
-     * Get city name for this station
-     *
-     * @return city name
-     */
-    @Override
-    public String getCity() { return mCity; }
 
     /**
      * Get stops times for current bus station. Matches are cached the first time they are found. Successive

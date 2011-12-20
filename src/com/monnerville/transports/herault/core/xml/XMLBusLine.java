@@ -55,7 +55,8 @@ public class XMLBusLine extends AbstractBusLine {
                         }
                     } else if (s.equals("station")) {
                         if (matchLine && matchDirection) {
-                            stations.add(new XMLBusStation(this, xrp.getAttributeValue(null, "id"), direction));
+                            stations.add(new XMLBusStation(this, 
+                                xrp.getAttributeValue(null, "id"), direction, "" /* BROKEN */));
                         }
                     }
                 } else if (xrp.getEventType() == XmlPullParser.END_TAG) {
@@ -115,7 +116,8 @@ public class XMLBusLine extends AbstractBusLine {
                         }
                     } else if (s.equals("station")) {
                         if (matchDirection && matchCity) {
-                            stations.get(city).add(new XMLBusStation(this, xrp.getAttributeValue(null, "id"), direction));
+                            stations.get(city).add(new XMLBusStation(
+                                this, xrp.getAttributeValue(null, "id"), direction, "" /* BROKEN */));
                         }
                     }
                 } else if (xrp.getEventType() == XmlPullParser.END_TAG) {

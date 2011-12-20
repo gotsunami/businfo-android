@@ -24,8 +24,8 @@ public class XMLBusStation extends AbstractBusStation {
      */
     private String mCity = null;
 
-    public XMLBusStation(BusLine line, String name, String direction) {
-        super(line, name, direction);
+    public XMLBusStation(BusLine line, String name, String direction, String city) {
+        super(line, name, direction, city);
     }
 
     /**

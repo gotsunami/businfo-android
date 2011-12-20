@@ -168,7 +168,7 @@ public class XMLBusManager implements BusManager {
                 String[] vals = starredStations.split(";");
                 for (String val : vals) {
                     String[] parts = val.split(SERIALIZE_SEPARATOR);
-                    stars.add(new XMLBusStation(new XMLBusLine(parts[2]), parts[1], parts[0]));
+                    stars.add(new XMLBusStation(new XMLBusLine(parts[2]), parts[1], parts[0], "")); // BROKEN
                 }
             }
         }

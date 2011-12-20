@@ -13,6 +13,7 @@ import java.util.List;
 public abstract class AbstractBusStation implements BusStation {
     private String mName;
     private String mDirection;
+    private String mCity;
     /**
      * List of all stops of a bus station
      */
@@ -24,12 +25,21 @@ public abstract class AbstractBusStation implements BusStation {
      */
     protected BusStop mNextStop = null;
 
-    public AbstractBusStation(BusLine line, String name, String direction) {
+    public AbstractBusStation(BusLine line, String name, String direction, String city) {
         mLine = line;
         mName = name;
         mIsStarred = false;
         mDirection = direction;
+        mCity = city;
     }
+
+    /**
+     * Get city name for this station
+     *
+     * @return city name
+     */
+    @Override
+    public String getCity() { return mCity; }
 
     @Override
     public final String getName() { return mName; }
