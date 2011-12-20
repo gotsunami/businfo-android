@@ -36,7 +36,6 @@ import android.widget.Toast;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
-import com.monnerville.transports.herault.core.AbstractBusLine;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
 import java.util.List;
@@ -46,7 +45,6 @@ import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.xml.XMLBusManager;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.net.ssl.ManagerFactoryParameters;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
@@ -68,7 +66,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         // Remove top parent padding (all but left padding)
         ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
         LinearLayout root = (LinearLayout) decorView.getChildAt(0);
-        FrameLayout titleContainer = (FrameLayout) root.getChildAt(0);
+        View titleContainer = root.getChildAt(0);
         titleContainer.setPadding(titleContainer.getPaddingLeft(), 0, 0, 0);
 
         setPrimaryTitle(getString(R.string.app_name));
