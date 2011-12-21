@@ -112,7 +112,6 @@ public class SQLBusManager implements BusManager {
         StringBuilder vals = getSerializedData(newStarredStations);
         if (vals.length() > 0) {
             String raw = vals.delete(vals.length()-1, vals.length()).toString();
-            Log.d("SERIAL", "ST: " + raw);
             ed.putString("starredStations", raw);
             ed.commit();
         }
@@ -155,6 +154,16 @@ public class SQLBusManager implements BusManager {
     @Override
     public void overwriteStarredStations(List<BusStation> stations, Context ctx) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        SharedPreferences.Editor ed = prefs.edit();
+
+        StringBuilder vals = getSerializedData(stations);
+        String raw;
+        if (vals.length() > 0)
+            raw = vals.delete(vals.length()-1, vals.length()).toString();
+        else
+            raw = vals.toString();
+        ed.putString("starredStations", raw);
+        ed.commit();
     }
 
     /**

@@ -46,6 +46,19 @@ abstract public class SectionedAdapter extends BaseAdapter {
         sections.add(pos, new Section(caption, adapter));
     }
 
+    /**
+     * Check section by caption
+     * @param caption
+     * @return true if a section has a caption name
+     */
+    public boolean hasSection(String caption) {
+        for (Section section : sections) {
+            if (section.caption.equals(caption))
+                return true;
+        }
+        return false;
+    }
+
     @Override
 	public Object getItem(int position) {
 		for (Section section : this.sections) {

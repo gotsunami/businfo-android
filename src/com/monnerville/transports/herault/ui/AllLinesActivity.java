@@ -1,7 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,8 +16,6 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.widget.ListView;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,25 +23,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
-import java.util.List;
-
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
-import com.monnerville.transports.herault.core.xml.XMLBusManager;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
@@ -101,13 +96,11 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         // Background line directions retreiver
         new DirectionsRetreiverTask().execute(lines);
 
-        if (mStarredStations.size() > 0) {
-        mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
-            new BusStationActivity.BookmarkStationListAdapter(this,
-                R.layout.bus_line_bookmark_list_item, mStarredStations));
-        }
         mAdapter.addSection(getString(R.string.quick_actions_header),
             new ActionListAdapter(this, R.layout.main_action_list_item, mMainActions));
+        mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
+            new BusStationActivity.BookmarkStationListAdapter(this,
+            R.layout.bus_line_bookmark_list_item, mStarredStations));
         mAdapter.addSection(getString(R.string.all_lines_header),
             new LineListAdapter(this, R.layout.all_lines_list_item, lines));
         setListAdapter(mAdapter);
@@ -117,16 +110,18 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     @Override
     protected void onResume() {
         super.onResume();
-        // FIXME updateBookmarks();
+        SQLBusManager manager = SQLBusManager.getInstance();
+        if (manager.getDB() != null)
+            updateBookmarks();
     }
 
     @Override
     protected void onPause() {
-        /** FIXME
-        BusManager manager = XMLBusManager.getInstance();
-        // Overwrite existing saved stations with the current list
+        BusManager manager = SQLBusManager.getInstance();
+        /* Overwrite existing saved stations with the current list
+         * so that bookmark removal work as expected!
+         */
         manager.overwriteStarredStations(mStarredStations, this);
-         * */
         super.onPause();
     }
 
@@ -144,7 +139,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     }
 
     private void updateBookmarks() {
-        BusManager manager = XMLBusManager.getInstance();
+        BusManager manager = SQLBusManager.getInstance();
         List<BusStation> sts = manager.getStarredStations(this);
         mStarredStations.clear();
         for (BusStation st : sts) {
@@ -429,8 +424,9 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
-            Log.d("BENCH0", "DB create duration: " + (System.currentTimeMillis() - mStart) + "ms");
+            Log.d("BENCH0", "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mHandler = null;
+            updateBookmarks();
             setupAdapter();
             mAdapter.notifyDataSetChanged();
         }
