@@ -26,6 +26,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dip" />
+        <TextView android:id="@+id/city"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/result_city_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip" />
         <TextView android:id="@android:id/text2"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/lines_by_city"

@@ -142,6 +142,9 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             name.setText(station.getName());
             TextView info = (TextView)itemView.findViewById(android.R.id.text2);
             info.setText(mContext.getString(R.string.bookmark_info, station.getLine().getName(), station.getDirection()));
+            TextView city = (TextView)itemView.findViewById(R.id.city);
+            city.setText(mContext.getString(R.string.bookmark_city, station.getCity()));
+
             return itemView;
         }
     }

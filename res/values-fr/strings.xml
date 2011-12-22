@@ -9,13 +9,14 @@
     <string name="toast_null_direction">"Direction(s) nulle(s): pas de stations"</string>
     <string name="current_line_title">Ligne %1$s</string>
     <string name="station_line_direction_title">Ligne %1$s vers %2$s</string>
-    <string name="all_lines_bookmarks_header">Favoris</string>
+    <string name="all_lines_bookmarks_header">Stations favorites</string>
     <string name="quick_actions_header">Raccourcis</string>
     <string name="result_city_header">Villes</string>
     <string name="result_station_header">Stations</string>
     <string name="result_line_header">Lignes</string>
     <string name="all_lines_header">Toutes les lignes</string>
     <string name="bookmark_info">Ligne %1$s vers %2$s</string>
+    <string name="bookmark_city">"À %1$s"</string>
     <string name="no_data">Pas de données.</string>
     <string name="search_hint">Entrez un mot clef</string>
     <string name="bookmark_menu_title">Favori</string>

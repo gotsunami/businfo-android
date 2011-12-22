@@ -328,12 +328,19 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         }
     }
 
+    /**
+     * Custom adapter with matches display
+     */
     final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
         @Override
         protected int getMatches(String caption) {
             if (caption.equals(getString(R.string.all_lines_header))) {
                 BusManager manager = SQLBusManager.getInstance();
                 return manager.getBusLines().size();
+            }
+            else if (caption.equals(getString(R.string.all_lines_bookmarks_header))) {
+                return mStarredStations.isEmpty() ? CounterSectionedAdapter.NO_MATCH :
+                    mStarredStations.size();
             }
             return CounterSectionedAdapter.NO_MATCH;
         }
