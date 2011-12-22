@@ -145,6 +145,12 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView city = (TextView)itemView.findViewById(R.id.city);
             city.setText(mContext.getString(R.string.bookmark_city, station.getCity()));
 
+            TextView sched = (TextView)itemView.findViewById(R.id.icon);
+            // Get a cached value
+            BusStop st = station.getNextStop(true);
+            // FIXME
+            sched.setText(st == null ? "END" : BusStop.TIME_FORMATTER.format(st.getTime()));
+
             return itemView;
         }
     }

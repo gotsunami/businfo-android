@@ -5,15 +5,18 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
-    android:paddingLeft="10dip"
-    android:paddingRight="15dip">
+    android:paddingLeft="8dip"
+    android:paddingRight="5dip">
 
     <!-- Activity icon when presenting dialog -->
-    <ImageView android:id="@+id/icon"
+    <com.monnerville.transports.herault.ui.StationTextView android:id="@+id/icon"
         android:layout_width="@android:dimen/app_icon_size"
         android:layout_height="@android:dimen/app_icon_size"
-        android:src="@android:drawable/ic_menu_myplaces"
-        android:scaleType="fitCenter" />
+        android:textColor="@android:color/white"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center_vertical"

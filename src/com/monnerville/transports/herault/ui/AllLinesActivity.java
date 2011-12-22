@@ -143,6 +143,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         List<BusStation> sts = manager.getStarredStations(this);
         mStarredStations.clear();
         for (BusStation st : sts) {
+            st.getNextStop(); // Fresh, non-cached value
             mStarredStations.add(st);
         }
         mAdapter.notifyDataSetChanged();
