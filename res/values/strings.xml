@@ -17,7 +17,18 @@
     <string name="result_line_header">Lines</string>
     <string name="all_lines_header">All lines</string>
     <string name="bookmark_info">Line %1$s to %2$s</string>
-    <string name="bookmark_city">In %1$s</string>
+
+    <string name="bookmark_city">"In %1$s"</string>
+    <string name="bookmark_city_eta_hours_hs">"In %1$s, %2$s hour left"</string>
+    <string name="bookmark_city_eta_hours_hp">"In %1$s, %2$s hours left"</string>
+    <string name="bookmark_city_eta_hours_hs_ms">"In %1$s, %2$s hour %3$s minute left"</string>
+    <string name="bookmark_city_eta_hours_hs_mp">"In %1$s, %2$s hour %3$s minutes left"</string>
+    <string name="bookmark_city_eta_hours_hp_ms">"In %1$s, %2$s hours %3$s minute left"</string>
+    <string name="bookmark_city_eta_hours_hp_mp">"In %1$s, %2$s hours %3$s minutes left"</string>
+    <string name="bookmark_city_eta_ms">"In %1$s, %2$s minute left"</string>
+    <string name="bookmark_city_eta_mp">"In %1$s, %2$s minutes left"</string>
+    <string name="bookmark_city_eta_ms_now">"In %1$s, incoming..."</string>
+
     <string name="no_data">No data.</string>
     <string name="search_hint">Enter keyword</string>
     <string name="bookmark_menu_title">Bookmark</string>

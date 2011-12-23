@@ -16,7 +16,18 @@
     <string name="result_line_header">Lignes</string>
     <string name="all_lines_header">Toutes les lignes</string>
     <string name="bookmark_info">Ligne %1$s vers %2$s</string>
+
     <string name="bookmark_city">"À %1$s"</string>
+    <string name="bookmark_city_eta_hours_hs">"À %1$s, dans %2$s heure"</string>
+    <string name="bookmark_city_eta_hours_hp">"À %1$s, dans %2$s heures"</string>
+    <string name="bookmark_city_eta_hours_hs_ms">"À %1$s, dans %2$s heure %3$s minute"</string>
+    <string name="bookmark_city_eta_hours_hs_mp">"À %1$s, dans %2$s heure %3$s minutes"</string>
+    <string name="bookmark_city_eta_hours_hp_ms">"À %1$s, dans %2$s heures %3$s minute"</string>
+    <string name="bookmark_city_eta_hours_hp_mp">"À %1$s, dans %2$s heures %3$s minutes"</string>
+    <string name="bookmark_city_eta_ms">"À %1$s, dans %2$s minute"</string>
+    <string name="bookmark_city_eta_mp">"À %1$s, dans %2$s minutes"</string>
+    <string name="bookmark_city_eta_ms_now">"À %1$s, dans quelques instants..."</string>
+
     <string name="no_data">Pas de données.</string>
     <string name="search_hint">Entrez un mot clef</string>
     <string name="bookmark_menu_title">Favori</string>
@@ -33,7 +44,6 @@
     <string name="menu_settings_title">Paramètres</string>
     <string name="menu_preferences">Paramètres</string>
     <string name="menu_search_title">Chercher</string>
-
 
     <string name="cat_about_title">À propos</string>
     <string name="cat_about_sum">"À propos de l'application"</string>

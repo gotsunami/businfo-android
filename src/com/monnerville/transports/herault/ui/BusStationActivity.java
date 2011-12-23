@@ -25,12 +25,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  *
@@ -143,8 +148,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             name.setText(station.getName());
             TextView info = (TextView)itemView.findViewById(android.R.id.text2);
             info.setText(mContext.getString(R.string.bookmark_info, station.getLine().getName(), station.getDirection()));
-            TextView city = (TextView)itemView.findViewById(R.id.city);
-            city.setText(mContext.getString(R.string.bookmark_city, station.getCity()));
 
             TextView sched = (TextView)itemView.findViewById(R.id.icon);
             // Get a cached value
@@ -153,10 +156,75 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
 
             int colors[] = { 0x00ffffff, st == null ? 0xffff0000 : 0xff039900, 0x00ffffff };
             GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-//            gd.setCornerRadius(5);
             sched.setBackgroundDrawable(gd);
+
+            TextView city = (TextView)itemView.findViewById(R.id.city);
+            city.setText(getFormattedETA(station, st, mContext));
 
             return itemView;
         }
+    }
+
+    /**
+     * Returns an i18n formatted estimated time of arrival for a bus stop
+     * 
+     */
+    static private String getFormattedETA(BusStation station, BusStop st, Context ctx) {
+
+        // FIXME: remove station param to clean up the code
+
+        String feta; // formatted ETA
+        if (st != null) {
+            BusStop.EstimatedTime eta = st.getETA();
+            int pattern = -1;
+            if (eta.getHours() > 0) {
+                if (eta.getHours() > 1) {
+                    if (eta.getMinutes() > 0) {
+                        if (eta.getMinutes() == 1)
+                            pattern = R.string.bookmark_city_eta_hours_hp_ms;
+                        else if (eta.getMinutes() > 1)
+                            pattern = R.string.bookmark_city_eta_hours_hp_mp;
+                        feta = ctx.getString(pattern, station.getCity(), "" + 
+                            eta.getHours(), "" + eta.getMinutes());
+                    }
+                    else {
+                        // 0 minute
+                        pattern = R.string.bookmark_city_eta_hours_hp;
+                        feta = ctx.getString(pattern, station.getCity(), "" + eta.getHours());
+                    }
+                }
+                else {
+                    // 1 hour
+                    if (eta.getMinutes() > 0) {
+                        if (eta.getMinutes() == 1)
+                            pattern = R.string.bookmark_city_eta_hours_hs_ms;
+                        else if (eta.getMinutes() > 1)
+                            pattern = R.string.bookmark_city_eta_hours_hs_mp;
+                        feta = ctx.getString(pattern, station.getCity(), "" + 
+                            eta.getHours(), "" + eta.getMinutes());
+                    }
+                    else {
+                        // 0 minute
+                        pattern = R.string.bookmark_city_eta_hours_hs;
+                        feta = ctx.getString(pattern, station.getCity(), "" + eta.getHours());
+                    }
+                }
+            }
+            else {
+                // 0 hour
+                if(eta.getMinutes() == 0)  {
+                    feta = ctx.getString(R.string.bookmark_city_eta_ms_now, station.getCity());
+                }
+                else {
+                    pattern = eta.getMinutes() > 1 ? R.string.bookmark_city_eta_mp : R.string.bookmark_city_eta_ms;
+                    feta = ctx.getString(pattern, station.getCity(), "" + eta.getMinutes());
+                }
+            }
+        }
+        else {
+            // No more stop today
+            feta = ctx.getString(R.string.bookmark_city, station.getCity());
+        }
+        return feta;
     }
 }

@@ -2,10 +2,15 @@ package com.monnerville.transports.herault.core;
 
 import android.util.Log;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,5 +47,54 @@ public final class BusStop {
      */
     public boolean isServed() {
         return true;
+    }
+
+    /**
+     * Computes estimated time to achieve
+     * @return el
+     */
+    public EstimatedTime getETA() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(new Date());
+        Date now;
+        try {
+            now = TIME_FORMATTER.parse(
+            calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+            long next = mTime.getTime();
+            long elapsed = next - now.getTime();
+
+            final long ONE_SECOND = 1000;
+            final long ONE_MINUTE = ONE_SECOND * 60;
+            final long ONE_HOUR = ONE_MINUTE * 60;
+            final long ONE_DAY = ONE_HOUR * 24;
+
+            long days = elapsed / ONE_DAY;
+            elapsed %= ONE_DAY;
+            long hours = elapsed / ONE_HOUR;
+            elapsed %= ONE_HOUR;
+            long minutes = elapsed / ONE_MINUTE;
+            elapsed %= ONE_MINUTE;
+            long seconds = elapsed / ONE_SECOND;
+
+            return new EstimatedTime(days, hours, minutes, seconds);
+        } catch (ParseException ex) {
+            Logger.getLogger(BusStop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    final public class EstimatedTime {
+        private long mDays, mHours, mMinutes, mSeconds;
+        public EstimatedTime(long days, long hours, long minutes, long seconds) {
+            mDays = days;
+            mHours = hours;
+            mMinutes = minutes;
+            mSeconds = seconds;
+        }
+
+        public long getDays() { return mDays; }
+        public long getHours() { return mHours; }
+        public long getMinutes() { return mMinutes; }
+        public long getSeconds() { return mSeconds; }
     }
 }
