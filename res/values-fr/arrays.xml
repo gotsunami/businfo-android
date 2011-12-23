@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string-array name="bookmark_options">
-		<item>Voir station</item>
-		<item>Voir ligne</item>
-		<item>Supprimer</item>
+		<item>Horaires de la station</item>
+		<item>Stations de la ligne</item>
+		<item>Supprimer favori</item>
 	</string-array>
 </resources>
