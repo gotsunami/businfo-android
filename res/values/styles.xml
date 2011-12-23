@@ -69,12 +69,14 @@
 	<style name="TextShadow">
         <!-- Inherits @android:style/Widget.TextView.ListSeparator style -->
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#ff888888</item>
+        <item name="android:textSize">27sp</item>
         <item name="android:gravity">center</item>
         <item name="android:shadowDx">0.5</item>
         <item name="android:shadowDy">0.5</item>
-        <item name="android:shadowColor">#BB000000</item>
+        <item name="android:shadowColor">#BBffffff</item>
         <item name="android:shadowRadius">1.75</item>
+        <item name="android:paddingRight">2sp</item>
+        <item name="android:background">#53cccccc</item>
 	</style>
 </resources>

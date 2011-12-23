@@ -59,7 +59,7 @@ public final class BusStop {
         Date now;
         try {
             now = TIME_FORMATTER.parse(
-            calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+                calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
             long next = mTime.getTime();
             long elapsed = next - now.getTime();
 

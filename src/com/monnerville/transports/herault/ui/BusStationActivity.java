@@ -152,11 +152,12 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView sched = (TextView)itemView.findViewById(R.id.icon);
             // Get a cached value
             BusStop st = station.getNextStop(true);
-            sched.setText(st == null ? "!" : BusStop.TIME_FORMATTER.format(st.getTime()));
+            sched.setText(st == null ? mContext.getString(R.string.no_more_stop_short) :
+                BusStop.TIME_FORMATTER.format(st.getTime()));
 
             int colors[] = { 0x00ffffff, st == null ? 0xffff0000 : 0xff039900, 0x00ffffff };
             GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-            sched.setBackgroundDrawable(gd);
+//            sched.setBackgroundDrawable(gd);
 
             TextView city = (TextView)itemView.findViewById(R.id.city);
             city.setText(getFormattedETA(station, st, mContext));

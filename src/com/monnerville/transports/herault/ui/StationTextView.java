@@ -37,25 +37,17 @@ public class StationTextView extends TextView {
     }
 
     private void init() {
-        /*
         mPaint = new Paint();
-        mPaint.setColor(Color.GREEN);
-        mPaint.setTextSize(19);
         mPaint.setAntiAlias(true);
-         * 
-         */
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        mPaint.setColor(0x66cccccc);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(1);
+        canvas.drawLine(getWidth(), 0, getWidth(), getHeight(), mPaint);
         super.onDraw(canvas);
-        /*
-        setText(mNextStop == null ? "!" : BusStop.TIME_FORMATTER.format(mNextStop.getTime()));
-//            gd.setCornerRadius(5);
-//        setBackgroundDrawable(gd);
-        canvas.drawText(txt, 0, 30, mPaint);
-         * 
-         */
     }
 
     /**
@@ -66,13 +58,4 @@ public class StationTextView extends TextView {
     public void setNextStop(BusStop stop) {
         mNextStop = stop;
     }
-
-    /*
-    public Drawable getBackgroundDrawable() {
-        int colors[] = { 0x00ffffff, mNextStop == null ? 0xffff0000 : 0xff039900, 0x00ffffff };
-        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-        return gd;
-    }
-     * 
-     */
 }
