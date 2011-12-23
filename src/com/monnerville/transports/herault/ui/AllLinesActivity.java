@@ -2,18 +2,13 @@ package com.monnerville.transports.herault.ui;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.preference.PreferenceManager;
 import android.widget.ListView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,24 +24,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
-import com.monnerville.transports.herault.core.BusStation;
-import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
-    private SharedPreferences mPrefs;
-    private List<BusStation> mStarredStations;
-    private List<String> mMainActions;
     // Cached directions for all available lines
     private List<List<String>> mDirections;
 
@@ -57,8 +45,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private boolean mDBReady;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setTitle(R.string.lines_activity_title);
 
@@ -75,13 +62,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         setPrimaryTitle(getString(R.string.app_name));
         setSecondaryTitle(getString(R.string.slogan));
 
-        new DBCreateOrUpdateTask().execute();
-
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mDirections = new ArrayList<List<String>>();
-        mStarredStations = new ArrayList<BusStation>();
-        mMainActions = new ArrayList<String>();
-        mMainActions.add(getString(R.string.action_speak_destination));
 
         Button searchButton = (Button)findViewById(R.id.btn_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +72,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                 onSearchRequested();
             }
         });
+
+        setupAdapter();
     }
 
     /**
@@ -102,11 +85,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         // Background line directions retreiver
         new DirectionsRetreiverTask().execute(lines);
 
-        mAdapter.addSection(getString(R.string.quick_actions_header),
-            new ActionListAdapter(this, R.layout.main_action_list_item, mMainActions));
-        mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
-            new BusStationActivity.BookmarkStationListAdapter(this,
-            R.layout.bus_line_bookmark_list_item, mStarredStations));
         mAdapter.addSection(getString(R.string.all_lines_header),
             new LineListAdapter(this, R.layout.all_lines_list_item, lines));
         setListAdapter(mAdapter);
@@ -115,31 +93,11 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     @Override
     protected void onResume() {
         super.onResume();
-        // Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
-        if (!mDBReady) {
-            try {
-                Thread.sleep(70); // 50 ms
-            } catch (InterruptedException ex) {
-                Logger.getLogger(AllLinesActivity.class.getName()).log(Level.SEVERE, null, ex);
-            } // 50 ms
-        }
-        if (mDBReady)
-            updateBookmarks();
     }
 
     @Override
     protected void onPause() {
-        /* Overwrite existing saved stations with the current list
-         * so that bookmark removal work as expected!
-         */
-        mManager.overwriteStarredStations(mStarredStations, this);
         super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        mManager.getDB().close();
-        super.onDestroy();
     }
 
     @Override
@@ -152,19 +110,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     public void setSecondaryTitle(String title) {
         TextView t= (TextView)findViewById(R.id.secondary);
         t.setText(title);
-    }
-
-    /**
-     * Updates bookmarked stations with latest next stop
-     */
-    private void updateBookmarks() {
-        List<BusStation> sts = mManager.getStarredStations(this);
-        mStarredStations.clear();
-        for (BusStation st : sts) {
-            mStarredStations.add(st);
-            st.getNextStop(); // Fresh, non-cached value
-        }
-        mAdapter.notifyDataSetChanged();
     }
 
     private class LineListAdapter extends ArrayAdapter<BusLine> {
@@ -250,39 +195,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         return ctx.getResources().getIdentifier(str, null, packageName);
     }
 
-    /**
-     * List adapater for main actions (voice recognition etc.)
-     */
-    private class ActionListAdapter extends ArrayAdapter<String> {
-        private int mResource;
-        private Context mContext;
-
-        ActionListAdapter(Context context, int resource, List<String> items) {
-            super(context, resource, items);
-            mResource = resource;
-            mContext = context;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LinearLayout itemView;
-            String action = getItem(position);
-
-            if (convertView == null) {
-                itemView = new LinearLayout(mContext);
-                LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                li.inflate(mResource, itemView, true);
-            }
-            else
-                itemView = (LinearLayout)convertView;
-
-            TextView name = (TextView)itemView.findViewById(android.R.id.text1);
-            name.setText(action);
-
-            return itemView;
-        }
-    }
-
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         final Object obj = getListView().getItemAtPosition(position);
@@ -307,44 +219,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             });
             builder.show();
         }
-        else if(obj instanceof BusStation) {
-            final BusStation station = (BusStation)obj;
-            builder.setTitle(R.string.bookmark_menu_title);
-            builder.setItems(R.array.bookmark_options, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int item) {
-                    switch (item) {
-                        case 0: { // Show station
-                            Intent intent = new Intent(AllLinesActivity.this, BusStationActivity.class);
-                            intent.putExtra("line", station.getLine().getName());
-                            intent.putExtra("direction", station.getDirection());
-                            intent.putExtra("station", station.getName());
-                            startActivity(intent);
-                            break;
-                        }
-                        case 1: { // Show line
-                            Intent intent = new Intent(AllLinesActivity.this, BusLineActivity.class);
-                            intent.putExtra("line", station.getLine().getName());
-                            intent.putExtra("direction", station.getDirection());
-                            startActivity(intent);
-                            break;
-                        }
-                        case 2: // Remove
-                            for (BusStation st : mStarredStations) {
-                                if (st == obj) {
-                                    mStarredStations.remove(st);
-                                    break;
-                                }
-                            }
-                            mAdapter.notifyDataSetChanged();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
-            builder.show();
-        }
     }
 
     /**
@@ -353,14 +227,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
         @Override
         protected int getMatches(String caption) {
-            if (caption.equals(getString(R.string.all_lines_header))) {
-                return mManager.getBusLines().size();
-            }
-            else if (caption.equals(getString(R.string.all_lines_bookmarks_header))) {
-                return mStarredStations.isEmpty() ? CounterSectionedAdapter.NO_MATCH :
-                    mStarredStations.size();
-            }
-            return CounterSectionedAdapter.NO_MATCH;
+            return mManager.getBusLines().size();
         }
     };
 
@@ -388,76 +255,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
-    private class DBHandler extends Handler {
-        ProgressDialog mPd;
-
-        public DBHandler(ProgressDialog pd) {
-            super();
-            mPd = pd;
-        }
-        
-        @Override
-        public void handleMessage(Message msg) {
-            switch(msg.what) {
-                case SQLBusManager.FLUSH_DATABASE_INIT:
-                    mPd.show();
-                    break;
-                case SQLBusManager.FLUSH_DATABASE_PROGRESS:
-                    int progress = (Integer)msg.obj;
-                    mPd.setProgress(progress);
-                    break;
-                case SQLBusManager.FLUSH_DATABASE_UPGRADED:
-                    mPd.setProgress(100);
-                    mPd.cancel();
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-    /**
-     * Asynchronous database creating/updating
-     */
-    private class DBCreateOrUpdateTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog mDialog;
-        private long mStart; // benchmark
-        private DBHandler mHandler;
-
-        @Override
-        protected Void doInBackground(Void... none) {
-            mManager.initDB(AllLinesActivity.this, mHandler);
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            // Executes on the UI thread
-            // Prevents onResume() to update bookmarks before the DB is ready
-            mDBReady = false;
-
-            mDialog = new ProgressDialog(AllLinesActivity.this);
-            mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mDialog.setMessage(getString(R.string.pd_updating_database));
-            mDialog.setCancelable(false);
-            mDialog.setProgress(0);
-            mStart = System.currentTimeMillis();
-            mHandler = new DBHandler(mDialog);
-        }
-
-        @Override
-        protected void onPostExecute(Void none) {
-            // Back to the UI thread
-            Log.d("BENCH0", "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
-            mHandler = null;
-
-            mDBReady = true;
-            updateBookmarks();
-
-            setupAdapter();
             mAdapter.notifyDataSetChanged();
         }
     }

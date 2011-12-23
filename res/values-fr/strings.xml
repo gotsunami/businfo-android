@@ -36,6 +36,7 @@
     <string name="pd_loading_bus_lines">Chargement des lignes de bus</string>
     <string name="pd_updating_database">"Mise à jour des horaires, veuillez patienter..."</string>
     <string name="action_speak_destination">Énoncer un mot clef</string>
+    <string name="action_show_all_lines">Toutes les lignes</string>
     <string name="result_no_match">Aucun résultat</string>
     <string name="city_served_by_line">"Desservie par la ligne %1$s"</string>
     <string name="city_served_by_lines">"Desservie par les lignes %1$s"</string>
