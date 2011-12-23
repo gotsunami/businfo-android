@@ -12,9 +12,7 @@
     <com.monnerville.transports.herault.ui.StationTextView android:id="@+id/icon"
         android:layout_width="@android:dimen/app_icon_size"
         android:layout_height="@android:dimen/app_icon_size"
-        android:textColor="@android:color/white"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center"
+        style="@style/TextShadow"
         android:textStyle="bold" />
 
     <LinearLayout

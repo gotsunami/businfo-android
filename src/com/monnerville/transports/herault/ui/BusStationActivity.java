@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -148,8 +149,12 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView sched = (TextView)itemView.findViewById(R.id.icon);
             // Get a cached value
             BusStop st = station.getNextStop(true);
-            // FIXME
-            sched.setText(st == null ? "END" : BusStop.TIME_FORMATTER.format(st.getTime()));
+            sched.setText(st == null ? "!" : BusStop.TIME_FORMATTER.format(st.getTime()));
+
+            int colors[] = { 0x00ffffff, st == null ? 0xffff0000 : 0xff039900, 0x00ffffff };
+            GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+//            gd.setCornerRadius(5);
+            sched.setBackgroundDrawable(gd);
 
             return itemView;
         }
