@@ -40,6 +40,8 @@ import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
@@ -47,6 +49,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     private List<String> mMainActions;
     // Cached directions for all available lines
     private List<List<String>> mDirections;
+
+    private final SQLBusManager mManager = SQLBusManager.getInstance();
+    /**
+     * Used by onResume and updateBookmarks to ensure database is ready
+     */
+    private boolean mDBReady;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -67,7 +75,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         setPrimaryTitle(getString(R.string.app_name));
         setSecondaryTitle(getString(R.string.slogan));
 
-        BusManager manager = SQLBusManager.getInstance();
         new DBCreateOrUpdateTask().execute();
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -90,8 +97,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      * Sets up the adapter for the list
      */
     private void setupAdapter() {
-        BusManager manager = SQLBusManager.getInstance();
-        List<BusLine> lines = manager.getBusLines();
+        List<BusLine> lines = mManager.getBusLines();
 
         // Background line directions retreiver
         new DirectionsRetreiverTask().execute(lines);
@@ -106,25 +112,35 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         setListAdapter(mAdapter);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        SQLBusManager manager = SQLBusManager.getInstance();
-        if (manager.getDB() != null)
+        // Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
+        if (!mDBReady) {
+            try {
+                Thread.sleep(70); // 50 ms
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AllLinesActivity.class.getName()).log(Level.SEVERE, null, ex);
+            } // 50 ms
+        }
+        if (mDBReady)
             updateBookmarks();
     }
 
     @Override
     protected void onPause() {
-        BusManager manager = SQLBusManager.getInstance();
         /* Overwrite existing saved stations with the current list
          * so that bookmark removal work as expected!
          */
-        manager.overwriteStarredStations(mStarredStations, this);
+        mManager.overwriteStarredStations(mStarredStations, this);
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        mManager.getDB().close();
+        super.onDestroy();
+    }
 
     @Override
     public void setPrimaryTitle(String title) {
@@ -138,13 +154,15 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         t.setText(title);
     }
 
+    /**
+     * Updates bookmarked stations with latest next stop
+     */
     private void updateBookmarks() {
-        BusManager manager = SQLBusManager.getInstance();
-        List<BusStation> sts = manager.getStarredStations(this);
+        List<BusStation> sts = mManager.getStarredStations(this);
         mStarredStations.clear();
         for (BusStation st : sts) {
-            st.getNextStop(); // Fresh, non-cached value
             mStarredStations.add(st);
+            st.getNextStop(); // Fresh, non-cached value
         }
         mAdapter.notifyDataSetChanged();
     }
@@ -336,8 +354,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected int getMatches(String caption) {
             if (caption.equals(getString(R.string.all_lines_header))) {
-                BusManager manager = SQLBusManager.getInstance();
-                return manager.getBusLines().size();
+                return mManager.getBusLines().size();
             }
             else if (caption.equals(getString(R.string.all_lines_bookmarks_header))) {
                 return mStarredStations.isEmpty() ? CounterSectionedAdapter.NO_MATCH :
@@ -351,7 +368,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      * Retrieves all lines directions in a background thread
      */
     private class DirectionsRetreiverTask extends AsyncTask<List<BusLine>, Void, Void> {
-        private List<BusStation> starredStations;
         private List<BusLine> mLines;
 
         @Override
@@ -413,13 +429,16 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
         @Override
         protected Void doInBackground(Void... none) {
-            SQLBusManager.getInstance().initDB(AllLinesActivity.this, mHandler);
+            mManager.initDB(AllLinesActivity.this, mHandler);
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
+            // Prevents onResume() to update bookmarks before the DB is ready
+            mDBReady = false;
+
             mDialog = new ProgressDialog(AllLinesActivity.this);
             mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mDialog.setMessage(getString(R.string.pd_updating_database));
@@ -434,7 +453,10 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             // Back to the UI thread
             Log.d("BENCH0", "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mHandler = null;
+
+            mDBReady = true;
             updateBookmarks();
+
             setupAdapter();
             mAdapter.notifyDataSetChanged();
         }
