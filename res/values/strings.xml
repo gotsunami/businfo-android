@@ -30,6 +30,12 @@
     <string name="bookmark_city_eta_mp">"In %1$s, %2$s minutes left"</string>
     <string name="bookmark_city_eta_ms_now">"In %1$s, incoming..."</string>
 
+    <string name="suggestion_city_subtitle">"City with %1$s bus line(s)"</string>
+    <string name="suggestion_line_subtitle">"Line to %1$s and %2$s"</string>
+    <string name="suggestion_station_subtitle">"Bus station in %1$s"</string>
+    <string name="suggestion_station_served_by_line">"served by line %1$s"</string>
+    <string name="suggestion_station_served_by_lines">"served by lines %1$s"</string>
+
     <string name="no_data">No data.</string>
     <string name="search_hint">Enter keyword</string>
     <string name="bookmark_menu_title">Bookmark</string>

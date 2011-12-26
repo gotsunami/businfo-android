@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
@@ -67,6 +68,7 @@ public class SearchableActivity extends ListActivity {
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
+        Log.d("INTENT", "ACTION: " + intent.getAction());
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             ts.setText(getString(R.string.search_keyword, query));
@@ -203,7 +205,7 @@ public class SearchableActivity extends ListActivity {
                 TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
                 QueryManager finder = SQLQueryManager.getInstance();
                 List<String> lines = finder.findLinesInCity(city);
-                String strLines = getJoinedList(lines, ",");
+                String strLines = Application.getJoinedList(lines, ",");
                 String ls = getString(lines.size() == 1 ? R.string.city_served_by_line :
                     R.string.city_served_by_lines, strLines);
                 tv.setText(ls);
@@ -236,18 +238,6 @@ public class SearchableActivity extends ListActivity {
 
             return itemView;
         }
-    }
-
-    /**
-     * Joins a list's elements with a string separator
-     */
-    private String getJoinedList(List<String> data, String separator) {
-        StringBuilder sb = new StringBuilder();
-        for (String d : data) {
-            sb.append(d).append(separator).append(" ");
-        }
-        sb.replace(sb.length()-1-separator.length(), sb.length(), "");
-        return sb.toString();
     }
 
     private class StationListAdapter extends ArrayAdapter<DBStation> {
@@ -287,7 +277,7 @@ public class SearchableActivity extends ListActivity {
                 String city = (String)itr.next();
                 List<String> lines = clines.get(city);
 
-                String strLines = getJoinedList(clines.get(city), ",");
+                String strLines = Application.getJoinedList(clines.get(city), ",");
                 String ls = getString(lines.size() == 1 ? R.string.city_served_by_line :
                     R.string.city_served_by_lines, strLines);
                 tv.setText(getString(R.string.station_served_by_lines, city, ls));

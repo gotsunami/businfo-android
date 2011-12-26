@@ -32,5 +32,9 @@
         <activity android:name=".ui.AppPreferenceActivity"
             android:label="@string/app_name">
         </activity>
+        <provider android:name="com.monnerville.transports.herault.provider.SuggestionProvider"
+            android:authorities="com.monnerville.transports.herault.provider.suggestionprovider">
+        </provider>
     </application>
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="11" />
 </manifest> 

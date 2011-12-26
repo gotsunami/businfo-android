@@ -1,6 +1,7 @@
 package com.monnerville.transports.herault.core;
 
 import android.content.Context;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,20 @@ public final class Application {
         int resId = ctx.getResources().getIdentifier(str, "string", packageName);
         return ctx.getString(resId);
     }
+
+    /**
+     * Joins a list's elements with a string separator
+     * @param data String elements to join
+     * @param separator separator string
+     * @return merged list of strings
+     */
+    public static String getJoinedList(List<String> data, String separator) {
+        StringBuilder sb = new StringBuilder();
+        for (String d : data) {
+            sb.append(d).append(separator).append(" ");
+        }
+        sb.replace(sb.length()-1-separator.length(), sb.length(), "");
+        return sb.toString();
+    }
+
 }

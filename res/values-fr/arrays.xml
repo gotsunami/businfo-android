@@ -2,7 +2,7 @@
 <resources>
 	<string-array name="bookmark_options">
 		<item>Horaires de la station</item>
-		<item>Stations de la ligne</item>
+		<item>Tous les arrêts de la ligne</item>
 		<item>Supprimer favori</item>
 	</string-array>
 </resources>

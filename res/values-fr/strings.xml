@@ -29,6 +29,12 @@
     <string name="bookmark_city_eta_mp">"À %1$s, dans %2$s minutes"</string>
     <string name="bookmark_city_eta_ms_now">"À %1$s, dans quelques instants..."</string>
 
+    <string name="suggestion_city_subtitle">"Ville desservie par %1$s ligne(s) de bus"</string>
+    <string name="suggestion_line_subtitle">"Ligne direction %1$s et %2$s"</string>
+    <string name="suggestion_station_subtitle">"Arrêt à %1$s, %2$s"</string>
+    <string name="suggestion_station_served_by_line">"desservi par la ligne %1$s"</string>
+    <string name="suggestion_station_served_by_lines">"desservi par les lignes %1$s"</string>
+
     <string name="no_data">Pas de données.</string>
     <string name="search_hint">Entrez un mot clef</string>
     <string name="bookmark_menu_title">Favori</string>
@@ -56,7 +62,7 @@
     <string name="pref_about_changelog_title">Historique des versions</string>
     <string name="pref_about_changelog_summary">"Nouveautés de cette version"</string>
     <string name="pref_about_db_version_title">Base de données</string>
-    <string name="pref_about_db_version_summary">"Version %1$s (%2$s lignes, %3$s villes et %4$s arrêts)"</string>
+    <string name="pref_about_db_version_summary">"Version %1$s (%2$s lignes, %3$s communes et %4$s arrêts)"</string>
 
     <string name="cat_tts_title">Synthèse vocale</string>
     <string name="cat_tts_sum">Text-To-Speech</string>
