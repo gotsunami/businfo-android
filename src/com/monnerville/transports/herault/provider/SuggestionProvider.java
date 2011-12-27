@@ -29,6 +29,19 @@ import java.util.Set;
 public class SuggestionProvider extends ContentProvider {
     public static final Uri CONTENT_URI =
         Uri.parse("content://com.monnerville.transports.herault.provider.suggestionprovider");
+    /**
+     * Prefix used to make a unique ID for bus line entries
+     */
+    public static final String BUS_LINE_PREFIX_ID = "b";
+    /**
+     * Prefix used to make a unique ID for bus station entries
+     */
+    public static final String BUS_STATION_PREFIX_ID = "s";
+    /**
+     * Prefix used to make a unique ID for bus city entries
+     */
+    public static final String BUS_CITY_PREFIX_ID = "c";
+
     final private SQLBusManager mManager = SQLBusManager.getInstance();
 
     @Override
@@ -54,6 +67,8 @@ public class SuggestionProvider extends ContentProvider {
            SearchManager.SUGGEST_COLUMN_TEXT_1,
            SearchManager.SUGGEST_COLUMN_TEXT_2,
         //   SearchManager.SUGGEST_COLUMN_ICON_2,
+           // Used to build the Intent's data
+           SearchManager.SUGGEST_COLUMN_INTENT_DATA,
         };
 
         String [] subtitles = {
@@ -102,6 +117,8 @@ public class SuggestionProvider extends ContentProvider {
             new String[] {"%" + query + "%"}, null, null, "name"
         );
         String subt = subtitle;
+        // Primary key prefix to know what kind of intent data this is
+        String uidPrefix = "";
 
         for (int i = 0; i < c.getCount(); i++) {
             c.moveToPosition(i);
@@ -110,11 +127,13 @@ public class SuggestionProvider extends ContentProvider {
                 case R.string.db_city_table_name:
                     List<String> lines = finder.findLinesInCity(name);
                     subt = getContext().getString(R.string.suggestion_city_subtitle, lines.size());
+                    uidPrefix = BUS_CITY_PREFIX_ID;
                     break;
                 case R.string.db_line_table_name:
                     BusLine line = new SQLBusLine(name);
                     String dirs[] = line.getDirections();
                     subt = getContext().getString(R.string.suggestion_line_subtitle, dirs[0], dirs[1]);
+                    uidPrefix = BUS_LINE_PREFIX_ID;
                     break;
                 case R.string.db_station_table_name:
                     Map<String, List<String>> cityLines =
@@ -129,6 +148,7 @@ public class SuggestionProvider extends ContentProvider {
                         R.string.suggestion_station_served_by_line : R.string.suggestion_station_served_by_lines,
                         strLines);
                     subt = getContext().getString(R.string.suggestion_station_subtitle, city, ls);
+                    uidPrefix = BUS_STATION_PREFIX_ID;
                     break;
                 default:
                     subt = null;
@@ -138,6 +158,7 @@ public class SuggestionProvider extends ContentProvider {
                 c.getString(1),                         // Main caption
                 subt,                                   // Subtitle
                 //          iconResource,               // Appropriate icon resource
+                uidPrefix + String.valueOf(c.getInt(0)),// Intent data to identify intent's type
             };
             cur.addRow(tmp);
         }

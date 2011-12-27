@@ -10,6 +10,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,11 +69,17 @@ public class SearchableActivity extends ListActivity {
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
-        Log.d("INTENT", "ACTION: " + intent.getAction());
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            // Handle the normal search query case
             String query = intent.getStringExtra(SearchManager.QUERY);
             ts.setText(getString(R.string.search_keyword, query));
             new StartSearchingTask().execute(query);
+        }
+        else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            // Handle a suggestions click (because the suggestions all use ACTION_VIEW)
+            Uri data = intent.getData();
+            Log.d("VIEW", "Uri: " + data);
+//            showResult(data);
         }
         else
             finish();
