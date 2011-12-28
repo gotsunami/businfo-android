@@ -1,0 +1,42 @@
+# Line 125
+name=125
+circulation=1-6
+color=#660099
+
+direction=
+
+city=MONTPELLIER
+Station Port Marianne;12:05*3s*;12:35;16:35*1-5s*;17:25;18:35*1,2,4,5s*;19:25
+
+city=LATTES 
+Lycée Champollion;12:10*3s*;12:40;16:40*1-5s*;17:34;18:40*1,2,4,5s*;19:30
+
+city=MAUGUIO 
+ZAC de Figuières;12:13*3s*;12:43;16:42*1-5s*;17:35;18:42*1,2,4,5s*;19:32
+
+city=ST AUNES 
+Auroux;12:15*3s*;12:45;16:45*1-5s*;17:44;18:45*1,2,4,5s*;19:35
+Cistes/Couchant;12:25*3s*;12:55;16:50*1-5s*;17:47;18:50*1,2,4,5s*;19:40
+Le lucado;12:27*3s*;17:48;18:52*1,2,4,5s*;19:42
+Tourterelles;12:30*3s*;17:50;18:55*1,2,4,5s*;19:45
+Centre commercial;12:35*3s*;17:51;19:00*1,2,4,5s*;19:50
+L'escolette;12:36*3s*;17:52;19:02*1,2,4,5s*;19:52
+
+direction=
+
+city=ST AUNES 
+Cistes/Couchant;7:00*1-6s*;7:25;8:10;12:55;16:50*1-5s*
+Le lucado;7:02*1-6s*;7:27;8:12;12:57;16:52*1-5s*
+Tourterelles;7:05*1-6s*;7:30;8:15;13:00;16:55*1-5s*
+Centre Commercial;7:10*1-6s*;7:35;8:20;13:05;17:00*1-5s*
+L'escolettes;7:12*1-6s*;7:37;8:22;13:07;17:02*1-5s*
+Auroux;7:15*1-6s*;7:40;8:25;13:10;17:05*1-5s*
+
+city=MAUGUIO 
+ZAC de Figuières;7:24*1-6s*;7:50;8:34;13:18;17:14*1-5s*
+
+city=LATTES 
+Lycée Champollion;7:25*1-6s*;7:52;8:35;13:20;17:15*1-5s*
+
+city=MONTPELLIER 
+Station Port Marianne;7:35*1-6s*;8:00;8:40;13:30;17:20*1-5s*
