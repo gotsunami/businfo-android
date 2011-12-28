@@ -1,0 +1,56 @@
+# Line 203
+name=203
+circulation=1-6
+color=#FFFF00
+
+direction=
+
+city=BEZIERS 
+Gare routière;8:00;9:45;11:20;12:20;14:45;16:20;17:20;18:20
+Gare SNCF / Pl. des Alliés;8:05;9:50;11:25;12:25;14:50;16:25;17:25;18:25
+
+city=MARAUSSAN 
+Paysseriou;8:15;10:00;11:35;12:35;15:00;16:35;17:35;18:35
+Av de Béziers / Tabarka;8:15;10:00;11:35;12:35;15:00;16:35;17:35;18:35
+Centre / Condamine;8:15;10:00;11:35;12:35;15:00;16:35;17:35;18:35
+
+city=CAZOULS-LES-BEZIERS 
+Coopérative / Hameau;8:24;10:15;11:45;12:45;15:15;16:45;17:45;18:45
+La gare / Centre;8:24;10:15;11:45;12:45;15:15;16:45;17:45;18:45
+Pl. Liberté / Pont;8:24;10:15;11:45;12:45;15:15;16:45;17:45;18:45
+
+city=CAZEDARNES 
+Centre / Eglise;8:40;-;12:52;-;17:52;18:52
+
+city=CESSENON 
+Ecole / Centre;8:50;12:00;13:00;17:00;18:00;19:00
+
+city=ROQUEBRUN 
+Lugne;12:10;13:09;18:10;19:10
+Centre;12:15;13:15;18:15;19:15
+
+direction=
+
+city=ROQUEBRUN 
+Centre;6:45;7:45;12:45
+Lugne;6:50;7:50;12:50
+
+city=CESSENON 
+Ecole / Centre;7:00;8:00;9:00;13:00;14:00;17:05
+
+city=CAZEDARNES 
+Centre / Eglise;7:05;-;8:40;12:52;-;17:15
+
+city=CAZOULS-LES-BEZIERS 
+Pont /Pl. liberté /Centre;7:15;8:15;9:15;10:15;13:15;14:15;15:15;17:30
+La gare / Hameau /Cooperative;7:15;8:15;9:15;10:15;13:15;14:15;15:15;17:30
+
+city=MARAUSSAN 
+Condamine /Centre;7:25;8:24;9:24;10:25;13:25;14:25;15:24;17:40
+Tabarka/Av de Béziers / Paysseriou;7:25;8:24;9:24;10:25;13:25;14:25;15:24;17:40
+
+city=BEZIERS 
+Rte de Maraussan;7:30;8:30;9:30;10:30;13:30;14:30;15:30;17:45
+Dom de sole / Ateliers municipaux;7:30;8:30;9:30;10:30;13:30;14:30;15:30;17:45
+Pl. des Alliés / Gare SNCF;7:35;8:35;9:35;10:35;13:35;14:35;15:35;17:50
+Gare routière;7:40;8:40;9:40;10:40;13:40;14:40;15:40;17:55
