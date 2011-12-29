@@ -1,0 +1,36 @@
+# Line 311
+name=311
+circulation=1-6
+color=#00CC00
+
+direction=
+
+city=FONTES 
+Mairie;8:30;13:30
+
+city=ADISSAN
+Eglise;8:35;13:40
+
+city=NIZAS
+Rd Pt du Moulin;8:40;13:45
+St Jean de Bébian;8:43;13:55
+
+city=PEZENAS
+Gare Routière;8:45;14:00
+Lycée;8:50
+
+direction=
+
+city=PEZENAS
+Lycée;12:20*3s*;17:20
+Gare Routière;11:00;12:30*3s*;17:30
+St Jean de Bébian;11:05;12:35*3s*;17:35
+
+city=NIZAS
+Rd Pt du Moulin;11:15;12:40*3s*;17:45
+
+city=ADISSAN
+Eglise;11:20;12:45*3s*;17:50
+
+city=FONTES
+Mairie;11:30;12:50*3s*;18:00;
