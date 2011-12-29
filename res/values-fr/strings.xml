@@ -61,8 +61,8 @@
     <string name="pref_about_about_title">À propos de</string>
     <string name="pref_about_changelog_title">Historique des versions</string>
     <string name="pref_about_changelog_summary">"Nouveautés de cette version"</string>
-    <string name="pref_about_db_version_title">Base de données</string>
-    <string name="pref_about_db_version_summary">"Version %1$s (%2$s lignes, %3$s communes et %4$s arrêts)"</string>
+    <string name="pref_about_db_version_title">Couverture réseau de bus</string>
+    <string name="pref_about_db_version_summary">"%2$s lignes, %3$s communes et %4$s arrêts (v%1$s)"</string>
 
     <string name="cat_tts_title">Synthèse vocale</string>
     <string name="cat_tts_sum">Text-To-Speech</string>
