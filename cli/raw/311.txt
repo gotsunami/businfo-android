@@ -33,4 +33,4 @@ city=ADISSAN
 Eglise;11:20;12:45*3s*;17:50
 
 city=FONTES
-Mairie;11:30;12:50*3s*;18:00;
+Mairie;11:30;12:50*3s*;18:00
