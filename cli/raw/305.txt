@@ -1,0 +1,62 @@
+# Line 305
+name=305
+circulation=1-6
+color=#000099
+
+direction=
+
+city=MONTPELLIER
+Gare routière;12:25;17:25
+Forgues;12:35;17:30
+Station Mosson;12:45;17:35
+
+city=GIGNAC
+Gare routière Arrivée;13:10;18:10
+Gare routière Départ;13:10;18:15
+
+city=POPIAN
+Mairie;13:15;18:20
+
+city=ST BAUZILLE DE LA SYLVE
+Jeu de Ballon;13:18;18:25
+
+city=POUZOLS
+Place du Marché;13:25;18:30
+
+city=LE POUGET
+Eglise;13:30;18:35
+
+city=CANET
+Centre;13:40;18:45
+
+city=ASPIRAN
+Jeu de Ballon;13:45;18:50
+
+direction=
+
+city=ASPIRAN
+Jeu de Ballon;6:20
+
+city=CANET
+Centre;6:25;12:40
+
+city=LE POUGET
+Eglise;6:35;12:45
+
+city=POUZOLS
+Place du Marché;6:40;12:50
+
+city=POPIAN
+Mairie;6:42;12:55
+
+city=ST BAUZILLE DE LA SYLVE
+Jeu de Ballon;6:45;13:00
+
+city=GIGNAC
+Gare routière Arrivée;6:55;13:10
+Gare routière Départ;6:55;13:15
+
+city=MONTPELLIER
+Station Mosson;7:25;13:40
+Forgues;7:35;13:50
+Gare routière;7:45;14:05
