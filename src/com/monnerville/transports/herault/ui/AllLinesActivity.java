@@ -269,9 +269,6 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_settings:
-                startActivity(new Intent(this, AppPreferenceActivity.class));
-                return true;
             case R.id.menu_search:
                 // Open search dialog
                 onSearchRequested();

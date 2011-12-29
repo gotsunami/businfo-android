@@ -12,7 +12,7 @@
     <ImageView android:id="@+id/icon"
         android:layout_width="@android:dimen/app_icon_size"
         android:layout_height="@android:dimen/app_icon_size"
-        android:scaleType="fitCenter" />
+        android:scaleType="centerInside" />
 
     <TextView android:id="@android:id/text1"
         android:textAppearance="?android:attr/textAppearanceMedium"

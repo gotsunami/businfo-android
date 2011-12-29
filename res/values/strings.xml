@@ -45,13 +45,13 @@
     <string name="pd_searching">Searching...</string>
     <string name="action_speak_destination">Speak keyword</string>
     <string name="action_show_all_lines">All lines</string>
+    <string name="action_show_settings">Settings</string>
     <string name="result_no_match">No result</string>
     <string name="city_served_by_line">"Served by line %1$s"</string>
     <string name="city_served_by_lines">"Served by lines %1$s"</string>
     <string name="station_served_by_lines">"In %1$s, %2$s"</string>
     <string name="search_keyword">"Search keyword: %1$s"</string>
 
-    <string name="menu_settings_title">Settings</string>
     <string name="menu_preferences">Settings</string>
     <string name="menu_search_title">Search</string>
 

@@ -79,6 +79,8 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
             getString(R.string.action_speak_destination)));
         mMainActions.add(new Action(getResources().getDrawable(R.drawable.flatbus),
             getString(R.string.action_show_all_lines)));
+        mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_menu_preferences),
+            getString(R.string.action_show_settings)));
 
         Button searchButton = (Button)findViewById(R.id.btn_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -341,6 +343,9 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
             else if(what.caption.equals(getString(R.string.action_speak_destination))) {
                 // TODO
             }
+            else if(what.caption.equals(getString(R.string.action_show_settings))) {
+                startActivity(new Intent(this, AppPreferenceActivity.class));
+            }
         }
     }
 
@@ -354,9 +359,6 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_settings:
-                startActivity(new Intent(this, AppPreferenceActivity.class));
-                return true;
             case R.id.menu_search:
                 // Open search dialog
                 onSearchRequested();
