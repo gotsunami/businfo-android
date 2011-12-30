@@ -119,7 +119,12 @@ public class SearchableActivity extends ListActivity {
             intent.putExtra("cityId", data.substring(1));
             startActivity(intent);
         }
-
+        else if(SuggestionProvider.isStationIntentData(data)) {
+            // This is a station
+            Intent intent = new Intent(this, BusStationGlobalActivity.class);
+            intent.putExtra("stationId", data.substring(1));
+            startActivity(intent);
+        }
     }
 
     private class StartSearchingTask extends AsyncTask<String, Void, Void> {
@@ -164,7 +169,7 @@ public class SearchableActivity extends ListActivity {
     private void setAdapter(long duration) {
         // Setup adapter
         if (mCities.isEmpty())
-            mCities.add(new City(-1, getString(R.string.result_no_match)));
+            mCities.add(new City(City.NOT_VALID, getString(R.string.result_no_match)));
         if (mStations.isEmpty())
             mStations.add(new DBStation(0, getString(R.string.result_no_match)));
 
@@ -303,7 +308,7 @@ public class SearchableActivity extends ListActivity {
 
             QueryManager finder = SQLQueryManager.getInstance();
             Map<String, List<String>> clines = finder.findLinesAndCityFromStation(
-                station.name, Integer.toString(station.id));
+                station.name, Long.toString(station.id));
 
             if (clines.size() > 0) {
                 TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
@@ -342,6 +347,15 @@ public class SearchableActivity extends ListActivity {
             if (c.isValid()) {
                 Intent intent = new Intent(this, CityActivity.class);
                 intent.putExtra("cityId", String.valueOf(c.getPK()));
+                startActivity(intent);
+            }
+        }
+        else if(obj instanceof DBStation) {
+            // Cities
+            DBStation st = (DBStation)obj;
+            if (st.isValid()) {
+                Intent intent = new Intent(this, BusStationGlobalActivity.class);
+                intent.putExtra("stationId", String.valueOf(st.id));
                 startActivity(intent);
             }
         }
