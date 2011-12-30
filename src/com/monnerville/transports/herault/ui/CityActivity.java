@@ -49,6 +49,7 @@ public class CityActivity extends ListActivity implements HeaderTitle {
 
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
+        // Sent directly from the suggestion search entry or from the SearchableActivity
         mCityId = bun.getString("cityId");
 
         mLines = new ArrayList<BusLine>();

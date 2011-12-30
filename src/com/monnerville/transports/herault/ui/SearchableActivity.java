@@ -24,6 +24,7 @@ import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.core.sql.DBStation;
@@ -42,7 +43,7 @@ import java.util.Set;
  */
 public class SearchableActivity extends ListActivity {
     // Matches in the result set
-    private List<String> mCities;
+    private List<City> mCities;
     private List<DBStation> mStations;
     private List<BusLine> mLines;
     private List<List<String>> mDirections;
@@ -158,7 +159,7 @@ public class SearchableActivity extends ListActivity {
     private void setAdapter(long duration) {
         // Setup adapter
         if (mCities.isEmpty())
-            mCities.add(getString(R.string.result_no_match));
+            mCities.add(new City(-1, getString(R.string.result_no_match)));
         if (mStations.isEmpty())
             mStations.add(new DBStation(0, getString(R.string.result_no_match)));
 
@@ -183,7 +184,7 @@ public class SearchableActivity extends ListActivity {
             String firstMatch = getString(R.string.result_no_match);
             if (caption.equals(getString(R.string.result_city_header))) {
                 ln = mCities.size();
-                firstMatch = mCities.get(0);
+                firstMatch = mCities.get(0).getName();
             }
             else if (caption.equals(getString(R.string.result_line_header))) {
                 ln = mLines.size();
@@ -200,11 +201,11 @@ public class SearchableActivity extends ListActivity {
         }
     };
 
-    private class CityListAdapter extends ArrayAdapter<String> {
+    private class CityListAdapter extends ArrayAdapter<City> {
         private int mResource;
         private Context mContext;
 
-        CityListAdapter(Context context, int resource, List<String> cities) {
+        CityListAdapter(Context context, int resource, List<City> cities) {
             super(context, resource, cities);
             mResource = resource;
             mContext = context;
@@ -213,7 +214,7 @@ public class SearchableActivity extends ListActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout itemView;
-            String city = getItem(position);
+            City city = getItem(position);
 
             if (convertView == null) {
                 itemView = new LinearLayout(mContext);
@@ -224,7 +225,7 @@ public class SearchableActivity extends ListActivity {
                 itemView = (LinearLayout)convertView;
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
-            name.setText(city);
+            name.setText(city.getName());
             if (city.equals(getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);
@@ -233,7 +234,7 @@ public class SearchableActivity extends ListActivity {
                 // We have some matches
                 TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
                 QueryManager finder = SQLQueryManager.getInstance();
-                List<String> lines = finder.findLinesInCity(city);
+                List<String> lines = finder.findLinesInCity(city.getName());
                 String strLines = Application.getJoinedList(lines, ",");
                 String ls = getString(lines.size() == 1 ? R.string.city_served_by_line :
                     R.string.city_served_by_lines, strLines);
@@ -329,5 +330,14 @@ public class SearchableActivity extends ListActivity {
         final Object obj = l.getItemAtPosition(position);
         if (obj instanceof BusLine)
             AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
+        else if(obj instanceof City) {
+            // Cities
+            City c = (City)obj;
+            if (c.isValid()) {
+                Intent intent = new Intent(this, CityActivity.class);
+                intent.putExtra("cityId", String.valueOf(c.getPK()));
+                startActivity(intent);
+            }
+        }
     }
 }

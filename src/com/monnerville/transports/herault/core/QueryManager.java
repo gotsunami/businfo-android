@@ -14,7 +14,7 @@ public interface QueryManager {
      * @param query
      * @return list of cities
      */
-    public List<String> findCities(String query);
+    public List<City> findCities(String query);
     /**
      * Looks for existing bus stations
      * @param query

@@ -1,11 +1,13 @@
 package com.monnerville.transports.herault.core.sql;
 
+import com.monnerville.transports.herault.core.City;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.City;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,15 +32,15 @@ public class SQLQueryManager implements QueryManager {
      * @return
      */
     @Override
-    public List<String> findCities(String query) {
-        List<String> rcities = new ArrayList<String>();
+    public List<City> findCities(String query) {
+        List<City> rcities = new ArrayList<City>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
-            R.string.db_city_table_name), new String[] {"name"}, "name LIKE ?",
+            R.string.db_city_table_name), new String[] {"id", "name"}, "name LIKE ?",
             new String[] {"%" + query + "%"}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            rcities.add(c.getString(0));
+            rcities.add(new City(c.getLong(0), c.getString(1)));
         }
 		c.close();
         return rcities;

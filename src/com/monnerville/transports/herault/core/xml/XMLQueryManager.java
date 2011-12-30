@@ -3,6 +3,7 @@ package com.monnerville.transports.herault.core.xml;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
+import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.QueryManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,9 @@ public class XMLQueryManager implements QueryManager {
      * @return
      */
     @Override
-    public List<String> findCities(String query) {
+    public List<City> findCities(String query) {
         // Can be really slow
-        List<String> rcities = new ArrayList<String>();
+        List<City> rcities = new ArrayList<City>();
         List<BusLine> lines = mBusManager.getBusLines();
         for (BusLine line : lines) {
             String[] dirs = line.getDirections();
@@ -36,7 +37,7 @@ public class XMLQueryManager implements QueryManager {
                 List<String> cities = line.getCities(direction);
                 for (String city : cities) {
                     if (city.matches(query))
-                        rcities.add(city);
+                        rcities.add(new City(City.NOT_VALID, city));
                 }
             }
         }
