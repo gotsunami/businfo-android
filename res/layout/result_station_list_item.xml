@@ -10,8 +10,8 @@
 
     <!-- Activity icon when presenting dialog -->
     <ImageView android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
         android:src="@android:drawable/ic_menu_myplaces"
         android:scaleType="fitCenter" />
 
@@ -23,7 +23,7 @@
         <!-- Activity name -->
         <TextView
             android:id="@android:id/text1"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/result_city_name"
             android:textStyle="bold"
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/label_layout"
             android:paddingLeft="10dip"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/lines_by_city"
             android:gravity="top"
             android:layout_width="fill_parent"

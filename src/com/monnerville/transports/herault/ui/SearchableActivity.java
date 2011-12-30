@@ -34,6 +34,7 @@ import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.core.sql.DBStation;
 import com.monnerville.transports.herault.core.sql.SQLBusLine;
+import com.monnerville.transports.herault.provider.SuggestionProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -78,8 +79,7 @@ public class SearchableActivity extends ListActivity {
         else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             // Handle a suggestions click (because the suggestions all use ACTION_VIEW)
             Uri data = intent.getData();
-            Log.d("VIEW", "Uri: " + data);
-//            showResult(data);
+            showResult(data);
         }
         else
             finish();
@@ -92,6 +92,18 @@ public class SearchableActivity extends ListActivity {
                 onSearchRequested();
             }
         });
+    }
+
+    /**
+     * Connects search Uri to an Intent to show the appropriate result
+     * @param target begins with a single letter that is one of {@link SuggestionProvider.BUS_LINE_PREFIX_ID},
+     * {@link SuggestionProvider.BUS_STATION_PREFIX_ID} or {@link SuggestionProvider.BUS_CITY_PREFIX_ID},
+     * followed a DB id for the matching table.
+     *
+     */
+    private void showResult(Uri target) {
+        Log.d("VIEW", "Uri: " + target);
+
     }
 
     private class StartSearchingTask extends AsyncTask<String, Void, Void> {
