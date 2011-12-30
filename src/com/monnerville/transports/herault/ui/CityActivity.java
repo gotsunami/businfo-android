@@ -92,19 +92,6 @@ public class CityActivity extends ListActivity implements HeaderTitle {
         }
 	};
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        /*
-        Intent intent = new Intent(this, BusStationActivity.class);
-        BusStation station = (BusStation)getListView().getItemAtPosition(position);
-        intent.putExtra("line", mLine);
-        intent.putExtra("direction", mDirection);
-        intent.putExtra("station", station.getName());
-        startActivity(intent);
-         *
-         */
-    }
-
     /**
      * Retrieves all lines directions in a background thread
      */
@@ -130,5 +117,15 @@ public class CityActivity extends ListActivity implements HeaderTitle {
             setupAdapter(mLines);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    /**
+     * Handles a click on any item in the list
+     */
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        final Object obj = l.getItemAtPosition(position);
+        if (obj instanceof BusLine)
+            AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
     }
 }

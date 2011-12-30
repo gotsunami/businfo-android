@@ -18,6 +18,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
@@ -320,4 +321,13 @@ public class SearchableActivity extends ListActivity {
         }
     }
 
+    /**
+     * Handles a click on any item in the list
+     */
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        final Object obj = l.getItemAtPosition(position);
+        if (obj instanceof BusLine)
+            AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
+    }
 }

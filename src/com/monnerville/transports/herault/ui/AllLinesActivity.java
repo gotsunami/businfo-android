@@ -210,28 +210,38 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        final Object obj = getListView().getItemAtPosition(position);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (obj instanceof BusLine) {
-            final BusLine line = (BusLine)getListView().getItemAtPosition(position);
-            final String[] directions;
-            directions = line.getDirections();
-            if (directions[0] == null || directions[1] == null) {
-                Toast.makeText(this, R.string.toast_null_direction, Toast.LENGTH_SHORT).show();
-                return;
+        final Object obj = l.getItemAtPosition(position);
+        if (obj instanceof BusLine)
+            handleBusLineItemClick(this, l, v, position, id);
+    }
+
+    /**
+     * Handles bus line list item click
+     * @param ctx context
+     * @param l listview instance
+     * @param v view
+     * @param position position of item in the list
+     * @param id
+     */
+    public static void handleBusLineItemClick(final Context ctx, ListView l, View v, int position, long id) {
+        final BusLine line = (BusLine)l.getItemAtPosition(position);
+        final String[] directions;
+        directions = line.getDirections();
+        // No direction, problem!
+        if (directions[0] == null || directions[1] == null)
+            return;
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        builder.setTitle(R.string.pick_direction_title);
+        builder.setItems(directions, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                Intent intent = new Intent(ctx, BusLineActivity.class);
+                intent.putExtra("line", line.getName());
+                intent.putExtra("direction", directions[item]);
+                ctx.startActivity(intent);
             }
-            builder.setTitle(R.string.pick_direction_title);
-            builder.setItems(directions, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int item) {
-                    Intent intent = new Intent(AllLinesActivity.this, BusLineActivity.class);
-                    intent.putExtra("line", line.getName());
-                    intent.putExtra("direction", directions[item]);
-                    startActivity(intent);
-                }
-            });
-            builder.show();
-        }
+        });
+        builder.show();
     }
 
     /**
