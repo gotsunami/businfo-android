@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+            <TextView
+                style="@style/HeaderTitle.Primary"
+                android:id="@+id/primary"
+            />
+            <TextView
+                style="@style/HeaderTitle.Secondary"
+                android:id="@+id/secondary"
+            />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- Right part for changing line direction -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_height="fill_parent" >
+        <!-- Separator
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="5dip"
+            android:layout_height="48dip"
+            android:src="@drawable/titlebar_divider"/>
+        <Button android:layout_width="48dip"
+            android:id="@+id/btn_flip_direction"
+            android:layout_height="48dip"
+            android:scaleType="center"
+            android:background="@drawable/btn_flip_direction"/>
+        -->
+        <!-- Separator -->
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="5dip"
+            android:layout_height="48dip"
+            android:src="@drawable/titlebar_divider"/>
+        <Button android:layout_width="48dip"
+            android:id="@+id/btn_search"
+            android:layout_height="48dip"
+            android:scaleType="center"
+            android:background="@drawable/btn_search"/>
+    </LinearLayout>
+</RelativeLayout>
