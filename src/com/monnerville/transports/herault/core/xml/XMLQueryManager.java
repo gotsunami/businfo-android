@@ -72,4 +72,9 @@ public class XMLQueryManager implements QueryManager {
     public String getLineDefaultTrafficPattern(String name) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public String getCityFromId(String id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

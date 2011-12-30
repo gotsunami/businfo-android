@@ -2,17 +2,13 @@ package com.monnerville.transports.herault.ui;
 
 import android.util.Log;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.List;
@@ -25,16 +21,21 @@ import static com.monnerville.transports.herault.core.Application.TAG;
 
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
-import com.monnerville.transports.herault.core.BusStation;
-import com.monnerville.transports.herault.core.BusStop;
+import com.monnerville.transports.herault.core.QueryManager;
 
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLQueryManager;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CityActivity extends ListActivity implements HeaderTitle {
-    private String cityId;
-    private String mDirection;
-    private SharedPreferences mPrefs;
-    private boolean mShowToast;
+    private String mCityId;
+
+    // Cached directions for matching lines
+    private List<List<String>> mDirections;
+    private List<BusLine> mLines;
+
+    final BusManager mManager = SQLBusManager.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -48,13 +49,19 @@ public class CityActivity extends ListActivity implements HeaderTitle {
 
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
-        cityId = bun.getString("cityId");
+        mCityId = bun.getString("cityId");
 
-        setPrimaryTitle("CITY");
+        mLines = new ArrayList<BusLine>();
+        mDirections = new ArrayList<List<String>>();
+
+        QueryManager finder = SQLQueryManager.getInstance();
+        String cityName = finder.getCityFromId(mCityId);
+        List<String> lines = finder.findLinesInCity(cityName);
+
+        setPrimaryTitle(cityName);
         setSecondaryTitle("Dooo");
 
-        final BusManager manager = SQLBusManager.getInstance();
-//        BusLine line = manager.getBusLine(mLine);
+        new DirectionsRetreiverTask().execute(lines);
     }
 
     @Override
@@ -69,68 +76,20 @@ public class CityActivity extends ListActivity implements HeaderTitle {
         t.setText(title);
     }
 
-    private class StationListAdapter extends ArrayAdapter<BusStation> {
-        private int mResource;
-        private Context mContext;
-
-        StationListAdapter(Context context, int resource, List<BusStation> items) {
-            super(context, resource, items);
-            mResource = resource;
-            mContext = context;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LinearLayout itemView;
-            final BusStation station = getItem(position);
-            final int j = position;
-
-            if (convertView == null) {
-                itemView = new LinearLayout(mContext);
-                LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                li.inflate(mResource, itemView, true);
-            }
-            else
-                itemView = (LinearLayout)convertView;
-
-            TextView name = (TextView)itemView.findViewById(android.R.id.text1);
-            name.setText(station.getName());
-            TextView time = (TextView)itemView.findViewById(R.id.time);
-            ImageView star = (ImageView)itemView.findViewById(R.id.star);
-            star.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    station.setStarred(!station.isStarred());
-                    mAdapter.notifyDataSetChanged();
-                }
-            });
-            star.setImageResource(station.isStarred() ? android.R.drawable.btn_star_big_on :
-               android.R.drawable.btn_star_big_off);
-
-            BusStop stop = station.getNextStop(true);
-            // We have a non-cached value
-            if (stop != null) {
-                time.setTextColor(getResources().getColor(R.color.list_item_bus_time));
-                time.setText(BusStop.TIME_FORMATTER.format(stop.getTime()));
-            }
-            else {
-                time.setTextColor(getResources().getColor(R.color.list_item_no_more_stop));
-                time.setText(R.string.no_more_stop);
-            }
-            return itemView;
-        }
+    /**
+     * Sets up the adapter for the list
+     */
+    private void setupAdapter(List<BusLine> lines) {
+        mAdapter.addSection(getString(R.string.result_line_header),
+            new AllLinesActivity.LineListAdapter(this, R.layout.line_list_item, lines, mDirections));
+        setListAdapter(mAdapter);
     }
 
-	final SectionedAdapter mAdapter = new SectionedAdapter() {
+	final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
         @Override
-		protected View getHeaderView(String caption, int index, View convertView, ViewGroup parent) {
-			TextView result = (TextView)convertView;
-			if (convertView == null) {
-				result = (TextView)getLayoutInflater().inflate(R.layout.list_header, null);
-			}
-			result.setText(caption);
-			return(result);
-		}
+        protected int getMatches(String caption) {
+            return mLines.size();
+        }
 	};
 
     @Override
@@ -144,5 +103,32 @@ public class CityActivity extends ListActivity implements HeaderTitle {
         startActivity(intent);
          *
          */
+    }
+
+    /**
+     * Retrieves all lines directions in a background thread
+     */
+    private class DirectionsRetreiverTask extends AsyncTask<List<String>, Void, Void> {
+        @Override
+        protected Void doInBackground(List<String>... lis) {
+            for (String li : lis[0]) {
+                BusLine line = mManager.getBusLine(li);
+                mDirections.add(Arrays.asList(line.getDirections()));
+                mLines.add(line);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // Executes on the UI thread
+        }
+
+        @Override
+        protected void onPostExecute(Void none) {
+            // Back to the UI thread
+            setupAdapter(mLines);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

@@ -145,4 +145,22 @@ public class SQLQueryManager implements QueryManager {
             return pat;
         }
     }
+
+    @Override
+    public String getCityFromId(String id) {
+        Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
+            R.string.db_city_table_name), new String[] {"name"}, "id=?",
+            new String[] {id}, null, null, null
+        );
+        if (c.getCount() == 0) {
+            c.close();
+            return null;
+        }
+        else {
+            c.moveToPosition(0);
+            String name = c.getString(0);
+            c.close();
+            return name;
+        }
+    }
 }

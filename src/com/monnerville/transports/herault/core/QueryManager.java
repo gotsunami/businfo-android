@@ -28,7 +28,8 @@ public interface QueryManager {
      */
     public List<BusLine> findLines(String query);
     /**
-     * Looks for lines in city 
+     * Looks for lines in city
+     * FIXME: should return a list of BusLine
      * @param city
      * @return list of bus lines
      */
@@ -42,4 +43,10 @@ public interface QueryManager {
     public Map<String, List<String>> findLinesAndCityFromStation(String name, String id);
     public String getLineColor(String name);
     public String getLineDefaultTrafficPattern(String name);
+    /**
+     * Finds city name from city DB id
+     * @param id DB id
+     * @return city name
+     */
+    public String getCityFromId(String id);
 }
