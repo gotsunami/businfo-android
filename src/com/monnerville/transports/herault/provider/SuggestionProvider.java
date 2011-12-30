@@ -32,7 +32,7 @@ public class SuggestionProvider extends ContentProvider {
     /**
      * Prefix used to make a unique ID for bus line entries
      */
-    public static final String BUS_LINE_PREFIX_ID = "b";
+    public static final String BUS_LINE_PREFIX_ID = "l";
     /**
      * Prefix used to make a unique ID for bus station entries
      */
@@ -48,6 +48,25 @@ public class SuggestionProvider extends ContentProvider {
     public boolean onCreate() {
         return true;
     }
+
+    /**
+     * Is SUGGEST_COLUMN_INTENT_DATA a bus line ID?
+     * @param id
+     * @return true of false
+     */
+    public static boolean isLineIntentData(String id) { return id.startsWith(BUS_LINE_PREFIX_ID); }
+    /**
+     * Is SUGGEST_COLUMN_INTENT_DATA a station line ID?
+     * @param id
+     * @return true of false
+     */
+    public static boolean isStationIntentData(String id) { return id.startsWith(BUS_STATION_PREFIX_ID); }
+    /**
+     * Is SUGGEST_COLUMN_INTENT_DATA a city line ID?
+     * @param id
+     * @return true of false
+     */
+    public static boolean isCityIntentData(String id) { return id.startsWith(BUS_CITY_PREFIX_ID); }
 
     @Override
     public Cursor query(Uri uri, String[] arg1, String arg2, String[] arg3, String arg4) {

@@ -1,30 +1,23 @@
 package com.monnerville.transports.herault.ui;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
@@ -103,14 +96,22 @@ public class SearchableActivity extends ListActivity {
     }
 
     /**
-     * Connects search Uri to an Intent to show the appropriate result
+     * Connects search Uri to an Intent to show the appropriate result. This i an
+     * activity switcher.
+     *
      * @param target begins with a single letter that is one of {@link SuggestionProvider.BUS_LINE_PREFIX_ID},
      * {@link SuggestionProvider.BUS_STATION_PREFIX_ID} or {@link SuggestionProvider.BUS_CITY_PREFIX_ID},
      * followed a DB id for the matching table.
      *
      */
     private void showResult(Uri target) {
-        Log.d("VIEW", "Uri: " + target);
+        String data = target.toString();
+        // Is this a city?
+        if (SuggestionProvider.isCityIntentData(data)) {
+            Intent intent = new Intent(this, CityActivity.class);
+            intent.putExtra("cityId", data.substring(1));
+            startActivity(intent);
+        }
 
     }
 
@@ -168,7 +169,7 @@ public class SearchableActivity extends ListActivity {
         mAdapter.addSection(getString(R.string.result_station_header),
             new StationListAdapter(this, R.layout.result_station_list_item, mStations));
         mAdapter.addSection(getString(R.string.result_line_header),
-            new LineListAdapter(this, R.layout.result_line_list_item, mLines));
+            new AllLinesActivity.LineListAdapter(this, R.layout.result_line_list_item, mLines, mDirections));
         setListAdapter(mAdapter);
     }
 
@@ -319,64 +320,4 @@ public class SearchableActivity extends ListActivity {
         }
     }
 
-    private class LineListAdapter extends ArrayAdapter<BusLine> {
-        private int mResource;
-        private Context mContext;
-
-        LineListAdapter(Context context, int resource, List<BusLine> lines) {
-            super(context, resource, lines);
-            mResource = resource;
-            mContext = context;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LinearLayout itemView;
-            BusLine line = getItem(position);
-
-            if (convertView == null) {
-                itemView = new LinearLayout(mContext);
-                LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                li.inflate(mResource, itemView, true);
-            }
-            else
-                itemView = (LinearLayout)convertView;
-
-            TextView name = (TextView)itemView.findViewById(android.R.id.text1);
-            name.setText(line.getName());
-            GradientDrawable gd;
-            TextView col = (TextView)itemView.findViewById(R.id.line_color);
-
-            if (line.getName().equals(getString(R.string.result_no_match))) {
-                name.setTextColor(Color.GRAY);
-                name.setTypeface(null, Typeface.ITALIC);
-                int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
-                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                col.setText("?");
-            }
-            else {
-                TextView direction = (TextView)itemView.findViewById(R.id.direction);
-
-                if (line.getColor() != BusLine.DEFAULT_COLOR) {
-                    col.setText("");
-                    int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
-                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                }
-                else {
-                    int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
-                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                    col.setText("?");
-                }
-
-                try {
-                    List<String> dirs = mDirections.get(position);
-                    direction.setText(dirs.get(0) + " - " + dirs.get(1));
-                } catch(IndexOutOfBoundsException ex) {}
-            }
-            gd.setCornerRadius(5);
-            col.setBackgroundDrawable(gd);
-
-            return itemView;
-        }
-    }
 }

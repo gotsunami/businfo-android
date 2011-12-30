@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -73,20 +74,18 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             }
         });
 
-        setupAdapter();
+        List<BusLine> lines = mManager.getBusLines();
+
+        // Background line directions retreiver
+        new DirectionsRetreiverTask().execute(lines);
     }
 
     /**
      * Sets up the adapter for the list
      */
-    private void setupAdapter() {
-        List<BusLine> lines = mManager.getBusLines();
-
-        // Background line directions retreiver
-        new DirectionsRetreiverTask().execute(lines);
-
+    private void setupAdapter(List<BusLine> lines) {
         mAdapter.addSection(getString(R.string.all_lines_header),
-            new LineListAdapter(this, R.layout.all_lines_list_item, lines));
+            new LineListAdapter(this, R.layout.all_lines_list_item, lines, mDirections));
         setListAdapter(mAdapter);
     }
 
@@ -112,14 +111,19 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         t.setText(title);
     }
 
-    private class LineListAdapter extends ArrayAdapter<BusLine> {
+    /**
+     * Common line list adapter
+     */
+    public static class LineListAdapter extends ArrayAdapter<BusLine> {
         private int mResource;
         private Context mContext;
+        private List<List<String>> mDirections;
 
-        LineListAdapter(Context context, int resource, List<BusLine> items) {
-            super(context, resource, items);
+        LineListAdapter(Context context, int resource, List<BusLine> lines, List<List<String>> directions) {
+            super(context, resource, lines);
             mResource = resource;
             mContext = context;
+            this.mDirections = directions;
         }
 
         @Override
@@ -137,28 +141,37 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(line.getName());
-            TextView direction = (TextView)itemView.findViewById(android.R.id.text2);
+            GradientDrawable gd;
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
 
-            GradientDrawable gd;
-            if (line.getColor() != BusLine.DEFAULT_COLOR) {
-                col.setText("");
-                int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
-                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                col.setBackgroundDrawable(gd);
-            }
-            else {
+            if (line.getName().equals(mContext.getString(R.string.result_no_match))) {
+                name.setTextColor(Color.GRAY);
+                name.setTypeface(null, Typeface.ITALIC);
                 int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
                 gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                col.setBackgroundDrawable(gd);
                 col.setText("?");
             }
-            gd.setCornerRadius(5);
+            else {
+                TextView direction = (TextView)itemView.findViewById(R.id.direction);
 
-            try {
-                List<String> dirs = mDirections.get(position);
-                direction.setText(dirs.get(0) + " - " + dirs.get(1));
-            } catch(IndexOutOfBoundsException ex) {}
+                if (line.getColor() != BusLine.DEFAULT_COLOR) {
+                    col.setText("");
+                    int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
+                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                }
+                else {
+                    int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
+                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                    col.setText("?");
+                }
+
+                try {
+                    List<String> dirs = this.mDirections.get(position);
+                    direction.setText(dirs.get(0) + " - " + dirs.get(1));
+                } catch(IndexOutOfBoundsException ex) {}
+            }
+            gd.setCornerRadius(5);
+            col.setBackgroundDrawable(gd);
 
             return itemView;
         }
@@ -255,6 +268,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
+            setupAdapter(mLines);
             mAdapter.notifyDataSetChanged();
         }
     }

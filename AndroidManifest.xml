@@ -32,6 +32,8 @@
         <activity android:name=".ui.AppPreferenceActivity"
             android:label="@string/app_name">
         </activity>
+        <activity android:name=".ui.CityActivity">
+        </activity>
         <provider android:name="com.monnerville.transports.herault.provider.SuggestionProvider"
             android:authorities="com.monnerville.transports.herault.provider.suggestionprovider">
         </provider>
