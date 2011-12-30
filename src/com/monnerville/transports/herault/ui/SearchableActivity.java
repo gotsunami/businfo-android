@@ -48,6 +48,8 @@ public class SearchableActivity extends ListActivity {
     private List<BusLine> mLines;
     private List<List<String>> mDirections;
 
+    private boolean mCanFinish = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,7 @@ public class SearchableActivity extends ListActivity {
         else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             // Handle a suggestions click (because the suggestions all use ACTION_VIEW)
             Uri data = intent.getData();
+            mCanFinish = true;
             showResult(data);
         }
         else
@@ -84,6 +87,7 @@ public class SearchableActivity extends ListActivity {
             @Override
             public void onClick(View arg0) {
                 // Open search dialog
+                mCanFinish = true;
                 onSearchRequested();
             }
         });
@@ -93,7 +97,8 @@ public class SearchableActivity extends ListActivity {
     protected void onPause() {
         // Force finishing the activity so it's not in the activity stack if
         // performing multiple searches
-        finish();
+        if (mCanFinish)
+            finish();
         super.onPause();
     }
 
@@ -328,6 +333,7 @@ public class SearchableActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         final Object obj = l.getItemAtPosition(position);
+        mCanFinish = false;
         if (obj instanceof BusLine)
             AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
         else if(obj instanceof City) {
