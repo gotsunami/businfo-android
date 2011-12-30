@@ -51,7 +51,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         //setTitle(R.string.lines_activity_title);
 
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.main);
+        setContentView(R.layout.simplelist);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.search_title_bar);
 
         // Remove top parent padding (all but left padding)
@@ -85,7 +85,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      */
     private void setupAdapter(List<BusLine> lines) {
         mAdapter.addSection(getString(R.string.all_lines_header),
-            new LineListAdapter(this, R.layout.all_lines_list_item, lines, mDirections));
+            new LineListAdapter(this, R.layout.line_list_item, lines, mDirections));
         setListAdapter(mAdapter);
     }
 

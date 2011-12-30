@@ -51,7 +51,7 @@ public class SearchableActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.main);
+        setContentView(R.layout.simplelist);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.search_title_bar);
         getListView().setFastScrollEnabled(true);
 
@@ -169,7 +169,7 @@ public class SearchableActivity extends ListActivity {
         mAdapter.addSection(getString(R.string.result_station_header),
             new StationListAdapter(this, R.layout.result_station_list_item, mStations));
         mAdapter.addSection(getString(R.string.result_line_header),
-            new AllLinesActivity.LineListAdapter(this, R.layout.result_line_list_item, mLines, mDirections));
+            new AllLinesActivity.LineListAdapter(this, R.layout.line_list_item, mLines, mDirections));
         setListAdapter(mAdapter);
     }
 
