@@ -231,7 +231,7 @@ public class SearchableActivity extends ListActivity {
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(city.getName());
-            if (city.equals(getString(R.string.result_no_match))) {
+            if (city.getName().equals(getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
                 name.setTypeface(null, Typeface.ITALIC);
             }
