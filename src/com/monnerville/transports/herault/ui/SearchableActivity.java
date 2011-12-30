@@ -94,6 +94,14 @@ public class SearchableActivity extends ListActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        // Force finishing the activity so it's not in the activity stack if
+        // performing multiple searches
+        finish();
+        super.onPause();
+    }
+
     /**
      * Connects search Uri to an Intent to show the appropriate result
      * @param target begins with a single letter that is one of {@link SuggestionProvider.BUS_LINE_PREFIX_ID},
