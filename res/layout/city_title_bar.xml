@@ -3,26 +3,6 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-        <!--
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent" >
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-            <TextView
-                style="@style/HeaderTitle.Primary"
-                android:id="@+id/primary"
-            />
-            <TextView
-                style="@style/HeaderTitle.Secondary"
-                android:id="@+id/secondary"
-            />
-        </LinearLayout>
-    </LinearLayout>
-    -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"

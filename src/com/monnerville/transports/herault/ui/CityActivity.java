@@ -81,7 +81,7 @@ public class CityActivity extends ListActivity implements HeaderTitle {
      * Sets up the adapter for the list
      */
     private void setupAdapter(List<BusLine> lines) {
-        mAdapter.addSection(getString(R.string.result_line_header),
+        mAdapter.addSection(getString(R.string.result_lines_header),
             new AllLinesActivity.LineListAdapter(this, R.layout.line_list_item, lines, mDirections));
         setListAdapter(mAdapter);
     }

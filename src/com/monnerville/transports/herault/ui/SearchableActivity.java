@@ -180,7 +180,7 @@ public class SearchableActivity extends ListActivity {
             new CityListAdapter(this, R.layout.result_city_list_item, mCities));
         mAdapter.addSection(getString(R.string.result_station_header),
             new StationListAdapter(this, R.layout.result_station_list_item, mStations));
-        mAdapter.addSection(getString(R.string.result_line_header),
+        mAdapter.addSection(getString(R.string.result_lines_header),
             new AllLinesActivity.LineListAdapter(this, R.layout.line_list_item, mLines, mDirections));
         setListAdapter(mAdapter);
     }
@@ -196,7 +196,7 @@ public class SearchableActivity extends ListActivity {
                 ln = mCities.size();
                 firstMatch = mCities.get(0).getName();
             }
-            else if (caption.equals(getString(R.string.result_line_header))) {
+            else if (caption.equals(getString(R.string.result_lines_header))) {
                 ln = mLines.size();
                 firstMatch = mLines.get(0).getName();
             }
