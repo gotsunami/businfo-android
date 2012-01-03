@@ -93,7 +93,6 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                 new BusStationActivity.BookmarkStationListAdapter(this,
                 R.layout.bus_line_bookmark_list_item, mLines.get(line)));
         }
-
         setListAdapter(mAdapter);
     }
 
@@ -126,8 +125,14 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                 BusLine line = mManager.getBusLine(li);
                 String dirs[] = line.getDirections();
                 List<BusStation> stations = new ArrayList<BusStation>();
-                stations.add(new SQLBusStation(line, mStationName, dirs[0], mCity));
-                stations.add(new SQLBusStation(line, mStationName, dirs[1], mCity));
+                SQLBusStation st1 = new SQLBusStation(line, mStationName, dirs[0], mCity);
+                SQLBusStation st2 = new SQLBusStation(line, mStationName, dirs[1], mCity);
+                // Get fresh (non-cached) stop values since rendering from BusStationActivity is using 
+                // a cache version only
+                st1.getNextStop();
+                st2.getNextStop();
+                stations.add(st1);
+                stations.add(st2);
                 mLines.put(line, stations);
             }
 

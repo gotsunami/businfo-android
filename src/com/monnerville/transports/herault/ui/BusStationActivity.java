@@ -19,23 +19,15 @@ import android.widget.TextView;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 /**
  *
