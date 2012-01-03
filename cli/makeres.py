@@ -507,8 +507,19 @@ def parse(infile):
 
             # Split all station names with one or more '/' as a unique station name
             for stname in map(lambda x: x.strip(), sts[0].split('/')):
+                # str.title() adds uppercase caracters on words
+                cname = curCity.strip().title()
+                # Check for all '-' in city name to put some capitals where needed
+                # i.e: saint jean-de-vedas -> Saint Jean-de-Vedas
+                starts = [m.start() for m in re.finditer('-', cname)]
+                if len(starts) == 2:
+                    clname = list(cname)
+                    idx = starts[0]+1
+                    clname[idx] = clname[idx].lower()
+                    cname = ''.join(clname)
+                
                 directions[k].append({
-                    'city': curCity.strip().capitalize(), 
+                    'city': cname,
                     'station': stname, 
                     'stops': allstops,
                 })
