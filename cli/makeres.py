@@ -505,11 +505,13 @@ def parse(infile):
                         m = re.match(STOP_CIRC_PAT, stop)
                         allstops.append((m.group(1), m.group(2)))
 
-            directions[k].append({
-                'city': curCity.strip().capitalize(), 
-                'station': sts[0].strip(), 
-                'stops': allstops,
-            })
+            # Split all station names with one or more '/' as a unique station name
+            for stname in map(lambda x: x.strip(), sts[0].split('/')):
+                directions[k].append({
+                    'city': curCity.strip().capitalize(), 
+                    'station': stname, 
+                    'stops': allstops,
+                })
 
     return (busline, directions, linecolor, dfltCirculationPolicy)
 
@@ -531,8 +533,8 @@ def compute_db_checksum(srcdir):
     be a portable solution between different Python versions. Indeed, 
     different Python versions could handle ordering of elements in 
     Set() in different ways, thus making issues when creating cheksums 
-    against the generated .sql or .xml file. It's better to operate 
-    directly on source files.
+    against the generated .sql or .xml file. It appears to be better 
+    to operate directly on source files.
     """
     sources = glob.glob(os.path.join(srcdir, '*.txt'))
     sources.sort()
