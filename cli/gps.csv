@@ -14,11 +14,7 @@ Quissac;43.91096;3.998719
 Montbazin;43.516132;3.694195
 Cournonterral;43.558067;3.719578
 Mèze;43.4255939;3.606834
-Villeveyrac;0;0
 Maureilhan;43.358381;3.119836
-Mas-de-Londres;0;0
-Jacou;0;0
-Garrigues;0;0
 Cournonsec;43.543483;3.699367
 Puissalicon;43.458131;3.235926
 Montaud;43.752541;3.955276
@@ -34,12 +30,8 @@ Portiragnes Plage;43.277668;3.361578
 Sauteyrargues;43.83753;3.919571
 Caux;43.503448;3.368448
 Cessenon;43.449894;3.051341
-Marseillan Plage;0;0
-Avene;0;0
 Corconne;43.872561;3.939929
 Brissac;43.877786;3.703376
-Candillargues;0;0
-Villemagne;0;0
 Claret;43.861995;3.905999
 Assignan;43.401243;2.886565
 Peret;43.575601;3.396765
@@ -73,7 +65,6 @@ Lunel;43.67445;4.135366
 Le Grau-du-Roi;43.537476;4.137918
 Saint Génies Des M.;44.994387;1.250572
 Pomerols;43.390291;3.498706
-Montblanc;0;0
 Saint Hilaire-de-Beauvoir;43.756263;4.0133219
 Vias;43.312489;3.418564
 Campagne;43.865131;-0.639539
@@ -93,9 +84,6 @@ Viols-en-Laval;43.7541667;3.7255556
 Ceilhes Rocozels;43.814219;3.086477
 Portiragnes;43.3055949;3.3455499
 Saint Jean-de-Cuculles;43.756638;3.83474
-Creissan;0;0
-Lattes;0;0
-Saint Vincent De Barbeyrargues;0;0
 Camplong;43.672682;3.118525
 Baillargues;43.660593;4.013409
 Castries;43.677589;3.985579
@@ -114,8 +102,6 @@ Balaruc Les Bains;43.4425979;3.679241
 Assas;43.7019469;3.899178
 Saint Thibéry;43.39864;3.412055
 Lunel Viel;43.677936;4.092158
-Saint Bauzille-de-Montmel;0;0
-Abeilhan;0;0
 Herepian;43.593054;3.115754
 Gigean;43.49767;3.721009
 Laroque;43.922663;3.723849
@@ -130,10 +116,120 @@ Fabrègues;43.549831;3.778935
 Mudaison;43.649001;4.0411979
 Valflaunes;43.800175;3.874341
 Cazedarnes;43.420492;3.0215679
-Cers;0;0
-Viols En Laval;0;0
-Roujan;0;0
-Babeau Bouldoux;0;0
 Nizas;43.512776;3.407481
 Lauret;43.832368;3.885359
-Montpellier;0;0
+St Clément De Rivière;43.6844444;3.8472222
+St Clement De Rivière;43.6844444;3.8472222
+Beziers;43.344233;3.215795
+St Chinian;43.418646;2.945129
+Villeveyrac;43.499587;3.606049
+Mas-de-Londres;43.781528;3.752129
+St Thibery;43.39864;3.412055
+St Gély Du Fesc;43.69208;3.804436
+Garrigues;43.797636;4.013013
+St Gely-du-Fesc;43.69208;3.804436
+Rosis;43.622254;3.00471
+Sete;43.40215;3.696624
+St Clement De Riviere;43.6844444;3.8472222
+St Martin-de-Londres;43.791551;3.732024
+St Just;49.505432;2.435059
+Saint Thibery;43.39864;3.412055
+St Etienne Estrechoux;43.6602203;3.1052211
+St Pons;44.392471;6.628415
+Aspiran;43.566134;3.449853
+Marseillan Plage;43.317699;3.551982
+Avene;43.756966;3.09923
+Candillargues;43.6207334;4.0697444
+Villeneuve Les Beziers;43.320774;3.284153
+Villemagne;43.358175;2.110986
+Mas De Londres;43.781528;3.752129
+St Bauzille-de-Putois;43.895775;3.737529
+St Nazaire-de-Pezan;43.644377;4.120071
+Graissessac;43.679435;3.094231
+St Hilaire-de-Beauvoir;43.756263;4.0133219
+St Genies Des M.;44.994387;1.250572
+Lieuran Les Beziers;43.418425;3.236956
+St Jean-de-Vedas;43.5752669;3.826215
+St Gervais Sur Mare;43.653189;3.040975
+Montblanc;43.397065;3.367212
+St Pargoire;43.528019;3.518761
+St Clement-de-Riviere;43.6844444;3.8472222
+Castelnau Le Lez;43.634144;3.897398
+St Jean De Vedas;43.5752669;3.826215
+Ceyras;43.643617;3.458618
+St Julien-De-La-Nef;43.9658333;3.6891667
+Thezan Les Beziers;43.421409;3.169755
+Lespignan;43.273243;3.1738719
+Creissan;43.374445;3.010079
+Lattes;43.567296;3.896473
+St Jean-de-Cuculles;43.756638;3.83474
+St Bauzille De La Sylve;43.616729;3.548027
+Jacou;43.660874;3.911453
+Fabregues;43.549831;3.778935
+St Andre De Sangonis;43.6529839;3.508645
+Abeilhan;43.449587;3.294943
+St Bres;43.666292;4.037616
+Castelnau-le-Lez;43.634144;3.897398
+Meze;43.4255939;3.606834
+Viols En Laval;43.7541667;3.7255556
+La Tour/Orb;43.639231;3.145125
+Roujan;43.504942;3.311143
+St Martin De Londres;43.791551;3.732024
+St Genies De Varensal;43.68103;3.003243
+St Mathieu-de-Treviers;43.7705556;3.8694444
+Poussan;43.488777;3.669152
+Le Bousquet D'Orb;43.694741;3.164517
+Corneilhan;43.3999669;3.191579
+Les Usines;45.7996572;5.4212639
+St Bauzille-de-Montmel;43.769999;3.956021
+Le Vigan;43.992927;3.606322
+Notre-Dame-De-Londres;43.82575;3.777582
+Saussines;43.76385;4.056482
+La Salvetat;44.219871;2.200056
+Nezignan L'Eveque;43.421755;3.406619
+Babeau Bouldoux;43.436934;2.909305
+Prades-le-Lez;43.69798;3.862765
+Galargues;43.77055;4.0214359
+Cebazan;43.403094;2.974647
+Lunas;43.709075;3.195023
+St Aunes;43.636932;3.966221
+St Jean-de-Cornies;43.747486;4.002907
+Nebian;43.606614;3.430843
+Cabrieres;43.902973;4.468409
+Popian;43.61886;3.530836
+La Grande Motte;43.560704;4.086072
+Neffies;43.532917;3.336279
+St Andre-de-Majencoules;44.028129;3.674695
+Pouzols;43.620679;3.509208
+Lansargues;43.65216;4.073251
+Cazouls-les-Beziers;43.392108;3.101108
+La Grande-Motte;43.560704;4.086072
+Valros;43.420958;3.358234
+La Peyrade;43.664726;3.731438
+Avene Les Bains;43.75482;3.110139
+Belarga;43.552639;3.486951
+Aigues-Mortes;43.567172;4.1925869
+Sommieres;43.78345;4.089738
+Les Matelles;43.730637;3.809893
+Vendres;43.269435;3.225202
+Carnon;43.58531;3.9205008
+Combaillaux;43.677099;3.766372
+Bessan;43.361409;3.427011
+Bedarieux;43.610054;3.167373
+Cruzy;43.355679;2.940597
+Gabian;43.513361;3.2728799
+Viols Le Fort;43.742497;3.704064
+St Drézéry;43.733889;3.981963
+Le Soulie;43.551234;2.689513
+Montpellier;43.610769;3.876716
+Nissan-lez-Enserune;43.289765;3.12804
+Florensac;43.382125;3.462905
+Aumes;43.464276;3.46911
+Pignan;43.5819029;3.761729
+Le Cres;43.644825;3.936612
+Lignan Sur Orb;43.383092;3.171837
+Murles;43.68923;3.74559
+Tourbes;43.446089;3.378641
+Mireval;43.508417;3.802455
+St Vincent De Barbeyrargues;43.706165;3.877148
+Cers;43.323603;3.305579

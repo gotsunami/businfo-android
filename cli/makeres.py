@@ -865,10 +865,10 @@ where action is one of:
                 ncities.append(city)
                 print "N %-25s @%f, %f" % (city, lat, lng)
             else:
+                # City already in the cache
                 lat, lng = get_gps_coords_from_cache(city, options.gpscache)
                 if lat == 0 and lng == 0:
-                    print "%s not found in cache... ANOMALY" % city
-                    sys.exit(1)
+                    print "Warning: city %s has (0, 0) GPS coordinates!" % city
                 else:
                     if options.verbose:
                         print "C %-25s @%f, %f" % (city, lat, lng)
