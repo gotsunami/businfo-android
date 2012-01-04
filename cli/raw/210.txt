@@ -9,8 +9,6 @@ direction=
 city=BEZIERS 
 Gare Routière;11:15;12:15;16:15;17:15;18:15
 Jean Moulin - Piscine - Arènes;11:20;12:20;16:20;17:20;18:20
-
-city=RN 112 
 Vitarelles;11:25;12:25;16:25;17:25;18:25
 Dragonière - Embr. De Preignes;11:25;12:25;16:25;17:25;18:25
 
