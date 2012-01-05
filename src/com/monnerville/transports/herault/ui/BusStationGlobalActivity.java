@@ -30,10 +30,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BusStationGlobalActivity extends ListActivity implements HeaderTitle {
     private String mStationId;
     private String mStationName;
+    private List<BusStation> mStations;
+    private HomeActivity.BookmarkHandler mBookmarkHandler;
 
     // Cached directions for matching lines, used by the adapter
     private Map<BusLine, List<BusStation>> mLines;
@@ -56,6 +60,8 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         mStationId = bun.getString("stationId");
 
         mLines = new HashMap<BusLine, List<BusStation>>();
+        mStations = new ArrayList<BusStation>();
+        mBookmarkHandler = new HomeActivity.BookmarkHandler(mAdapter, mStations);
 
         // Get station's name
         Cursor c = mManager.getDB().getReadableDatabase().query(getString(
@@ -124,16 +130,15 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
             for (String li : cityAndLines.get(mCity)) {
                 BusLine line = mManager.getBusLine(li);
                 String dirs[] = line.getDirections();
-                List<BusStation> stations = new ArrayList<BusStation>();
                 SQLBusStation st1 = new SQLBusStation(line, mStationName, dirs[0], mCity);
                 SQLBusStation st2 = new SQLBusStation(line, mStationName, dirs[1], mCity);
                 // Get fresh (non-cached) stop values since rendering from BusStationActivity is using 
                 // a cache version only
                 st1.getNextStop();
                 st2.getNextStop();
-                stations.add(st1);
-                stations.add(st2);
-                mLines.put(line, stations);
+                mStations.add(st1);
+                mStations.add(st2);
+                mLines.put(line, mStations);
             }
 
             // Then, for each line and direction, get next stop
@@ -162,5 +167,24 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         final Object obj = l.getItemAtPosition(position);
         if (obj instanceof BusLine)
             AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        // Update bookmark info every minute
+                        Thread.sleep(1000*60);
+                        mBookmarkHandler.sendEmptyMessage(HomeActivity.ACTION_UPDATE_BOOKMARKS);
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }).start();
     }
 }

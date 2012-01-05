@@ -51,6 +51,9 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
      * Used by onResume and updateBookmarks to ensure database is ready
      */
     private boolean mDBReady;
+    private BookmarkHandler mBookmarkHandler;
+
+    public static final int ACTION_UPDATE_BOOKMARKS = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,7 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
             }
         });
 
+        mBookmarkHandler = new BookmarkHandler(mAdapter, mStarredStations);
     }
 
     private class Action {
@@ -113,8 +117,52 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
                 Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
             } // 50 ms
         }
+
         if (mDBReady)
             updateBookmarks();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        // Update bookmark info every minute
+                        Thread.sleep(1000*60);
+                        mBookmarkHandler.sendEmptyMessage(ACTION_UPDATE_BOOKMARKS);
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * Handles bookmark stations
+     */
+    public static class BookmarkHandler extends Handler {
+        private List<BusStation> stations;
+        private SectionedAdapter adapter;
+
+        public BookmarkHandler(SectionedAdapter adapter, List<BusStation> stations) {
+            super();
+            this.stations = stations;
+            this.adapter = adapter;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch(msg.what) {
+                case HomeActivity.ACTION_UPDATE_BOOKMARKS:
+                    for (BusStation st : stations) {
+                        st.getNextStop(); // Fresh, non-cached value
+                    }
+                    this.adapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
