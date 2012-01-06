@@ -5,4 +5,8 @@
 		<item>Tous les arrêts de la ligne</item>
 		<item>Supprimer favori</item>
 	</string-array>
+	<string-array name="matched_station_options">
+		<item>Horaires de la station</item>
+		<item>Tous les arrêts de la ligne</item>
+	</string-array>
 </resources>

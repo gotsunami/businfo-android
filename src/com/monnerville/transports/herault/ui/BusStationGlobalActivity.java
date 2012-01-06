@@ -1,7 +1,9 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.AlertDialog;
 import android.util.Log;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -167,6 +169,36 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         final Object obj = l.getItemAtPosition(position);
         if (obj instanceof BusLine)
             AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
+        else if(obj instanceof BusStation) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final BusStation station = (BusStation)obj;
+            builder.setTitle(R.string.bookmark_menu_title);
+            builder.setItems(R.array.matched_station_options, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+                    switch (item) {
+                        case 0: { // Show station
+                            Intent intent = new Intent(BusStationGlobalActivity.this, BusStationActivity.class);
+                            intent.putExtra("line", station.getLine().getName());
+                            intent.putExtra("direction", station.getDirection());
+                            intent.putExtra("station", station.getName());
+                            startActivity(intent);
+                            break;
+                        }
+                        case 1: { // Show line
+                            Intent intent = new Intent(BusStationGlobalActivity.this, BusLineActivity.class);
+                            intent.putExtra("line", station.getLine().getName());
+                            intent.putExtra("direction", station.getDirection());
+                            startActivity(intent);
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }
+            });
+            builder.show();
+        }
     }
 
     @Override
@@ -187,4 +219,5 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
             }
         }).start();
     }
+
 }
