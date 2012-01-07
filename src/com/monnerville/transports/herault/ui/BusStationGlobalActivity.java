@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.util.List;
 
 import com.commonsware.android.listview.SectionedAdapter;
@@ -172,7 +173,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         else if(obj instanceof BusStation) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             final BusStation station = (BusStation)obj;
-            builder.setTitle(R.string.bookmark_menu_title);
+            builder.setTitle(R.string.station_context_title);
             builder.setItems(R.array.matched_station_options, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int item) {
@@ -190,6 +191,21 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                             intent.putExtra("line", station.getLine().getName());
                             intent.putExtra("direction", station.getDirection());
                             startActivity(intent);
+                            break;
+                        }
+                        case 2: { // Bookmark station
+                            BusManager manager = SQLBusManager.getInstance();
+                            List <BusStation> starredStations = new ArrayList<BusStation>();
+                            for (int i=0; i < mAdapter.getCount(); i++) {
+                                Object o = mAdapter.getItem(i);
+                                if (o instanceof BusStation) {
+                                    BusStation st = (BusStation)mAdapter.getItem(i);
+                                    if (st.isStarred())
+                                        starredStations.add(st);
+                                }
+                            }
+                            manager.saveStarredStations(manager.getBusLine(mLine), mDirection, starredStations, this);
+                            Toast.makeText(BusStationGlobalActivity.this, "SAVED", Toast.LENGTH_SHORT).show();
                             break;
                         }
                         default:

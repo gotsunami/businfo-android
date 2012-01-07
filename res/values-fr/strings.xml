@@ -40,6 +40,7 @@
     <string name="no_data">Pas de données.</string>
     <string name="search_hint">Entrez un mot clef</string>
     <string name="bookmark_menu_title">Favori</string>
+    <string name="station_context_title">Arrêt</string>
     <string name="pd_loading_bus_schedules">Chargement des horaires</string>
     <string name="pd_loading_bus_lines">Chargement des lignes de bus</string>
     <string name="pd_updating_database">"Mise à jour des horaires, veuillez patienter..."</string>

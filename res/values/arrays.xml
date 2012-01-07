@@ -8,5 +8,6 @@
 	<string-array name="matched_station_options">
 		<item>"Station's schedules"</item>
 		<item>All line stations</item>
+		<item>Bookmark</item>
 	</string-array>
 </resources>

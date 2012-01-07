@@ -8,5 +8,6 @@
 	<string-array name="matched_station_options">
 		<item>Horaires de la station</item>
 		<item>Tous les arrêts de la ligne</item>
+		<item>Ajouter aux favoris</item>
 	</string-array>
 </resources>

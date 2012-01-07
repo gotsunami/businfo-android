@@ -41,6 +41,7 @@
     <string name="no_data">No data.</string>
     <string name="search_hint">Enter keyword</string>
     <string name="bookmark_menu_title">Bookmark</string>
+    <string name="station_context_title">Station</string>
     <string name="pd_loading_bus_schedules">Loading bus schedules</string>
     <string name="pd_loading_bus_lines">Loading bus lines</string>
     <string name="pd_updating_database">Updating schedules, please wait...</string>
