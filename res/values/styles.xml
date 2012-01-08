@@ -23,11 +23,13 @@
         <item name="android:layout_weight">2</item>
         <item name="android:textSize">15sp</item>
         <item name="android:gravity">left</item>
+        <item name="android:textStyle">italic</item>
         -->
 	</style>
 	<style name="HeaderTitle.Secondary">
+        <item name="android:shadowRadius">0</item>
+        <item name="android:textColor">#FF9A0000</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:textStyle">italic</item>
 	</style>
 	<style name="BoardStation">
         <item name="android:layout_width">fill_parent</item>

@@ -35,6 +35,7 @@
             android:label="@string/app_name">
         </activity>
         <activity android:name=".ui.CityActivity">
+            <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchableActivity" />
         </activity>
         <provider android:name="com.monnerville.transports.herault.provider.SuggestionProvider"
             android:authorities="com.monnerville.transports.herault.provider.suggestionprovider">

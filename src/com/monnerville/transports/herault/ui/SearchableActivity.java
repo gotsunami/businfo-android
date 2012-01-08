@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.core.sql.DBStation;
 import com.monnerville.transports.herault.core.sql.SQLBusLine;
+import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.provider.SuggestionProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +44,8 @@ import java.util.Set;
  * @author mathias
  */
 public class SearchableActivity extends ListActivity {
+    final private SQLBusManager mManager = SQLBusManager.getInstance();
+
     // Matches in the result set
     private List<City> mCities;
     private List<DBStation> mStations;
@@ -123,6 +127,24 @@ public class SearchableActivity extends ListActivity {
             // This is a station
             Intent intent = new Intent(this, BusStationGlobalActivity.class);
             intent.putExtra("stationId", data.substring(1));
+            startActivity(intent);
+        }
+        else if(SuggestionProvider.isLineIntentData(data)) {
+            // This is a line
+            Intent intent = new Intent(this, BusLineActivity.class);
+            Cursor c = mManager.getDB().getReadableDatabase().query(getString(
+                R.string.db_line_table_name), new String[] {"name"}, "id LIKE ?",
+                new String[] {data.substring(1)}, null, null, null
+            );
+            c.moveToFirst();
+            String name = c.getString(0);
+            BusLine line = new SQLBusLine(name);
+            c.close();
+            String dirs[] = line.getDirections();
+
+            intent.putExtra("line", name);
+            intent.putExtra("direction", dirs[0]);
+            intent.putExtra("showToast", false);
             startActivity(intent);
         }
     }

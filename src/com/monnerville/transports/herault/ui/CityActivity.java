@@ -2,6 +2,7 @@ package com.monnerville.transports.herault.ui;
 
 import android.util.Log;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.List;
@@ -30,6 +32,7 @@ import java.util.Arrays;
 
 public class CityActivity extends ListActivity implements HeaderTitle {
     private String mCityId;
+    private boolean mCanFinish = false;
 
     // Cached directions for matching lines
     private List<List<String>> mDirections;
@@ -60,14 +63,24 @@ public class CityActivity extends ListActivity implements HeaderTitle {
         List<String> lines = finder.findLinesInCity(cityName);
 
         setPrimaryTitle(cityName);
-        setSecondaryTitle("Dooo");
+        setSecondaryTitle(getString(R.string.city_title));
 
         new DirectionsRetreiverTask().execute(lines);
+
+        Button searchButton = (Button)findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // Open search dialog
+                mCanFinish = true;
+                onSearchRequested();
+            }
+        });
     }
 
     @Override
     public void setPrimaryTitle(String title) {
-        TextView t= (TextView)findViewById(R.id.primary);
+        TextView t = (TextView)findViewById(R.id.primary);
         t.setText(title);
     }
 
@@ -75,6 +88,15 @@ public class CityActivity extends ListActivity implements HeaderTitle {
     public void setSecondaryTitle(String title) {
         TextView t= (TextView)findViewById(R.id.secondary);
         t.setText(title);
+    }
+
+    @Override
+    protected void onPause() {
+        // Force finishing the activity so it's not in the activity stack if
+        // performing multiple searches
+        if (mCanFinish)
+            finish();
+        super.onPause();
     }
 
     /**
@@ -97,6 +119,8 @@ public class CityActivity extends ListActivity implements HeaderTitle {
      * Retrieves all lines directions in a background thread
      */
     private class DirectionsRetreiverTask extends AsyncTask<List<String>, Void, Void> {
+        private ProgressDialog mDialog;
+
         @Override
         protected Void doInBackground(List<String>... lis) {
             for (String li : lis[0]) {
@@ -110,11 +134,14 @@ public class CityActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
+            mDialog = ProgressDialog.show(CityActivity.this, "",
+                getString(R.string.pd_searching), true);
         }
 
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
+            mDialog.cancel();
             setupAdapter(mLines);
             mAdapter.notifyDataSetChanged();
         }
@@ -125,6 +152,7 @@ public class CityActivity extends ListActivity implements HeaderTitle {
      */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
+        mCanFinish = false;
         final Object obj = l.getItemAtPosition(position);
         if (obj instanceof BusLine)
             AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
