@@ -194,18 +194,12 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                             break;
                         }
                         case 2: { // Bookmark station
-                            BusManager manager = SQLBusManager.getInstance();
                             List <BusStation> starredStations = new ArrayList<BusStation>();
-                            for (int i=0; i < mAdapter.getCount(); i++) {
-                                Object o = mAdapter.getItem(i);
-                                if (o instanceof BusStation) {
-                                    BusStation st = (BusStation)mAdapter.getItem(i);
-                                    if (st.isStarred())
-                                        starredStations.add(st);
-                                }
-                            }
-                            manager.saveStarredStations(manager.getBusLine(mLine), mDirection, starredStations, this);
-                            Toast.makeText(BusStationGlobalActivity.this, "SAVED", Toast.LENGTH_SHORT).show();
+                            starredStations.add(station);
+                            mManager.saveStarredStations(station.getLine(), station.getDirection(), 
+                                starredStations, BusStationGlobalActivity.this);
+                            Toast.makeText(BusStationGlobalActivity.this, 
+                                getString(R.string.toast_station_bookmarked), Toast.LENGTH_SHORT).show();
                             break;
                         }
                         default:

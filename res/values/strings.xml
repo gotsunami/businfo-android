@@ -8,6 +8,7 @@
     <string name="pick_direction_title">Pick a direction</string>
     <string name="toast_current_direction">"To %1$s"</string>
     <string name="toast_null_direction">"Can't show the stations: null direction(s)"</string>
+    <string name="toast_station_bookmarked">Station bookmarked</string>
     <string name="current_line_title">Line %1$s</string>
     <string name="line_direction_title">Direction %s</string>
     <string name="station_line_direction_title">Line %1$s to %2$s</string>
