@@ -63,7 +63,8 @@
     <string name="pref_about_title">Version</string>
     <string name="pref_about_build_title">Numéro du build</string>
     <string name="pref_author_title">Auteur</string>
-    <string name="pref_about_about_title">À propos de</string>
+    <string name="pref_about_help_title">Aide</string>
+    <string name="pref_about_visite_website_title">Visiter le site web</string>
     <string name="pref_about_changelog_title">Historique des versions</string>
     <string name="pref_about_changelog_summary">"Nouveautés de cette version"</string>
     <string name="pref_about_db_version_title">Couverture réseau de bus</string>
@@ -74,4 +75,10 @@
     <string name="pref_use_tts_title">Parole artificielle</string>
     <string name="pref_use_tts_sumon">Lis les informations à voix haute</string>
     <string name="pref_use_tts_sumoff">Ne donne aucune indication ou information à voix haute</string>
+
+    <!-- Release notes go there! -->
+    <string name="pref_about_release_notes_title">Notes de version</string>
+    <string name="release_notes_content">"
+Il s'agit de la première version de l'application.\n
+    "</string>
 </resources>

@@ -23,16 +23,18 @@
 		android:title="@string/cat_about_title"
 		android:summary="@string/cat_about_sum">
 		<Preference
-			android:key="pref_about_about"
-			android:title="@string/pref_about_about_title"/>
-            <!--
+			android:key="pref_about_help"
+			android:title="@string/pref_about_help_title"/>
 		<Preference
 			android:key="pref_about_release_notes"
+			android:dialogMessage="@string/release_notes_content"
 			android:title="@string/pref_about_release_notes_title"/>
-            -->
 		<Preference
 			android:key="pref_about_changelog"
 			android:title="@string/pref_about_changelog_title"/>
+		<Preference
+			android:key="pref_about_visite_website"
+			android:title="@string/pref_about_visite_website_title"/>
             <!--
 		<com.monnerville.fotostop.EULADialogPreference
 			android:key="pref_terms"
