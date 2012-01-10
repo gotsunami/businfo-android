@@ -11,4 +11,5 @@ nbproject
 cli/java/pre.dist
 res/values/revision.xml
 res/values/dbstats.xml
+*.pyc
 .*
