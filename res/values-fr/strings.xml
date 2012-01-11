@@ -46,6 +46,7 @@
     <string name="pd_loading_bus_schedules">Chargement des horaires</string>
     <string name="pd_loading_bus_lines">Chargement des lignes de bus</string>
     <string name="pd_updating_database">"Mise à jour des horaires, veuillez patienter..."</string>
+    <string name="pd_searching">Chargement...</string>
     <string name="action_speak_destination">Énoncer un mot clef</string>
     <string name="action_show_all_lines">Toutes les lignes</string>
     <string name="action_show_settings">Paramètres</string>

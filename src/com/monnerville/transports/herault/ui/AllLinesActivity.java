@@ -2,6 +2,7 @@ package com.monnerville.transports.herault.ui;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -258,6 +259,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      * Retrieves all lines directions in a background thread
      */
     private class DirectionsRetreiverTask extends AsyncTask<List<BusLine>, Void, Void> {
+        private ProgressDialog mDialog;
         private List<BusLine> mLines;
 
         @Override
@@ -273,11 +275,14 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
+            mDialog = ProgressDialog.show(AllLinesActivity.this, "",
+                getString(R.string.pd_searching), true);
         }
 
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
+            mDialog.cancel();
             setupAdapter(mLines);
             mAdapter.notifyDataSetChanged();
         }
