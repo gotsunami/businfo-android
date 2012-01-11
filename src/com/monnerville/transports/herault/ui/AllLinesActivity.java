@@ -25,7 +25,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,9 +34,7 @@ import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
-import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
-import java.util.Date;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     // Cached directions for all available lines
@@ -147,7 +144,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(line.getName());
-            GradientDrawable gd;
+            //GradientDrawable gd;
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
             TextView avail = (TextView)itemView.findViewById(R.id.available);
 
@@ -163,37 +160,47 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             else
                 avail.setVisibility(View.GONE);
 
-            if (line.getName().equals(mContext.getString(R.string.result_no_match))) {
-                name.setTextColor(Color.GRAY);
-                name.setTypeface(null, Typeface.ITALIC);
-                int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
-                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                col.setText("?");
-            }
-            else {
+            setLineTextViewStyle(mContext, line, col);
+
+            if (!line.getName().equals(mContext.getString(R.string.result_no_match))) {
                 TextView direction = (TextView)itemView.findViewById(R.id.direction);
-
-                if (line.getColor() != BusLine.DEFAULT_COLOR) {
-                    col.setText("");
-                    int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
-                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                }
-                else {
-                    int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
-                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                    col.setText("?");
-                }
-
                 try {
                     List<String> dirs = this.mDirections.get(position);
                     direction.setText(dirs.get(0) + " - " + dirs.get(1));
                 } catch(IndexOutOfBoundsException ex) {}
             }
-            gd.setCornerRadius(5);
-            col.setBackgroundDrawable(gd);
 
             return itemView;
         }
+    }
+
+    /**
+     * Changes a textview's style to match the line color attributes
+     * @param ctx application's context
+     * @param line bus line
+     * @param tv TextView to change
+     */
+    public static void setLineTextViewStyle(final Context ctx, final BusLine line, TextView tv) {
+        GradientDrawable gd;
+        if (line.getName().equals(ctx.getString(R.string.result_no_match))) {
+            int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
+            gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+            tv.setText("?");
+        }
+        else {
+            if (line.getColor() != BusLine.DEFAULT_COLOR) {
+                tv.setText("");
+                int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
+                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+            }
+            else {
+                int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
+                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                tv.setText("?");
+            }
+        }
+        gd.setCornerRadius(5);
+        tv.setBackgroundDrawable(gd);
     }
 
     /**

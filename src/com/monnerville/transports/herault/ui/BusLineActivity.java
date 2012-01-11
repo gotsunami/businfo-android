@@ -80,6 +80,9 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         final BusManager manager = SQLBusManager.getInstance();
         BusLine line = manager.getBusLine(mLine);
 
+        TextView lineIcon = (TextView)findViewById(R.id.line_icon);
+        AllLinesActivity.setLineTextViewStyle(this, line, lineIcon);
+
         // Computes all next bus stops
         Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
         if (!stationsPerCity.isEmpty()) {
