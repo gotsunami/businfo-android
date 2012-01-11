@@ -5,7 +5,7 @@
     <string name="busline_activity_title">Bus line</string>
     <string name="no_more_stop">No more stop today</string>
     <string name="no_more_stop_short">None left</string>
-    <string name="pick_direction_title">Pick a direction</string>
+    <string name="pick_direction_title">To...</string>
     <string name="toast_current_direction">"To %1$s"</string>
     <string name="toast_null_direction">"Can't show the stations: null direction(s)"</string>
     <string name="toast_station_bookmarked">Station bookmarked</string>
@@ -40,6 +40,7 @@
     <string name="suggestion_station_served_by_line">"served by line %1$s"</string>
     <string name="suggestion_station_served_by_lines">"served by lines %1$s"</string>
 
+    <string name="line_avail_range">"Only from %1$s to %2$s"</string>
     <string name="no_data">No data.</string>
     <string name="search_hint">Enter keyword</string>
     <string name="bookmark_menu_title">Bookmark</string>

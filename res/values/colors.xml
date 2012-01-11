@@ -20,5 +20,5 @@
     <color name="list_item_no_more_stop">#888888</color>
     <color name="lines_by_city">#888888</color>
     <color name="result_city_name">#11155D</color>
+    <color name="line_availability">#ff9a0000</color>
 </resources>
-

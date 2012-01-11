@@ -1,14 +1,9 @@
 package com.monnerville.transports.herault.core;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.util.Log;
-import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * This class is an abstract implementation of the BusLine interface and

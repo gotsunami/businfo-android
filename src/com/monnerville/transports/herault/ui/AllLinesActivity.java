@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.widget.ListView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,9 @@ import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import java.util.Date;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     // Cached directions for all available lines
@@ -85,6 +88,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      * Sets up the adapter for the list
      */
     private void setupAdapter(List<BusLine> lines) {
+        // mDirections is passed because LineListAdapter is a public 
+        // static class used by other activities
         mAdapter.addSection(getString(R.string.all_lines_header),
             new LineListAdapter(this, R.layout.line_list_item, lines, mDirections));
         setListAdapter(mAdapter);
@@ -144,6 +149,19 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             name.setText(line.getName());
             GradientDrawable gd;
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
+            TextView avail = (TextView)itemView.findViewById(R.id.available);
+
+            if (line.getAvailableFrom() != null && line.getAvailableTo() != null) {
+                java.text.DateFormat dateFormat = DateFormat.getMediumDateFormat(mContext);
+
+                avail.setVisibility(View.VISIBLE);
+                avail.setText(mContext.getString(R.string.line_avail_range, 
+                    dateFormat.format(line.getAvailableFrom()), 
+                    dateFormat.format(line.getAvailableTo())
+                ));
+            }
+            else
+                avail.setVisibility(View.GONE);
 
             if (line.getName().equals(mContext.getString(R.string.result_no_match))) {
                 name.setTextColor(Color.GRAY);
