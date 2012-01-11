@@ -158,9 +158,9 @@ def makeSQL(sources, out):
     lines_stations = set()
     for src in sources:
         try:
-            busline, directions, linecolor, dfltCirculationPolicy = parse(src)
+            busline, directions, linecolor, dfltCirculationPolicy, from_date, to_date = parse(src)
             lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city'], 
-                linecolor, dfltCirculationPolicy))
+                linecolor, dfltCirculationPolicy, from_date, to_date))
             k = 0
             for direct in directions:
                 rank = 1
@@ -218,8 +218,8 @@ def makeSQL(sources, out):
             print "Error: pk_from(%d) or pk_to(%d) id not found!" % (pk_from, pk_to)
             print "Line: " + str(line)
             sys.exit(1)
-        out.write("INSERT INTO line VALUES(%d, \"%s\", \"%s\", \"%s\", %d, %d);\n" % (
-            pk, line[0], line[3], line[4], pk_from, pk_to))
+        out.write("INSERT INTO line VALUES(%d, \"%s\", \"%s\", \"%s\", %d, %d, \"%s\", \"%s\");\n" % (
+            pk, line[0], line[3], line[4], pk_from, pk_to, line[5], line[6]))
         db_line_count += 1
         pk += 1
 
@@ -257,7 +257,7 @@ def makeSQL(sources, out):
     # Handle stops
     k = 1
     for src in sources:
-        busline, directions, linecolor, dfltCirculationPolicy = parse(src)
+        busline, directions, linecolor, dfltCirculationPolicy, from_date, to_date = parse(src)
         for direct in directions:
             for data in direct:
                 for stop in data['stops']:
@@ -335,6 +335,7 @@ def parse(infile):
     curCity = None
     curLines = None
     linecolor = ""
+    from_date = to_date = ""
     for line in data:
         if line.startswith(DIRECTION_PAT):
             directions.append([])
@@ -346,11 +347,9 @@ def parse(infile):
         elif line.startswith(BUSLINE_PAT):
             busline = re.sub(BUSLINE_PAT, '', line).encode('utf-8')
         elif line.startswith(FROM_PAT):
-            # TODO
-            pass
+            from_date = re.sub(FROM_PAT, '', line).encode('utf-8')
         elif line.startswith(TO_PAT):
-            # TODO
-            pass
+            to_date = re.sub(TO_PAT, '', line).encode('utf-8')
         elif line.startswith(COLOR_PAT):
             linecolor = re.sub(COLOR_PAT, '', line).encode('utf-8')
         else:
@@ -401,7 +400,7 @@ def parse(infile):
                     'stops': allstops,
                 })
 
-    return (busline, directions, linecolor, dfltCirculationPolicy)
+    return (busline, directions, linecolor, dfltCirculationPolicy, from_date, to_date)
 
 def get_md5(filename):
     ck = open(filename)
@@ -691,7 +690,7 @@ where action is one of:
         else:
             # Action is 'xml'
             for src in sources:
-                busline, directions, linecolor, dfltCirculationPolicy = parse(src)
+                busline, directions, linecolor, dfltCirculationPolicy, from_date, to_date = parse(src)
                 ext = '.xml'
                 outfile = os.path.join(TMP_DIR, os.path.basename(src[:src.rfind('.')] + ext))
                 makeXML(busline, directions, outfile, linecolor)
@@ -724,7 +723,7 @@ where action is one of:
         else:
             # xml
             outfile = infile[:infile.rfind('.')] + '.xml'
-            busline, directions, linecolor, dfltCirculationPolicy = parse(infile)
+            busline, directions, linecolor, dfltCirculationPolicy, from_date, to_date = parse(infile)
             makeXML(busline, directions, outfile, linecolor)
 
     if options.getgps:

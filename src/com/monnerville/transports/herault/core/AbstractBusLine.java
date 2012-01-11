@@ -3,6 +3,7 @@ package com.monnerville.transports.herault.core;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.util.Log;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import java.util.ArrayList;
@@ -21,17 +22,22 @@ public abstract class AbstractBusLine implements BusLine {
      * Line background color
      */
     private int mColor = UNKNOWN_COLOR;
-
     /**
      * Cities related to this line
      */
     protected String[] directions = {null, null};
-
+    /**
+     * Start of line's availability
+     */
+    protected Date mAvailableFrom = null;
+    /**
+     * End of line's availability
+     */
+    protected Date mAvailableTo = null;
     /**
      * Default traffic (circulation) pattern
      */
     private String mDefaultTrafficPattern = null;
-
     /**
      * Primary constructor
      * @param name name of the line
@@ -54,6 +60,16 @@ public abstract class AbstractBusLine implements BusLine {
     public AbstractBusLine(String name, String hexColor, String defaultTrafficPattern) {
         mName = name;
         mDefaultTrafficPattern = defaultTrafficPattern;
+        if (!hexColor.equals(""))
+            mColor = Color.parseColor(hexColor);
+    }
+
+    public AbstractBusLine(String name, String hexColor, String defaultTrafficPattern, 
+        Date availableFrom, Date availableTo) {
+        mName = name;
+        mDefaultTrafficPattern = defaultTrafficPattern;
+        mAvailableFrom = availableFrom;
+        mAvailableTo = availableTo;
         if (!hexColor.equals(""))
             mColor = Color.parseColor(hexColor);
     }
@@ -104,5 +120,30 @@ public abstract class AbstractBusLine implements BusLine {
         final QueryManager finder = SQLQueryManager.getInstance();
         mDefaultTrafficPattern = finder.getLineDefaultTrafficPattern(mName);
         return mDefaultTrafficPattern;
+    }
+
+
+    @Override
+    public Date getAvailableFrom() {
+        return mAvailableFrom;
+    }
+
+    @Override
+    public Date getAvailableTo() {
+        return mAvailableTo;
+    }
+
+    @Override
+    public boolean isAvailable() {
+        if (mAvailableFrom == null && mAvailableTo == null)
+            return true;
+
+        Date today = new Date();
+        boolean available = false;
+        if (mAvailableFrom != null)
+            available = today.after(mAvailableFrom);
+        if (mAvailableTo != null)
+            available = today.before(mAvailableFrom);
+        return available;
     }
 }

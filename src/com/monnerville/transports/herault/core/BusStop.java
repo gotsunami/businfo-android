@@ -23,9 +23,13 @@ public final class BusStop {
     private Date mTime;
 
     /**
-     * Time formatter used accross the app
+     * Time formatter used accross the app, HH:mm
      */
     public static final DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm");
+    /**
+     * Date formatter used accross the app, YYYY-MM-DD
+     */
+    public static final DateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
 
     public BusStop(Date time, BusStation station, BusLine line, String trafficPattern) {
         mStation = station;

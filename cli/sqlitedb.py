@@ -14,6 +14,8 @@ CREATE TABLE line (
     dflt_circpat TEXT,
     from_city_id INTEGER, 
     to_city_id INTEGER,
+    from_date DATETIME,
+    to_date DATETIME,
     UNIQUE(name)
 );
 

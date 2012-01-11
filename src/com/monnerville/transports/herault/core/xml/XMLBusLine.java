@@ -5,6 +5,7 @@ import com.monnerville.transports.herault.core.AbstractBusLine;
 import com.monnerville.transports.herault.core.BusStation;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,11 @@ public class SQLBusLine extends AbstractBusLine {
 
     public SQLBusLine(String name, String hexColor, String defaultTrafficPattern) {
         super(name, hexColor, defaultTrafficPattern);
+    }
+
+    public SQLBusLine(String name, String hexColor, String defaultTrafficPattern, 
+        Date availableFrom, Date availableTo) {
+        super(name, hexColor, defaultTrafficPattern, availableFrom, availableTo);
     }
 
     /**

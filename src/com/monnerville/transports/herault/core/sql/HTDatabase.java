@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.core.sql;
 
+import java.text.ParseException;
 import org.xmlpull.v1.XmlPullParser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,10 @@ import java.util.ArrayList;
 
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusStop;
+import java.text.SimpleDateFormat;
 import static com.monnerville.transports.herault.core.Application.TAG;
+import java.util.Date;
 import org.xmlpull.v1.XmlPullParserException;
 
 
@@ -156,16 +160,29 @@ class HTDatabase extends SQLiteOpenHelper {
     public List<BusLine> getBusLines() {
         List<BusLine> lines = new ArrayList<BusLine>();
 		Cursor c = getReadableDatabase().query(mContext.getString(R.string.db_line_table_name),
-			new String[] {"name", "color", "dflt_circpat"},
+			new String[] {"name", "color", "dflt_circpat", "from_date", "to_date"},
 			null,  // No selection
             null,  // No selection args
             null,  // No group by
             null,  // No having
             "name" // Order by
         );
-        for (int j=0; j < c.getCount(); j++) {
-            c.moveToPosition(j);
-            lines.add(new SQLBusLine(c.getString(0), c.getString(1), c.getString(2)));
+        try {
+            Date from_date;
+            Date to_date;
+            for (int j=0; j < c.getCount(); j++) {
+                c.moveToPosition(j);
+                // Sanitize dates
+                from_date = null;
+                to_date = null;
+                if (c.getString(3).trim().length() > 0)
+                    from_date = BusStop.DATE_FORMATTER.parse(c.getString(3));
+                if (c.getString(4).trim().length() > 0)
+                    to_date = BusStop.DATE_FORMATTER.parse(c.getString(4));
+                lines.add(new SQLBusLine(c.getString(0), c.getString(1), c.getString(2), from_date, to_date));
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(HTDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
 		c.close();
         return lines;
