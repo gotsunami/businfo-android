@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="herault(2).svg">
+   sodipodi:docname="logo.svg">
   <defs
      id="defs4">
     <filter
@@ -34,16 +34,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="188.35646"
-     inkscape:cy="670.84508"
+     inkscape:cx="160.95607"
+     inkscape:cy="691.04813"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="986"
-     inkscape:window-x="0"
-     inkscape:window-y="31"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1614"
+     inkscape:window-height="897"
+     inkscape:window-x="183"
+     inkscape:window-y="91"
+     inkscape:window-maximized="0"
      showguides="true"
      inkscape:guide-bbox="true" />
   <metadata
@@ -91,8 +91,8 @@
        id="g3763"
        transform="translate(-0.167135,0.52843515)" />
     <rect
-       inkscape:export-ydpi="74.540703"
-       inkscape:export-xdpi="74.540703"
+       inkscape:export-ydpi="74.540001"
+       inkscape:export-xdpi="74.540001"
        inkscape:export-filename="/tmp/icon-hdpi.png"
        style="fill:#1a1a1a;fill-opacity:1;stroke:none;filter:url(#filter3770)"
        id="rect3768"
@@ -103,29 +103,29 @@
        transform="matrix(1.0428429,0,0,1.0428429,137.21564,-22.789782)"
        ry="12.857142" />
     <path
-       inkscape:export-ydpi="74.540703"
-       inkscape:export-xdpi="74.540703"
+       inkscape:export-ydpi="74.540001"
+       inkscape:export-xdpi="74.540001"
        inkscape:export-filename="/tmp/icon-hdpi.png"
        id="rect3828"
        d="m 208.0893,330.59876 c -5.34014,0 -9.625,4.34736 -9.625,9.6875 l 0,56.5 c 0,5.34014 4.28486,9.625 9.625,9.625 l 56.53125,0 c 5.34013,0 9.625,-4.28486 9.625,-9.625 l 0,-56.5 c 0,-5.34014 -4.28487,-9.6875 -9.625,-9.6875 l -56.53125,0 z"
        style="fill:#004a9c;fill-opacity:1;stroke:none"
        inkscape:connector-curvature="0" />
     <path
-       inkscape:export-ydpi="74.540703"
-       inkscape:export-xdpi="74.540703"
+       inkscape:export-ydpi="74.540001"
+       inkscape:export-xdpi="74.540001"
        inkscape:export-filename="/tmp/icon-hdpi.png"
        sodipodi:type="arc"
        style="fill:#e75012;fill-opacity:1;stroke:none"
        id="path3830"
        sodipodi:cx="165.89285"
        sodipodi:cy="361.11218"
-       sodipodi:rx="36.25"
-       sodipodi:ry="36.25"
-       d="m 202.14285,361.11218 a 36.25,36.25 0 1 1 -72.5,0 36.25,36.25 0 1 1 72.5,0 z"
+       sodipodi:rx="34.482235"
+       sodipodi:ry="34.482235"
+       d="m 200.37509,361.11218 a 34.482235,34.482235 0 1 1 -68.96447,0 34.482235,34.482235 0 1 1 68.96447,0 z"
        transform="matrix(1,0,0,0.97536946,70.649837,15.789442)" />
     <path
-       inkscape:export-ydpi="74.540703"
-       inkscape:export-xdpi="74.540703"
+       inkscape:export-ydpi="74.540001"
+       inkscape:export-xdpi="74.540001"
        inkscape:export-filename="/tmp/icon-hdpi.png"
        sodipodi:nodetypes="scssscss"
        inkscape:connector-curvature="0"
@@ -133,8 +133,8 @@
        d="m 208.31698,390.59876 c -3.55127,0.0267 -6.57224,0.50644 -9.85268,1.15625 l 0,5.03125 c 0,5.34014 4.10629,9.625 9.44643,9.625 l 56.70982,0 c 5.24598,0 9.44638,-4.13538 9.59375,-9.34375 -9.70373,5.26042 -25.66669,4.61677 -42.03125,-1.40625 -10.46154,-3.8504 -17.79376,-5.10815 -23.86607,-5.0625 z"
        style="fill:#01a5d6;fill-opacity:1;stroke:none" />
     <path
-       inkscape:export-ydpi="74.540703"
-       inkscape:export-xdpi="74.540703"
+       inkscape:export-ydpi="74.540001"
+       inkscape:export-xdpi="74.540001"
        inkscape:export-filename="/tmp/icon-hdpi.png"
        style="fill:none;stroke:#ffffff;stroke-width:2.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 274.25,397.5318 c -9.70373,5.26042 -25.48811,4.4382 -41.85267,-1.58482 -10.46154,-3.8504 -18.32947,-5.10815 -24.40178,-5.0625 -3.55127,0.0267 -6.39367,0.32787 -9.67411,0.97768"
@@ -142,19 +142,19 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cssc" />
     <text
-       inkscape:export-ydpi="74.540703"
-       inkscape:export-xdpi="74.540703"
+       inkscape:export-ydpi="74.540001"
+       inkscape:export-xdpi="74.540001"
        inkscape:export-filename="/tmp/icon-hdpi.png"
        transform="scale(0.97473069,1.0259244)"
        sodipodi:linespacing="125%"
        id="text3059"
-       y="372.4292"
-       x="241.85789"
-       style="font-size:47.10716248px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       y="372.95618"
+       x="240.9762"
+       style="font-size:46.03495407px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
-         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
-         y="372.4292"
-         x="241.85789"
+         style="font-size:39.08955765px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
+         y="372.95618"
+         x="240.9762"
          id="tspan3061"
          sodipodi:role="line">HT</tspan></text>
     <text
@@ -165,6 +165,6 @@
        id="text3842"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan3844"></tspan></text>
+         id="tspan3844" /></text>
   </g>
 </svg>
