@@ -158,15 +158,36 @@ class HTDatabase extends SQLiteOpenHelper {
      * @return list of bus lines
      */
     public List<BusLine> getBusLines() {
+        return getMatchingLines(null);
+    }
+
+    /**
+     * Returns a list of matching bus lines, ordered by name
+     * @param pattern name pattern, will be used as %pattern% in a LIKE statement
+     * @return list of matching bus lines
+     */
+    public List<BusLine> getMatchingLines(String pattern) {
         List<BusLine> lines = new ArrayList<BusLine>();
-		Cursor c = getReadableDatabase().query(mContext.getString(R.string.db_line_table_name),
-			new String[] {"name", "color", "dflt_circpat", "from_date", "to_date"},
-			null,  // No selection
-            null,  // No selection args
-            null,  // No group by
-            null,  // No having
-            "name" // Order by
-        );
+        String cols[] = new String[] {"name", "color", "dflt_circpat", "from_date", "to_date"};
+        Cursor c;
+
+        if (pattern != null) {
+            c = getReadableDatabase().query(mContext.getString(
+                R.string.db_line_table_name), cols, "name LIKE ?",
+                new String[] {"%" + pattern + "%"}, null, null, "name"
+            );
+        }
+        else {
+            // Fetch all lines
+            c = getReadableDatabase().query(mContext.getString(R.string.db_line_table_name),
+                cols,
+                null,  // No selection
+                null,  // No selection args
+                null,  // No group by
+                null,  // No having
+                "name" // Order by
+            );
+        }
         try {
             Date from_date;
             Date to_date;

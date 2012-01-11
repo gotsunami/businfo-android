@@ -26,7 +26,7 @@ public interface QueryManager {
      * @param query
      * @return list of bus lines
      */
-    public List<BusLine> findLines(String query);
+    public List<BusLine> findMatchingLines(String query);
     /**
      * Looks for lines in city
      * FIXME: should return a list of BusLine

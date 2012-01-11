@@ -159,7 +159,7 @@ public class SearchableActivity extends ListActivity {
             String query = q[0];
             mCities = finder.findCities(query);
             mStations = (List<DBStation>)finder.findStations(query);
-            mLines = finder.findLines(query);
+            mLines = finder.findMatchingLines(query);
             // Get directions
             for (BusLine line : mLines) {
                 String[] dirs = line.getDirections();

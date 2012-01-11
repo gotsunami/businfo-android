@@ -1,6 +1,5 @@
 package com.monnerville.transports.herault.core.sql;
 
-import com.monnerville.transports.herault.core.City;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -62,18 +61,8 @@ public class SQLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<BusLine> findLines(String query) {
-        List<BusLine> lines = new ArrayList<BusLine>();
-        Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
-            R.string.db_line_table_name), new String[] {"name", "color", "dflt_circpat"}, "name LIKE ?",
-            new String[] {"%" + query + "%"}, null, null, "name"
-        );
-        for (int j=0; j < c.getCount(); j++) {
-            c.moveToPosition(j);
-            lines.add(new SQLBusLine(c.getString(0), c.getString(1)));
-        }
-		c.close();
-        return lines;
+    public List<BusLine> findMatchingLines(String query) {
+        return ((HTDatabase)mManager.getDB()).getMatchingLines(query);
     }
 
     @Override
