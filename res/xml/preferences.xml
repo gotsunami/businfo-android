@@ -32,9 +32,12 @@
 		<Preference
 			android:key="pref_about_changelog"
 			android:title="@string/pref_about_changelog_title"/>
+            <!--
 		<Preference
 			android:key="pref_about_visite_website"
 			android:title="@string/pref_about_visite_website_title"/>
+            -->
+
             <!--
 		<com.monnerville.fotostop.EULADialogPreference
 			android:key="pref_terms"
