@@ -193,7 +193,7 @@ public class SearchableActivity extends ListActivity {
         if (mCities.isEmpty())
             mCities.add(new City(City.NOT_VALID, getString(R.string.result_no_match)));
         if (mStations.isEmpty())
-            mStations.add(new DBStation(0, getString(R.string.result_no_match)));
+            mStations.add(new DBStation(DBStation.NOT_VALID, getString(R.string.result_no_match)));
 
         if (mLines.isEmpty())
             mLines.add(new SQLBusLine(getString(R.string.result_no_match)));
