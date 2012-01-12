@@ -115,7 +115,8 @@ public abstract class AbstractBusStation implements BusStation {
         intent.setType("text/plain");
         BusStop st = getNextStop(true);
         intent.putExtra(Intent.EXTRA_TEXT, ctx.getString(R.string.share_msg, getName(), 
-            getLine().getName(), BusStationActivity.getFormattedETA(this, st, ctx)));
+            getLine().getName(), BusStop.TIME_FORMATTER.format(st.getTime()), 
+            BusStationActivity.getFormattedETA(this, st, ctx)));
         ctx.startActivity(Intent.createChooser(intent, ctx.getString(R.string.share_with_title)));
     }
 }
