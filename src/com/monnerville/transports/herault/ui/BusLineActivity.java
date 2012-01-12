@@ -1,9 +1,11 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.AlertDialog;
 import android.util.Log;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -210,12 +212,32 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(this, BusStationActivity.class);
-        BusStation station = (BusStation)getListView().getItemAtPosition(position);
-        intent.putExtra("line", mLine);
-        intent.putExtra("direction", mDirection);
-        intent.putExtra("station", station.getName());
-        startActivity(intent);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final BusStation station = (BusStation)getListView().getItemAtPosition(position);
+
+        builder.setTitle(station.getName());
+        builder.setItems(R.array.show_or_share_options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0: { // Show all schedules
+                        Intent intent = new Intent(BusLineActivity.this, BusStationActivity.class);
+                        intent.putExtra("line", mLine);
+                        intent.putExtra("direction", mDirection);
+                        intent.putExtra("station", station.getName());
+                        startActivity(intent);
+                        break;
+                    }
+                    case 1: { // Share
+                        station.share(BusLineActivity.this);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            }
+        });
+        builder.show();
     }
 
     @Override

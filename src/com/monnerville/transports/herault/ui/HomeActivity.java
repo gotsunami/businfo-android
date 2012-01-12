@@ -366,7 +366,11 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
                             startActivity(intent);
                             break;
                         }
-                        case 2: // Remove
+                        case 2: { // Share
+                            station.share(HomeActivity.this);
+                            break;
+                        }
+                        case 3: // Remove
                             for (BusStation st : mStarredStations) {
                                 if (st == obj) {
                                     mStarredStations.remove(st);

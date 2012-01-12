@@ -43,6 +43,9 @@
     <string name="no_data">Pas de données.</string>
     <string name="search_hint">Entrez un mot clef</string>
     <string name="bookmark_menu_title">Favori</string>
+    <string name="station_menu_title">Cet arrêt</string>
+    <string name="share_with_title">Partager avec</string>
+    <string name="share_msg">"Arrêt %1$s - ligne %2$s\n\n%3$s.\n\n\n--\nPartagé depuis l'application Hérault Transport pour Android"</string>
     <string name="station_context_title">Arrêt</string>
     <string name="pd_loading_bus_schedules">Chargement des horaires</string>
     <string name="pd_loading_bus_lines">Chargement des lignes de bus</string>

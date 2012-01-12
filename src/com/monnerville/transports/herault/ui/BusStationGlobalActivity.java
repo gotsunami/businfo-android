@@ -202,6 +202,10 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                                 getString(R.string.toast_station_bookmarked), Toast.LENGTH_SHORT).show();
                             break;
                         }
+                        case 3: { // Share
+                            station.share(BusStationGlobalActivity.this);
+                            break;
+                        }
                         default:
                             break;
                     }

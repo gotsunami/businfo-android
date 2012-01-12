@@ -44,6 +44,9 @@
     <string name="no_data">No data.</string>
     <string name="search_hint">Enter keyword</string>
     <string name="bookmark_menu_title">Bookmark</string>
+    <string name="station_menu_title">This station</string>
+    <string name="share_with_title">Share with</string>
+    <string name="share_msg">"Station %1$s - line %2$s\n\n%3$s.\n\n\n--\nShared from the Hérault Transport application for Android"</string>
     <string name="station_context_title">Station</string>
     <string name="pd_loading_bus_schedules">Loading bus schedules</string>
     <string name="pd_loading_bus_lines">Loading bus lines</string>

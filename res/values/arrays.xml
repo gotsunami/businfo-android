@@ -3,11 +3,17 @@
 	<string-array name="bookmark_options">
 		<item>"All schedules"</item>
 		<item>All line stations</item>
+		<item>Share</item>
 		<item>Remove bookmark</item>
 	</string-array>
 	<string-array name="matched_station_options">
 		<item>"All schedules"</item>
 		<item>All line stations</item>
 		<item>Bookmark</item>
+		<item>Share</item>
+	</string-array>
+	<string-array name="show_or_share_options">
+		<item>"All schedules"</item>
+		<item>Share</item>
 	</string-array>
 </resources>

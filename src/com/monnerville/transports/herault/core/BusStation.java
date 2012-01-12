@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.core;
 
+import android.content.Context;
 import java.util.List;
 
 /**
@@ -53,4 +54,9 @@ public interface BusStation {
      */
     public boolean isStarred();
     public void setStarred(boolean on);
+    /**
+     * Share station's information with other apps
+     * @param ctx app context
+     */
+    public void share(Context ctx);
 }

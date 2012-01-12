@@ -161,9 +161,12 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
     /**
      * Returns an i18n formatted estimated time of arrival for a bus stop
      * 
+     * @param station bus station
+     * @param st bus stop
+     * @param ctx application's context
+     * @return a fully formatted string
      */
-    static private String getFormattedETA(BusStation station, BusStop st, Context ctx) {
-
+    static public String getFormattedETA(BusStation station, BusStop st, Context ctx) {
         // FIXME: remove station param to clean up the code
 
         String feta; // formatted ETA

@@ -1,5 +1,10 @@
 package com.monnerville.transports.herault.core;
 
+import android.content.Context;
+import android.content.Intent;
+import com.monnerville.transports.herault.R;
+
+import com.monnerville.transports.herault.ui.BusStationActivity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,5 +106,16 @@ public abstract class AbstractBusStation implements BusStation {
         hash = 83 * hash + (this.mDirection != null ? this.mDirection.hashCode() : 0);
         hash = 83 * hash + (this.mLine != null ? this.mLine.getName().hashCode() : 0);
         return hash;
+    }
+
+    @Override
+    public void share(Context ctx) {
+        if (ctx == null) return;
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        BusStop st = getNextStop(true);
+        intent.putExtra(Intent.EXTRA_TEXT, ctx.getString(R.string.share_msg, getName(), 
+            getLine().getName(), BusStationActivity.getFormattedETA(this, st, ctx)));
+        ctx.startActivity(Intent.createChooser(intent, ctx.getString(R.string.share_with_title)));
     }
 }

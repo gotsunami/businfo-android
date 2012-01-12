@@ -3,11 +3,17 @@
 	<string-array name="bookmark_options">
 		<item>Tous les horaires</item>
 		<item>Tous les arrêts de la ligne</item>
+		<item>Partager</item>
 		<item>Supprimer favori</item>
 	</string-array>
 	<string-array name="matched_station_options">
 		<item>Tous les horaires</item>
 		<item>Tous les arrêts de la ligne</item>
 		<item>Ajouter aux favoris</item>
+		<item>Partager</item>
+	</string-array>
+	<string-array name="show_or_share_options">
+		<item>Tous les horaires</item>
+		<item>Partager</item>
 	</string-array>
 </resources>
