@@ -21,6 +21,10 @@ public class AppPreferenceActivity extends PreferenceActivity
         dep.setSummary(getString(R.string.pref_about_db_version_summary,
             getString(R.string.dbversion), getString(R.string.num_lines),
             getString(R.string.num_cities), getString(R.string.num_stations)));
+
+        dep = findPreference("pref_about_version");
+        dep.setSummary(getString(R.string.pref_about_version_summary, getString(R.string.app_version), 
+            getString(R.string.app_revision)));
     }
 
     @Override

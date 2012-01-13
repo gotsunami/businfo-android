@@ -49,20 +49,15 @@
 			android:dialogTitle="@string/terms_title"/>
             -->
 		<Preference
-			android:key="pref_about_version"
-			android:title="@string/pref_about_title"
-			android:enabled="false"
-			android:summary="@string/app_version" />
-		<Preference
 			android:key="pref_about_db_version"
 			android:title="@string/pref_about_db_version_title"
 			android:summary="@string/dbversion"
 			android:enabled="false" />
 		<Preference
-			android:key="pref_about_build"
-			android:title="@string/pref_about_build_title"
+			android:key="pref_about_version"
+			android:title="@string/pref_about_title"
 			android:enabled="false"
-			android:summary="@string/app_revision" />
+			android:summary="@string/app_version" />
 		<Preference
 			android:key="pref_author"
 			android:title="@string/pref_author_title"
