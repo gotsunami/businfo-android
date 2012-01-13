@@ -53,6 +53,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
     private String mDirection;
     private SharedPreferences mPrefs;
     private boolean mShowToast;
+    private boolean mCanFinish = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -114,10 +115,20 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                         intent.putExtra("line", mLine);
                         intent.putExtra("direction", dir);
                         intent.putExtra("showToast", true);
+                        mCanFinish = true;
                         startActivity(intent);
                         break;
                     }
                 }
+            }
+        });
+
+        Button searchButton = (Button)findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // Open search dialog
+                onSearchRequested();
             }
         });
     }
@@ -138,6 +149,11 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
             }
         }
         manager.saveStarredStations(manager.getBusLine(mLine), mDirection, starredStations, this);
+
+        // Force finishing the activity so it's not in the activity stack if
+        // performing multiple searches
+        if (mCanFinish)
+            finish();
         super.onPause();
     }
 
