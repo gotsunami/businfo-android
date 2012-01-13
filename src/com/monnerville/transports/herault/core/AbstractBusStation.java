@@ -2,6 +2,7 @@ package com.monnerville.transports.herault.core;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 import com.monnerville.transports.herault.R;
 
 import com.monnerville.transports.herault.ui.BusStationActivity;
@@ -114,9 +115,13 @@ public abstract class AbstractBusStation implements BusStation {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         BusStop st = getNextStop(true);
-        intent.putExtra(Intent.EXTRA_TEXT, ctx.getString(R.string.share_msg, getName(), 
-            getLine().getName(), BusStop.TIME_FORMATTER.format(st.getTime()), 
-            BusStationActivity.getFormattedETA(this, st, ctx)));
-        ctx.startActivity(Intent.createChooser(intent, ctx.getString(R.string.share_with_title)));
+        if (st != null) {
+            intent.putExtra(Intent.EXTRA_TEXT, ctx.getString(R.string.share_msg, getName(), 
+                getLine().getName(), BusStop.TIME_FORMATTER.format(st.getTime()), 
+                BusStationActivity.getFormattedETA(this, st, ctx)));
+            ctx.startActivity(Intent.createChooser(intent, ctx.getString(R.string.share_with_title)));
+        }
+        else
+            Toast.makeText(ctx, R.string.toast_no_more_schedule, Toast.LENGTH_LONG).show();
     }
 }
