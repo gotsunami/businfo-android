@@ -37,7 +37,11 @@ public final class BusStop {
 
     public Date getTime() { return mTime; }
     public BusLine getLine() { return mLine; }
-    public String getTrafficPattern() { return mTrafficPattern; }
+
+    public String getTrafficPattern() { 
+        return mTrafficPattern.length() == 0 ? mLine.getDefaultTrafficPattern() : mTrafficPattern;
+    }
+
     public BusStation getStation() { return mStation; }
 
     /**
