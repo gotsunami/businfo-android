@@ -50,8 +50,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_station_title_bar);
 
         TextView board = (TextView)findViewById(R.id.board);
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/lcd.ttf");
-        board.setTypeface(tf);
 
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
