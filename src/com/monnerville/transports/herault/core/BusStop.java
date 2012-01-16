@@ -32,15 +32,13 @@ public final class BusStop {
         mStation = station;
         mTime = time;
         mLine = line;
-        mTrafficPattern = trafficPattern;
+        mTrafficPattern = trafficPattern.length() == 0 ? line.getDefaultTrafficPattern() : trafficPattern;
     }
 
     public Date getTime() { return mTime; }
     public BusLine getLine() { return mLine; }
 
-    public String getTrafficPattern() { 
-        return mTrafficPattern.length() == 0 ? mLine.getDefaultTrafficPattern() : mTrafficPattern;
-    }
+    public String getTrafficPattern() { return mTrafficPattern; }
 
     public BusStation getStation() { return mStation; }
 
@@ -88,7 +86,7 @@ public final class BusStop {
         return null;
     }
 
-    final public class EstimatedTime {
+    final public static class EstimatedTime {
         private long mDays, mHours, mMinutes, mSeconds;
         public EstimatedTime(long days, long hours, long minutes, long seconds) {
             mDays = days;
@@ -101,5 +99,25 @@ public final class BusStop {
         public long getHours() { return mHours; }
         public long getMinutes() { return mMinutes; }
         public long getSeconds() { return mSeconds; }
+    }
+
+    private class trafficPatternParser {
+        public static final int MONDAY = 1;
+        public static final int TUESDAY = 2;
+        public static final int WEDNESDAY = 3;
+        public static final int THURSDAY = 4;
+        public static final int FRIDAY = 5;
+        public static final int SATURDAY = 6;
+        public static final int SUNDAY = 7;
+
+    }
+
+    /**
+     * Is this bus stop an active one (depending on day, holiday etc.)?
+     * @return true if active else false
+     */
+    public boolean isActive() {
+        return false;
+
     }
 }
