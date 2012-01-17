@@ -44,16 +44,6 @@ public final class BusStop {
     public BusStation getStation() { return mStation; }
 
     /**
-     * Returns true if the bus station is served for this stop (if the 
-     * bus is really stopping)
-     * 
-     * @return true if bus is supposed to be stopping
-     */
-    public boolean isServed() {
-        return true;
-    }
-
-    /**
      * Computes estimated time to achieve
      * @return el
      */
@@ -165,17 +155,20 @@ public final class BusStop {
                             pattern |= RESTDAYS;
                     }
                 }
-                Log.d(circPattern, part);
             }
             return pattern;
         }
     }
 
     /**
-     * Is this bus stop an active one (depending on day, holiday etc.)?
+     * Is this bus stop an active one (depending on day, holiday etc.)? First check that
+     * the current bus line is available today.
+     *
      * @return true if active else false
      */
     public boolean isActive() {
+        if (!mLine.isAvailable())
+            return false;
         int pat = TrafficPatternParser.parse(getTrafficPattern());
         Calendar now = Calendar.getInstance();
         // TODO: handle rest days, holidays etc.

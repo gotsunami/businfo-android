@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
@@ -80,24 +81,10 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             if (nextStop != null)
                 board.setText(BusStop.TIME_FORMATTER.format(mCurrentStation.getNextStop().getTime()));
             else
-                board.setText(R.string.no_more_stop);
+                board.setText(R.string.no_more_stop_short);
         }
-        ListAdapter adapter = new SimpleAdapter(this, getData(mStops),
-            R.layout.bus_station_list_item, new String[] {"time", "line"},
-            new int[] {android.R.id.text1, android.R.id.text2});
-        setListAdapter(adapter);
-    }
 
-    private List getData(List<BusStop> stops) {
-        List<Map> data = new ArrayList<Map>();
-        for (BusStop st : stops) {
-            Map<String, String> m = new HashMap<String, String>();
-            m.put("time", BusStop.TIME_FORMATTER.format(st.getTime()));
-            m.put("line", "(" + st.isActive() + ") :: " + BusStop.TrafficPatternParser.parse(st.getTrafficPattern()) 
-                + " :: "+ st.getTrafficPattern());
-            data.add(m);
-        }
-        return data;
+        setupAdapter();
     }
 
     @Override
@@ -221,5 +208,75 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             feta = ctx.getString(R.string.bookmark_city, station.getCity());
         }
         return feta;
+    }
+
+    /**
+     * Custom adapter with matches display
+     */
+    final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
+        @Override
+        protected int getMatches(String caption) {
+            return CounterSectionedAdapter.NO_MATCH;
+        }
+    };
+
+    /**
+     * Sets up the adapter for the list
+     */
+    private void setupAdapter() {
+        mAdapter.addSection(getString(R.string.stop_all_schedules_title),
+            new StopListAdapter(this, R.layout.bus_station_list_item, mStops));
+        setListAdapter(mAdapter);
+    }
+
+    private class StopListAdapter extends ArrayAdapter<BusStop> {
+        private int mResource;
+        private Context mContext;
+
+        StopListAdapter(Context context, int resource, List<BusStop> stops) {
+            super(context, resource, stops);
+            mResource = resource;
+            mContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LinearLayout itemView;
+            final BusStop st = getItem(position);
+            final int j = position;
+
+            if (convertView == null) {
+                itemView = new LinearLayout(mContext);
+                LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                li.inflate(mResource, itemView, true);
+            }
+            else
+                itemView = (LinearLayout)convertView;
+
+            TextView time = (TextView)itemView.findViewById(android.R.id.text1);
+            time.setText(BusStop.TIME_FORMATTER.format(st.getTime()));
+            TextView detail = (TextView)itemView.findViewById(android.R.id.text2);
+            detail.setText("(" + st.isActive() + ") :: " + BusStop.TrafficPatternParser.parse(st.getTrafficPattern())
+                + " :: "+ st.getTrafficPattern());
+            TextView mark = (TextView)itemView.findViewById(R.id.mark);
+
+            // We have a non-cached value
+            Typeface f = time.getTypeface();
+            if (st.isActive()) {
+                time.setTextColor(getResources().getColor(R.color.list_item_bus_time));
+            }
+            else {
+                time.setTextColor(getResources().getColor(R.color.list_item_no_more_stop));
+            }
+            if (mCurrentStation.getNextStop(true).getTime().equals(st.getTime())) {
+                mark.setBackgroundResource(R.color.ht_blue);
+                time.setTypeface(f, Typeface.BOLD);
+            }
+            else {
+                mark.setBackgroundResource(android.R.color.transparent);
+                time.setTypeface(f, Typeface.NORMAL);
+            }
+            return itemView;
+        }
     }
 }

@@ -73,7 +73,7 @@ public class SQLBusManager implements BusManager {
      */
     @Override
     public BusLine getBusLine(String name) {
-        return new SQLBusLine(name);
+        return mDB.getMatchingLines(name).get(0);
     }
 
     /**

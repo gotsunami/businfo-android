@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:layout_height="wrap_content"
     android:layout_width="fill_parent"
-    android:paddingLeft="10dip"
-    android:paddingRight="15dip">
-
-    <!-- Activity icon when presenting dialog -->
-    <ImageView android:id="@+id/icon"
-        android:layout_width="@android:dimen/app_icon_size"
-        android:layout_height="@android:dimen/app_icon_size"
-        android:src="@drawable/ic_menu_clock"
-        android:scaleType="fitCenter" />
-
+    android:layout_height="fill_parent" >
+    <TextView android:id="@+id/mark"
+        android:background="@color/board_background"
+        android:layout_width="8dip"
+        android:paddingLeft="20dip"
+        android:layout_height="fill_parent" />
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center_vertical"
@@ -35,4 +28,3 @@
             android:paddingLeft="10dip" />
     </LinearLayout>
 </LinearLayout>
-

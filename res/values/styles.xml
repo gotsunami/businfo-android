@@ -40,6 +40,10 @@
         <item name="android:textColor">@color/board_time</item>
         <item name="android:padding">3dip</item>
         <item name="android:background">@color/board_background</item>
+        <item name="android:shadowDx">0.5</item>
+        <item name="android:shadowDy">0.5</item>
+        <item name="android:shadowColor">#BB000000</item>
+        <item name="android:shadowRadius">1.75</item>
 	</style>
 	<style name="lineAvailabilityInfo">
         <item name="android:layout_width">wrap_content</item>

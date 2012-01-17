@@ -83,7 +83,7 @@ public abstract class AbstractBusStation implements BusStation {
             getStops();
         Date now = new Date();
         for (BusStop st : mStops) {
-            if (st.getTime().after(now)) {
+            if (st.isActive() && st.getTime().after(now)) {
                 mNextStop = st;
                 return st;
             }
