@@ -28,6 +28,7 @@ import java.util.Map;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
+import com.monnerville.transports.herault.core.TrafficPatternParser;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 
 /**
@@ -256,7 +257,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView time = (TextView)itemView.findViewById(android.R.id.text1);
             time.setText(BusStop.TIME_FORMATTER.format(st.getTime()));
             TextView detail = (TextView)itemView.findViewById(android.R.id.text2);
-            detail.setText("(" + st.isActive() + ") :: " + BusStop.TrafficPatternParser.parse(st.getTrafficPattern())
+            detail.setText("(" + st.isActive() + ") :: " + TrafficPatternParser.parse(st.getTrafficPattern())
                 + " :: "+ st.getTrafficPattern());
             TextView mark = (TextView)itemView.findViewById(R.id.mark);
 
