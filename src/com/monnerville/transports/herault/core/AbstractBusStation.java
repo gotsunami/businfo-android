@@ -2,6 +2,7 @@ package com.monnerville.transports.herault.core;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 import com.monnerville.transports.herault.R;
 
@@ -83,8 +84,8 @@ public abstract class AbstractBusStation implements BusStation {
             getStops();
         Date now = new Date();
         for (BusStop st : mStops) {
-            if (st.isActive() && st.getTime().after(now)) {
-                mNextStop = st;
+            if (st.getTime().after(now)) {
+                mNextStop = st.isActive() ? st : null;
                 return st;
             }
         }

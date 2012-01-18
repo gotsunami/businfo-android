@@ -104,6 +104,6 @@ public final class BusStop {
         int pat = TrafficPatternParser.parse(getTrafficPattern());
         Calendar now = Calendar.getInstance();
         // TODO: handle rest days, holidays etc.
-        return (pat & TrafficPatternParser.calendarMap[now.get(Calendar.DAY_OF_WEEK)][0]) != 0;
+        return (pat & TrafficPatternParser.calendarMap.get(now.get(Calendar.DAY_OF_WEEK))) != 0;
     }
 }

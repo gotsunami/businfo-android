@@ -5,6 +5,8 @@
 package com.monnerville.transports.herault.core;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -28,15 +30,19 @@ public class TrafficPatternParser {
     private static final String SCHOOL_ONLY = "s";
     private static final String REST_DAYS = "r";
 
-    public static final int[][] calendarMap = {
-        {Calendar.MONDAY, MONDAY},
-        {Calendar.TUESDAY, TUESDAY},
-        {Calendar.WEDNESDAY, WEDNESDAY},
-        {Calendar.THURSDAY, THURSDAY},
-        {Calendar.FRIDAY, FRIDAY},
-        {Calendar.SATURDAY, SATURDAY},
-        {Calendar.SUNDAY, SUNDAY},
-    };
+    public static Map<Integer, Integer> calendarMap = initMap();
+
+    private static Map<Integer, Integer> initMap() {
+        calendarMap = new HashMap<Integer, Integer>();
+        calendarMap.put(Calendar.MONDAY, MONDAY);
+        calendarMap.put(Calendar.TUESDAY, TUESDAY);
+        calendarMap.put(Calendar.WEDNESDAY, WEDNESDAY);
+        calendarMap.put(Calendar.THURSDAY, THURSDAY);
+        calendarMap.put(Calendar.FRIDAY, FRIDAY);
+        calendarMap.put(Calendar.SATURDAY, SATURDAY);
+        calendarMap.put(Calendar.SUNDAY, SUNDAY);
+        return calendarMap;
+    }
 
     public static int parse(String circPattern) {
         int pattern = 0;
@@ -65,12 +71,19 @@ public class TrafficPatternParser {
                 }
             }
             else {
-                // Single day
-                try {
-                    pattern |= (int)Math.pow(2, Integer.parseInt(part));
-                } catch (NumberFormatException e) {
-                    if (part.equals(REST_DAYS))
-                        pattern |= RESTDAYS;
+                // Not a range, but single day                                                                                   
+                try {                                                                                                            
+                    pattern |= (int)Math.pow(2, Integer.parseInt(part));                                                         
+                } catch (NumberFormatException e) {                                                                              
+                    int day = Integer.parseInt(part.substring(0, 1));                                                            
+                    pattern |= (int)Math.pow(2, day);                                                                            
+                    String suffix = part.substring(1);                                                                           
+                    if (suffix.equals(REST_DAYS))                                                                                
+                        pattern |= RESTDAYS;                                                                                     
+                    else if (suffix.equals(SCHOOL_ONLY))                                                                         
+                        pattern |= SCHOOL;                                                                                       
+                    else if (suffix.equals(HOLIDAYS_ONLY))                                                                       
+                        pattern |= HOLIDAYS;                                                                                 
                 }
             }
         }

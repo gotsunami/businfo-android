@@ -92,7 +92,7 @@ public class SQLBusStation extends AbstractBusStation {
                 c.getString(1)                                  // Traffic pattern
             );
             c.close();
-            return mNextStop;
+            return mNextStop.isActive() ? mNextStop : null;
         } catch (ParseException ex) {
             Logger.getLogger(SQLBusStation.class.getName()).log(Level.SEVERE, null, ex);
         }
