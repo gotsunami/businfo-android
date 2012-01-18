@@ -131,7 +131,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView sched = (TextView)itemView.findViewById(R.id.icon);
             // Get a cached value
             BusStop st = station.getNextStop(true);
-            Log.d("DOOO", "ACTIVE: " + st.isActive());
             sched.setText(st == null ? mContext.getString(R.string.no_more_stop_short) :
                 BusStop.TIME_FORMATTER.format(st.getTime()));
 
@@ -275,10 +274,14 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                     mark.setBackgroundResource(R.color.ht_blue);
                     time.setTypeface(f, Typeface.BOLD);
                 }
+                else {
+                    mark.setBackgroundResource(R.color.board_background);
+                    time.setTypeface(Typeface.DEFAULT);
+                }
             }
             else {
                 mark.setBackgroundResource(android.R.color.transparent);
-                time.setTypeface(f, Typeface.NORMAL);
+                time.setTypeface(Typeface.DEFAULT);
             }
             return itemView;
         }

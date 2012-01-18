@@ -74,16 +74,18 @@ public class TrafficPatternParser {
                 // Not a range, but single day                                                                                   
                 try {                                                                                                            
                     pattern |= (int)Math.pow(2, Integer.parseInt(part));                                                         
-                } catch (NumberFormatException e) {                                                                              
-                    int day = Integer.parseInt(part.substring(0, 1));                                                            
-                    pattern |= (int)Math.pow(2, day);                                                                            
-                    String suffix = part.substring(1);                                                                           
-                    if (suffix.equals(REST_DAYS))                                                                                
-                        pattern |= RESTDAYS;                                                                                     
-                    else if (suffix.equals(SCHOOL_ONLY))                                                                         
-                        pattern |= SCHOOL;                                                                                       
-                    else if (suffix.equals(HOLIDAYS_ONLY))                                                                       
-                        pattern |= HOLIDAYS;                                                                                 
+                } catch (NumberFormatException e) {
+                    if (part.equals(REST_DAYS))
+                        pattern |= RESTDAYS;
+                    else {
+                        int day = Integer.parseInt(part.substring(0, 1));
+                        pattern |= (int)Math.pow(2, day);
+                        String suffix = part.substring(1);
+                        if (suffix.equals(SCHOOL_ONLY))
+                            pattern |= SCHOOL;
+                        else if (suffix.equals(HOLIDAYS_ONLY))
+                            pattern |= HOLIDAYS;
+                    }
                 }
             }
         }
