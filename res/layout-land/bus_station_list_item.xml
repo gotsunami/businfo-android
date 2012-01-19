@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
     <TextView android:id="@+id/mark"
-        android:layout_width="8dip"
+        android:layout_width="14dip"
         android:paddingLeft="20dip"
         android:layout_height="fill_parent" />
     <LinearLayout
@@ -12,9 +12,6 @@
         android:gravity="center_vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-            <!--
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            -->
         <TextView android:id="@android:id/text1"
             android:textSize="30sp"
             android:layout_weight="2"
