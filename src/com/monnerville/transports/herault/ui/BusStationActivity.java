@@ -262,7 +262,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView mark = (TextView)itemView.findViewById(R.id.mark);
 
             // We have a non-cached value
-            Typeface f = time.getTypeface();
             if (st.isActive()) {
                 time.setTextColor(getResources().getColor(R.color.list_item_bus_time));
             }
@@ -272,7 +271,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             if (mCurrentStation.getNextStop(true) != null) {
                 if (mCurrentStation.getNextStop(true).getTime().equals(st.getTime())) {
                     mark.setBackgroundResource(R.color.ht_blue);
-                    time.setTypeface(f, Typeface.BOLD);
+                    time.setTypeface(Typeface.DEFAULT_BOLD);
                 }
                 else {
                     mark.setBackgroundResource(R.color.board_background);
@@ -280,7 +279,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                 }
             }
             else {
-                mark.setBackgroundResource(android.R.color.transparent);
+                mark.setBackgroundResource(R.color.board_background);
                 time.setTypeface(Typeface.DEFAULT);
             }
             return itemView;
