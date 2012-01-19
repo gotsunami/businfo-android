@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
@@ -256,8 +258,32 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
 
             TextView time = (TextView)itemView.findViewById(android.R.id.text1);
             time.setText(BusStop.TIME_FORMATTER.format(st.getTime()));
-            TextView detail = (TextView)itemView.findViewById(android.R.id.text2);
-            detail.setText(st.getBinaryTrafficPattern() + " :: "+ st.getTrafficPattern());
+
+            TextView warn = (TextView)itemView.findViewById(R.id.warn);
+            if ((st.getBinaryTrafficPattern() & TrafficPatternParser.SCHOOL) != 0) {
+                warn.setVisibility(View.VISIBLE);
+                warn.setText(getString(R.string.stop_info_school_days_only));
+            }
+            else if((st.getBinaryTrafficPattern() & TrafficPatternParser.RESTDAYS) != 0) {
+                warn.setVisibility(View.VISIBLE);
+                warn.setText(getString(R.string.stop_info_rest_days_only));
+            }
+            else if((st.getBinaryTrafficPattern() & TrafficPatternParser.HOLIDAYS) != 0) {
+                warn.setVisibility(View.VISIBLE);
+                warn.setText(getString(R.string.stop_info_holidays_only));
+            }
+            else {
+                warn.setVisibility(View.GONE);
+                warn.setText("");
+            }
+
+            // FIXME: remove tmppat
+            TextView tmppat = (TextView)itemView.findViewById(R.id.tmppat);
+            tmppat.setText(st.getTrafficPattern());
+
+            TextView detail = (TextView)itemView.findViewById(R.id.stopdays);
+            detail.setText(getHumanReadableFromTrafficPattern(st));
+
             TextView mark = (TextView)itemView.findViewById(R.id.mark);
 
             // We have a non-cached value
@@ -283,5 +309,44 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             }
             return itemView;
         }
+    }
+
+    private String getHumanReadableFromTrafficPattern(BusStop st) {
+        if (st == null) return null;
+        int pat = st.getBinaryTrafficPattern();
+        StringBuilder human = new StringBuilder();
+        if ((pat & TrafficPatternParser.MONDAY) != 0)
+            human.append(getString(R.string.monday_short));
+        if ((pat & TrafficPatternParser.TUESDAY) != 0)
+            human.append(getString(R.string.tuesday_short));
+        if ((pat & TrafficPatternParser.WEDNESDAY) != 0)
+            human.append(getString(R.string.wednesday_short));
+        if ((pat & TrafficPatternParser.THURSDAY) != 0)
+            human.append(getString(R.string.thursday_short));
+        if ((pat & TrafficPatternParser.FRIDAY) != 0)
+            human.append(getString(R.string.friday_short));
+        if ((pat & TrafficPatternParser.SATURDAY) != 0)
+            human.append(getString(R.string.saturday_short));
+        if ((pat & TrafficPatternParser.SUNDAY) != 0)
+            human.append(getString(R.string.sunday_short));
+
+        return human.toString();
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        final Object obj = getListView().getItemAtPosition(position);
+        final BusStop st = (BusStop)obj;
+        if (st.isActive()) shareStop(st);
+    }
+
+    private void shareStop(BusStop st) {
+        if (st == null) return;
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_msg, mCurrentStation.getName(),
+            mCurrentStation.getLine().getName(), BusStop.TIME_FORMATTER.format(st.getTime()),
+            getFormattedETA(mCurrentStation, st, this)));
+        startActivity(Intent.createChooser(intent, getString(R.string.share_with_title)));
     }
 }

@@ -16,4 +16,13 @@
 		<item>"All schedules"</item>
 		<item>Share</item>
 	</string-array>
+	<string-array name="days_of_week">
+		<item>monday</item>
+		<item>tuesday</item>
+		<item>wednesday</item>
+		<item>thursday</item>
+		<item>friday</item>
+		<item>saturday</item>
+		<item>sunday</item>
+	</string-array>
 </resources>

@@ -25,11 +25,11 @@ public class TrafficPatternParser {
     public static final int HOLIDAYS = 512;
     public static final int RESTDAYS = 1024;
 
-    private static final String SEP = ",";
-    private static final String SEP_RANGE = "-";
-    private static final String HOLIDAYS_ONLY = "S";
-    private static final String SCHOOL_ONLY = "s";
-    private static final String REST_DAYS = "r";
+    public static final String SEP = ",";
+    public static final String SEP_RANGE = "-";
+    public static final String HOLIDAYS_ONLY = "S";
+    public static final String SCHOOL_ONLY = "s";
+    public static final String REST_DAYS = "r";
 
     public static Map<Integer, Integer> calendarMap = initMap();
 
@@ -46,7 +46,6 @@ public class TrafficPatternParser {
     }
 
     public static int parse(String circPattern) {
-        Log.d("PARSE", "CALLED!");
         int pattern = 0;
         String[] vals = circPattern.split(SEP);
 
