@@ -269,7 +269,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                 time.setTextColor(getResources().getColor(R.color.list_item_no_more_stop));
             }
             if (mCurrentStation.getNextStop(true) != null) {
-                if (mCurrentStation.getNextStop(true).getTime().equals(st.getTime())) {
+                if (st.isActive() && mCurrentStation.getNextStop(true).getTime().equals(st.getTime())) {
                     mark.setBackgroundResource(R.color.ht_blue);
                     time.setTypeface(Typeface.DEFAULT_BOLD);
                 }
