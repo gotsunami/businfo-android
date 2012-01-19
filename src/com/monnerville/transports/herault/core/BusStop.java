@@ -19,6 +19,10 @@ public final class BusStop {
     private String mTrafficPattern;
     private BusStation mStation;
     private Date mTime;
+    /**
+     * Binary traffic pattern
+     */
+    private int mBinPat;
 
     /**
      * Time formatter used accross the app, HH:mm
@@ -34,12 +38,20 @@ public final class BusStop {
         mTime = time;
         mLine = line;
         mTrafficPattern = trafficPattern.length() == 0 ? line.getDefaultTrafficPattern() : trafficPattern;
+        mBinPat = TrafficPatternParser.parse(mTrafficPattern);
     }
 
     public Date getTime() { return mTime; }
     public BusLine getLine() { return mLine; }
 
     public String getTrafficPattern() { return mTrafficPattern; }
+    /**
+     * Gets binary-like traffic pattern. Same as @{getTrafficPattern()} but returns
+     * an integer
+     *
+     * @return int pattern
+     */
+    public int getBinaryTrafficPattern() { return mBinPat; }
 
     public BusStation getStation() { return mStation; }
 
@@ -101,9 +113,8 @@ public final class BusStop {
     public boolean isActive() {
         if (!mLine.isAvailable())
             return false;
-        int pat = TrafficPatternParser.parse(getTrafficPattern());
         Calendar now = Calendar.getInstance();
         // TODO: handle rest days, holidays etc.
-        return (pat & TrafficPatternParser.calendarMap.get(now.get(Calendar.DAY_OF_WEEK))) != 0;
+        return (mBinPat & TrafficPatternParser.calendarMap.get(now.get(Calendar.DAY_OF_WEEK))) != 0;
     }
 }

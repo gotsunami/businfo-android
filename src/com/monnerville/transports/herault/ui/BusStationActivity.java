@@ -257,8 +257,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView time = (TextView)itemView.findViewById(android.R.id.text1);
             time.setText(BusStop.TIME_FORMATTER.format(st.getTime()));
             TextView detail = (TextView)itemView.findViewById(android.R.id.text2);
-            detail.setText("(" + st.isActive() + ") :: " + TrafficPatternParser.parse(st.getTrafficPattern())
-                + " :: "+ st.getTrafficPattern());
+            detail.setText(st.getBinaryTrafficPattern() + " :: "+ st.getTrafficPattern());
             TextView mark = (TextView)itemView.findViewById(R.id.mark);
 
             // We have a non-cached value

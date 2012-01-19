@@ -4,6 +4,7 @@
  */
 package com.monnerville.transports.herault.core;
 
+import android.util.Log;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class TrafficPatternParser {
     }
 
     public static int parse(String circPattern) {
+        Log.d("PARSE", "CALLED!");
         int pattern = 0;
         String[] vals = circPattern.split(SEP);
 
