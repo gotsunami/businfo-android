@@ -23,8 +23,8 @@
 		android:title="@string/cat_about_title"
 		android:summary="@string/cat_about_sum">
 		<Preference
-			android:key="pref_about_help"
-			android:title="@string/pref_about_help_title"/>
+			android:key="pref_about_tips"
+			android:title="@string/pref_about_tips_title"/>
 		<Preference
 			android:key="pref_about_release_notes"
 			android:dialogMessage="@string/release_notes_content"

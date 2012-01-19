@@ -70,7 +70,7 @@
     <string name="pref_about_title">Version</string>
     <string name="pref_about_build_title">Numéro du build</string>
     <string name="pref_author_title">Auteur</string>
-    <string name="pref_about_help_title">Aide</string>
+    <string name="pref_about_tips_title">Astuces</string>
     <string name="pref_about_visite_website_title">Visiter le site web</string>
     <string name="pref_about_changelog_title">Historique des versions</string>
     <string name="pref_about_changelog_summary">"Nouveautés de cette version"</string>
