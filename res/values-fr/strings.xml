@@ -42,9 +42,9 @@
     <string name="friday_short">V</string>
     <string name="saturday_short">S</string>
     <string name="sunday_short">D</string>
-    <string name="stop_info_rest_days_only">"Jours fériés uniquement !"</string>
-    <string name="stop_info_school_days_only">"En période scolaire uniquement !"</string>
-    <string name="stop_info_holidays_only">"En période de vacances scolaires uniquement !"</string>
+    <string name="stop_info_rest_days_only">"Jours fériés uniquement"</string>
+    <string name="stop_info_school_days_only">"En période scolaire uniquement"</string>
+    <string name="stop_info_holidays_only">"Pendant les vacances scolaires uniquement"</string>
 
     <string name="suggestion_city_subtitle">"Ville desservie par %1$s ligne(s) de bus"</string>
     <string name="suggestion_line_subtitle">"Ligne direction %1$s et %2$s"</string>

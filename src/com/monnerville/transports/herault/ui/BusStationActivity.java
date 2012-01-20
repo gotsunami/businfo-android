@@ -32,6 +32,7 @@ import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.TrafficPatternParser;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import java.util.Calendar;
 
 /**
  *
@@ -43,6 +44,18 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
     private String mDirection = null;
     private List<BusStop> mStops;
     private BusStation mCurrentStation;
+    private final Calendar mNow = Calendar.getInstance();
+
+    // For mapping week days in StopListAdapter
+    private static final int[][] mWDays = {
+        { R.id.monday,    TrafficPatternParser.MONDAY },
+        { R.id.tuesday,   TrafficPatternParser.TUESDAY },
+        { R.id.wednesday, TrafficPatternParser.WEDNESDAY },
+        { R.id.thursday,  TrafficPatternParser.THURSDAY },
+        { R.id.friday,    TrafficPatternParser.FRIDAY },
+        { R.id.saturday,  TrafficPatternParser.SATURDAY },
+        { R.id.sunday,    TrafficPatternParser.SUNDAY },
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -281,10 +294,26 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView tmppat = (TextView)itemView.findViewById(R.id.tmppat);
             tmppat.setText(st.getTrafficPattern());
 
-            TextView detail = (TextView)itemView.findViewById(R.id.stopdays);
-            detail.setText(getHumanReadableFromTrafficPattern(st));
-
             TextView mark = (TextView)itemView.findViewById(R.id.mark);
+
+            int pat = st.getBinaryTrafficPattern();
+            TextView tvd;
+            for (int k=0; k < mWDays.length; k++) {
+                tvd = (TextView)itemView.findViewById(mWDays[k][0]);
+                if (TrafficPatternParser.calendarMap.get(mNow.get(Calendar.DAY_OF_WEEK)) ==
+                    mWDays[k][1]) {
+                    // Show today in a different way
+                    tvd.setTypeface(Typeface.DEFAULT_BOLD);
+                    tvd.setBackgroundResource(((pat & mWDays[k][1]) != 0) ?
+                        R.layout.dow_bkg_today_enabled : R.layout.dow_bkg_today_disabled);
+                }
+                else {
+                    // Rest of the week
+                    tvd.setBackgroundResource(((pat & mWDays[k][1]) != 0) ?
+                        R.layout.dow_bkg_enabled : R.layout.dow_bkg_disabled);
+                }
+
+            }
 
             // We have a non-cached value
             if (st.isActive()) {
@@ -309,28 +338,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             }
             return itemView;
         }
-    }
-
-    private String getHumanReadableFromTrafficPattern(BusStop st) {
-        if (st == null) return null;
-        int pat = st.getBinaryTrafficPattern();
-        StringBuilder human = new StringBuilder();
-        if ((pat & TrafficPatternParser.MONDAY) != 0)
-            human.append(getString(R.string.monday_short));
-        if ((pat & TrafficPatternParser.TUESDAY) != 0)
-            human.append(getString(R.string.tuesday_short));
-        if ((pat & TrafficPatternParser.WEDNESDAY) != 0)
-            human.append(getString(R.string.wednesday_short));
-        if ((pat & TrafficPatternParser.THURSDAY) != 0)
-            human.append(getString(R.string.thursday_short));
-        if ((pat & TrafficPatternParser.FRIDAY) != 0)
-            human.append(getString(R.string.friday_short));
-        if ((pat & TrafficPatternParser.SATURDAY) != 0)
-            human.append(getString(R.string.saturday_short));
-        if ((pat & TrafficPatternParser.SUNDAY) != 0)
-            human.append(getString(R.string.sunday_short));
-
-        return human.toString();
     }
 
     @Override
