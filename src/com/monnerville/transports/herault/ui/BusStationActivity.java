@@ -279,7 +279,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             }
             else if((st.getBinaryTrafficPattern() & TrafficPatternParser.RESTDAYS) != 0) {
                 warn.setVisibility(View.VISIBLE);
-                warn.setText(getString(R.string.stop_info_rest_days_only));
+                warn.setText(getString(R.string.stop_info_rest_days));
             }
             else if((st.getBinaryTrafficPattern() & TrafficPatternParser.HOLIDAYS) != 0) {
                 warn.setVisibility(View.VISIBLE);
@@ -298,21 +298,22 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
 
             int pat = st.getBinaryTrafficPattern();
             TextView tvd;
+            int lenab, ldis;
             for (int k=0; k < mWDays.length; k++) {
                 tvd = (TextView)itemView.findViewById(mWDays[k][0]);
                 if (TrafficPatternParser.calendarMap.get(mNow.get(Calendar.DAY_OF_WEEK)) ==
                     mWDays[k][1]) {
                     // Show today in a different way
                     tvd.setTypeface(Typeface.DEFAULT_BOLD);
-                    tvd.setBackgroundResource(((pat & mWDays[k][1]) != 0) ?
-                        R.layout.dow_bkg_today_enabled : R.layout.dow_bkg_today_disabled);
+                    lenab = R.layout.dow_bkg_today_enabled;
+                    ldis = R.layout.dow_bkg_today_disabled;
                 }
                 else {
-                    // Rest of the week
-                    tvd.setBackgroundResource(((pat & mWDays[k][1]) != 0) ?
-                        R.layout.dow_bkg_enabled : R.layout.dow_bkg_disabled);
+                    // Rest of the week, standard layouts
+                    lenab = R.layout.dow_bkg_enabled;
+                    ldis = R.layout.dow_bkg_disabled;
                 }
-
+                tvd.setBackgroundResource(((pat & mWDays[k][1]) != 0) ? lenab : ldis);
             }
 
             // We have a non-cached value
