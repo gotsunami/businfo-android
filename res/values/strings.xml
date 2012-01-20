@@ -36,13 +36,13 @@
     <string name="bookmark_city_eta_mp">"In %1$s, %2$s minutes left"</string>
     <string name="bookmark_city_eta_ms_now">"In %1$s, incoming..."</string>
 
-    <string name="monday_short">"M "</string>
-    <string name="tuesday_short">"TUE "</string>
-    <string name="wednesday_short">"W "</string>
-    <string name="thursday_short">"THU "</string>
-    <string name="friday_short">"F "</string>
-    <string name="saturday_short">"SAT "</string>
-    <string name="sunday_short">"SUN "</string>
+    <string name="monday_short">M</string>
+    <string name="tuesday_short">T</string>
+    <string name="wednesday_short">W</string>
+    <string name="thursday_short">T</string>
+    <string name="friday_short">F</string>
+    <string name="saturday_short">S</string>
+    <string name="sunday_short">S</string>
     <string name="stop_info_rest_days_only">"Public holidays only!"</string>
     <string name="stop_info_school_days_only">"School days only!"</string>
     <string name="stop_info_holidays_only">"Holidays only!"</string>
