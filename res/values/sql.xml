@@ -61,7 +61,7 @@ AND line.id=stop.line_id
 AND station.id=stop.station_id
 AND stop.city_id=city.id
 AND stop.direction_id=(select id from city where name=?)
-ORDER BY stop.id
+ORDER BY stop.time
 "</string>
 	<string name="query_get_next_stop_from_station">"
 SELECT stop.time, stop.circpat
