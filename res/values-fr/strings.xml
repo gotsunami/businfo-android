@@ -23,6 +23,7 @@
     <string name="all_lines_header">Toutes les lignes</string>
     <string name="bookmark_info">Ligne %1$s vers %2$s</string>
     <string name="city_title">Ville</string>
+    <string name="does_not_circulate">Ne circule pas</string>
 
     <string name="bookmark_city">"À %1$s"</string>
     <string name="bookmark_city_eta_hours_hs">"À %1$s, dans %2$s heure"</string>

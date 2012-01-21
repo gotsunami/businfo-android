@@ -317,11 +317,14 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             }
 
             // We have a non-cached value
+            TextView circmsg = (TextView)itemView.findViewById(R.id.circulmsg);
             if (st.isActive()) {
                 time.setTextColor(getResources().getColor(R.color.list_item_bus_time));
+                circmsg.setText("");
             }
             else {
                 time.setTextColor(getResources().getColor(R.color.list_item_no_more_stop));
+                circmsg.setText(R.string.does_not_circulate);
             }
             if (mCurrentStation.getNextStop(true) != null) {
                 if (st.isActive() && mCurrentStation.getNextStop(true).getTime().equals(st.getTime())) {

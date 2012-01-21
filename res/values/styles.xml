@@ -94,9 +94,6 @@
 	</style>
     <!-- Week days -->
 	<style name="DayOfWeek">
-        <!--
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        -->
         <item name="android:textSize">13sp</item>
         <item name="android:layout_width">25dip</item>
         <item name="android:layout_height">wrap_content</item>
@@ -107,5 +104,14 @@
 	<style name="DayOfWeek.Disabled">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@layout/dow_bkg_disabled</item>
+	</style>
+	<style name="CirculateMessage">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@color/list_item_no_more_stop</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:paddingRight">10dip</item>
+        <item name="android:gravity">right</item>
 	</style>
 </resources>
