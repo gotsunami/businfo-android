@@ -9,7 +9,7 @@
 
     <!-- Activity icon when presenting dialog -->
     <com.monnerville.transports.herault.ui.StationTextView android:id="@+id/icon"
-        android:layout_width="wrap_content"
+        android:layout_width="84dip"
         android:layout_height="fill_parent"
         android:paddingLeft="5dip"
         android:paddingRight="5dip"
