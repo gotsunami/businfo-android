@@ -1,6 +1,7 @@
 package com.monnerville.transports.herault.core;
 
 import android.util.Log;
+import com.monnerville.transports.herault.core.calendar.RestDays;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.monnerville.transports.herault.core.calendar.ZoneAHolidays;
 
 /**
  *
@@ -105,8 +108,10 @@ public final class BusStop {
     }
 
     /**
-     * Is this bus stop an active one (depending on day, holiday etc.)? First check that
-     * the current bus line is available today.
+     * Is this bus stop an active one (depending on day, holiday etc.)? 
+     * First checks that the current bus line is available today. 
+     * Then checks if it's a holiday-only stop.
+     * Finally checks if it's a rest-only stop. 
      *
      * @return true if active else false
      */
@@ -114,7 +119,41 @@ public final class BusStop {
         if (!mLine.isAvailable())
             return false;
         Calendar now = Calendar.getInstance();
-        // TODO: handle rest days, holidays etc.
-        return (mBinPat & TrafficPatternParser.calendarMap.get(now.get(Calendar.DAY_OF_WEEK))) != 0;
+        boolean active = false;
+
+        // School days only?
+        if (isSchoolOnly()) {
+            active = ZoneAHolidays.isHoliday(now.getTime());
+            if (active) return false;
+        }
+
+        // Holidays days only?
+        if (isHolidaysOnly()) {
+            active = ZoneAHolidays.isHoliday(now.getTime());
+            if (!active) return false;
+        }
+
+        // Also rest days?
+        if (isAlsoRestDays()) {
+            active = RestDays.isRestDay(now.getTime());
+            if (active) return true;
+        }
+
+        // Now, is it a good day?
+        active = (mBinPat & TrafficPatternParser.calendarMap.get(now.get(Calendar.DAY_OF_WEEK))) != 0;
+
+        return active;
+    }
+
+    public boolean isSchoolOnly() {
+        return (mBinPat & TrafficPatternParser.SCHOOL) != 0;
+    }
+
+    public boolean isHolidaysOnly() {
+        return (mBinPat & TrafficPatternParser.HOLIDAYS) != 0;
+    }
+
+    public boolean isAlsoRestDays() {
+        return (mBinPat & TrafficPatternParser.RESTDAYS) != 0;
     }
 }

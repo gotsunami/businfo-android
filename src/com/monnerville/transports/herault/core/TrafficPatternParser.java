@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author mathias
  */
-public class TrafficPatternParser {
+public final class TrafficPatternParser {
     public static final int MONDAY = 2;
     public static final int TUESDAY = 4;
     public static final int WEDNESDAY = 8;
@@ -32,6 +32,8 @@ public class TrafficPatternParser {
     public static final String REST_DAYS = "r";
 
     public static Map<Integer, Integer> calendarMap = initMap();
+
+    private TrafficPatternParser() {}
 
     private static Map<Integer, Integer> initMap() {
         calendarMap = new HashMap<Integer, Integer>();
