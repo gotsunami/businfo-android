@@ -78,7 +78,6 @@ AND (
   BETWEEN strftime(\"%H:%M\", ?) 
   AND strftime(\"%H:%M\", \"23:59\")
 )
-LIMIT 1
 "</string>
     <string name="query_getlines_in_city">"
 SELECT name FROM line

@@ -84,15 +84,21 @@ public class SQLBusStation extends AbstractBusStation {
         }
 
         try {
-            c.moveToPosition(0);
-            mNextStop = new BusStop(
-                BusStop.TIME_FORMATTER.parse(c.getString(0)),   // Time
-                this,                                           // Station
-                getLine(),                                      // Line
-                c.getString(1)                                  // Traffic pattern
-            );
-            c.close();
-            return mNextStop.isActive() ? mNextStop : null;
+            BusStop st;
+            for(int k=0; k < c.getCount(); k++) {
+                c.moveToPosition(k);
+                st = new BusStop(
+                    BusStop.TIME_FORMATTER.parse(c.getString(0)),   // Time
+                    this,                                           // Station
+                    getLine(),                                      // Line
+                    c.getString(1)                                  // Traffic pattern
+                );
+                if (st.isActive()) {
+                    c.close();
+                    mNextStop = st;
+                    return mNextStop;
+                }
+            }
         } catch (ParseException ex) {
             Logger.getLogger(SQLBusStation.class.getName()).log(Level.SEVERE, null, ex);
         }
