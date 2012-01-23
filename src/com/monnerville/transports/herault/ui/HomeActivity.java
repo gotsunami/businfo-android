@@ -112,7 +112,7 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
         // Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
         if (!mDBReady) {
             try {
-                Thread.sleep(70); // 50 ms
+                Thread.sleep(70); // 70 ms
             } catch (InterruptedException ex) {
                 Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
             } // 50 ms

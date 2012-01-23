@@ -30,12 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="6dip" />
-        <TextView android:id="@+id/tmppat"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="?android:attr/textColorSecondary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="6dip" />
         <include android:id="@+id/wdlayout" layout="@layout/week_days" />
     </LinearLayout>
 </LinearLayout>

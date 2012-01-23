@@ -290,10 +290,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                 warn.setText("");
             }
 
-            // FIXME: remove tmppat
-            TextView tmppat = (TextView)itemView.findViewById(R.id.tmppat);
-            tmppat.setText(st.getTrafficPattern());
-
             TextView mark = (TextView)itemView.findViewById(R.id.mark);
 
             int pat = st.getBinaryTrafficPattern();

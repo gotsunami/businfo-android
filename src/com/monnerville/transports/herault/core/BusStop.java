@@ -120,6 +120,13 @@ public final class BusStop {
             return false;
         Calendar now = Calendar.getInstance();
         boolean active = false;
+        // Is there a match for today?
+        boolean today_match =
+            (mBinPat & TrafficPatternParser.calendarMap.get(now.get(Calendar.DAY_OF_WEEK))) != 0;
+        boolean rest_day = RestDays.isRestDay(now.getTime());
+
+        if (rest_day && !isAlsoRestDays())
+            return false;
 
         // School days only?
         if (isSchoolOnly()) {
@@ -135,14 +142,10 @@ public final class BusStop {
 
         // Also rest days?
         if (isAlsoRestDays()) {
-            active = RestDays.isRestDay(now.getTime());
-            if (active) return true;
+            if (rest_day || today_match) return true;
         }
 
-        // Now, is it a good day?
-        active = (mBinPat & TrafficPatternParser.calendarMap.get(now.get(Calendar.DAY_OF_WEEK))) != 0;
-
-        return active;
+        return today_match;
     }
 
     public boolean isSchoolOnly() {
