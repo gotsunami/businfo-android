@@ -131,6 +131,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
 
             // Then, for each line, get directions and add the stations
             for (String li : cityAndLines.get(mCity)) {
+                List <BusStation> stations = new ArrayList<BusStation>();
                 BusLine line = mManager.getBusLine(li);
                 String dirs[] = line.getDirections();
                 SQLBusStation st1 = new SQLBusStation(line, mStationName, dirs[0], mCity);
@@ -139,12 +140,12 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                 // a cache version only
                 st1.getNextStop();
                 st2.getNextStop();
-                mStations.add(st1);
-                mStations.add(st2);
-                mLines.put(line, mStations);
+
+                stations.add(st1);
+                stations.add(st2);
+                mLines.put(line, stations);
             }
 
-            // Then, for each line and direction, get next stop
             return null;
         }
 
