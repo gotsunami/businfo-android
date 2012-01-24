@@ -3,6 +3,7 @@ package com.monnerville.transports.herault.ui;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -118,6 +119,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
      */
     private class LinesRetreiverTask extends AsyncTask<Void, Void, Void> {
         private String mCity; // Full city name
+        private ProgressDialog mDialog;
 
         @Override
         protected Void doInBackground(Void... v) {
@@ -152,11 +154,14 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
+            mDialog = ProgressDialog.show(BusStationGlobalActivity.this, "",
+                getString(R.string.pd_searching), true);
         }
 
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
+            mDialog.cancel();
             setSecondaryTitle(getString(R.string.result_station_subtitle, mCity));
             setupAdapter();
             mAdapter.notifyDataSetChanged();
