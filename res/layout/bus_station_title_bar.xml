@@ -4,21 +4,35 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
         android:src="@android:drawable/ic_menu_myplaces"
         android:scaleType="fitCenter" />
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-        <TextView
-            style="@style/HeaderTitle.Primary"
-            android:id="@+id/primary"
-        />
-        <TextView
-            style="@style/HeaderTitle.Secondary"
-            android:id="@+id/secondary"
-        />
-    </LinearLayout>
+        android:layout_height="wrap_content" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
+            <TextView
+                style="@style/HeaderTitle.Primary"
+                android:id="@+id/primary"
+            />
+            <TextView
+                style="@style/HeaderTitle.Secondary"
+                android:id="@+id/secondary"
+            />
+        </LinearLayout>
+        <ImageView android:id="@+id/station_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dip"
+            android:src="@android:drawable/btn_star_big_off"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter" />
+    </RelativeLayout>
 </LinearLayout>

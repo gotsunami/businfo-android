@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -100,7 +101,37 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                 board.setText(R.string.no_more_stop_short);
         }
 
+        // Handles starred station status
+        List<BusStation> starredStations = manager.getStarredStations(this);
+        mCurrentStation.setStarred(starredStations.contains(mCurrentStation));
+
+        final ImageView star = (ImageView)findViewById(R.id.station_star);
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCurrentStation.setStarred(!mCurrentStation.isStarred());
+                star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
+                   android.R.drawable.btn_star_big_off);
+            }
+        });
+        star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
+           android.R.drawable.btn_star_big_off);
+
         setupAdapter();
+    }
+
+    /**
+     * Save current station starred status
+     */
+    @Override
+    protected void onPause() {
+        BusManager manager = SQLBusManager.getInstance();
+        List <BusStation> starredStations = new ArrayList<BusStation>();
+        if (mCurrentStation.isStarred())
+            starredStations.add(mCurrentStation);
+        manager.saveStarredStations(manager.getBusLine(mLine), mDirection, starredStations, this);
+
+        super.onPause();
     }
 
     @Override
