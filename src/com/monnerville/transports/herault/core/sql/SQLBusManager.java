@@ -113,8 +113,16 @@ public class SQLBusManager implements BusManager {
         if (vals.length() > 0) {
             String raw = vals.delete(vals.length()-1, vals.length()).toString();
             ed.putString("starredStations", raw);
-            ed.commit();
         }
+        else {
+            /**
+             * vals is an empty string, maybe because there is only one saved
+             * station left and the stations argument is empty
+             */
+            if (stations.isEmpty())
+                ed.putString("starredStations", "");
+        }
+        ed.commit();
     }
 
     /**
