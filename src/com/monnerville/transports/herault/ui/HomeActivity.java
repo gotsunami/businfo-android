@@ -78,9 +78,9 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mStarredStations = new ArrayList<BusStation>();
         mMainActions = new ArrayList<Action>();
-        mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_btn_speak_now),
+        mMainActions.add(new Action(getResources().getDrawable(R.drawable.voice_search),
             getString(R.string.action_speak_destination)));
-        mMainActions.add(new Action(getResources().getDrawable(R.drawable.flatbus),
+        mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_menu_gallery),
             getString(R.string.action_show_all_lines)));
         mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_menu_preferences),
             getString(R.string.action_show_settings)));
