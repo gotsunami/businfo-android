@@ -24,6 +24,7 @@
                   android:label="@string/busline_activity_title">
         </activity>
         <activity android:name=".ui.BusStationGlobalActivity">
+            <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchableActivity" />
         </activity>
         <activity android:name=".ui.SearchableActivity" >
             <intent-filter>

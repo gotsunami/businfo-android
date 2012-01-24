@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
     private String mStationName;
     private List<BusStation> mStations;
     private HomeActivity.BookmarkHandler mBookmarkHandler;
+    private boolean mCanFinish = false;
 
     // Cached directions for matching lines, used by the adapter
     private Map<BusLine, List<BusStation>> mLines;
@@ -79,7 +81,26 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         setPrimaryTitle(mStationName);
         setSecondaryTitle("");
 
+        Button searchButton = (Button)findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // Open search dialog
+                mCanFinish = true;
+                onSearchRequested();
+            }
+        });
+
         new LinesRetreiverTask().execute();
+    }
+
+    @Override
+    protected void onPause() {
+        // Force finishing the activity so it's not in the activity stack if
+        // performing multiple searches
+        if (mCanFinish)
+            finish();
+        super.onPause();
     }
 
     @Override
