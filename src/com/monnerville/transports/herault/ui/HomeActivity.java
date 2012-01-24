@@ -8,12 +8,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,16 +37,19 @@ import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import static com.monnerville.transports.herault.core.Application.TAG;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class HomeActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
     private List<BusStation> mStarredStations;
     private List<Action> mMainActions;
+    private boolean mVoiceSupported = false;
+    private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
     // Cached directions for all available lines
 
     private final SQLBusManager mManager = SQLBusManager.getInstance();
@@ -78,8 +84,19 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mStarredStations = new ArrayList<BusStation>();
         mMainActions = new ArrayList<Action>();
-        mMainActions.add(new Action(getResources().getDrawable(R.drawable.voice_search),
-            getString(R.string.action_speak_destination)));
+
+        // Voice recognition supported?
+        PackageManager pm = getPackageManager();
+        List<ResolveInfo> activities = pm.queryIntentActivities(
+            new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        if (!activities.isEmpty()) {
+            mVoiceSupported = true;
+            mMainActions.add(new Action(getResources().getDrawable(R.drawable.voice_search),
+                getString(R.string.action_speak_destination)));
+        } else {
+            Log.d(TAG, "Recognize not present: voice recognition not supported");
+        }
+
         mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_menu_gallery),
             getString(R.string.action_show_all_lines)));
         mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_menu_preferences),
@@ -393,12 +410,48 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
                 startActivity(intent);
             }
             else if(what.caption.equals(getString(R.string.action_speak_destination))) {
-                // TODO
+                if (mVoiceSupported)
+                    startVoiceRecognitionActivity();
             }
             else if(what.caption.equals(getString(R.string.action_show_settings))) {
                 startActivity(new Intent(this, AppPreferenceActivity.class));
             }
         }
+    }
+
+    /**
+     * Fire an intent to start the speech recognition activity.
+     */
+    private void startVoiceRecognitionActivity() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+        // Given an hint to the recognizer about what the user is going to say
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+
+        // Specify how many results you want to receive. The results will be sorted
+        // where the first result is the one with higher confidence.
+        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+
+        startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
+    }
+
+    /**
+     * Handle the results from the recognition activity.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Fill the list view with the strings the recognizer thought it could have heard
+            ArrayList<String> matches = data.getStringArrayListExtra(
+                RecognizerIntent.EXTRA_RESULTS);
+
+            // Custom onSearchRequested() call
+            // http://developer.android.com/guide/topics/search/search-dialog.html
+            if (matches.size() > 0)
+                startSearch(matches.get(0), false, null, false);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
