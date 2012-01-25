@@ -25,6 +25,7 @@
     <string name="bookmark_info">Line %1$s to %2$s</string>
     <string name="city_title">City</string>
     <string name="does_not_circulate">Does not circulate</string>
+    <string name="next_stop_board_title">Next stop</string>
 
     <string name="bookmark_city">"In %1$s"</string>
     <string name="bookmark_city_eta_hours_hs">"In %1$s, %2$s hour left"</string>
