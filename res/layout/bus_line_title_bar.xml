@@ -43,7 +43,7 @@
             android:id="@+id/btn_flip_direction"
             android:layout_height="48dip"
             android:scaleType="center"
-            android:background="@drawable/btn_flip_direction"/>
+            android:background="@android:drawable/ic_popup_sync"/>
         <!-- Separator -->
         <ImageView
             android:id="@+id/divider"
