@@ -390,11 +390,23 @@ def parse(infile):
                 starts = [m.start() for m in re.finditer('-', cname)]
                 clname = list(cname)
                 idx = 0
-                if len(starts) == 2: # 2 '-' in name
+                if len(starts) > 1:
+                    if len(starts) == 2: # 2 '-' in name
+                        idx = starts[0]+1
+                    elif len(starts) == 3:
+                        idx = starts[1]+1
+                    elif len(starts) == 4:
+                        idx = starts[1]+1
+                        clname[idx] = clname[idx].lower()
+                        idx = starts[2]+1
+                    clname[idx] = clname[idx].lower()
+                elif len(starts) == 1:
                     idx = starts[0]+1
-                elif len(starts) == 3:
-                    idx = starts[1]+1
-                clname[idx] = clname[idx].lower()
+                    # Some exceptions though: L' ou D'
+                    nop = ''.join(clname[idx:idx+2])
+                    if nop in ("L'", "D'"):
+                        clname[idx] = clname[idx].lower()
+
                 cname = ''.join(clname)
                 
                 directions[k].append({
@@ -561,16 +573,18 @@ where action is one of:
             import subprocess
             import string
             subs = 0
+            print "[%-18s] applying filter %s..." % ('pre-filter', g_prefilter),
+            sys.stdout.flush()
             for pmap in open(g_prefilter):
                 if pmap.strip().startswith('#') or len(pmap.strip()) == 0:
                     continue
                 # Old entry, new entry
                 oe, ne = pmap.split(';')
                 ne = ne.replace('\n', '')
-                cmd = "sed -i 's,%s,%s,gI' %s" % (oe, ne, os.path.join(filter_dir, '*.txt'))
+                cmd = "sed -i \"s,%s,%s,gI\" %s" % (oe, ne, os.path.join(filter_dir, '*.txt'))
                 subprocess.call(cmd, shell=True)
                 subs += 1
-            print "[%-18s] applying filter %s (%d entries)" % ('pre-filter', g_prefilter, subs)
+            print " %d entries" % subs
 
 #        if g_prefilter:
 #            print "[%-18s] %d city substitutions" % ('city map', city_map_matches)

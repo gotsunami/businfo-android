@@ -40,7 +40,7 @@ Lot. Plan;9:20;-;-;-;-;-;-;19:04;-;*7,r*;10:05;17:05
 city=VALERGUES 
 Centre;12:09;13:04;14:09;16:09;17:24;18:29;-;20:14
 
-city=ST JUST 
+city=ST JUST
 Centre/Chemin du Fesc;19:08
 
 city=LUNEL 
@@ -62,7 +62,7 @@ city=LUNEL
 Gare SNCF/République;7:25
 Lycée Feuillade;7:35
 
-city=ST JUST 
+city=ST JUST
 Chemin du Fesc/Centre;7:40
 
 city=VALERGUES 

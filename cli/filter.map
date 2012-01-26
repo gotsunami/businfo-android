@@ -1,42 +1,46 @@
 # Order matters!
+# Ignore case for both fields!
 
-beziers;Béziers
-sete;Sète
-meze;Mèze
-bedarieux;Bédarieux
-st bres;Saint-Brès
-andre;André
-st ;Saint-
-clement de riviere;Clément-de-Rivière
+# Global
+ste ;sainte-
+
+# Cities
+beziers;béziers
+sete;sète
+meze;mèze
+bedarieux;bédarieux
+st bres;st brès
+andre;andré
+st ;saint
+saint;saint-
+clement de riviere;clément-de-rivière
 riviere;rivière
-clement;Clément
-genies;Génies
-jean de vedas;Jean-de-Védas
-jean-de-vedas;Jean-de-Védas
-jean-de-cuculles;Jean-de-Cuculles
-jean-de-cornies;Jean-de-Cornies
-thibery;Thibéry
-etienne;Étienne
-gervais sur mare;Gervais-sur-Mare
-Gély du Fesc;Gély-du-Fesc
-gely-du-fesc;Gély-du-Fesc
-castelnau le lez;Castelnau-le-lez
+clement;clément
+genies;génies
+jean de vedas;jean-de-védas
+jean-de-vedas;jean-de-védas
+thibery;thibéry
+etienne;étienne
+gervais sur mare;gervais-sur-mare
+gély du fesc;gély-du-fesc
+gely-du-fesc;gély-du-fesc
+castelnau le lez;castelnau-le-lez
 av. de ;av de 
-av de ;Avenue de 
-av ;Avenue de 
-fabregues;Fabrègues
+av de ;avenue de 
+av ;avenue de 
+fabregues;fabrègues
 grande motte;grande-motte
-La tour/orb;La tour-sur-orb
-La tour sur orb;La tour-sur-orb
-Mas de londres;Mas-de-Londres
+la tour/orb;la tour-sur-orb
+la tour sur orb;la tour-sur-orb
+mas de londres;mas-de-londres
 portiragnes plages;portiragnes plage
 clément de rivière;clément-de-rivière
-martin de londres;Martin-de-Londres
-Viols le fort;Viols-le-fort
-SABINES;Sabines
-Station Sabines;Station tram Sabines
-Station Tram Sabines;Station tram Sabines
-Rte ;Route 
+martin de londres;martin-de-londres
+viols le fort;viols-le-fort
+sabines;sabines
+station sabines;station tram sabines
+station tram sabines;station tram sabines
+rte ;route 
 lignan sur orb;lignan-sur-orb
 lunel viel;lunel-viel
 pezenas;pézenas
@@ -48,10 +52,38 @@ vincent de barb;vincent-de-barb
 thezan les béziers;thézan-lès-béziers
 villeneuve les béziers;villeneuve-lès-béziers
 viols en laval;viols-en-laval
+vacquieres;vacquières
+cebazan;cébazan
+lieuran cabrieres;lieuran-cabrières
+vic la gardiole;vic-la-gardiole
+avene;avène
+peret;péret
+étienne estrechoux;étienne-estréchoux
+alignan du vent;alignan-du-vent
+balaruc le vieux;balaruc-le-vieux
+Balaruc Les Bains;Balaruc-Les-Bains
+restinclieres;restinclières
+ceilhes rocozels;ceilhes-et-rocozels
+mathieu-de-treviers;mathieu-de-tréviers
+herepian;hérépian
+clermont l'herault;clermont-l'hérault
+neffies;neffiès
+le bousquet d'orb;le bousquet-d'orb
+nezignan l'eveque;nézignan-l'évêque
+babeau bouldoux;babeau-bouldoux
+nebian;nébian
+cabrieres;cabrières
+lieuran les béziers;lieuran-les-béziers
+avene les bains;avène-les-bains
+belarga;bélarga
+sommieres;sommières
+nazaire-de-pezan;nazaire-de-pézan
+le soulie;le soulié
+le cres;le crès
+
 
 # Stations
-Jean de Bébian;jean-de-bébian
-Martin de Vignogoul;martin-de-vignogoul
-Jean le Sec;jean-le-sec
-Julien Nef;julien-nef
-
+jean de bébian;jean-de-bébian
+martin de vignogoul;martin-de-vignogoul
+jean le sec;jean-le-sec
+julien nef;julien-nef

@@ -15,7 +15,7 @@ Pont de Vesse - -
 Gare SNCF;7:03;7:25
 République;7:05;7:27
 
-city=ST JUST 
+city=ST JUST
 Chemin du Fesc/Centre;7:15;7:40
 
 city=ST NAZAIRE-DE-PEZAN 
@@ -74,7 +74,7 @@ Lot. Plan;9:20 14:12 19:03 *7,r* 10:05 17:05
 city=ST NAZAIRE-DE-PEZAN 
 Cimetière;14:25;-
 
-city=ST JUST 
+city=ST JUST
 Centre;14:33;19:09
 
 city=VALERGUES 
