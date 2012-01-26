@@ -81,7 +81,7 @@ def fetch_gps_coords(city):
     s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(city + ', France'))
     r = json.loads(s.read())
     if r['status'] != 'OK':
-        print "Bad status %s, could not get data from city: %s" % (city, r['status'])
+        print "Bad status %s, could not get data from city: %s" % (r['status'], city.encode('utf-8'))
     else:
         gps = r['results'][0]['geometry']['location']
         lat, lng = gps['lat'], gps['lng']
