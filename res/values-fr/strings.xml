@@ -92,7 +92,6 @@
     <string name="pref_author_title">Auteur</string>
     <string name="pref_about_visite_website_title">Visiter le site web</string>
     <string name="pref_about_changelog_title">Historique des versions</string>
-    <string name="pref_about_changelog_summary">"Nouveautés de cette version"</string>
     <string name="pref_about_db_version_title">Couverture réseau de bus</string>
     <string name="pref_about_db_version_summary">"%2$s lignes, %3$s communes et %4$s arrêts (v%1$s)"</string>
 
@@ -104,6 +103,7 @@
 
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Notes de version</string>
+    <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
 Il s'agit de la première version de l'application.\n
     "</string>

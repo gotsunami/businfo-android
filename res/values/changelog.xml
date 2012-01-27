@@ -8,6 +8,11 @@
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
 <b>0.9</b>:\n
+  - 53 bus lines\n
+  - Voice recognition support for searching bus stations, lines or cities\n
+  - Support for bookmarking bus stations\n
+  - Share schedules with friends\n
+  - Bus schedules only at the moment\n
   - First public release\n
 "</string>
 </resources>

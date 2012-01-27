@@ -37,11 +37,15 @@
 		android:summary="@string/cat_about_sum">
 		<Preference
 			android:key="pref_about_release_notes"
-			android:title="@string/pref_about_release_notes_title"/>
-		<Preference
+            android:summary="@string/pref_about_release_notes_summary"
+			android:title="@string/pref_about_release_notes_title" />
+		<com.monnerville.transports.herault.preference.ChangeLogPreference
 			android:key="pref_about_changelog"
-			android:dialogMessage="@string/release_notes_content"
-			android:title="@string/pref_about_changelog_title"/>
+			android:dialogIcon="@drawable/logo"
+			android:dialogMessage="@string/app_changelog"
+			android:positiveButtonText="@null"
+			android:negativeButtonText="@null"
+			android:title="@string/pref_about_changelog_title" />
             <!--
 		<Preference
 			android:key="pref_about_visite_website"
