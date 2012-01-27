@@ -30,6 +30,7 @@ public class AppPreferenceActivity extends PreferenceActivity
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference pref) {
         String key = pref.getKey();
+        /*
         if (key.equals("pref_about_release_notes")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(AppPreferenceActivity.this);
             builder.setTitle(getString(R.string.pref_about_release_notes_title)).setCancelable(true);
@@ -40,6 +41,8 @@ public class AppPreferenceActivity extends PreferenceActivity
             builder.show();
             return true;
         }
+         * 
+         */
         return false;
    }
 }

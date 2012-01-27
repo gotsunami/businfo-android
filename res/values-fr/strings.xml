@@ -13,10 +13,10 @@
     <string name="toast_no_more_schedule">"Pas de partage: plus d'horaire aujourd'hui"</string>
     <string name="current_line_title">Ligne %1$s</string>
     <string name="station_line_direction_title">Ligne %1$s vers %2$s</string>
-    <string name="all_lines_bookmarks_header">Stations favorites</string>
+    <string name="all_lines_bookmarks_header">Arrêts favoris</string>
     <string name="quick_actions_header">Raccourcis</string>
     <string name="result_city_header">Villes</string>
-    <string name="result_station_header">Stations</string>
+    <string name="result_station_header">Arrêts</string>
     <string name="result_line_header">Ligne %1$s</string>
     <string name="result_lines_header">Lignes</string>
     <string name="result_station_subtitle">"Arrêt à %1$s"</string>
@@ -78,12 +78,18 @@
     <string name="menu_preferences">Paramètres</string>
     <string name="menu_search_title">Chercher</string>
 
+    <string name="cat_tips_title">Astuces</string>
+    <string name="cat_tips_sum">Astuces au démarrage</string>
+    <string name="pref_tips_startup_title">Astuces au démarrage</string>
+    <string name="pref_tips_startup_sumon">Afficher les astuces au démarrage</string>
+    <string name="pref_tips_startup_sumoff">Ne pas afficher les astuces au démarrage</string>
+    <string name="pref_tips_show_title">Voir les astuces</string>
+
     <string name="cat_about_title">À propos</string>
     <string name="cat_about_sum">"À propos de l'application"</string>
     <string name="pref_about_title">Version</string>
     <string name="pref_about_build_title">Numéro du build</string>
     <string name="pref_author_title">Auteur</string>
-    <string name="pref_about_tips_title">Astuces</string>
     <string name="pref_about_visite_website_title">Visiter le site web</string>
     <string name="pref_about_changelog_title">Historique des versions</string>
     <string name="pref_about_changelog_summary">"Nouveautés de cette version"</string>

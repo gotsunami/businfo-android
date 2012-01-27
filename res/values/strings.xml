@@ -79,13 +79,18 @@
     <string name="menu_preferences">Settings</string>
     <string name="menu_search_title">Search</string>
 
+    <string name="cat_tips_title">Tips</string>
+    <string name="cat_tips_sum">Tips on startup</string>
+    <string name="pref_tips_startup_title">Tips on startup</string>
+    <string name="pref_tips_startup_sumon">Show tips on startup</string>
+    <string name="pref_tips_startup_sumoff">Do not show tips on startup</string>
+    <string name="pref_tips_show_title">Show tips</string>
+
     <string name="cat_about_title">About</string>
     <string name="cat_about_sum">About application</string>
     <string name="pref_about_version_summary">%1$s - build %2$s</string>
     <string name="pref_about_title">Version</string>
     <string name="pref_author_title">Author</string>
-    <string name="pref_about_">Help</string>
-    <string name="pref_about_tips_title">Tips</string>
     <string name="pref_about_visite_website_title">Visit web site</string>
     <string name="pref_about_changelog_title">ChangeLog</string>
     <string name="pref_about_changelog_summary">"See what's new in this version"</string>

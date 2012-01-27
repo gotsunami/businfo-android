@@ -6,7 +6,6 @@
 	android:summary="Main preferences for application">
     <!--
 	<PreferenceCategory
-		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:key="cat_about"
 		android:title="@string/cat_tts_title"
 		android:summary="@string/cat_tts_sum">
@@ -19,19 +18,29 @@
 	</PreferenceCategory>
     -->
 	<PreferenceCategory
-		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:key="cat_tips"
+		android:title="@string/cat_tips_title"
+		android:summary="@string/cat_tips_sum">
+        <CheckBoxPreference
+            android:key="pref_show_its_at_startup"
+            android:title="@string/pref_tips_startup_title"
+            android:defaultValue="true"
+            android:summaryOn="@string/pref_tips_startup_sumon"
+            android:summaryOff="@string/pref_tips_startup_sumoff" />
+		<Preference
+			android:key="pref_tips_show"
+			android:title="@string/pref_tips_show_title"/>
+	</PreferenceCategory>
+	<PreferenceCategory
 		android:key="cat_about"
 		android:title="@string/cat_about_title"
 		android:summary="@string/cat_about_sum">
 		<Preference
-			android:key="pref_about_tips"
-			android:title="@string/pref_about_tips_title"/>
-		<Preference
 			android:key="pref_about_release_notes"
-			android:dialogMessage="@string/release_notes_content"
 			android:title="@string/pref_about_release_notes_title"/>
 		<Preference
 			android:key="pref_about_changelog"
+			android:dialogMessage="@string/release_notes_content"
 			android:title="@string/pref_about_changelog_title"/>
             <!--
 		<Preference
