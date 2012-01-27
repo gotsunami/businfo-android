@@ -76,14 +76,13 @@ city=PIERRERUE
 Combejean / Centre;7:35;12:40
 
 city=ASSIGNAN 
-Centre;7:25;- 12:20 -
+Centre;7:25;-;12:20;-
 
 city=VILLESPASSANS 
-Centre;7:35;- 12:30 -
+Centre;7:35;-;12:30;-
 
 city=ST CHINIAN 
-Esplanade 
-7:00;7:45 7:45 7:45 9:00 12:40 12:50 12:50 14:30 16:30
+Esplanade;7:00;7:45;7:45;7:45;9:00;12:40;12:50;12:50;14:30;16:30
 
 city=CEBAZAN 
 Centre / Coopérative;7:05;7:50;9:05;12:55;14:35;16:35

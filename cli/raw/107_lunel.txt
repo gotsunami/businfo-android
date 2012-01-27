@@ -11,7 +11,7 @@ city=MARSILLARGUES
 Capelan/Temple/Bascule/Près/Cigales;6:50;7:15
 
 city=LUNEL 
-Pont de Vesse - -
+Pont de Vesse;-;-
 Gare SNCF;7:03;7:25
 République;7:05;7:27
 

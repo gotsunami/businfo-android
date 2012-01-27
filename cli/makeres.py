@@ -383,39 +383,43 @@ def parse(infile):
 
             # Split all station names with one or more '/' as a unique station name
             for stname in map(lambda x: x.strip(), sts[0].split('/')):
-                # str.title() adds uppercase caracters on words
-                cname = curCity.strip().title()
-                # Check for all '-' in city name to put some capitals where needed
-                # i.e: saint jean-de-védas -> Saint-Jean-de-Védas
-                starts = [m.start() for m in re.finditer('-', cname)]
-                clname = list(cname)
-                idx = 0
-                if len(starts) > 1:
-                    if len(starts) == 2: # 2 '-' in name
-                        idx = starts[0]+1
-                    elif len(starts) == 3:
-                        idx = starts[1]+1
-                    elif len(starts) == 4:
-                        idx = starts[1]+1
-                        clname[idx] = clname[idx].lower()
-                        idx = starts[2]+1
-                    clname[idx] = clname[idx].lower()
-                elif len(starts) == 1:
-                    idx = starts[0]+1
-                    # Some exceptions though: L' ou D'
-                    nop = ''.join(clname[idx:idx+2])
-                    if nop in ("L'", "D'"):
-                        clname[idx] = clname[idx].lower()
-
-                cname = ''.join(clname)
-                
                 directions[k].append({
-                    'city': cname,
-                    'station': stname, 
+                    'city': smart_capitalize(curCity),
+                    'station': smart_capitalize(stname),
                     'stops': allstops,
                 })
 
     return (busline, directions, linecolor, dfltCirculationPolicy, from_date, to_date)
+
+def smart_capitalize(name):
+    """
+    Try to apply a simple smart capitilazitation algorithm.
+    """
+    # str.title() adds uppercase caracters on words
+    cname = name.strip().title()
+    # Check for all '-' in name to put some capitals where needed
+    # i.e: saint jean-de-védas -> Saint-Jean-de-Védas
+    starts = [m.start() for m in re.finditer('-', cname)]
+    clname = list(cname)
+    idx = 0
+    if len(starts) > 1:
+        if len(starts) == 2: # 2 '-' in name
+            idx = starts[0]+1
+        elif len(starts) == 3:
+            idx = starts[1]+1
+        elif len(starts) == 4:
+            idx = starts[1]+1
+            clname[idx] = clname[idx].lower()
+            idx = starts[2]+1
+        clname[idx] = clname[idx].lower()
+    elif len(starts) == 1:
+        idx = starts[0]+1
+        # Some exceptions though: L' ou D'
+        nop = ''.join(clname[idx:idx+2])
+        if nop in ("L'", "D'"):
+            clname[idx] = clname[idx].lower()
+
+    return ''.join(clname)
 
 def get_md5(filename):
     ck = open(filename)

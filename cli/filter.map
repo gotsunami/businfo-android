@@ -1,8 +1,12 @@
-# Order matters!
+# Regexp support
+# sed -i 's,%s,%s,gI' line.txt
+#
 # Ignore case for both fields!
+# Order matters!
+#
 
 # Global
-ste ;sainte-
+ste \(\w\);sainte-\1
 
 # Cities
 beziers;béziers
@@ -11,8 +15,8 @@ meze;mèze
 bedarieux;bédarieux
 st bres;st brès
 andre;andré
-st ;saint
-saint;saint-
+st \(\w\);saint \1
+saint \(\w\);saint-\1
 clement de riviere;clément-de-rivière
 riviere;rivière
 clement;clément
@@ -25,7 +29,9 @@ gervais sur mare;gervais-sur-mare
 gély du fesc;gély-du-fesc
 gely-du-fesc;gély-du-fesc
 castelnau le lez;castelnau-le-lez
-av. de ;av de 
+av\.\(\w\);av. \1
+av\. ;av 
+av\. de ;av de 
 av de ;avenue de 
 av ;avenue de 
 fabregues;fabrègues
@@ -39,7 +45,6 @@ martin de londres;martin-de-londres
 viols le fort;viols-le-fort
 sabines;sabines
 station sabines;station tram sabines
-station tram sabines;station tram sabines
 rte ;route 
 lignan sur orb;lignan-sur-orb
 lunel viel;lunel-viel
@@ -86,3 +91,94 @@ jean de bébian;jean-de-bébian
 martin de vignogoul;martin-de-vignogoul
 jean le sec;jean-le-sec
 julien nef;julien-nef
+cooperative;coopérative
+coopératives;coopérative
+dom ;domaine 
+dom\. ;domaine 
+ecole;école
+écoles;école
+eglise;église
+emb ;embr. 
+emb\. ;embr. 
+fontfroide le bas;fontfroide-le-bas
+hélio marins;hélio marin
+epi ;épi 
+escolettes;escolette
+rd613;rd 613
+rd35;rd 35
+rd922;rd 922
+arret;arrêt
+saint-xisaint-;saint-xist  
+zac figuières;zac de figuières
+ZA verriès;z. a. verriers 
+ZA verries;z. a. verriers 
+za \(\w\);z. a. \1
+z\.a\. ;z. a. 
+z\. a\. ;z. artisanale 
+z.artisanale;z. artisanale
+zone artisanale;z. artisanale
+zac \(\w\);zac. \1
+c\.commercial;c. commercial
+c\. commercial;centre commercial
+cc \(\w\);c. c. \1
+c\.c\. ;c. c. 
+caserne des pompiers;caserne pompiers
+impots;impôts
+ch. neuf;chemin neuf
+roumangnac;roumagnac
+embr. viols;embr. de viols
+emeraude;émeraude
+esplanande;esplanade
+f.mistral;f. mistral
+j\.\(\w\);j. \1
+gare de nord;gare du nord
+mourgettes;mourguettes
+cabanes;cabannes
+perouses;pérouses
+lot\. pins;lot. les pins
+lot \(\w\);lot. \1
+lots\. \(\w\);lots \1
+f\.bazille;f. bazille
+j\. monnet;jean monnet
+(centre rd 613);(centre)
+valery;valéry
+chenes;chênes
+mais.retr;maison de retraite
+peyres-canes;peyres cannes
+place des alliès;place des alliés
+place des alliés - gare sncf;place des alliés
+pompiers;pompier
+pompier;pompiers
+pont autoroute -cimetière;pont autoroute
+villeveuve;villeneuve
+j\. moulin;jean moulin
+j\. jaurès;jean jaurès
+la baraque rd2;la baraque
+la bascule rd 613;la bascule
+letemple;temple
+mairie annexe;mairie
+mnt aux morts;monument aux morts
+parking aires;parking des aires
+pl\. \(\w\);place \1
+porte de la mer;portes de la mer
+ptes de la mer;portes de la mer
+poroute de la mer; portes de la mer
+coulondres;coulondre
+cevennes;cévennes
+- roque haute;/ roque haute
+station tam ;station tram 
+station tramway;station tram
+station ;station tram 
+station tram tram;station tram
+tam \(\w\);station tram \1
+tram \(\w\);station tram \1
+station station;station
+slycée;lycée
+triols;triol
+vandoulières;vandoulière
+vandoulière;vandoulières
+vignes;vigne
+vigne;vignes
+vitarelles;vitarelle
+mas perie;mas périe
+rond point 4 tos;rond point des 4 tos
