@@ -30,19 +30,34 @@ public class AppPreferenceActivity extends PreferenceActivity
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference pref) {
         String key = pref.getKey();
-        /*
-        if (key.equals("pref_about_release_notes")) {
+        if (key.equals("pref_about_about")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AppPreferenceActivity.this);
+            builder.setTitle(getString(R.string.pref_about_about_title)).setCancelable(true);
+            View about = getLayoutInflater().inflate(R.layout.about, null);
+            ((TextView)about.findViewById(R.id.about_ht_version)).setText(String.format("%s %s", getString(R.string.app_name),
+                getString(R.string.app_version)));
+            builder.setView(about);
+            builder.show();
+            return true;
+        }
+        else if(key.equals("pref_about_release_notes")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(AppPreferenceActivity.this);
             builder.setTitle(getString(R.string.pref_about_release_notes_title)).setCancelable(true);
             View log = getLayoutInflater().inflate(R.layout.releasenotes, null);
-            ((TextView)log.findViewById(R.id.about_ht_version)).setText(String.format("%s %s",
-                getString(R.string.app_name), getString(R.string.app_version)));
+            ((TextView)log.findViewById(R.id.about_ht_version)).setText(String.format("Version %s",
+            getString(R.string.app_version)));
             builder.setView(log);
             builder.show();
             return true;
         }
-         * 
-         */
+        else if(key.equals("pref_about_changelog")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AppPreferenceActivity.this);
+            builder.setTitle(getString(R.string.pref_about_changelog_title)).setCancelable(true);
+            View log = getLayoutInflater().inflate(R.layout.changelog, null);
+            builder.setView(log);
+            builder.show();
+            return true;
+        }
         return false;
    }
 }

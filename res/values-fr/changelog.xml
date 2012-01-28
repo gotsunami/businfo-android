@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_changelog">"
+<b>0.9</b>:\n
+  - 53 lignes de bus\n
+  - Reconnaissance vocale pour rechercher des arrêts de bus, des lignes ou des villes\n
+  - Marque-pages des arrêts de bus préférés\n
+  - Partage des horaires avec des amis\n
+  - Uniquement horaires des bus pour le moment (calcul d\'itinéraires dans une prochaine version)\n
+  - Première version, sortie officielle
+"</string>
+</resources>

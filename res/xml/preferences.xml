@@ -35,10 +35,14 @@
 		android:key="cat_about"
 		android:title="@string/cat_about_title"
 		android:summary="@string/cat_about_sum">
+        <Preference
+            android:key="pref_about_about"
+            android:title="@string/pref_about_about_title"/>
 		<Preference
 			android:key="pref_about_release_notes"
             android:summary="@string/pref_about_release_notes_summary"
 			android:title="@string/pref_about_release_notes_title" />
+            <!--
 		<com.monnerville.transports.herault.preference.ChangeLogPreference
 			android:key="pref_about_changelog"
 			android:dialogIcon="@drawable/logo"
@@ -46,6 +50,10 @@
 			android:positiveButtonText="@null"
 			android:negativeButtonText="@null"
 			android:title="@string/pref_about_changelog_title" />
+            -->
+        <Preference
+            android:key="pref_about_changelog"
+            android:title="@string/pref_about_changelog_title"/>
             <!--
 		<Preference
 			android:key="pref_about_visite_website"

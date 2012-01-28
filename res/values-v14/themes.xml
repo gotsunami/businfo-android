@@ -9,12 +9,5 @@
         <item name="android:listSeparatorTextViewStyle">@style/HTListSeparator</item>
 	</style>
     -->
-	<style name="SettingsTheme" parent="@android:style/Theme.DeviceDefault.Light">
-        <!--
-		<item name="android:windowTitleBackgroundStyle">@style/HTWindowTitleBackground</item>
-		<item name="android:windowContentOverlay">@drawable/title_bar_shadow</item>
-        <item name="android:headerBackground">@color/home_primary_text_blue</item>
-        <item name="android:listSeparatorTextViewStyle">@style/HTListSeparator</item>
-        -->
-	</style>
+	<style name="SettingsTheme" parent="@android:style/Theme.DeviceDefault" />
 </resources>
