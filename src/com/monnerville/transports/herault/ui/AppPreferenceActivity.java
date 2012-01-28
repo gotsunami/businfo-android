@@ -58,6 +58,11 @@ public class AppPreferenceActivity extends PreferenceActivity
             builder.show();
             return true;
         }
+        else if(key.equals("pref_tips_show")) {
+            AlertDialog.Builder tipsDialog = new TipsDialog(this);
+            tipsDialog.show();
+            return true;
+        }
         return false;
    }
 }

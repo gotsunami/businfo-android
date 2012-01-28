@@ -25,4 +25,9 @@
 		<item>saturday</item>
 		<item>sunday</item>
 	</string-array>
+	<string-array name="tips">
+        <item>"Click on the magnifying glass icon on the top right corner of the screen to start searching for a bus line, station or city."</item>
+        <item>"While searching, you can use the voice recognition feature when the microphone icon is available."</item>
+        <item>"Click on the star icon next to any bus station's name to add it to your bookmarks available on the home page."</item>
+	</string-array>
 </resources>

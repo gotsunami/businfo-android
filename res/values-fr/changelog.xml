@@ -3,6 +3,7 @@
 	<string name="app_changelog">"
 <b>0.9</b>:\n
   - 53 lignes de bus\n
+  - Prend en compte les vacances scolaires (zone A) et les jours fériés dans le calcul des horaires\n
   - Reconnaissance vocale pour rechercher des arrêts de bus, des lignes ou des villes\n
   - Marque-pages des arrêts de bus préférés\n
   - Partage des horaires avec des amis\n

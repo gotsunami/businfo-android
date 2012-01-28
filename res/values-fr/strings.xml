@@ -83,7 +83,11 @@
     <string name="pref_tips_startup_title">Astuces au démarrage</string>
     <string name="pref_tips_startup_sumon">Afficher les astuces au démarrage</string>
     <string name="pref_tips_startup_sumoff">Ne pas afficher les astuces au démarrage</string>
-    <string name="pref_tips_show_title">Voir les astuces</string>
+    <string name="pref_tips_show_title">Astuces</string>
+    <string name="pref_tips_show_summary">Consulter la liste des astuces</string>
+    <string name="next_tip">Suivant</string>
+    <string name="disable_tips">Désactiver</string>
+    <string name="did_you_know">Le saviez-vous ?</string>
 
     <string name="cat_about_title">À propos</string>
     <string name="cat_about_sum">"À propos de l'application"</string>
@@ -110,5 +114,5 @@ En plus d'un accès aux horaires des bus, vous pouvez également accéder facile
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
-    <string name="release_notes_content">"Voici la première version de l'application. 53 lignes de bus sont disponibles, les lignes manquantes sont en cours d'ajout. Les prochaines versions de l'application inclueront des fonctionnalités intéressantes comme la synthèse vocale, la localisation par GPS, les cartes ainsi que le calcul de trajet."</string>
+    <string name="release_notes_content">"Voici la première version de l'application. 53 lignes de bus sont disponibles, les lignes manquantes sont en cours d'ajout.\n\nCette application prend en compte les vacances scolaires (de la zone A) ainsi que les jours fériés de l'année en cours dans le calcul des horaires.\n\nLes prochaines versions de l'application inclueront des fonctionnalités intéressantes comme la synthèse vocale, la localisation par GPS, les cartes ainsi que le calcul de trajet."</string>
 </resources>

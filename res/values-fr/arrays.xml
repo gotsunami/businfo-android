@@ -16,4 +16,9 @@
 		<item>Tous les horaires</item>
 		<item>Partager</item>
 	</string-array>
+	<string-array name="tips">
+		<item>"Cliquez sur la loupe en haut à droite de l'écran pour rechercher une ligne, un arrêt ou une ville."</item>
+		<item>"Vous pouvez utiliser la reconnaissance vocale lors de la recherche, lorsque l'icône micro apparait."</item>
+		<item>"Appuyez sur l'étoile à côté du nom d'un arrêt de bus pour l'ajouter à vos favoris sur la page d'accueil."</item>
+	</string-array>
 </resources>

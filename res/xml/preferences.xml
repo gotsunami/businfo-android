@@ -27,9 +27,10 @@
             android:defaultValue="true"
             android:summaryOn="@string/pref_tips_startup_sumon"
             android:summaryOff="@string/pref_tips_startup_sumoff" />
-		<Preference
+        <Preference
 			android:key="pref_tips_show"
-			android:title="@string/pref_tips_show_title"/>
+			android:summary="@string/pref_tips_show_summary"
+			android:title="@string/pref_tips_show_title" />
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:key="cat_about"
@@ -42,15 +43,6 @@
 			android:key="pref_about_release_notes"
             android:summary="@string/pref_about_release_notes_summary"
 			android:title="@string/pref_about_release_notes_title" />
-            <!--
-		<com.monnerville.transports.herault.preference.ChangeLogPreference
-			android:key="pref_about_changelog"
-			android:dialogIcon="@drawable/logo"
-			android:dialogMessage="@string/app_changelog"
-			android:positiveButtonText="@null"
-			android:negativeButtonText="@null"
-			android:title="@string/pref_about_changelog_title" />
-            -->
         <Preference
             android:key="pref_about_changelog"
             android:title="@string/pref_about_changelog_title"/>

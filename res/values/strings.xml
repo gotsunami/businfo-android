@@ -84,7 +84,11 @@
     <string name="pref_tips_startup_title">Tips on startup</string>
     <string name="pref_tips_startup_sumon">Show tips on startup</string>
     <string name="pref_tips_startup_sumoff">Do not show tips on startup</string>
-    <string name="pref_tips_show_title">Show tips</string>
+    <string name="pref_tips_show_title">Tips</string>
+    <string name="pref_tips_show_summary">Show all tips</string>
+    <string name="next_tip">Next</string>
+    <string name="disable_tips">Disable</string>
+    <string name="did_you_know">Did you know?</string>
 
     <string name="cat_about_title">About</string>
     <string name="cat_about_sum">About application</string>
@@ -110,7 +114,7 @@
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
-    <string name="release_notes_content">"This is the first release of the application. 53 bus lines are available, more lines are coming. Future versions will include nice features such as text-to-speech, GPS location, maps and bus rides.\n\n
+    <string name="release_notes_content">"This is the first release of the application. 53 bus lines are available, more lines are coming.\n\nThis application take into accounts holidays (zone A) and public holidays to handle schedules properly.\n\nFuture releases will include nice features such as text-to-speech, GPS location, maps and bus rides.\n\n
 <b>Thank you for using it!</b>
     "</string>
 </resources>
