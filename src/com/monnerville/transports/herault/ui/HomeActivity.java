@@ -320,6 +320,38 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
             new BusStationActivity.BookmarkStationListAdapter(this,
             R.layout.bus_line_bookmark_list_item, mStarredStations));
         setListAdapter(mAdapter);
+
+        // Handle release notes
+        final String releaseKey = "shown_release_notes_for_" + getString(R.string.app_version);
+        if (!mPrefs.getBoolean(releaseKey, false)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.pref_about_release_notes_title))
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        SharedPreferences.Editor ed = mPrefs.edit();
+                        ed.putBoolean(releaseKey, true);
+                        ed.commit();
+                        showTipsDialog();
+                    }
+                });
+            View log = getLayoutInflater().inflate(R.layout.releasenotes, null);
+            ((TextView)log.findViewById(R.id.about_ht_version))
+                .setText(String.format("%s %s", getString(R.string.app_name), getString(R.string.app_version)));
+            builder.setView(log);
+            builder.show();
+        }
+        else {
+            // Handle tips
+            showTipsDialog();
+        }
+    }
+
+    private void showTipsDialog() {
+        if (mPrefs.getBoolean("pref_show_tips_at_startup", true)) {
+            TipsDialog tips = new TipsDialog(this, false);
+            tips.show();
+        }
     }
 
     /**

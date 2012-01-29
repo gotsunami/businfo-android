@@ -22,7 +22,7 @@
 		android:title="@string/cat_tips_title"
 		android:summary="@string/cat_tips_sum">
         <CheckBoxPreference
-            android:key="pref_show_its_at_startup"
+            android:key="pref_show_tips_at_startup"
             android:title="@string/pref_tips_startup_title"
             android:defaultValue="true"
             android:summaryOn="@string/pref_tips_startup_sumon"
@@ -50,17 +50,6 @@
 		<Preference
 			android:key="pref_about_visite_website"
 			android:title="@string/pref_about_visite_website_title"/>
-            -->
-
-            <!--
-		<com.monnerville.fotostop.EULADialogPreference
-			android:key="pref_terms"
-			android:title="@string/pref_terms_title"
-			android:summary="@string/pref_terms_sum"
-			android:dialogMessage="@string/terms_content"
-			android:negativeButtonText="@null"
-			android:dialogLayout="@layout/license"
-			android:dialogTitle="@string/terms_title"/>
             -->
 		<Preference
 			android:key="pref_about_db_version"

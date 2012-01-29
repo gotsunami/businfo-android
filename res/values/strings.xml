@@ -88,6 +88,7 @@
     <string name="pref_tips_show_summary">Show all tips</string>
     <string name="next_tip">Next</string>
     <string name="disable_tips">Disable</string>
+    <string name="close_tips">Close</string>
     <string name="did_you_know">Did you know?</string>
 
     <string name="cat_about_title">About</string>

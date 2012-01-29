@@ -87,6 +87,7 @@
     <string name="pref_tips_show_summary">Consulter la liste des astuces</string>
     <string name="next_tip">Suivant</string>
     <string name="disable_tips">Désactiver</string>
+    <string name="close_tips">Fermer</string>
     <string name="did_you_know">Le saviez-vous ?</string>
 
     <string name="cat_about_title">À propos</string>
