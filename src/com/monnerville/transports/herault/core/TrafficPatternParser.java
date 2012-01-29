@@ -80,6 +80,10 @@ public final class TrafficPatternParser {
                 } catch (NumberFormatException e) {
                     if (part.equals(REST_DAYS))
                         pattern |= RESTDAYS;
+                    else if (part.equals(SCHOOL_ONLY))
+                        pattern |= SCHOOL;
+                    else if (part.equals(HOLIDAYS_ONLY))
+                        pattern |= HOLIDAYS;
                     else {
                         int day = Integer.parseInt(part.substring(0, 1));
                         pattern |= (int)Math.pow(2, day);
@@ -95,4 +99,3 @@ public final class TrafficPatternParser {
         return pattern;
     }
 }
-
