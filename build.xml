@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="HeraultTransports" default="help">
+<project name="HeraultTransport" default="help">
 
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
@@ -77,6 +77,13 @@
             stylesheetfile="android.css"
 			version="true" />
 	</target>
+
+    <target name="dist" depends="clean,release">
+        <echo message="Getting application version"/>
+        <exec failonerror="true" executable="./tools/getrev.sh" outputproperty="app.version"/>
+        <property name="release.signed" value="${ant.project.name}-${app.version}-signed.apk"/>
+        <copy file="bin/${ant.project.name}-release.apk" tofile="bin/${release.signed}"/>
+    </target>
 
     <target name="nbdebug" depends="debug,install" />
 
