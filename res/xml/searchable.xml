@@ -6,6 +6,7 @@
     android:searchSuggestAuthority="com.monnerville.transports.herault.provider.suggestionprovider"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
     android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
+    android:voiceLanguage="fr"
     android:voiceLanguageModel="web_search"
     android:label="@string/app_name"
     android:hint="@string/search_hint" >
