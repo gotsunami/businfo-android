@@ -159,6 +159,24 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
 
     @Override
     protected void onResume() {
+        // Updates starred stations
+        BusManager manager = SQLBusManager.getInstance();
+        List<BusStation> sts = manager.getStarredStations(BusLineActivity.this);
+
+        for (int i=0; i < mAdapter.getCount(); i++) {
+            Object o = mAdapter.getItem(i);
+            if (o instanceof BusStation) {
+                BusStation st = (BusStation)mAdapter.getItem(i);
+                for (BusStation star : sts) {
+                    if (st.equals(star)) {
+                        st.setStarred(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        mAdapter.notifyDataSetChanged();
         super.onResume();
     }
 
