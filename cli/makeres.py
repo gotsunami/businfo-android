@@ -514,8 +514,11 @@ def main():
 %prog [--android|-d|-g|--gps|--gps-cache file] action (raw_line.txt|dir)
 
 where action is one of:
-  xml    generates XML content from sources
-  sql    generates SQL content from sources""")
+  xml     generates XML content from sources
+  psql    generates SQL content for PostgreSQL
+  sqlite  generates SQL content for SQLite
+  mysql   generates SQL content for MySQL
+  """)
     parser.add_option("", '--android', action="store_true", dest="android", default=False, help='SQL resource formatting for Android [action: sql]')
     parser.add_option("", '--use-chunks', action="store_true", dest="chunks", default=False, help='Split data in several chunks [action: sql]')
     parser.add_option("", '--db-compare-with', action="store", dest="dbcompare", default=False, help="compares current database checksum with an external XML file [action: sql]")
@@ -536,10 +539,10 @@ where action is one of:
     DEBUG = options.debug
     action, infile = args
     action = action.lower()
-    if action not in ('xml', 'sql'):
+    if action not in ('xml', 'sqlite'):
         parser.error("Unsupported action '%s'." % action)
 
-    if options.globalxml and action == 'sql':
+    if options.globalxml and action == 'sqlite':
         parser.error("-g and sql action are mutually exclusive!")
 
     if options.android and action == 'xml':
@@ -595,7 +598,7 @@ where action is one of:
 
         sources = glob.glob(os.path.join(infile, '*.txt'))
         sources.sort()
-        if action == 'sql':
+        if action == 'sqlite':
             # Grouping all INSERTs in a single transaction really 
             # speeds up the whole thing
             outname = os.path.join(TMP_DIR, RAW_DB_FILE)
@@ -738,7 +741,7 @@ where action is one of:
                 f.close()
                 print "Generated global %s" % os.path.join(TMP_DIR, 'lines.xml')
     else:
-        if action == 'sql':
+        if action == 'sqlite':
             print "Error: does not support one file, only full parent directory"
             sys.exit(2)
         else:
