@@ -115,7 +115,5 @@
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
-    <string name="release_notes_content">"This is the first release of the application. 53 bus lines are available, more lines are coming.\nThis application take into accounts holidays (zone A) and public holidays to handle schedules properly.\nFuture releases will include nice features such as text-to-speech, GPS location, maps and bus rides.\n\n
-<b>Thank you for using it!</b>
-    "</string>
+    <string name="release_notes_content">"New line 216 (Saint-Jean-de-Védas - Béziers)"</string>
 </resources>

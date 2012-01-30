@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.1</b> - 30/01/2012:\n
+  - Ajout de la ligne 216 (axe Saint-Jean-de-Védas - Béziers)\n
+  - Augmentation de la taille des polices (page des paramètres)\n\n
 <b>0.9</b> - 29/01/2012:\n
   - 53 lignes de bus\n
   - Prend en compte les vacances scolaires (zone A) et les jours fériés dans le calcul des horaires\n

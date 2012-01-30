@@ -4,9 +4,12 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9</string>
+    <string name="app_version">0.9.1</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.1</b> - 2012-01-30:\n
+  - Adding line 216 (Saint-Jean-de-Védas - Béziers)\n
+  - Bigger fonts on settings page\n\n
 <b>0.9</b> - 2012-01-29:\n
   - 53 bus lines\n
   - Take holidays (zone A) and public holidays into account for schedule computation\n
