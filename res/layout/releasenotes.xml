@@ -22,6 +22,7 @@
 			android:id="@+id/about" 
 			android:text="@string/release_notes_content"
 			android:padding="10dip"
+            android:textAppearance="?android:attr/textAppearanceMedium"
 			android:textColor="@color/background_gmail"
 			android:layout_below="@id/about_ht_version" />
 	</RelativeLayout>

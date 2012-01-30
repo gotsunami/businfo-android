@@ -11,6 +11,7 @@
 			android:layout_height="fill_parent" 
 			android:id="@+id/changelog" 
 			android:text="@string/app_changelog"  
+            android:textAppearance="?android:attr/textAppearanceSmall"
 			android:padding="10dip"/>
 	</RelativeLayout>
 </ScrollView>
