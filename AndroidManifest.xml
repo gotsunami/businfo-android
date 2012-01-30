@@ -42,6 +42,8 @@
         <provider android:name="com.monnerville.transports.herault.provider.SuggestionProvider"
             android:authorities="com.monnerville.transports.herault.provider.suggestionprovider">
         </provider>
+        <!-- Google maps support -->
+        <uses-library android:name="com.google.android.maps" />
     </application>
     <!-- Permissions -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

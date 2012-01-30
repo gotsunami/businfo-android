@@ -44,7 +44,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
-public class HomeActivity extends ListActivity implements HeaderTitle {
+public class HomeActivity extends MapActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
     private List<BusStation> mStarredStations;
     private List<Action> mMainActions;
