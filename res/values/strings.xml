@@ -56,6 +56,7 @@
     <string name="suggestion_station_served_by_lines">"served by lines %1$s"</string>
 
     <string name="line_avail_range">"Only from %1$s to %2$s"</string>
+    <string name="line_avail_from">"Only from %1$s"</string>
     <string name="no_data">No data.</string>
     <string name="search_hint">Enter keyword</string>
     <string name="bookmark_menu_title">Bookmark</string>
