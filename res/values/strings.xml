@@ -116,5 +116,7 @@
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
-    <string name="release_notes_content">"New line 216 (Saint-Jean-de-Védas - Béziers)"</string>
+    <string name="release_notes_content">"
+- New line 117 (Murviel-les-Montpellier - Montpellier)
+"</string>
 </resources>
