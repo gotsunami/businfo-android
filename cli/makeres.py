@@ -395,6 +395,7 @@ def smart_capitalize(name):
     """
     Try to apply a simple smart capitilazitation algorithm.
     """
+    specs = ("L'", "D'",)
     # str.title() adds uppercase caracters on words
     cname = name.strip().title()
     # Check for all '-' in name to put some capitals where needed
@@ -404,20 +405,22 @@ def smart_capitalize(name):
     idx = 0
     if len(starts) > 1:
         if len(starts) == 2: # 2 '-' in name
-            idx = starts[0]+1
+            if len(clname[starts[0]+1:starts[1]-1]) < 3:
+                idx = starts[0]+1
+                clname[idx] = clname[idx].lower()
         elif len(starts) == 3:
             idx = starts[1]+1
+            clname[idx] = clname[idx].lower()
         elif len(starts) == 4:
             idx = starts[1]+1
             clname[idx] = clname[idx].lower()
             idx = starts[2]+1
-        clname[idx] = clname[idx].lower()
-    elif len(starts) == 1:
-        idx = starts[0]+1
-        # Some exceptions though: L' ou D'
-        nop = ''.join(clname[idx:idx+2])
-        if nop in ("L'", "D'"):
             clname[idx] = clname[idx].lower()
+
+    # Always use lowercase for l' and d'
+    for k in starts:
+        if ''.join(map(lambda x: x.upper(), clname[k+1:k+3])) in specs:
+            clname[k+1] = clname[k+1].lower()
 
     return ''.join(clname)
 
