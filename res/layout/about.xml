@@ -6,21 +6,12 @@
 	<RelativeLayout 
 		android:layout_width="fill_parent" 
 		android:layout_height="fill_parent" >
-		<ImageView  
-			android:layout_width="48dip" 
-			android:layout_height="48dip" 
-			android:scaleType="center"
-			android:id="@+id/icon"
-			android:padding="15dip"
-			android:src="@drawable/logo"
-			android:layout_centerHorizontal="true" />
 		<TextView 
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content" 
 			android:id="@+id/about_ht_version"
 			android:padding="10dip"
 			android:layout_centerHorizontal="true" 
-			android:layout_below="@id/icon"
 			android:textSize="18dip"
 			android:textStyle="bold" />
 		<TextView 
