@@ -708,12 +708,6 @@ where action is one of:
                         else:
                             print "[%-18s] database NOT updated" % 'IDEM'
                         print "[%-18s] done." % 'dbcompare'
-
-                # Make chunks of data?
-                if options.chunks:
-                    print "Making chunks..."
-#CHUNK_DB_FILE = 'htdb-chunks.xml'
-#CHUNK_PREFIX = 'htdb-chunk'
         else:
             # Action is 'xml'
             for src in sources:
