@@ -56,6 +56,7 @@
     <string name="suggestion_station_served_by_lines">"served by lines %1$s"</string>
 
     <string name="line_avail_range">"Only from %1$s to %2$s"</string>
+    <string name="line_avail_from">"Only from %1$s"</string>
     <string name="no_data">No data.</string>
     <string name="search_hint">Enter keyword</string>
     <string name="bookmark_menu_title">Bookmark</string>
@@ -115,7 +116,5 @@
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
-    <string name="release_notes_content">"This is the first release of the application. 53 bus lines are available, more lines are coming.\nThis application take into accounts holidays (zone A) and public holidays to handle schedules properly.\nFuture releases will include nice features such as text-to-speech, GPS location, maps and bus rides.\n\n
-<b>Thank you for using it!</b>
-    "</string>
+    <string name="release_notes_content">"New line 117 (Murviel-les-Montpellier - Montpellier)"</string>
 </resources>

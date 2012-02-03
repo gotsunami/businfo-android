@@ -148,14 +148,22 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
             TextView avail = (TextView)itemView.findViewById(R.id.available);
 
-            if (line.getAvailableFrom() != null && line.getAvailableTo() != null) {
+            // Show line availability information, if any
+            if (line.getAvailableFrom() != null) {
                 java.text.DateFormat dateFormat = DateFormat.getMediumDateFormat(mContext);
-
                 avail.setVisibility(View.VISIBLE);
-                avail.setText(mContext.getString(R.string.line_avail_range, 
-                    dateFormat.format(line.getAvailableFrom()), 
-                    dateFormat.format(line.getAvailableTo())
-                ));
+                if (line.getAvailableTo() != null) {
+                    avail.setText(mContext.getString(R.string.line_avail_range,
+                        dateFormat.format(line.getAvailableFrom()),
+                        dateFormat.format(line.getAvailableTo())
+                    ));
+                }
+                else {
+                    // Date from only
+                    avail.setText(mContext.getString(R.string.line_avail_from,
+                        dateFormat.format(line.getAvailableFrom())
+                    ));
+                }
             }
             else
                 avail.setVisibility(View.GONE);

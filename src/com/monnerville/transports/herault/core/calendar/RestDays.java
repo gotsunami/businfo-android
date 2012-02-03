@@ -1,10 +1,6 @@
 package com.monnerville.transports.herault.core.calendar;
 
-import android.util.Log;
-import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.monnerville.transports.herault.core.BusStop;
 

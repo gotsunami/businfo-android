@@ -50,7 +50,7 @@
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
         <exec failonerror="true" executable="./cli/makeres.py">
-            <arg value="sql" />
+            <arg value="sqlite" />
             <arg value="cli/raw" />
             <arg value="--android" />
             <arg line="--db-compare-with res/values/dbversion.xml" />

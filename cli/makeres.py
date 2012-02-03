@@ -395,6 +395,7 @@ def smart_capitalize(name):
     """
     Try to apply a simple smart capitilazitation algorithm.
     """
+    specs = ("L'", "D'",)
     # str.title() adds uppercase caracters on words
     cname = name.strip().title()
     # Check for all '-' in name to put some capitals where needed
@@ -404,20 +405,22 @@ def smart_capitalize(name):
     idx = 0
     if len(starts) > 1:
         if len(starts) == 2: # 2 '-' in name
-            idx = starts[0]+1
+            if len(clname[starts[0]+1:starts[1]-1]) < 3:
+                idx = starts[0]+1
+                clname[idx] = clname[idx].lower()
         elif len(starts) == 3:
             idx = starts[1]+1
+            clname[idx] = clname[idx].lower()
         elif len(starts) == 4:
             idx = starts[1]+1
             clname[idx] = clname[idx].lower()
             idx = starts[2]+1
-        clname[idx] = clname[idx].lower()
-    elif len(starts) == 1:
-        idx = starts[0]+1
-        # Some exceptions though: L' ou D'
-        nop = ''.join(clname[idx:idx+2])
-        if nop in ("L'", "D'"):
             clname[idx] = clname[idx].lower()
+
+    # Always use lowercase for l' and d'
+    for k in starts:
+        if ''.join(map(lambda x: x.upper(), clname[k+1:k+3])) in specs:
+            clname[k+1] = clname[k+1].lower()
 
     return ''.join(clname)
 
@@ -514,8 +517,11 @@ def main():
 %prog [--android|-d|-g|--gps|--gps-cache file] action (raw_line.txt|dir)
 
 where action is one of:
-  xml    generates XML content from sources
-  sql    generates SQL content from sources""")
+  xml     generates XML content from sources
+  psql    generates SQL content for PostgreSQL
+  sqlite  generates SQL content for SQLite
+  mysql   generates SQL content for MySQL
+  """)
     parser.add_option("", '--android', action="store_true", dest="android", default=False, help='SQL resource formatting for Android [action: sql]')
     parser.add_option("", '--use-chunks', action="store_true", dest="chunks", default=False, help='Split data in several chunks [action: sql]')
     parser.add_option("", '--db-compare-with', action="store", dest="dbcompare", default=False, help="compares current database checksum with an external XML file [action: sql]")
@@ -536,10 +542,10 @@ where action is one of:
     DEBUG = options.debug
     action, infile = args
     action = action.lower()
-    if action not in ('xml', 'sql'):
+    if action not in ('xml', 'sqlite'):
         parser.error("Unsupported action '%s'." % action)
 
-    if options.globalxml and action == 'sql':
+    if options.globalxml and action == 'sqlite':
         parser.error("-g and sql action are mutually exclusive!")
 
     if options.android and action == 'xml':
@@ -595,7 +601,7 @@ where action is one of:
 
         sources = glob.glob(os.path.join(infile, '*.txt'))
         sources.sort()
-        if action == 'sql':
+        if action == 'sqlite':
             # Grouping all INSERTs in a single transaction really 
             # speeds up the whole thing
             outname = os.path.join(TMP_DIR, RAW_DB_FILE)
@@ -738,7 +744,7 @@ where action is one of:
                 f.close()
                 print "Generated global %s" % os.path.join(TMP_DIR, 'lines.xml')
     else:
-        if action == 'sql':
+        if action == 'sqlite':
             print "Error: does not support one file, only full parent directory"
             sys.exit(2)
         else:
