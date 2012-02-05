@@ -183,7 +183,8 @@ def makeSQL(sources, out):
         pk += 1
 
     for city in cs:
-        out.write("INSERT INTO city VALUES(%d, \"%s\", 0, 0);\n" % (city[0], city[1]))
+        lat, lng = get_gps_coords_from_cache(city[1], GPS_CACHE_FILE)
+        out.write("INSERT INTO city VALUES(%d, \"%s\", %d, %d);\n" % (city[0], city[1], lat*10**6, lng*10**6))
         db_city_count += 1
         g_cities.append(city[1])
 
@@ -511,7 +512,7 @@ def make_chunks(rawname, chunksize=0):
 
 def main():
     global DEBUG
-    global g_prefilter
+    global g_prefilter, GPS_CACHE_FILE
 
     parser = OptionParser(usage="""
 %prog [--android|-d|-g|--gps|--gps-cache file] action (raw_line.txt|dir)
@@ -564,6 +565,7 @@ where action is one of:
         parser.error("--db-compare-with requires the --android option!")
 
     g_prefilter = options.prefilter
+    GPS_CACHE_FILE = options.gpscache
 
     if os.path.isdir(infile):
         # Applies pre-filter before parsing any raw content

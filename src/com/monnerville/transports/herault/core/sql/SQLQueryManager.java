@@ -154,4 +154,21 @@ public class SQLQueryManager implements QueryManager {
             return name;
         }
     }
+
+    @Override
+    public void getCityGPSCoordinates(final City city, int latitude, int longitude) {
+        latitude = 0;
+        longitude = 0;
+        Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
+            R.string.db_city_table_name), new String[] {"latitude", "longitude"}, "id=?",
+            new String[] {Long.toString(city.getPK())}, null, null, null
+        );
+        if (c.getCount() != 0) {
+            c.moveToPosition(0);
+            latitude = c.getInt(0);
+            longitude = c.getInt(1);
+        }
+        c.close();
+        return;
+    }
 }

@@ -23,8 +23,8 @@ DROP TABLE IF EXISTS city;
 CREATE TABLE city (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
     name TEXT,
-    latitude REAL,
-    longitude REAL,
+    latitude INTEGER,
+    longitude INTEGER,
     UNIQUE(name)
 --    UNIQUE(latitude, longitude)
 );

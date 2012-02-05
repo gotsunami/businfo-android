@@ -49,4 +49,11 @@ public interface QueryManager {
      * @return city name
      */
     public String getCityFromId(String id);
+    /**
+     * Gets GPS coordinates for a city
+     * @param city target city
+     * @param latitude latitude of the city
+     * @param longitude longitude of the city
+     */
+    public void getCityGPSCoordinates(final City city, int latitude, int longitude);
 }

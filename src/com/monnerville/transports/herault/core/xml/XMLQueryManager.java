@@ -78,4 +78,9 @@ public class XMLQueryManager implements QueryManager {
     public String getCityFromId(String id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public void getCityGPSCoordinates(final City city, int latitude, int longitude) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
