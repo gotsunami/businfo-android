@@ -109,11 +109,15 @@
 
     <!-- About app -->
     <string name="pref_about_about_title">À propos</string>
-    <string name="about_description">"Hérault Transport est une application gratuite pour Android qui a pour objectif de proposer un accès facile et rapide aux horaires de l'ensemble des lignes du réseau de bus \"Hérault Transport\". Vous pouvez également accéder facilement à vos arrêts favoris et partager les horaires avec des amis. La recherche d'information (ligne, arrêt de bus, ville) peut s'effectuer soit à l'aide du clavier ou en utilisant le mécanisme de reconnaissance vocale de votre périphérique Android, lorsque ce dernier est disponible.\n\nVeuillez noter qu'il s'agit d'une application non officielle, proposée et maintenue par moi-même en ma qualité de développeur indépendant et non par la société Hérault Transport."</string>
+    <string name="about_description">"Hérault Transport est une application gratuite pour Android qui a pour objectif de proposer un accès facile et rapide aux horaires de l'ensemble des lignes du réseau de bus \"Hérault Transport\". Vous pouvez également accéder facilement à vos arrêts favoris et partager les horaires avec des amis. La recherche d'information (ligne, arrêt de bus, ville) peut s'effectuer soit à l'aide du clavier ou en utilisant le mécanisme de reconnaissance vocale de votre périphérique Android, lorsque ce dernier est disponible.\n\nVeuillez noter qu'il s'agit d'une application non officielle, proposée et maintenue par moi-même en ma qualité de développeur indépendant et non par le Syndicat mixte des transports en commun de l’Hérault."</string>
     <string name="about_description_support">"En cas de question ou si vous rencontrez des problèmes à l'utilisation, veuillez consulter le site officiel http://ht.monnerville.com ou envoyer un email à ht-support@monnerville.com."</string>
 
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
-    <string name="release_notes_content">"Ajout de la ligne 117 (Murviel-les-Montpellier - Montpellier)"</string>
+    <string name="release_notes_content">"Ajout des lignes:
+- 301/380 (Lodève - Clermont-l\'Hérault)
+- 304/380 (Clermont-l\'Hérault - Pézenas)
+- 117 (Vailhauquès - Montpellier)
+"</string>
 </resources>
