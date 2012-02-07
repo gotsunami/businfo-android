@@ -14,6 +14,7 @@ sete;sète
 meze;mèze
 bedarieux;bédarieux
 st bres;st brès
+st martin rd 130;st martin
 andre;andré
 st \(\w\);saint \1
 saint \(\w\);saint-\1
@@ -109,6 +110,7 @@ ecole;école
 eglise;église
 emb ;embr. 
 emb\. ;embr. 
+emb\.;embr. 
 fontfroide le bas;fontfroide-le-bas
 hélio marins;hélio marin
 epi ;épi 
