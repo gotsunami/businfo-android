@@ -14,7 +14,7 @@ Avène les Bains;13:10
 city=Avene les bains
 Station Thermale;13:11
 La Rode Basse;13:20
-Serieys;13:25
+Sérieys;13:25
 
 city=Le Bousquet d'Orb 
 Le Bousquet d'Orb;13:35
@@ -25,7 +25,7 @@ city=Le Bousquet d'Orb
 Le Bousquet d'Orb;17:30
 
 city=Avene les bains
-Seriyes;17:40
+Sérieys;17:40
 Rode Basse;17:44
 Avène Station Thermale;17:54
 
