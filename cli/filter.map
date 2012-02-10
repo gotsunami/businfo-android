@@ -11,6 +11,11 @@ ste \(\w\);sainte-\1
 # Cities
 beziers;béziers
 sete;sète
+martin de l'arcon;martin-de-l'arçon
+vincent d'olargues;vincent-d'olargues
+etienne d'albagnan;étienne-d’albagnan
+premian;prémian
+pons de thomieres;pons-de-thomières
 meze;mèze
 bedarieux;bédarieux
 st bres;st brès
@@ -95,6 +100,10 @@ lezignan la cebe;lézignan-la-cèbe
 cazouls d'herault;cazouls-d'hérault
 nebian;nébian
 lodeve;lodève
+herepian;hérépian
+lamalou les bains;lamalou-les-bains
+le poujol sur orb;le poujol-sur-orb
+colombieres sur orb;colombières-sur-orb
 
 # Stations
 jean de bébian;jean-de-bébian
@@ -108,6 +117,7 @@ dom\. ;domaine
 ecole;école
 écoles;école
 eglise;église
+embr ;embr. 
 emb ;embr. 
 emb\. ;embr. 
 emb\.;embr. 
@@ -178,6 +188,8 @@ poroute de la mer; portes de la mer
 coulondres;coulondre
 cevennes;cévennes
 - roque haute;/ roque haute
+station mosson - gare routière;station mosson
+gare routière - station mosson;station mosson
 station tam ;station tram 
 station tramway;station tram
 station ;station tram 
@@ -202,4 +214,5 @@ lycée lycée;lycée
 lep vinci;lep léonard de vinci
 lep l. de vinci;lep léonard de vinci
 théatre;théâtre
+
 
