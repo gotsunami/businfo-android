@@ -331,6 +331,7 @@ def parse(infile):
     FROM_PAT = 'from='
     TO_PAT = 'to='
     COLOR_PAT = 'color='
+    UPDATED_PAT = 'updated=' # Date of last line update
 
     k = -1
     curCity = None
@@ -353,6 +354,9 @@ def parse(infile):
             to_date = re.sub(TO_PAT, '', line).encode('utf-8')
         elif line.startswith(COLOR_PAT):
             linecolor = re.sub(COLOR_PAT, '', line).encode('utf-8')
+        elif line.startswith(UPDATED_PAT):
+            # FIXME
+            pass
         else:
             # This is a station line
             sts = line.split(';')

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.3</b> - 07/02/2012 :\n
+Ajout des lignes:\n
+  - 301/380 (Lodève - Clermont-l\'Hérault)\n
+  - 304/380 (Clermont-l\'Hérault - Pézenas)\n
+  - 117 (Vailhauquès - Montpellier)\n\n
 <b>0.9.2</b> - 02/02/2012 :\n
   - Ajout de la ligne 117 (Murviel-les-Montpellier - Montpellier)\n\n
 <b>0.9.1</b> - 30/01/2012 :\n
