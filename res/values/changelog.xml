@@ -4,9 +4,12 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.3</string>
+    <string name="app_version">0.9.4</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.4</b> - 2012-02-11:\n
+  - Fixed bug related to random bookmarked stations deletion\n
+  - New line 482/485 (Saint-Pons-de-Thomières - Montpellier)\n\n
 <b>0.9.3</b> - 2012-02-07:\n
 New lines:\n
   - 301/380 (Lodève - Clermont-l\'Hérault)\n

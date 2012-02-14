@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.4</b> - 11/02/2012 :\n
+  - Correction d\'un bug entrainant parfois la suppression des arrêts favoris\n
+  - Ajout de la ligne 482/485 (Saint-Pons-de-Thomières - Montpellier)\n\n
 <b>0.9.3</b> - 07/02/2012 :\n
 Ajout des lignes:\n
   - 301/380 (Lodève - Clermont-l\'Hérault)\n

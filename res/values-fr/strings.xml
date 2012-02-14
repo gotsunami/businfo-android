@@ -115,9 +115,8 @@
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
-    <string name="release_notes_content">"Ajout des lignes:
-- 301/380 (Lodève - Clermont-l\'Hérault)
-- 304/380 (Clermont-l\'Hérault - Pézenas)
-- 117 (Vailhauquès - Montpellier)
+    <string name="release_notes_content">"
+- Correction d'un bug entrainant parfois la suppression des arrêts favoris
+- Ajout de la ligne 482/485 (Saint-Pons-de-Thomières - Montpellier)
 "</string>
 </resources>

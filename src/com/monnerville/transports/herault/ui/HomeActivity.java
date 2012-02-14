@@ -150,7 +150,10 @@ public class HomeActivity extends MapActivity implements HeaderTitle, OnItemClic
     @Override
     protected void onResume() {
         super.onResume();
-        // Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
+        /* TODO
+         * Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
+         * Strangely, removing this statement on slow device won't display the upgrading process...
+         */
         if (!mDBReady) {
             try {
                 Thread.sleep(70); // 70 ms
@@ -208,10 +211,6 @@ public class HomeActivity extends MapActivity implements HeaderTitle, OnItemClic
 
     @Override
     protected void onPause() {
-        /* Overwrite existing saved stations with the current list
-         * so that bookmark removal work as expected!
-         */
-        mManager.overwriteStarredStations(mStarredStations, this);
         super.onPause();
     }
 
@@ -451,6 +450,7 @@ public class HomeActivity extends MapActivity implements HeaderTitle, OnItemClic
                                     break;
                                 }
                             }
+                            mManager.overwriteStarredStations(mStarredStations, HomeActivity.this);
                             mAdapter.notifyDataSetChanged();
                             break;
                         default:
