@@ -52,8 +52,7 @@ public interface QueryManager {
     /**
      * Gets GPS coordinates for a city
      * @param city target city
-     * @param latitude latitude of the city
-     * @param longitude longitude of the city
+     * @return GPS coordinates of the city
      */
-    public void getCityGPSCoordinates(final City city, int latitude, int longitude);
+    public GPSPoint getCityGPSCoordinates(final City city);
 }

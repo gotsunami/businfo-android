@@ -4,6 +4,7 @@ import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.City;
+import com.monnerville.transports.herault.core.GPSPoint;
 import com.monnerville.transports.herault.core.QueryManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,7 @@ public class XMLQueryManager implements QueryManager {
     }
 
     @Override
-    public void getCityGPSCoordinates(final City city, int latitude, int longitude) {
+    public GPSPoint getCityGPSCoordinates(City city) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

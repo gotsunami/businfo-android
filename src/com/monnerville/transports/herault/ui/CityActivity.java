@@ -5,17 +5,24 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.List;
 
 import com.commonsware.android.listview.SectionedAdapter;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 
@@ -23,20 +30,24 @@ import static com.monnerville.transports.herault.core.Application.TAG;
 
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.City;
+import com.monnerville.transports.herault.core.GPSPoint;
 import com.monnerville.transports.herault.core.QueryManager;
 
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
+import com.monnerville.transports.herault.ui.maps.BaseItemsOverlay;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CityActivity extends ListActivity implements HeaderTitle {
+public class CityActivity extends MapActivity implements HeaderTitle, OnItemClickListener {
     private String mCityId;
     private boolean mCanFinish = false;
 
     // Cached directions for matching lines
     private List<List<String>> mDirections;
     private List<BusLine> mLines;
+    private ListView mList;
 
     final BusManager mManager = SQLBusManager.getInstance();
 
@@ -46,9 +57,12 @@ public class CityActivity extends ListActivity implements HeaderTitle {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.simplelist);
+        setContentView(R.layout.city);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.city_title_bar);
-        getListView().setItemsCanFocus(true);
+
+        mList = (ListView)findViewById(R.id.lineslist);
+        mList.setItemsCanFocus(true);
+        mList.setOnItemClickListener(this);
 
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
@@ -58,8 +72,12 @@ public class CityActivity extends ListActivity implements HeaderTitle {
         mLines = new ArrayList<BusLine>();
         mDirections = new ArrayList<List<String>>();
 
+        MapView mapView = (MapView) findViewById(R.id.mapview);
+        MapController controller = mapView.getController();
+
         QueryManager finder = SQLQueryManager.getInstance();
         String cityName = finder.getCityFromId(mCityId);
+        List<City> cities = finder.findCities(cityName);
         List<String> lines = finder.findLinesInCity(cityName);
 
         setPrimaryTitle(cityName);
@@ -76,6 +94,22 @@ public class CityActivity extends ListActivity implements HeaderTitle {
                 onSearchRequested();
             }
         });
+
+        // Display city on map
+        Drawable marker = getResources().getDrawable(android.R.drawable.star_big_on);
+        int markerWidth = marker.getIntrinsicWidth();
+        int markerHeight = marker.getIntrinsicHeight();
+        marker.setBounds(0, markerHeight, markerWidth, 0);
+
+        BaseItemsOverlay busOverlay = new BaseItemsOverlay(marker);
+        GPSPoint pt = finder.getCityGPSCoordinates(cities.get(0));
+        GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
+        busOverlay.addItem(cityPoint, "doo", "Kilo");
+        mapView.getOverlays().add(busOverlay);
+
+        // Center map on the city
+        controller.setCenter(cityPoint);
+        controller.setZoom(13);
     }
 
     @Override
@@ -105,7 +139,7 @@ public class CityActivity extends ListActivity implements HeaderTitle {
     private void setupAdapter(List<BusLine> lines) {
         mAdapter.addSection(getString(R.string.result_lines_header),
             new AllLinesActivity.LineListAdapter(this, R.layout.line_list_item, lines, mDirections));
-        setListAdapter(mAdapter);
+        mList.setAdapter(mAdapter);
     }
 
 	final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
@@ -114,6 +148,11 @@ public class CityActivity extends ListActivity implements HeaderTitle {
             return mLines.size();
         }
 	};
+
+    @Override
+    protected boolean isRouteDisplayed() {
+        return false;
+    }
 
     /**
      * Retrieves all lines directions in a background thread
@@ -147,14 +186,41 @@ public class CityActivity extends ListActivity implements HeaderTitle {
         }
     }
 
-    /**
-     * Handles a click on any item in the list
-     */
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
+    public void onItemClick(AdapterView<?> av, View v, int position, long id) {
         mCanFinish = false;
-        final Object obj = l.getItemAtPosition(position);
+        final Object obj = mList.getItemAtPosition(position);
         if (obj instanceof BusLine)
-            AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
+            AllLinesActivity.handleBusLineItemClick(this, mList, v, position, id);
     }
+
+    /**
+     * Asynchronous database creating/updating
+     */
+    private class PopulateMapTask extends AsyncTask<Void, Void, Void> {
+        final QueryManager finder = SQLQueryManager.getInstance();
+        Drawable marker;
+
+        @Override
+        protected Void doInBackground(Void... none) {
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // Executes on the UI thread
+            marker = getResources().getDrawable(android.R.drawable.star_big_on);
+            int markerWidth = marker.getIntrinsicWidth();
+            int markerHeight = marker.getIntrinsicHeight();
+            marker.setBounds(0, markerHeight, markerWidth, 0);
+
+        }
+
+        @Override
+        protected void onPostExecute(Void none) {
+            // Back to the UI thread
+            MapView mapView = (MapView)findViewById(R.id.mapview);
+        }
+    }
+
 }

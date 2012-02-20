@@ -7,6 +7,7 @@ import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.City;
+import com.monnerville.transports.herault.core.GPSPoint;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +20,11 @@ import java.util.Map;
 public class SQLQueryManager implements QueryManager {
     private static final SQLQueryManager INSTANCE = new SQLQueryManager();
     final private SQLBusManager mManager = SQLBusManager.getInstance();
-    private final Context ctx = ((HTDatabase)mManager.getDB()).getContext();
+    private Context ctx;
 
-    private SQLQueryManager() {}
+    private SQLQueryManager() {
+        ctx = ((HTDatabase)mManager.getDB()).getContext();
+    }
 
     public static SQLQueryManager getInstance() { return INSTANCE; }
 
@@ -156,19 +159,18 @@ public class SQLQueryManager implements QueryManager {
     }
 
     @Override
-    public void getCityGPSCoordinates(final City city, int latitude, int longitude) {
-        latitude = 0;
-        longitude = 0;
+    public GPSPoint getCityGPSCoordinates(final City city) {
+        int latitude = 0, longitude = 0;
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_city_table_name), new String[] {"latitude", "longitude"}, "id=?",
             new String[] {Long.toString(city.getPK())}, null, null, null
         );
+        GPSPoint pt = null;
         if (c.getCount() != 0) {
             c.moveToPosition(0);
-            latitude = c.getInt(0);
-            longitude = c.getInt(1);
+            pt = new GPSPoint(c.getInt(0), c.getInt(1));
         }
         c.close();
-        return;
+        return pt;
     }
 }

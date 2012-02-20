@@ -34,15 +34,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
+import com.monnerville.transports.herault.core.City;
+import com.monnerville.transports.herault.core.GPSPoint;
+import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLQueryManager;
+import com.monnerville.transports.herault.ui.maps.BaseItemsOverlay;
 import static com.monnerville.transports.herault.core.Application.TAG;
 import java.util.logging.Logger;
 import java.util.ArrayList;
@@ -50,13 +51,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
-public class HomeActivity extends MapActivity implements HeaderTitle, OnItemClickListener {
+public class HomeActivity extends ListActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
     private List<BusStation> mStarredStations;
     private List<Action> mMainActions;
     private boolean mVoiceSupported = false;
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
-    private ListView mList;
     // Cached directions for all available lines
 
     private final SQLBusManager mManager = SQLBusManager.getInstance();
@@ -82,18 +82,6 @@ public class HomeActivity extends MapActivity implements HeaderTitle, OnItemClic
         LinearLayout root = (LinearLayout) decorView.getChildAt(0);
         View titleContainer = root.getChildAt(0);
         titleContainer.setPadding(titleContainer.getPaddingLeft(), 0, 0, 0);
-
-        mList = (ListView)findViewById(R.id.homelist);
-        mList.setOnItemClickListener(this);
-
-        MapView mapView = (MapView) findViewById(R.id.mapview);
-        if (mapView != null) {
-            // Landscape mode only!
-            MapController controller = mapView.getController();
-            // Center map on Montpellier
-            controller.setCenter(new GeoPoint(43610769, 3876716));
-            controller.setZoom(10);
-        }
 
         setPrimaryTitle(getString(R.string.app_name));
         setSecondaryTitle(getString(R.string.slogan));
@@ -131,11 +119,6 @@ public class HomeActivity extends MapActivity implements HeaderTitle, OnItemClic
         });
 
         mBookmarkHandler = new BookmarkHandler(mAdapter, mStarredStations);
-    }
-
-    @Override
-    protected boolean isRouteDisplayed() {
-        return false;
     }
 
     private class Action {
@@ -342,7 +325,7 @@ public class HomeActivity extends MapActivity implements HeaderTitle, OnItemClic
         mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
             new BusStationActivity.BookmarkStationListAdapter(this,
             R.layout.bus_line_bookmark_list_item, mStarredStations));
-        mList.setAdapter(mAdapter);
+        setListAdapter(mAdapter);
 
         // Handle release notes
         final String releaseKey = "shown_release_notes_for_" + getString(R.string.app_version);
@@ -413,9 +396,10 @@ public class HomeActivity extends MapActivity implements HeaderTitle, OnItemClic
     }
 
     @Override
-    public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-    //protected void onItemClick(ListView l, View v, int position, long id) {
-        final Object obj = mList.getItemAtPosition(position);
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+    
+        final Object obj = l.getItemAtPosition(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if(obj instanceof BusStation) {
             final BusStation station = (BusStation)obj;
