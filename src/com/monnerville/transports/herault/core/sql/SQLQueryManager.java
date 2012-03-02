@@ -158,12 +158,31 @@ public class SQLQueryManager implements QueryManager {
         }
     }
 
+    /**
+     * TODO: delete this func
+     * @param city
+     * @return 
+     */
     @Override
     public GPSPoint getCityGPSCoordinates(final City city) {
-        int latitude = 0, longitude = 0;
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_city_table_name), new String[] {"latitude", "longitude"}, "id=?",
             new String[] {Long.toString(city.getPK())}, null, null, null
+        );
+        GPSPoint pt = null;
+        if (c.getCount() != 0) {
+            c.moveToPosition(0);
+            pt = new GPSPoint(c.getInt(0), c.getInt(1));
+        }
+        c.close();
+        return pt;
+    }
+
+    @Override
+    public GPSPoint getCityGPSCoordinates(String city) {
+        Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
+            R.string.db_city_table_name), new String[] {"latitude", "longitude"}, "name=?",
+            new String[] {city}, null, null, null
         );
         GPSPoint pt = null;
         if (c.getCount() != 0) {

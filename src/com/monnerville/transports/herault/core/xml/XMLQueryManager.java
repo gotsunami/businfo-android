@@ -84,4 +84,9 @@ public class XMLQueryManager implements QueryManager {
     public GPSPoint getCityGPSCoordinates(City city) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public GPSPoint getCityGPSCoordinates(String city) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

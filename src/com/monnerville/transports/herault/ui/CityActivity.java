@@ -48,6 +48,8 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
     private List<List<String>> mDirections;
     private List<BusLine> mLines;
     private ListView mList;
+    
+    private final int DEFAULT_MAP_ZOOM = 13;
 
     final BusManager mManager = SQLBusManager.getInstance();
 
@@ -72,9 +74,6 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         mLines = new ArrayList<BusLine>();
         mDirections = new ArrayList<List<String>>();
 
-        MapView mapView = (MapView) findViewById(R.id.mapview);
-        MapController controller = mapView.getController();
-
         QueryManager finder = SQLQueryManager.getInstance();
         String cityName = finder.getCityFromId(mCityId);
         List<City> cities = finder.findCities(cityName);
@@ -95,6 +94,9 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
             }
         });
 
+        MapView mapView = (MapView) findViewById(R.id.mapview);
+        MapController controller = mapView.getController();
+
         // Display city on map
         Drawable marker = getResources().getDrawable(android.R.drawable.star_big_on);
         int markerWidth = marker.getIntrinsicWidth();
@@ -109,7 +111,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
 
         // Center map on the city
         controller.setCenter(cityPoint);
-        controller.setZoom(13);
+        controller.setZoom(DEFAULT_MAP_ZOOM);
     }
 
     @Override

@@ -55,4 +55,10 @@ public interface QueryManager {
      * @return GPS coordinates of the city
      */
     public GPSPoint getCityGPSCoordinates(final City city);
+    /**
+     * Gets GPS coordinates for a city
+     * @param city name of city
+     * @return GPS coordinates of the city
+     */
+    public GPSPoint getCityGPSCoordinates(final String city);
 }

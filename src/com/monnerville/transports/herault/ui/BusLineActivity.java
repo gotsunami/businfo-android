@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -32,6 +35,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.commonsware.android.listview.SectionedAdapter;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 
@@ -42,18 +49,25 @@ import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 
+import com.monnerville.transports.herault.core.GPSPoint;
+import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLQueryManager;
+import com.monnerville.transports.herault.ui.maps.BaseItemsOverlay;
 
 /**
  *
  * @author mathias
  */
-public class BusLineActivity extends ListActivity implements HeaderTitle {
+public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemClickListener {
     private String mLine;
     private String mDirection;
     private SharedPreferences mPrefs;
     private boolean mShowToast;
     private boolean mCanFinish = false;
+    private ListView mList;
+
+    private final int DEFAULT_MAP_ZOOM = 13;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -63,7 +77,10 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.busline);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_line_title_bar);
-        getListView().setItemsCanFocus(true);
+
+        mList = (ListView)findViewById(R.id.stationslist);
+        mList.setItemsCanFocus(true);
+        mList.setOnItemClickListener(this);
 
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
@@ -75,6 +92,7 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         else
             finish();
 
+        QueryManager finder = SQLQueryManager.getInstance();
         setPrimaryTitle(getString(R.string.current_line_title, mLine));
         setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
@@ -86,6 +104,17 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
         TextView lineIcon = (TextView)findViewById(R.id.line_icon);
         AllLinesActivity.setLineTextViewStyle(this, line, lineIcon);
 
+        MapView mapView = (MapView) findViewById(R.id.mapview);
+        MapController controller = mapView.getController();
+
+        // Display city on map
+        Drawable marker = getResources().getDrawable(android.R.drawable.star_on);
+        int markerWidth = marker.getIntrinsicWidth();
+        int markerHeight = marker.getIntrinsicHeight();
+        marker.setBounds(0, markerHeight, markerWidth, 0);
+
+        BaseItemsOverlay busOverlay = new BaseItemsOverlay(marker);
+
         // Computes all next bus stops
         Map<String, List<BusStation>> stationsPerCity = line.getStationsPerCity(mDirection);
         if (!stationsPerCity.isEmpty()) {
@@ -95,8 +124,18 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 List<BusStation> stations = stationsPerCity.get(city);
                 allStations.addAll(stations);
                 mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
+
+                // Draw point on map
+                GPSPoint pt = finder.getCityGPSCoordinates(city);
+                GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
+                busOverlay.addItem(cityPoint, "doo", "Kilo");
             }
-            setListAdapter(mAdapter);
+            mList.setAdapter(mAdapter);
+            mapView.getOverlays().add(busOverlay);
+            // Center map on the first city
+            GPSPoint pt = finder.getCityGPSCoordinates(cities.get(0));
+            GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
+            controller.setCenter(cityPoint);
             new StationsStopsRetreiverTask().execute(allStations);
         }
         else {
@@ -131,6 +170,8 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
                 onSearchRequested();
             }
         });
+
+        controller.setZoom(DEFAULT_MAP_ZOOM);
     }
 
     /**
@@ -178,6 +219,11 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
 
         mAdapter.notifyDataSetChanged();
         super.onResume();
+    }
+
+    @Override
+    protected boolean isRouteDisplayed() {
+        return false;
     }
 
     private class StationListAdapter extends ArrayAdapter<BusStation> {
@@ -245,9 +291,9 @@ public class BusLineActivity extends ListActivity implements HeaderTitle {
 	};
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
+    public void onItemClick(AdapterView<?> av, View v, int position, long id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final BusStation station = (BusStation)getListView().getItemAtPosition(position);
+        final BusStation station = (BusStation)mList.getItemAtPosition(position);
 
         builder.setTitle(station.getName());
         builder.setItems(R.array.show_or_share_options, new DialogInterface.OnClickListener() {
