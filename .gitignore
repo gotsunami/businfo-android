@@ -11,5 +11,8 @@ nbproject
 cli/java/pre.dist
 res/values/revision.xml
 res/values/dbstats.xml
+res/values/gmaps.xml
+local.properties
+gmaps.properties
 *.pyc
 .*

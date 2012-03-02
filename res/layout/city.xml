@@ -9,7 +9,7 @@
         android:layout_height="0dip"
         android:clickable="true"
         android:layout_weight="4"
-        android:apiKey="0iUziXNlmAOnFH0ttTONNYbvkjbcubYbmorzOYA"
+        android:apiKey="@string/gmaps_api_key"
     />
     <ListView android:id="@+id/lineslist"
         android:layout_weight="6"
