@@ -54,6 +54,8 @@ import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.ui.maps.BaseItemsOverlay;
+import com.monnerville.transports.herault.ui.maps.MapService;
+import com.monnerville.transports.herault.ui.maps.NavigationDataSet;
 
 /**
  *
@@ -129,6 +131,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
                 GPSPoint pt = finder.getCityGPSCoordinates(city);
                 GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
                 busOverlay.addItem(cityPoint, "doo", "Kilo");
+                Log.d("POINT", pt.getLatitude() + ", " + pt.getLongitude());
             }
             mList.setAdapter(mAdapter);
             mapView.getOverlays().add(busOverlay);
@@ -137,6 +140,9 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
             controller.setCenter(cityPoint);
             new StationsStopsRetreiverTask().execute(allStations);
+            NavigationDataSet nds = MapService.calculateRoute("Gigean,France", "Frontignan,France", MapService.MODE_CAR);
+            if (nds != null)
+                Log.d("NDS", nds.toString());
         }
         else {
             Log.w(TAG, "Direction '" + mDirection + "' not found");
