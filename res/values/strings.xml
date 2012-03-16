@@ -117,7 +117,6 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-- Fixed bug related to random bookmarked stations deletion
-- New line 482/485 (Saint-Pons-de-Thomières - Montpellier)
+- Updated schedules for line 112 (Sommières - Castelnau-le-Lez)
 "</string>
 </resources>
