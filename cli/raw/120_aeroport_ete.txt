@@ -1,0 +1,18 @@
+# Line 120 aeroport navette Montpellier
+name=120 navette aéroport-Montpellier
+circulation=1-7
+from=2012-03-25
+to=2012-10-27
+color=#FFCCFF
+
+# NOTE: cities are inverted
+
+direction=
+
+city=MONTPELLIER
+Aeroport;8:40*1-6*;9:40;10:45;12:00*2,3,5,6*;13:20;15:00;16:00*1,4*;17:10;18:00;19:10*1-6*;20:15;21:10;22:00;23:10
+
+direction=
+
+city=AEROPORT MONTPELLIER
+Place de l'europe;5:50;7:10*1-6*;8:00;9:00;10:00;11:45;13:00;14:25;15:30;16:45;17:35*1-6*;18:25*1-6*;19:30;20:30
