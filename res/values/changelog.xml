@@ -4,9 +4,14 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.5</string>
+    <string name="app_version">0.9.6</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.6</b> - 2012-03-23:\n
+  - New line 302 (Clermont-l\'Hérault - Montpellier)\n
+  - New line 120 (Montpellier - Montpellier airport shuttle)\n
+  - New line 210 (Béziers - Béziers airport shuttle)\n
+  - New line 313 (Bélarga - Montpellier)\n\n
 <b>0.9.5</b> - 2012-03-16:\n
   - Updated schedules for line 112 (Sommières - Castelnau-le-Lez)\n\n
 <b>0.9.4</b> - 2012-02-11:\n

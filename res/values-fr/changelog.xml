@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
-<b>0.9.5</b> - 13/03/2012 :\n
+<b>0.9.6</b> - 23/03/2012 :\n
+  - Ajout de la ligne 302 (Clermont-l\'Hérault - Montpellier)\n
+  - Ajout de la ligne 120 (navette Montpellier - aéroport de Montpellier)\n
+  - Ajout de la ligne 210 (navette Béziers - aéroport de Béziers)\n
+  - Ajout de la ligne 313 (Bélarga - Montpellier)\n\n
+<b>0.9.5</b> - 16/03/2012 :\n
   - Mise à jour des horaires de la ligne 112 (Sommières - Castelnau-le-Lez)\n\n
 <b>0.9.4</b> - 11/02/2012 :\n
   - Correction d\'un bug entrainant parfois la suppression des arrêts favoris\n
