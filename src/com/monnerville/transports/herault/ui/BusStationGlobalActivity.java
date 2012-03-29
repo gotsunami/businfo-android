@@ -182,10 +182,17 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
-            mDialog.cancel();
-            setSecondaryTitle(getString(R.string.result_station_subtitle, mCity));
-            setupAdapter();
-            mAdapter.notifyDataSetChanged();
+            try {
+                mDialog.cancel();
+                mDialog = null;
+                setSecondaryTitle(getString(R.string.result_station_subtitle, mCity));
+                setupAdapter();
+                mAdapter.notifyDataSetChanged();
+            } catch (Exception e) {
+                /* NOP */
+                // Prevents random "IllegalArgumentException: View not attached to window manager"
+                // exception
+            }
         }
     }
 

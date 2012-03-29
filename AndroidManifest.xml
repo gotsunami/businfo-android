@@ -12,7 +12,7 @@
             </intent-filter>
             <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchableActivity" />
         </activity>
-        <activity android:name=".ui.AllLinesActivity"
+        <activity android:name=".ui.AllLinesActivity" android:configChanges="keyboardHidden|orientation"
                   android:label="@string/app_name">
             <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchableActivity" />
         </activity>
@@ -23,7 +23,7 @@
         <activity android:name=".ui.BusStationActivity"
                   android:label="@string/busline_activity_title">
         </activity>
-        <activity android:name=".ui.BusStationGlobalActivity">
+        <activity android:name=".ui.BusStationGlobalActivity" android:configChanges="keyboardHidden|orientation">
             <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchableActivity" />
         </activity>
         <activity android:name=".ui.SearchableActivity" >
