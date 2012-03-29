@@ -182,9 +182,16 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
-            mDialog.cancel();
-            setupAdapter(mLines);
-            mAdapter.notifyDataSetChanged();
+            try {
+                mDialog.cancel();
+                mDialog = null;
+                setupAdapter(mLines);
+                mAdapter.notifyDataSetChanged();
+            } catch (Exception e) {
+                /* NOP */
+                // Prevents random "IllegalArgumentException: View not attached to window manager"
+                // exception
+            }
         }
     }
 
