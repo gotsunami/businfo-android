@@ -30,15 +30,21 @@ public class SQLQueryManager implements QueryManager {
 
     /**
      * Find matching cities
-     * @param query
+     * @param query (or part of) city name. Will match %cityname%
+     * @param strict will match cityname exactly if true (default: false) 
      * @return
      */
     @Override
-    public List<City> findCities(String query) {
+    public List<City> findCities(String query, boolean strict) {
+        String searchStr;
+        if (strict == true)
+            searchStr = query;
+        else
+            searchStr = "%" + query + "%";
         List<City> rcities = new ArrayList<City>();
         Cursor c = mManager.getDB().getReadableDatabase().query(ctx.getString(
             R.string.db_city_table_name), new String[] {"id", "name"}, "name LIKE ?",
-            new String[] {"%" + query + "%"}, null, null, "name"
+            new String[] {searchStr}, null, null, "name"
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);

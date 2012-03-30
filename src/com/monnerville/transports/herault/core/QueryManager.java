@@ -11,10 +11,11 @@ import java.util.Map;
 public interface QueryManager {
     /**
      * Looks for existing cities
-     * @param query
+     * @param query (or part of) city name. Will match %cityname%
+     * @param strict will match cityname exactly if true (default: false) 
      * @return list of cities
      */
-    public List<City> findCities(String query);
+    public List<City> findCities(String query, boolean strict);
     /**
      * Looks for existing bus stations
      * @param query

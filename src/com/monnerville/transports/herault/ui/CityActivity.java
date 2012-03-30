@@ -76,7 +76,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
 
         QueryManager finder = SQLQueryManager.getInstance();
         String cityName = finder.getCityFromId(mCityId);
-        List<City> cities = finder.findCities(cityName);
+        List<City> cities = finder.findCities(cityName, true);
         List<String> lines = finder.findLinesInCity(cityName);
 
         setPrimaryTitle(cityName);

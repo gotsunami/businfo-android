@@ -24,11 +24,13 @@ public class XMLQueryManager implements QueryManager {
 
     /**
      * Find matching cities
-     * @param query
+     * @param query (or part of) city name. Will match %cityname%
+     * @param strict will match cityname exactly if true (default: false). This 
+     *        parameter is ignored in the XML implementation
      * @return
      */
     @Override
-    public List<City> findCities(String query) {
+    public List<City> findCities(String query, boolean strict) {
         // Can be really slow
         List<City> rcities = new ArrayList<City>();
         List<BusLine> lines = mBusManager.getBusLines();

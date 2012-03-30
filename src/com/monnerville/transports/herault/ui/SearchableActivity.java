@@ -157,7 +157,7 @@ public class SearchableActivity extends ListActivity {
         @Override
         protected Void doInBackground(String... q) {
             String query = q[0];
-            mCities = finder.findCities(query);
+            mCities = finder.findCities(query, false);
             mStations = (List<DBStation>)finder.findStations(query);
             mLines = finder.findMatchingLines(query);
             // Get directions
