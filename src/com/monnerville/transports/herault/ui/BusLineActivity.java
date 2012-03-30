@@ -380,11 +380,17 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         @Override
         protected void onPostExecute(Void none) {
             Log.d(TAG, "duration: " + (System.currentTimeMillis() - mStart) + "ms");
-            mAdapter.notifyDataSetChanged();
-            mDialog.cancel();
-            if (mShowToast) {
-                Toast.makeText(BusLineActivity.this, getString(R.string.toast_current_direction,
-                    mDirection), Toast.LENGTH_SHORT).show();
+            try {
+                mAdapter.notifyDataSetChanged();
+                mDialog.cancel();
+                if (mShowToast) {
+                    Toast.makeText(BusLineActivity.this, getString(R.string.toast_current_direction,
+                        mDirection), Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                /* NOP */
+                // Prevents random "IllegalArgumentException: View not attached to window manager"
+                // exception
             }
         }
     }
