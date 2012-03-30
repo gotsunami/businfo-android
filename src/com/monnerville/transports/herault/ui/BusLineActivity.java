@@ -106,8 +106,10 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         TextView lineIcon = (TextView)findViewById(R.id.line_icon);
         AllLinesActivity.setLineTextViewStyle(this, line, lineIcon);
 
+        /**
         MapView mapView = (MapView) findViewById(R.id.mapview);
         MapController controller = mapView.getController();
+         */ 
 
         // Display city on map
         Drawable marker = getResources().getDrawable(android.R.drawable.star_on);
@@ -128,21 +130,27 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
                 mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
 
                 // Draw point on map
+                /** TODO: not for now
                 GPSPoint pt = finder.getCityGPSCoordinates(city);
                 GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
                 busOverlay.addItem(cityPoint, "doo", "Kilo");
                 Log.d("POINT", pt.getLatitude() + ", " + pt.getLongitude());
+                 */
             }
             mList.setAdapter(mAdapter);
+            /**
             mapView.getOverlays().add(busOverlay);
             // Center map on the first city
             GPSPoint pt = finder.getCityGPSCoordinates(cities.get(0));
             GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
             controller.setCenter(cityPoint);
+             */
             new StationsStopsRetreiverTask().execute(allStations);
+            /**
             NavigationDataSet nds = MapService.calculateRoute("Gigean,France", "Frontignan,France", MapService.MODE_CAR);
             if (nds != null)
                 Log.d("NDS", nds.toString());
+             */
         }
         else {
             Log.w(TAG, "Direction '" + mDirection + "' not found");
@@ -177,7 +185,9 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             }
         });
 
+        /**
         controller.setZoom(DEFAULT_MAP_ZOOM);
+         */
     }
 
     /**

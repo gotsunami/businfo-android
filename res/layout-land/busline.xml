@@ -3,6 +3,7 @@
          android:orientation="horizontal"
          android:layout_width="fill_parent"
          android:layout_height="fill_parent">
+    <!--
     <com.google.android.maps.MapView
         android:id="@+id/mapview"
         android:layout_width="0dip"
@@ -11,6 +12,7 @@
         android:layout_weight="1"
         android:apiKey="@string/gmaps_api_key"
     />
+    -->
     <ListView android:id="@+id/stationslist"
         android:layout_marginLeft="2dip"
         android:layout_weight="1"
