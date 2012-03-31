@@ -75,10 +75,12 @@ def fetch_gps_coords(city):
     """
     Uses Google Geocoding API.
     See http://code.google.com/intl/fr/apis/maps/documentation/geocoding/
+
+    Every city is searched only in Hérault, France.
     """
     import urllib, urllib2, json
     lat = lng = 0
-    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(city + ', France'))
+    s = urllib2.urlopen(FETCH_GPS_URL % urllib.quote(city + ', Hérault, France'))
     r = json.loads(s.read())
     if r['status'] != 'OK':
         print "Bad status %s, could not get data from city: %s" % (r['status'], city.encode('utf-8'))
