@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.7</b> - 02/04/2012 :\n
+  - L\'emplacement des villes est indiqué sur une carte Google maps\n
+  - Amélioration des performances\n\n
 <b>0.9.6</b> - 23/03/2012 :\n
   - Ajout de la ligne 302 (Clermont-l\'Hérault - Montpellier)\n
   - Ajout de la ligne 120 (navette Montpellier - aéroport de Montpellier)\n

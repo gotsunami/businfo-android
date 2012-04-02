@@ -117,9 +117,7 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-- New line 302 (Clermont-l\'Hérault - Montpellier)
-- New line 120 (Montpellier - Montpellier airport shuttle)
-- New line 210 (Béziers - Béziers airport shuttle)
-- New line 313 (Bélarga - Montpellier)
+- City location is displayed on Google maps (just search for a city by clicking on the search icon)
+- Performance improvements
 "</string>
 </resources>

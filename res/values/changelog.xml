@@ -4,9 +4,12 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.6</string>
+    <string name="app_version">0.9.7</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.7</b> - 2012-04-02:\n
+  - City location is displayed on Google maps\n
+  - Performance improvements\n\n
 <b>0.9.6</b> - 2012-03-23:\n
   - New line 302 (Clermont-l\'Hérault - Montpellier)\n
   - New line 120 (Montpellier - Montpellier airport shuttle)\n
