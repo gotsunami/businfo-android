@@ -68,7 +68,7 @@
     <string name="pd_updating_database">"Mise à jour des horaires, veuillez patienter..."</string>
     <string name="pd_searching">Chargement...</string>
     <string name="action_speak_destination">Énoncer un mot clef</string>
-    <string name="action_search">Rechercher</string>
+    <string name="action_search">Recherche rapide</string>
     <string name="action_show_all_lines">Toutes les lignes</string>
     <string name="action_show_settings">Paramètres</string>
     <string name="result_no_match">Aucun résultat</string>
@@ -123,7 +123,9 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-- L\'emplacement des villes est indiqué sur une carte Google maps (chercher le nom d\'une ville en cliquant sur la loupe de recherche)
-- Amélioration des performances
+- Ajout de la ligne 303/485 (Saint-Pons-de-Thomières - Montpellier)
+- Nouvelle option 'toutes les lignes de la ville' disponible dans le menu contextuel des arrêts favoris sur la page d'accueil et en cliquant sur le nom d'un arrêt sur la page d'une ligne
+- Nouveau raccourci 'Recherche rapide' sur la page d'accueil (meilleure ergonomie)
+- Nouvelle option dans la page des paramètres pour cacher les cartes affichant la localisation des villes (pratique si réseau non disponible)
 "</string>
 </resources>
