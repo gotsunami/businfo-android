@@ -8,8 +8,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -57,6 +59,7 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
     private List<Action> mMainActions;
     private boolean mVoiceSupported = false;
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
+    private boolean mDatabaseUpgrading = false;
     // Cached directions for all available lines
 
     private final SQLBusManager mManager = SQLBusManager.getInstance();
@@ -302,6 +305,7 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
         public void handleMessage(Message msg) {
             switch(msg.what) {
                 case SQLBusManager.FLUSH_DATABASE_INIT:
+                    mDatabaseUpgrading = true;
                     mPd.show();
                     break;
                 case SQLBusManager.FLUSH_DATABASE_PROGRESS:
@@ -311,6 +315,7 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
                 case SQLBusManager.FLUSH_DATABASE_UPGRADED:
                     mPd.setProgress(100);
                     mPd.cancel();
+                    mDatabaseUpgrading = false;
                     break;
                 default:
                     break;
@@ -530,5 +535,17 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * Force screen orientation to be in portrait mode while upgrading DB. Otherwise,
+     * rotation is allowed.
+     * @param newConfig
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (mDatabaseUpgrading)
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 }
