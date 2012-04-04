@@ -92,6 +92,12 @@
     <string name="close_tips">Fermer</string>
     <string name="did_you_know">Le saviez-vous ?</string>
 
+    <string name="cat_maps_title">Service de cartographie</string>
+    <string name="cat_maps_sum">Cartes Google maps</string>
+    <string name="pref_use_city_map_title">Emplacement des villes</string>
+    <string name="pref_use_city_map_sumon">"Afficher une carte avec l'emplacement de la ville courante"</string>
+    <string name="pref_use_city_map_sumoff">Ne pas montrer la carte</string>
+
     <string name="cat_about_title">À propos</string>
     <string name="cat_about_sum">"À propos de l'application"</string>
     <string name="pref_about_title">Version</string>

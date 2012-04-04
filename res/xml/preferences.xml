@@ -33,6 +33,17 @@
 			android:title="@string/pref_tips_show_title" />
 	</PreferenceCategory>
 	<PreferenceCategory
+		android:key="cat_maps_service"
+		android:title="@string/cat_maps_title"
+		android:summary="@string/cat_maps_sum">
+        <CheckBoxPreference
+            android:key="pref_use_city_map"
+            android:title="@string/pref_use_city_map_title"
+            android:defaultValue="true"
+            android:summaryOn="@string/pref_use_city_map_sumon"
+            android:summaryOff="@string/pref_use_city_map_sumoff" />
+	</PreferenceCategory>
+	<PreferenceCategory
 		android:key="cat_about"
 		android:title="@string/cat_about_title"
 		android:summary="@string/cat_about_sum">

@@ -93,6 +93,12 @@
     <string name="close_tips">Close</string>
     <string name="did_you_know">Did you know?</string>
 
+    <string name="cat_maps_title">Map-based Service</string>
+    <string name="cat_maps_sum">Google Maps</string>
+    <string name="pref_use_maps_service_title">City location</string>
+    <string name="pref_use_maps_service_sumon">Show a map with current city location</string>
+    <string name="pref_use_maps_service_sumoff">Do not show any map for city location</string>
+
     <string name="cat_about_title">About</string>
     <string name="cat_about_sum">About application</string>
     <string name="pref_about_version_summary">%1$s - build %2$s</string>

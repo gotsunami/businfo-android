@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -43,6 +44,8 @@ import java.util.Arrays;
 public class CityActivity extends MapActivity implements HeaderTitle, OnItemClickListener {
     private String mCityId;
     private boolean mCanFinish = false;
+    private SharedPreferences mPrefs;
+    private boolean mShowGMap;
 
     // Cached directions for matching lines
     private List<List<String>> mDirections;
@@ -58,8 +61,11 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
     {
         super.onCreate(savedInstanceState);
 
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mShowGMap = mPrefs.getBoolean("pref_use_city_map", true);
+
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.city);
+        setContentView(mShowGMap ? R.layout.city : R.layout.city_no_map);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.city_title_bar);
 
         mList = (ListView)findViewById(R.id.lineslist);
@@ -94,24 +100,26 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
             }
         });
 
-        MapView mapView = (MapView) findViewById(R.id.mapview);
-        MapController controller = mapView.getController();
+        if (mShowGMap) {
+            MapView mapView = (MapView) findViewById(R.id.mapview);
+            MapController controller = mapView.getController();
 
-        // Display city on map
-        Drawable marker = getResources().getDrawable(android.R.drawable.star_big_on);
-        int markerWidth = marker.getIntrinsicWidth();
-        int markerHeight = marker.getIntrinsicHeight();
-        marker.setBounds(0, markerHeight, markerWidth, 0);
+            // Display city on map
+            Drawable marker = getResources().getDrawable(android.R.drawable.star_big_on);
+            int markerWidth = marker.getIntrinsicWidth();
+            int markerHeight = marker.getIntrinsicHeight();
+            marker.setBounds(0, markerHeight, markerWidth, 0);
 
-        BaseItemsOverlay busOverlay = new BaseItemsOverlay(marker);
-        GPSPoint pt = finder.getCityGPSCoordinates(cities.get(0));
-        GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
-        busOverlay.addItem(cityPoint, "doo", "Kilo");
-        mapView.getOverlays().add(busOverlay);
+            BaseItemsOverlay busOverlay = new BaseItemsOverlay(marker);
+            GPSPoint pt = finder.getCityGPSCoordinates(cities.get(0));
+            GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
+            busOverlay.addItem(cityPoint, "doo", "Kilo");
+            mapView.getOverlays().add(busOverlay);
 
-        // Center map on the city
-        controller.setCenter(cityPoint);
-        controller.setZoom(DEFAULT_MAP_ZOOM);
+            // Center map on the city
+            controller.setCenter(cityPoint);
+            controller.setZoom(DEFAULT_MAP_ZOOM);
+        }
     }
 
     @Override
@@ -222,7 +230,6 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
             int markerWidth = marker.getIntrinsicWidth();
             int markerHeight = marker.getIntrinsicHeight();
             marker.setBounds(0, markerHeight, markerWidth, 0);
-
         }
 
         @Override
