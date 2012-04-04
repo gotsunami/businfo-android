@@ -3,6 +3,7 @@
 	<string-array name="bookmark_options">
 		<item>Tous les horaires</item>
 		<item>Tous les arrêts de la ligne</item>
+		<item>Toutes les lignes de la ville</item>
 		<item>Partager</item>
 		<item>Supprimer favori</item>
 	</string-array>
@@ -15,10 +16,12 @@
 	<string-array name="show_or_share_options">
 		<item>Tous les horaires</item>
 		<item>Partager</item>
+		<item>Toutes les lignes de la ville</item>
 	</string-array>
 	<string-array name="tips">
 		<item>"Cliquez sur la loupe en haut à droite de l'écran pour rechercher une ligne, un arrêt ou une ville."</item>
 		<item>"Vous pouvez utiliser la reconnaissance vocale lors de la recherche, lorsque l'icône micro apparait."</item>
 		<item>"Appuyez sur l'étoile à côté du nom d'un arrêt de bus pour l'ajouter à vos favoris sur la page d'accueil."</item>
+        <item>"Si vous ne souhaitez pas afficher de carte pour localiser les villes etc., vous pouvez désactiver le service de cartographie dans la page des paramètres."</item>
 	</string-array>
 </resources>

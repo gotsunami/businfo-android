@@ -4,9 +4,16 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.7</string>
+    <string name="app_version">0.9.8</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.8</b> - 2012-04-04:\n
+  - New line 303/485 (Saint-Pons-de-Thomières - Montpellier)\n
+  - New \'all lines in city\' option showing in the contextual menu of bookmarked 
+    stations and by clicking on station names on any bus line\'s page\n
+  - New \'quick search\' shortcut on the home page (better ergonomics)\n
+  - New settings option to hide maps showing city location (convenient if no network 
+    is available)\n\n
 <b>0.9.7</b> - 2012-04-02:\n
   - City location is displayed on Google maps\n
   - Performance improvements\n\n

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.8</b> - 04/04/2012 :\n
+  - Ajout de la ligne 303/485 (Saint-Pons-de-Thomières - Montpellier)\n
+  - Nouvelle option \'toutes les lignes de la ville\' disponible dans le menu contextuel des arrêts
+    favoris sur la page d\'accueil et en cliquant sur le nom d\'un arrêt sur la page d\'une ligne\n
+  - Nouveau raccourci \'Recherche rapide\' sur la page d\'accueil (meilleure ergonomie)\n
+  - Nouvelle option dans la page des paramètres pour cacher les cartes affichant la localisation des villes 
+    (pratique si réseau non disponible)\n\n
 <b>0.9.7</b> - 02/04/2012 :\n
   - L\'emplacement des villes est indiqué sur une carte Google maps\n
   - Amélioration des performances\n\n

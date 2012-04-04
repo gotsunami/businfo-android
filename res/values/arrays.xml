@@ -3,6 +3,7 @@
 	<string-array name="bookmark_options">
 		<item>"All schedules"</item>
 		<item>All line stations</item>
+		<item>All lines in city</item>
 		<item>Share</item>
 		<item>Remove bookmark</item>
 	</string-array>
@@ -15,6 +16,7 @@
 	<string-array name="show_or_share_options">
 		<item>"All schedules"</item>
 		<item>Share</item>
+		<item>All lines in city</item>
 	</string-array>
 	<string-array name="days_of_week">
 		<item>monday</item>
@@ -29,5 +31,6 @@
         <item>"Click on the magnifying glass icon on the top right corner of the screen to start searching for a bus line, station or city."</item>
         <item>"While searching, you can use the voice recognition feature when the microphone icon is available."</item>
         <item>"Click on the star icon next to any bus station's name to add it to your bookmarks available on the home page."</item>
+        <item>"If you don't want to display any map at all, you can disable the map-based service on the settings page."</item>
 	</string-array>
 </resources>

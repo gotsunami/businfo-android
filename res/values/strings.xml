@@ -69,6 +69,7 @@
     <string name="pd_updating_database">Updating schedules, please wait...</string>
     <string name="pd_searching">Searching...</string>
     <string name="action_speak_destination">Speak keyword</string>
+    <string name="action_search">Quick search</string>
     <string name="action_show_all_lines">All lines</string>
     <string name="action_show_settings">Settings</string>
     <string name="result_no_match">No result</string>
@@ -91,6 +92,12 @@
     <string name="disable_tips">Disable</string>
     <string name="close_tips">Close</string>
     <string name="did_you_know">Did you know?</string>
+
+    <string name="cat_maps_title">Map-based Service</string>
+    <string name="cat_maps_sum">Google Maps</string>
+    <string name="pref_use_city_map_title">City location</string>
+    <string name="pref_use_city_map_sumon">Show a map with current city location</string>
+    <string name="pref_use_city_map_sumoff">Do not show any map for city location</string>
 
     <string name="cat_about_title">About</string>
     <string name="cat_about_sum">About application</string>
@@ -117,7 +124,9 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-- City location is displayed on Google maps (just search for a city by clicking on the search icon)
-- Performance improvements
+- New line 303/485 (Saint-Pons-de-Thomières - Montpellier)
+- New 'all lines in city' option showing in the contextual menu of bookmarked stations and by clicking on station names on any bus line's page
+- New 'quick search' shortcut on the home page to (better ergonomics)
+- New settings option to hide maps showing city location (convenient if no network is available)
 "</string>
 </resources>
