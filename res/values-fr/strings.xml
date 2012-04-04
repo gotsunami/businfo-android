@@ -68,6 +68,7 @@
     <string name="pd_updating_database">"Mise à jour des horaires, veuillez patienter..."</string>
     <string name="pd_searching">Chargement...</string>
     <string name="action_speak_destination">Énoncer un mot clef</string>
+    <string name="action_search">Rechercher</string>
     <string name="action_show_all_lines">Toutes les lignes</string>
     <string name="action_show_settings">Paramètres</string>
     <string name="result_no_match">Aucun résultat</string>

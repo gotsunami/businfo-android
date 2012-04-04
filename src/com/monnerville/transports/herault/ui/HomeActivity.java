@@ -104,6 +104,8 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
             Log.d(TAG, "Recognize not present: voice recognition not supported");
         }
 
+        mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_menu_search),
+            getString(R.string.action_search)));
         mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_menu_gallery),
             getString(R.string.action_show_all_lines)));
         mMainActions.add(new Action(getResources().getDrawable(android.R.drawable.ic_menu_preferences),
@@ -465,6 +467,9 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
             else if(what.caption.equals(getString(R.string.action_speak_destination))) {
                 if (mVoiceSupported)
                     startVoiceRecognitionActivity();
+            }
+            else if(what.caption.equals(getString(R.string.action_search))) {
+                onSearchRequested();
             }
             else if(what.caption.equals(getString(R.string.action_show_settings))) {
                 startActivity(new Intent(this, AppPreferenceActivity.class));
