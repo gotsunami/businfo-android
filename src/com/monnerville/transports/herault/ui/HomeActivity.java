@@ -408,7 +408,7 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
                 @Override
                 public void onClick(DialogInterface dialog, int item) {
                     switch (item) {
-                        case 0: { // Show station
+                        case 0: { // All schedules (show station)
                             Intent intent = new Intent(HomeActivity.this, BusStationActivity.class);
                             intent.putExtra("line", station.getLine().getName());
                             intent.putExtra("direction", station.getDirection());
@@ -416,18 +416,30 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
                             startActivity(intent);
                             break;
                         }
-                        case 1: { // Show line
+                        case 1: { // All line stations (show line)
                             Intent intent = new Intent(HomeActivity.this, BusLineActivity.class);
                             intent.putExtra("line", station.getLine().getName());
                             intent.putExtra("direction", station.getDirection());
                             startActivity(intent);
                             break;
                         }
-                        case 2: { // Share
+                        case 2: { // All lines in city (show city)
+                            QueryManager finder = SQLQueryManager.getInstance();
+                            List<City> cs = finder.findCities(station.getCity(), true);
+                            if (cs.isEmpty()) return;
+                            City c = cs.get(0);
+                            if (c.isValid()) {
+                                Intent intent = new Intent(HomeActivity.this, CityActivity.class);
+                                intent.putExtra("cityId", String.valueOf(c.getPK()));
+                                startActivity(intent);
+                            }
+                            break;
+                        }
+                        case 3: { // Share
                             station.share(HomeActivity.this);
                             break;
                         }
-                        case 3: // Remove
+                        case 4: // Remove
                             for (BusStation st : mStarredStations) {
                                 if (st == obj) {
                                     mStarredStations.remove(st);

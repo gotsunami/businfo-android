@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.monnerville.transports.herault.core.City;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
     private ListView mList;
 
     private final int DEFAULT_MAP_ZOOM = 13;
+    private QueryManager mFinder = SQLQueryManager.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -94,7 +96,6 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         else
             finish();
 
-        QueryManager finder = SQLQueryManager.getInstance();
         setPrimaryTitle(getString(R.string.current_line_title, mLine));
         setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
 
@@ -131,7 +132,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
 
                 // Draw point on map
                 /** TODO: not for now
-                GPSPoint pt = finder.getCityGPSCoordinates(city);
+                GPSPoint pt = mFinder.getCityGPSCoordinates(city);
                 GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
                 busOverlay.addItem(cityPoint, "doo", "Kilo");
                 Log.d("POINT", pt.getLatitude() + ", " + pt.getLongitude());
@@ -141,7 +142,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             /**
             mapView.getOverlays().add(busOverlay);
             // Center map on the first city
-            GPSPoint pt = finder.getCityGPSCoordinates(cities.get(0));
+            GPSPoint pt = mFinder.getCityGPSCoordinates(cities.get(0));
             GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
             controller.setCenter(cityPoint);
              */
@@ -326,6 +327,17 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
                     }
                     case 1: { // Share
                         station.share(BusLineActivity.this);
+                        break;
+                    }
+                    case 2: { // Show city activity with all lines
+                        List<City> cs = mFinder.findCities(station.getCity(), true);
+                        if (cs.isEmpty()) return;
+                        City c = cs.get(0);
+                        if (c.isValid()) {
+                            Intent intent = new Intent(BusLineActivity.this, CityActivity.class);
+                            intent.putExtra("cityId", String.valueOf(c.getPK()));
+                            startActivity(intent);
+                        }
                         break;
                     }
                     default:

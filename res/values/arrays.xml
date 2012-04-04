@@ -3,6 +3,7 @@
 	<string-array name="bookmark_options">
 		<item>"All schedules"</item>
 		<item>All line stations</item>
+		<item>All lines in city</item>
 		<item>Share</item>
 		<item>Remove bookmark</item>
 	</string-array>
@@ -15,6 +16,7 @@
 	<string-array name="show_or_share_options">
 		<item>"All schedules"</item>
 		<item>Share</item>
+		<item>All lines in city</item>
 	</string-array>
 	<string-array name="days_of_week">
 		<item>monday</item>
