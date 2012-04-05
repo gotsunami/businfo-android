@@ -1,34 +1,36 @@
 # Line 306
+# updated: 2012-03-23
 name=306
 circulation=1-6
 color=#33CCFF
+from=2012-04-07
 
 direction=
 
 city=MONTPELLIER 
-Gare routière;11:25;12:20*3*;15:15;17:30
+Station Mosson;11:45;12:40*3*;15:45;18:00
 
 city=GIGNAC 
-Gare routière;12:15;13:10*3*;16:05;18:20
+Gare routière;12:15;13:10*3*;16:10;18:25
 
 city=ST ANDRE DE SANGONIS 
-Mnt aux Morts;12:20;13:15*3*;16:10;18:25
+Monument aux Morts;12:20;13:15*3*;16:15;18:30
 
 city=CEYRAS 
-Centre;12:25;13:20*3*;16:15;18:35
+Centre;12:25;13:20*3*;16:20;18:35
 
 city=CLERMONT L'HERAULT 
 Gare routière Arrivée;12:30;13:25*3*;16:25;18:40
 Gare routière Départ;12:35;13:35*3*;16:30;18:45
 
 city=NEBIAN 
-Centre;12:39;13:40*3*;16:35;18:50
+Centre;12:40;13:40*3*;16:35;18:50
 
 city=LIEURAN CABRIERES 
-Centre;12:44;13:45*3*;16:40;18:55
+Centre;12:45;13:45*3*;16:40;18:55
 
 city=PERET 
-Ecoles;12:48;13:50*3*;16:45;19:00
+Ecoles;12:50;13:50*3*;16:45;19:00
 
 city=CABRIERES 
 Centre;12:55;13:55*3*;16:55;19:05
@@ -61,11 +63,11 @@ city=CEYRAS
 Centre;7:15;13:40
 
 city=ST ANDRE DE SANGONIS 
-Mnt aux Morts;7:20;13:45
+Monument aux Morts;7:20;13:45
 
 city=GIGNAC 
 Gare routière;-;13:50
 
 city=MONTPELLIER 
-Station Mosson;7:55;14:15
-Gare routière;8:30;14:35
+Station Mosson;7:50;14:15
+
