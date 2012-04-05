@@ -1,0 +1,77 @@
+# Line 307
+# updated: 2012-03-23
+name=307
+circulation=1-6S
+color=#00CC00
+from=2012-04-07
+
+direction=
+
+city=CLERMONT L'HERAULT 
+Gare routière;11:15*3S*;12:15;16:30;*1-6s*;11:15*3s*;12:15;16:30
+
+city=BRIGNAC 
+Centre;11:20*3S*;12:20;16:35;*1-6s*;11:20*3s*;12:20;16:35
+
+city=CANET 
+Centre;11:25*3S*;12:25;16:40;*1-6s*;11:25*3s*;12:25;16:40
+
+city=LE POUGET 
+Centre;11:30*3S*;12:35;16:45;*1-6s*;11:30*3s*;12:35;16:45
+
+city=POUZOLS 
+Rue des Lauzes;11:35*3S*;12:40;16:50;*1-6s*;11:35*3s*;12:40;16:50
+
+city=POPIAN 
+Mairie;11:40*3S*;12:45;16:55;*1-6s*;11:40*3s*;12:45;16:55
+
+city=ST BAUZILLE DE LA SYLVE 
+Jeu de ballon;11:42*3S*;12:47;16:57;*1-6s*;11:42*3s*;12:47;16:57
+
+city=VENDEMIAN 
+Centre;11:45*3S*;12:50;17:00;*1-6s*;11:45*3s*;12:50;17:00
+
+city=PLAISSAN 
+Centre;11:50*3S*;12:55;17:05;*1-6s*;11:50*3s*;12:55;17:05
+
+city=PUILACHER 
+Mairie;11:53*3S*;*1-6s*;11:53*3s*
+
+city=TRESSAN 
+Place de l'Eglise;11:55*3S*;*1-6s*;11:55*3s*
+
+direction=
+
+city=TRESSAN 
+Place de l'Eglise;7:50;*1-6s*;7:55
+
+city=PUILACHER 
+Mairie;7:55;*1-6s*;8:00
+
+city=PLAISSAN 
+Centre;8:00;13:00 *1-6s* 8:05 13:00
+
+city=VENDEMIAN 
+Centre;8:10;13:10;*1-6s*;8:10;13:10
+
+city=ST BAUZILLE DE LA SYLVE 
+Jeu de Ballon;8:15;13:15;*1-6s*;8:15;13:15
+
+city=POPIAN 
+Mairie;8:20;13:20;*1-6s*;8:20;13:20
+
+city=POUZOLS 
+Rue des Lauzes;8:25;13:25;*1-6s*;8:25;13:25
+
+city=LE POUGET 
+Centre;8:30;13:30;*1-6s*;8:30;13:30
+
+city=CANET 
+Centre;8:35;13:35;*1-6s*;8:35;8:30;13:35
+
+city=BRIGNAC 
+Centre;8:40;13:40;*1-6s*;-;8:35;13:40
+
+city=CLERMONT L'HERAULT 
+Gare routière;8:45;13:45;*1-6s*;8:45;8:50;13:45
+
