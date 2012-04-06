@@ -1,121 +1,108 @@
 # Line 303/485
+# updated: 2012-03-23
+# FIXME: bus lines are 303, 482, 301, 485
 name=303/485
 circulation=1-6
-from=2011-07-04
+from=2012-04-07
 color=#FF33CC
 
 direction=
 
-city=MONTPELLIER 
-Gare routière;07:25;09:55;12:20;15:15;16:20;18:00;*7,r*;10:00;15:15;17:45
-Station Mosson;07:45;10:15;12:40;15:35;16:45;18:25;*7,r*;10:20;15:35;18:05
-
-city=ST PAUL ET VALMALLE 
-Centre;-;-;12:55;15:50;-;-;*7,r*;10:35;15:50;18:20
-
-city=GIGNAC 
-Gare routière;08:10;10:40;13:10;16:00;17:10;18:50;*7,r*;10:45;16:00;18:30
-
-city=ST ANDRE DE SANGONIS
-Rte de Montpellier;08:15;10:45;13:15;16:10;17:15;18:55;*7,r*;10:50;16:10;18:35
-
-city=CEYRAS 
-Centre;08:20;10:50;13:20;16:15;17:25;19:00;*7,r*;10:55;16:15;18:40
-
-city=CLERMONT L'HERAULT 
-Gare routière;08:25;10:55;13:25;16:20;17:30;19:05;*7,r*;11:00;16:20;18:45
-Gare routière;départ;08:30;11:00;13:35;16:30;17:30;19:10;*7,r*;11:00;16:30;18:45
-
-city=VILLENEUVETTE 
-Centre RD908;08:34;11:03;13:40;16:33;17:35;19:14;*7,r*;11:04;16:33;18:49
-
-city=MOUREZE 
-Embr. RD908;08:38;11:09;13:46;16:38;17:41;19:19;*7,r*;11:09;16:38;18:54
-
-city=SALASC 
-Embr. RD908;08:41;11:13;13:49;16:40;17:45;19:22;*7,r*;11:12;16:40;18:57
-
-city=VALMASCLE 
-Embr. RD908;08:43;11:16;13:52;16:42;17:47;19:24;*7,r*;11:14;16:42;18:59
-
-city=BEDARIEUX 
-Place Cot;09:10;11:35;14:10;17:00;18:05;19:40;*7,r*;11:30;17:00;19:15
-Gare SNCF;09:15;11:39;14:14;17:03;18:08;19:45;*7,r*;11:35;17:03;19:20
-
-city=HEREPIAN 
-Rte de Bédarieux;09:20;11:45;14:20;17:10;18:15;19:50;*7,r*;11:40;17:10;19:25
-
-city=LAMALOU LES BAINS 
-Casino;09:25;11:50;14:25;17:15;18:20;19:55;*7,r*;11:45;17:15;19:30
-
-city=LE POUJOL SUR ORB 
-Mairie;09:30;12:00;14:35;17:20;18:30;20:00;*7,r*;11:55;17:20;19:35
-
-city=COLOMBIERES SUR ORB 
-Centre;09:45;12:35;17:25;18:40;*7,r*;17:25
+city=ST PONS DE THOMIERES 
+Le Foirail;06:40;09:00*1-7,r*
 
 city=OLARGUES 
-Mairie;10:00;12:55;17:40;18:53;*7,r*;17:40
+Mairie;07:00;09:30*1-7,r*
 
-city=ST PONS DE THOMIERES 
-Le Foirail;10:25;13:25;18:10;19:15;*7,r*;18:10
+city=COLOMBIERES SUR ORB 
+Centre;07:20;09:45*1-7,r*
+
+city=LE POUJOL SUR ORB 
+Mairie;05:40;07:05*7,r*;07:25;09:50*1-7,r*;11:00;12:25;15:35*7,r*;16:20
+
+city=LAMALOU LES BAINS 
+Casino;05:45;07:10*7,r*;07:30;09:55*1-7,r*;11:05;12:30;15:40*7,r*;16:25
+
+city=HEREPIAN 
+Rte de Bédarieux;05:50;07:15*7,r*;07:35;10:00*1-7,r*;11:10;12:35;15:45*7,r*;16:30
+
+city=BEDARIEUX 
+Gare SNCF;05:55;07:22*7,r*;07:42;10:11*1-7,r*;11:17;12:42;15:51*7,r*;16:37
+Place Cot;06:00;07:25*7,r*;07:45;10:15*1-7,r*;11:20;12:45;15:55*7,r*;16:40
+
+city=SALASC 
+Embr. RD908;06:25;07:46*7,r*;08:06;10:34*1-7,r*;11:38;13:03;16:13*7,r*;17:01
+
+city=VILLENEUVETTE 
+Centre;06:30;07:55*7,r*;08:15;10:41*1-7,r*;11:45;13:10;16:20*7,r*;17:10
+
+city=CLERMONT L'HERAULT 
+Gare routière;06:40;08:05*7,r*;08:25;10:55*1-7,r*;12:00;13:25;16:30*7,r*;17:25
+Gare routière départ;06:40;08:05*7,r*;08:35;10:55*1-7,r*;12:00;13:35;16:35*7,r*;17:35
+
+city=CEYRAS 
+Centre;06:45;08:10*7,r*;08:45;11:00*1-7,r*;12:05;13:40;16:40*7,r*;17:40
+
+city=ST ANDRE DE SANGONIS 
+Rte de Montpellier;06:50;08:15*7,r*;08:50;11:05*1-7,r*;12:10;13:45;16:45*7,r*;17:45
+
+city=GIGNAC 
+Gare routière;08:20*7,r*;08:55;11:10*1-7,r*;12:15;13:50;16:55*7,r*;17:50
+
+city=ST PAUL ET VALMALLE 
+Centre;08:30*7,r*;-;-;12:30;-;17:05*7,r*;18:00
+
+city=MONTPELLIER 
+Station Mosson;07:20;08:50*7,r*;09:20;11:35*1-7,r*;12:45;14:15;17:25*7,r*;18:20
 
 
 direction=
 
 
-city=ST PONS DE THOMIERES 
-Le Foirail;06:40;09:00;*7,r*;09:00
-
-city=OLARGUES 
-Mairie;07:00;09:30;*7,r*;09:30
-
-city=COLOMBIERES SUR ORB 
-Centre;07:20;09:45;*7,r*;09:45
-
-city=LE POUJOL SUR ORB 
-Mairie;05:40;07:25;09:50;11:00;12:25;16:20;*7,r*;7:25;09:50;15:24
-
-city=LAMALOU LES BAINS 
-Casino;05:45;07:30;09:55;11:05;12:30;16:25;*7,r*;7:30;09:55;15:30
-
-city=HEREPIAN 
-Rte de Bédarieux;05:50;07:35;10:00;11:10;12:35;16:30;*7,r*;7:35;10:00;15:35
-
-city=BEDARIEUX 
-Gare SNCF;05:55;07:42;10:11;11:17;12:42;16:37;*7,r*;7:42;10:11;15:41
-Place Cot;06:00;07:45;10:15;11:20;12:45;16:40;*7,r*;7:45;10:15;15:45
-
-city=VALMASCLE 
-Embr. RD908;06:20;08:03;10:31;11:35;13:00;16:58;*7,r*;8:03;10:31;16:00
-
-city=SALASC 
-Embr. RD908;06:25;08:06;10:34;11:38;13:03;17:01;*7,r*;8:06;10:34;16:02
-
-city=MOUREZE 
-Embr. RD908;06:28;08:09;10:37;11:40;13:05;17:04;*7,r*;8:09;10:37;16:04
-
-city=VILLENEUVETTE 
-Centre;06:30;08:15;10:41;11:45;13:10;17:10;*7,r*;8:15;10:41;16:10
-
-city=CLERMONT L'HERAULT 
-Gare routière;06:40;08:25;10:45;12:00;13:25;17:25;*7,r*;8:24;10:45;16:19
-Gare routière départ;06:40;08:35;10:55;12:00;13:35;17:35;*7,r*;8:24;10:55;16:19
-
-city=CEYRAS 
-Centre;06:45;08:45;11:00;12:05;13:40;17:40;*7,r*;8:30;11:00;16:25
-
-city=ST ANDRE DE SANGONIS 
-Rte de Montpellier;06:50;08:50;11:05;12:10;13:45;17:45;*7,r*;8:35;11:05;16:30
-
-city=GIGNAC 
-Gare routière Direct;08:55;11:10;12:15;13:50;17:50;*7,r*;8:40;11:10;16:40
+city=MONTPELLIER 
+Station Mosson;07:45;10:15*1-7,r*;12:40;15:45*1-7,r*;16:45;18:30*1-7,r*
 
 city=ST PAUL ET VALMALLE 
-Centre;-;-;12:30;-;-;*7,r*;8:55;-;16:55
+Centre;-;-;12:55;-;-;-
 
-city=MONTPELLIER 
-Station Mosson;07:20;09:20;11:35;12:45;14:15;18:15;*7,r*;9:10;11:35;17:10
-Gare routière;07:45;09:45;12:00;13:10;14:35;18:35;*7,r*;9:30;12:00;17:30
+city=GIGNAC 
+Gare routière;08:10;10:40*1-7,r*;13:10;16:05*1-7,r*;17:10;18:55*1-7,r*
 
+city=ST ANDRE DE SANGONIS 
+Rte de Montpellier;08:15;10:45*1-7,r*;13:15;16:10*1-7,r*;17:15;19:00*1-7,r*
+
+city=CEYRAS 
+Centre;08:20;10:50*1-7,r*;13:20;16:15*1-7,r*;17:25;19:05*1-7,r*
+
+city=CLERMONT L'HERAULT 
+Gare routière;08:25;10:55*1-7,r*;13:25;16:20*1-7,r*;17:30;19:10*1-7,r*
+Gare routière départ;08:30;11:00*1-7,r*;13:35;16:30*1-7,r*;17:30;19:15*1-7,r*
+
+city=VILLENEUVETTE 
+Centre RD908;08:34;11:03*1-7,r*;13:40;16:33*1-7,r*;17:35;19:20*1-7,r*
+
+city=SALASC 
+Embr. RD908;08:41;11:13*1-7,r*;13:49;16:40*1-7,r*;17:45;19:22*1-7,r*
+
+city=BEDARIEUX 
+Place Cot;09:10;11:35*1-7,r*;14:10;17:05*1-7,r*;18:05;19:45*1-7,r*
+Gare SNCF;09:15;11:39*1-7,r*;14:14;17:08*1-7,r*;18:08;19:50*1-7,r*
+
+city=HEREPIAN 
+Rte de Bédarieux;09:20;11:45*1-7,r*;14:20;17:15*1-7,r*;18:15;19:55*1-7,r*
+
+city=LAMALOU LES BAINS 
+Casino;09:25;11:50*1-7,r*;14:25;17:20*1-7,r*;18:20;20:00*1-7,r*
+
+city=LE POUJOL SUR ORB 
+Mairie;09:30;12:00*1-7,r*;14:35;17:25*1-7,r*;18:30;20:05*1-7,r*
+
+city=COLOMBIERES SUR ORB 
+Centre;09:45;12:35*1-7,r*;17:40*1-7,r*;18:40
+
+city=OLARGUES 
+Mairie;10:00;12:55*1-7,r*;17:45*1-7,r*;18:53
+
+city=ST PONS DE THOMIERES 
+Le Foirail;10:25;13:25*1-7,r*;18:15*1-7,r*;19:15
 
