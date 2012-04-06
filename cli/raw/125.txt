@@ -1,42 +1,49 @@
 # Line 125
+# updated: 2012-03-23
 name=125
 circulation=1-6
+from=2012-04-07
 color=#660099
 
 direction=
 
-city=MONTPELLIER
-Station Port Marianne;12:05*3s*;12:35;16:35*1-5s*;17:25;18:35*1,2,4,5s*;19:25
-
 city=LATTES 
-Lycée Champollion;12:10*3s*;12:40;16:40*1-5s*;17:34;18:40*1,2,4,5s*;19:30
+Station Boirargues;12:10*3s*;12:40;16:32*1-5s*;17:35;18:40*1,2,4,5s*;19:36
+Lycée Champollion;12:15*3s*;12:45;16:37*1-5s*;17:40;18:45*1,2,4,5s*;19:41
 
 city=MAUGUIO 
-ZAC de Figuières;12:13*3s*;12:43;16:42*1-5s*;17:35;18:42*1,2,4,5s*;19:32
+ZAC de Figuières;12:16*3s*;12:46;16:38*1-5s*;17:43;18:48*1,2,4,5s*;19:42
 
 city=ST AUNES 
-Auroux;12:15*3s*;12:45;16:45*1-5s*;17:44;18:45*1,2,4,5s*;19:35
-Cistes/Couchant;12:25*3s*;12:55;16:50*1-5s*;17:47;18:50*1,2,4,5s*;19:40
-Le lucado;12:27*3s*;17:48;18:52*1,2,4,5s*;19:42
-Tourterelles;12:30*3s*;17:50;18:55*1,2,4,5s*;19:45
-Centre commercial;12:35*3s*;17:51;19:00*1,2,4,5s*;19:50
-L'escolette;12:36*3s*;17:52;19:02*1,2,4,5s*;19:52
+Auroux;12:26*3s*;12:56;16:48*1-5s*;17:45;18:50*1,2,4,5s*;19:44
+Ciste/Couchant/P. Cézanne;12:29*3s*;12:59;16:51*1-5s*;17:55;18:55*1,2,4,5s*;19:49
+Lucado/Les Lapereaux/Le Hameau;12:31*3s*;13:01;16:53*1-5s*;17:57;18:57*1,2,4,5s*;20:01
+Mas de Sapte/Tourterelles;12:33*3s*;13:03;16:55*1-5s*;18:00;19:00*1,2,4,5s*;20:04
+Centre commercial;12:36*3s*;13:06;16:58*1-5s*;18:05;19:05*1,2,4,5s*;20:09
+Escolette;12:37*3s*;13:07;16:59*1-5s*;18:06;19:06*1,2,4,5s*;20:10
+Ecole des garrigues;13:14;18:09
+
+city=MAUGUIO 
+Garrigues;13:15;18:10
 
 direction=
 
+city=MAUGUIO 
+Garrigues;06:45*1-6s*;07:09
+
 city=ST AUNES 
-Cistes/Couchant;7:00*1-6s*;7:25;8:10;12:55;16:50*1-5s*
-Le lucado;7:02*1-6s*;7:27;8:12;12:57;16:52*1-5s*
-Tourterelles;7:05*1-6s*;7:30;8:15;13:00;16:55*1-5s*
-Centre Commercial;7:10*1-6s*;7:35;8:20;13:05;17:00*1-5s*
-L'escolettes;7:12*1-6s*;7:37;8:22;13:07;17:02*1-5s*
-Auroux;7:15*1-6s*;7:40;8:25;13:10;17:05*1-5s*
+Ecole des garrigues;06:46*1-6s*;07:10
+Ciste/Couchant/P. Cézanne;06:53*1-6s*;07:17;08:05;12:57;16:51*1-5s*
+Lucado/Les Lapereaux/Le Hameau;06:55*1-6s*;07:19;08:07;12:59;16:53*1-5s*
+Mas de Sapte/Tourterelles;06:57*1-6s*;07:21;08:09;13:01;16:55*1-5s*
+Centre commercial;07:00*1-6s*;07:24;08:12;13:04;16:58*1-5s*
+Escolette;07:01*1-6s*;07:25;08:13;13:05;16:59*1-5s*
+Auroux;07:04*1-6s*;07:28;08:16;13:08;17:02*1-5s*
 
 city=MAUGUIO 
-ZAC de Figuières;7:24*1-6s*;7:50;8:34;13:18;17:14*1-5s*
+ZAC de Figuières;07:14*1-6s*;07:38;08:26;13:18;17:12*1-5s*
 
 city=LATTES 
-Lycée Champollion;7:25*1-6s*;7:52;8:35;13:20;17:15*1-5s*
+Lycée Champollion;07:15*1-6s*;07:39;08:27;13:19;17:13*1-5s*
+Station Boirargues;07:20*1-6s*;07:44;08:32;13:24;17:18*1-5s*
 
-city=MONTPELLIER 
-Station Port Marianne;7:35*1-6s*;8:00;8:40;13:30;17:20*1-5s*
