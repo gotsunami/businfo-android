@@ -4,9 +4,27 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.8</string>
+    <string name="app_version">0.9.9</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.9</b> - 2012-04-07:\n
+  Updated schedules and connections for the folling lines:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 107 (Lattes - Marsillargues)\n
+  - 117 Vailhauques (Montpellier - Vailhauquès)\n
+  - 117 Murviel (Montpellier - Murviel les Montpellier)\n
+  - 125 (Lattes - St Aunès)\n
+  - 131 (Pérols - Palavas Les Flots)\n
+  - 132 (Navette du Petit Travers)\n
+  - 301/380 (Clermont l\'Hérault - Lodève)\n
+  - 301/381 (Montpellier - Millau)\n
+  - 302 (Montpellier - Clermont l\'Hérault)\n
+  - 303/485 (Montpellier - St Pons de Thomières)\n
+  - 305 (Montpellier - Aspiran)\n
+  - 306 (Montpellier - Fontès)\n
+  - 307 (Clermont l\'Hérault - Plaissan)\n
+  - 308 (Montpellier - Clermont l\'Hérault)\n
+  - 482/485 (Montpellier - St Pons de Thomières)\n\n
 <b>0.9.8</b> - 2012-04-04:\n
   - New line 303/485 (Saint-Pons-de-Thomières - Montpellier)\n
   - New \'all lines in city\' option showing in the contextual menu of bookmarked 
