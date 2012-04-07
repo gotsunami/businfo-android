@@ -288,7 +288,13 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
         mStarredStations.clear();
         for (BusStation st : sts) {
             mStarredStations.add(st);
-            st.getNextStop(); // Fresh, non-cached value
+            try {
+                st.getNextStop(); // Fresh, non-cached value
+            } catch (Exception ex) {
+                // Could not restore station? Delete it.
+                mStarredStations.remove(st);
+                Log.e("ST", "Could not restore station!");
+            } 
         }
         mAdapter.notifyDataSetChanged();
     }
