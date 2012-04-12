@@ -451,6 +451,9 @@ def compute_db_checksum(srcdir):
     Set() in different ways, thus making issues when creating cheksums 
     against the generated .sql or .xml file. It appears to be better 
     to operate directly on source files.
+
+    Furthermore, the computed checksum is used to check if database 
+    rebuilding is needed by the building system.
     """
     sources = glob.glob(os.path.join(srcdir, '*.txt'))
     sources.sort()
@@ -603,9 +606,6 @@ where action is one of:
                 subprocess.call(cmd, shell=True)
                 subs += 1
             print " %d entries" % subs
-
-#        if g_prefilter:
-#            print "[%-18s] %d city substitutions" % ('city map', city_map_matches)
 
         sources = glob.glob(os.path.join(infile, '*.txt'))
         sources.sort()
