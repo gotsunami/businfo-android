@@ -462,7 +462,7 @@ def compute_db_checksum(srcdir):
     sources.sort()
     final = hashlib.md5()
     final.update(DBSTRUCT)
-    final.update(get_md5('filter.map'))
+    final.update(get_md5(os.path.join(sys.path[0], 'filter.map')))
     for src in sources:
         final.update(get_md5(src))
     return final.hexdigest()
