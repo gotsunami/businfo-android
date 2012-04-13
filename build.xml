@@ -106,6 +106,12 @@
 
     <target name="nbdebug" depends="debug,install" />
     <target name="-pre-build" depends="-gmaps-keysetup,-create-database" />
+    <target name="-pre-clean">
+        <exec failonerror="true" executable="make">
+            <arg line="-C cli" />
+            <arg value="clean" />
+        </exec>
+    </target>
 
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
