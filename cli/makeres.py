@@ -36,6 +36,7 @@ g_cities = []
 g_prefilter = None
 #
 RAW_DB_FILE = 'htdb.sql'
+CHKSUM_FILE = '.checksum'
 CHKSUM_DB_FILE = 'dbversion.xml'
 DB_STATS_FILE = 'dbstats.xml'
 CHUNK_DB_FILE = 'htdb-chunks.xml'
@@ -445,12 +446,14 @@ def get_md5(filename):
 def compute_db_checksum(srcdir):
     """
     Checksum of the database is performed using a global checksum of 
-    all the raw/*.txt file and the DBSTRUCT content. It's supposed to 
-    be a portable solution between different Python versions. Indeed, 
-    different Python versions could handle ordering of elements in 
-    Set() in different ways, thus making issues when creating cheksums 
-    against the generated .sql or .xml file. It appears to be better 
-    to operate directly on source files.
+    all the raw/*.txt file, the DBSTRUCT content and the filter.map 
+    entries. 
+    
+    It's supposed to be a portable solution between different Python 
+    versions. Indeed, different Python versions could handle ordering 
+    of elements in Set() in different ways, thus making issues when 
+    creating cheksums against the generated .sql or .xml file. It appears 
+    to be better to operate directly on source files.
 
     Furthermore, the computed checksum is used to check if database 
     rebuilding is needed by the building system.
@@ -459,6 +462,7 @@ def compute_db_checksum(srcdir):
     sources.sort()
     final = hashlib.md5()
     final.update(DBSTRUCT)
+    final.update(get_md5('filter.map'))
     for src in sources:
         final.update(get_md5(src))
     return final.hexdigest()
@@ -518,6 +522,29 @@ def make_chunks(rawname, chunksize=0):
     out.close()
     print "done."
     return num_chunks
+
+def check_up_to_date(chksum):
+    """
+    Are the source files in sync with the current SQL and DB?
+    Exits gracefully if nothing to do at all.
+    """
+    # Write checksum for later comparison
+    if not os.path.exists(os.path.join(TMP_DIR, CHKSUM_FILE)):
+        f = open(os.path.join(TMP_DIR, CHKSUM_FILE), 'w')
+        f.write(chksum)
+        f.close()
+    else:
+        # Nothing to do?
+        f = open(os.path.join(TMP_DIR, CHKSUM_FILE))
+        if f.read() == chksum:
+           print "Nothing to do. Exiting."
+           f.close()
+           sys.exit(0)
+        else:
+            p = open(os.path.join(TMP_DIR, CHKSUM_FILE), 'w')
+            p.write(chksum)
+            p.close()
+        f.close()
 
 def main():
     global DEBUG
@@ -580,6 +607,8 @@ where action is one of:
         # Applies pre-filter before parsing any raw content
         prefilter_data = {}
         prefilter_matches = 0
+        chksum = compute_db_checksum(infile)
+        check_up_to_date(chksum)
         if options.prefilter:
             if not os.path.exists(g_prefilter):
                 raise ValueError, "pre filter not a file"
@@ -655,7 +684,6 @@ where action is one of:
                 sys.stdout.flush()
                 if options.prefilter:
                     infile = filter_dir
-                chksum = compute_db_checksum(infile)
                 out.write("""
 <resources>
   <string name="dbchecksum">%s</string>

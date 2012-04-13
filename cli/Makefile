@@ -4,6 +4,7 @@ DBOPTS=--gps --gps-cache=gps.csv --pre-filter=filter.map
 MAKERES=./makeres.py
 SQLITEDB=~/ht.sqlite
 SQLITE=sqlite3
+CHKSUM=/tmp/.checksum
 
 .PHONY: makedb clean test sqlite
 
@@ -22,4 +23,5 @@ sqlite: makedb
 	@echo "Wrote in ${SQLITEDB}"
 
 clean:
-	rm -f ${SQLDB} ${SQLITEDB}
+	rm -f ${SQLDB} ${SQLITEDB} ${CHKSUM}
+
