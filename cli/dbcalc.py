@@ -15,7 +15,7 @@ SQLITEDB = 'ht.sqlite'
 CONN = None
 DEBUG = False
 
-def graph_line(num_line, c):
+def graph_line(num_line, c, render=True):
     c.execute('select id, name from line order by name')
     k = 1
     line = None
@@ -27,7 +27,8 @@ def graph_line(num_line, c):
     if not line:
        print "Line with id %d not found." % num_line
        sys.exit(2)
-    print "Graphing line %s" % line[1].encode('utf-8')
+    if render:
+        print "Graphing line %s" % line[1].encode('utf-8')
     if DEBUG:
         print "Line id is %d" % line[0]
 
@@ -55,19 +56,62 @@ def graph_line(num_line, c):
             print
 
     # Draw graph
-    g_name = os.path.join(TMP_DIR, "line_%d.dot" % num_line)
+    if render:
+        g_name = os.path.join(TMP_DIR, "line_%d.dot" % num_line)
+        f = open(g_name, 'w')
+        f.write("digraph G {\n")
+        f.write('  node[fontsize=8];\n');
+        f.write('  edge[color=red];\n');
+        for direction, sts in prepare.iteritems():
+            f.write('    ' + ' -> '.join(["\"" + st + "\"" for st in sts]) + ';\n')
+            f.write('  edge[color=blue];\n');
+        f.write('}\n')
+        f.close()
+        print "Done. Wrote %s." % g_name
+
+    if render:
+        p_name = os.path.join(TMP_DIR, "line_%d.png" % num_line)
+        print "Creating PNG graph ...",
+        sys.stdout.flush()
+        os.system("dot -Tpng %s > %s" % (g_name, p_name))
+        print p_name
+
+    return prepare
+
+def get_random_color():
+    from random import randint
+    rgb = []
+    for k in range(3):
+        c = hex(randint(1, 255))[2:]
+        if len(c) == 1:
+            c = '0' + c
+        rgb.append(c)
+    return ''.join(rgb)
+
+def graph_network(c):
+    c.execute('select id, name from line order by name')
+    lines = c.fetchall()
+    g_name = os.path.join(TMP_DIR, "network.dot")
+    k = 1
+    print "Generating DOT graph ..."
     f = open(g_name, 'w')
     f.write("digraph G {\n")
     f.write('  node[fontsize=8];\n');
-    f.write('  edge[color=red];\n');
-    for direction, sts in prepare.iteritems():
-        f.write('    ' + ' -> '.join(["\"" + st + "\"" for st in sts]) + ';\n')
-        f.write('  edge[color=blue];\n');
+    print "Analyzing lines:",
+    for li in lines:
+        print li[1].encode('utf-8') + ',',
+        sys.stdout.flush()
+        data = graph_line(k, c, render=False)
+        f.write("  edge[color=\"#%s\"];\n" % get_random_color());
+        for direction, sts in data.iteritems():
+            f.write('    ' + ' -> '.join(["\"" + st + "\"" for st in sts]) + ';\n')
+        k += 1
+    print
     f.write('}\n')
-    f.close()
     print "Done. Wrote %s." % g_name
+    f.close()
 
-    p_name = os.path.join(TMP_DIR, "line_%d.png" % num_line)
+    p_name = os.path.join(TMP_DIR, "network.png")
     print "Creating PNG graph ...",
     sys.stdout.flush()
     os.system("dot -Tpng %s > %s" % (g_name, p_name))
@@ -137,6 +181,8 @@ def main():
     # Graph line ID
     if options.graphline:
         graph_line(options.graphline, c)
+    elif options.network:
+        graph_network(c)
 
     c.close()
 
