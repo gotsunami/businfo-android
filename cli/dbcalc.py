@@ -168,7 +168,7 @@ def main():
         c.execute('select s.name, c.name from station as s, city as c where s.city_id=c.id order by c.name')
         k = 1
         for st in c:
-            print "%3d. %s, %s" % (k, st[0], st[1].encode('utf-8'))
+            print "%3d. %s, %s" % (k, st[0].encode('utf-8'), st[1].encode('utf-8'))
             k += 1
 
     if options.lines:
