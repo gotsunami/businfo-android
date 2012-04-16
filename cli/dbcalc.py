@@ -117,12 +117,40 @@ def graph_network(c):
     os.system("dot -Tpng %s > %s" % (g_name, p_name))
     print p_name
 
+def find_path(fromid, toid, c):
+    """
+    Find best path between two bus stations
+    """
+    c.execute("""
+SELECT s.id, s.name, c.name 
+FROM station AS s, city AS c 
+WHERE s.city_id=c.id 
+ORDER BY c.name
+""")
+    k = 1
+    sfrom = sto = []
+    for st in c:
+        if fromid == k:
+            sfrom = [st[0], st[1].encode('utf-8'), st[2].encode('utf-8')]
+        elif toid == k:
+            sto = [st[0], st[1].encode('utf-8'), st[2].encode('utf-8')]
+        if sfrom and sto:
+            break
+        k += 1
+    if len(sfrom) ==0 or len(sto) == 0:
+        print "One of the stations not found. Please check the station IDs!"
+        sys.exit(1)
+    print '-' * 50
+    print "From: %s, %s" % (sfrom[1], sfrom[2])
+    print "To  : %s, %s" % (sto[1], sto[2])
+    print '-' * 50
+
 def main():
     global CONN, DEBUG
 
     parser = OptionParser(usage="""%prog [--path|--stations|--cities] [dbfile]""")
     parser.add_option("-d", '', action="store_true", dest="debug", default=False, help='Debug output')
-    parser.add_option("-p", '--path', action="store", dest="path", default=False, help='Compute path')
+    parser.add_option("-p", '--path', action="store", metavar="FROM,TO", dest="path", default=None, help='Compute path from station number FROM to station number TO')
     parser.add_option("-c", '--cities', action="store_true", dest="cities", default=False, help='Show list of cities')
     parser.add_option("-s", '--stations', action="store_true", dest="stations", default=False, help='Show list of stations')
     parser.add_option("-l", '--lines', action="store_true", dest="lines", default=False, help='Show list of lines')
@@ -183,7 +211,14 @@ def main():
         graph_line(options.graphline, c)
     elif options.network:
         graph_network(c)
-
+    elif options.path:
+        try:
+            sfrom, sto = options.path.split(',')
+            find_path(int(sfrom), int(sto), c)
+        except ValueError:
+            print "Bad input format. Must be from_id,to_id"
+            parser.print_usage()
+            sys.exit(1)
     c.close()
 
 if __name__ == '__main__':
