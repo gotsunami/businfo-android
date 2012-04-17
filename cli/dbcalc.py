@@ -147,13 +147,14 @@ class Finder(object):
         line_id = self.lines_to_check[self.cur_line_idx]
         self.cur_line_idx += 1
         if DEBUG:
-            print "S[%d] %s" % (line_id, self.lines_to_check)
+            print "On line %s" % self.get_line_name_from_id(line_id)
+        #    print "S[%d] %s" % (line_id, self.lines_to_check)
         found = False
 
         dirs = self.get_directions_of_line(line_id)
         for d in dirs:
-            if DEBUG:
-                print ' ' * self.indent + "Line %s, to %d" % (self.get_line_name_from_id(line_id), d)
+#            if DEBUG:
+#                print ' ' * self.indent + "Line %s, to %d" % (self.get_line_name_from_id(line_id), d)
             self.c.execute("""
 SELECT station_id 
 FROM line_station 
@@ -162,7 +163,8 @@ AND direction_id=?""", (line_id, d))
             stids = self.c.fetchall()
             for st in stids:
                 if st[0] == self.sto_id:
-                    print "> FOUND IT! (%d) Line %s, dir %d" % (line_id, self.get_line_name_from_id(line_id), d)
+                    print "> FOUND IT! (%d) Line %s, dir %d %s" % (line_id, self.get_line_name_from_id(line_id), 
+                        d, [self.get_line_name_from_id(k) for k in self.lines_to_check[:self.cur_line_idx-1]])
                     found = True
                     break
                 else:
@@ -297,6 +299,9 @@ def main():
             print "Bad input format. Must be from_id,to_id"
             parser.print_usage()
             sys.exit(1)
+        except KeyboardInterrupt:
+            print "Exiting..."
+            sys.exit(0)
     c.close()
 
 if __name__ == '__main__':
