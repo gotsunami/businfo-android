@@ -117,33 +117,111 @@ def graph_network(c):
     os.system("dot -Tpng %s > %s" % (g_name, p_name))
     print p_name
 
-def find_path(fromid, toid, c):
-    """
-    Find best path between two bus stations
-    """
-    c.execute("""
+class Finder(object):
+    def __init__(self, sfrom, sto, c):
+        self.c = c
+        # List of tuples of (next_line_id, (cur_line_id, station_id))
+        self.lines_to_check = []
+        self.cur_line_idx = 0
+        self.indent = 0
+        self.find_path(sfrom, sto)
+
+    def get_lines(self, station_id):
+        self.c.execute("SELECT line_id, direction_id FROM line_station WHERE station_id=?", (station_id,))
+        res = self.c.fetchall()
+        from_lines_ids = {}
+        for d in res:
+            if not from_lines_ids.has_key(d[0]):
+                from_lines_ids[d[0]] = []
+            from_lines_ids[d[0]].append(d[1])
+        return from_lines_ids
+
+    def get_directions_of_line(self, line_id):
+        self.c.execute("SELECT DISTINCT(direction_id) FROM line_station WHERE line_id=?", (line_id,))
+        res = self.c.fetchall()
+        assert len(res) == 2
+        return [r[0] for r in res]
+
+    def search_stations(self):
+        if self.cur_line_idx == len(self.lines_to_check): return
+        line_id = self.lines_to_check[self.cur_line_idx]
+        self.cur_line_idx += 1
+        if DEBUG:
+            print "S[%d] %s" % (line_id, self.lines_to_check)
+        found = False
+
+        dirs = self.get_directions_of_line(line_id)
+        for d in dirs:
+            if DEBUG:
+                print ' ' * self.indent + "Line %s, to %d" % (self.get_line_name_from_id(line_id), d)
+            self.c.execute("""
+SELECT station_id 
+FROM line_station 
+WHERE line_id=?
+AND direction_id=?""", (line_id, d))
+            stids = self.c.fetchall()
+            for st in stids:
+                if st[0] == self.sto_id:
+                    print "> FOUND IT! (%d) Line %s, dir %d" % (line_id, self.get_line_name_from_id(line_id), d)
+                    found = True
+                    break
+                else:
+                    stlines = self.get_lines(st[0])
+                    for stline_id in stlines.keys():
+                        if stline_id not in self.lines_to_check:
+                            self.lines_to_check.append(stline_id)
+            if found:
+                break
+        if self.cur_line_idx < len(self.lines_to_check):
+            self.search_stations()
+
+    def get_station_name_from_id(self, stid):
+        self.c.execute("""SELECT name FROM station WHERE id=?""", (stid,))
+        return self.c.fetchone()[0].encode('utf-8')
+
+    def get_line_name_from_id(self, lid):
+        self.c.execute("""SELECT name FROM line WHERE id=?""", (lid,))
+        return self.c.fetchone()[0].encode('utf-8')
+
+    def find_path(self, fromid, toid):
+        """
+        Find best path between two bus stations
+        """
+        self.c.execute("""
 SELECT s.id, s.name, c.name 
 FROM station AS s, city AS c 
 WHERE s.city_id=c.id 
 ORDER BY c.name
-""")
-    k = 1
-    sfrom = sto = []
-    for st in c:
-        if fromid == k:
-            sfrom = [st[0], st[1].encode('utf-8'), st[2].encode('utf-8')]
-        elif toid == k:
-            sto = [st[0], st[1].encode('utf-8'), st[2].encode('utf-8')]
-        if sfrom and sto:
-            break
-        k += 1
-    if len(sfrom) ==0 or len(sto) == 0:
-        print "One of the stations not found. Please check the station IDs!"
-        sys.exit(1)
-    print '-' * 50
-    print "From: %s, %s" % (sfrom[1], sfrom[2])
-    print "To  : %s, %s" % (sto[1], sto[2])
-    print '-' * 50
+    """)
+        data = self.c.fetchall()
+        k = 1
+        sfrom = sto = []
+        for st in data:
+            if fromid == k:
+                sfrom = [st[0], st[1].encode('utf-8'), st[2].encode('utf-8')]
+            elif toid == k:
+                sto = [st[0], st[1].encode('utf-8'), st[2].encode('utf-8')]
+            if sfrom and sto:
+                break
+            k += 1
+        if len(sfrom) == 0 or len(sto) == 0:
+            print "One of the stations not found. Please check the station IDs!"
+            sys.exit(1)
+        print '-' * 50
+        print "From: %s, %s" % (sfrom[1], sfrom[2])
+        print "To  : %s, %s" % (sto[1], sto[2])
+        print '-' * 50
+
+        self.sfrom_id = sfrom[0]
+        self.sto_id = sto[0]
+
+        # Find from's bus lines
+        lines = self.get_lines(self.sfrom_id)
+        self.lines_to_check = lines.keys()
+
+        # Find all stations of from's bus lines
+        self.search_stations()
+#        for line_id in lines.keys():
 
 def main():
     global CONN, DEBUG
@@ -214,7 +292,7 @@ def main():
     elif options.path:
         try:
             sfrom, sto = options.path.split(',')
-            find_path(int(sfrom), int(sto), c)
+            Finder(int(sfrom), int(sto), c)
         except ValueError:
             print "Bad input format. Must be from_id,to_id"
             parser.print_usage()
