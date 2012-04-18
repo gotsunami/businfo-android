@@ -34,22 +34,22 @@ Centre;17:30;18:30
 direction=
 
 city=BELARGA 
-Centre;06:35;07:55
+Centre;06:25;07:45
 
 city=TRESSAN 
-Centre;06:40;08:00
+Centre;06:30;07:50
 
 city=PUILACHER 
-Centre;06:45;08:05
+Centre;06:35;07:55
 
 city=PLAISSAN 
-Poste;06:50;08:10
+Poste;06:40;08:00
 
 city=VENDEMIAN 
-Centre;06:55;08:15
+Centre;06:45;08:05
 
 city=AUMELAS 
-Mas Blanc;07:00;08:20
+Mas Blanc;06:55;08:15
 
 city=ST PAUL ET VALMALLE 
 Centre arrivée;07:10;08:25
