@@ -4,9 +4,17 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.9</string>
+    <string name="app_version">0.9.10</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.10</b> - 2012-04-18:\n
+  - New line 211 (Béziers - Portiragnes)\n
+  - New line 212 (Béziers - Lespignan)\n
+  - New line 213 (Béziers - Vendres)\n
+  - Updated schedules for line 313 (Bélarga - Montpellier)\n
+  - Updated schedules for line 131 (Pérols - Palavas Les Flots)\n
+  - Updated schedules for line 106 (Montpellier - Aigues Mortes)\n
+  - Removed deprecated line schedules: 103/312 été, 103 été, 106 été, 121 été, 131 été, 162 été, 211 été, 212 213 été, 274 été\n\n
 <b>0.9.9</b> - 2012-04-07:\n
   Updated schedules and connections for the folling lines:\n
   - 106 (Montpellier - Aigues Mortes)\n
