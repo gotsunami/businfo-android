@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -33,6 +34,7 @@ import java.util.List;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 
@@ -51,29 +53,40 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         super.onCreate(savedInstanceState);
         //setTitle(R.string.lines_activity_title);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        if (Application.OSBeforeHoneyComb()) {
+            requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        }
         setContentView(R.layout.simplelist);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.search_title_bar);
+        if (Application.OSBeforeHoneyComb()) {
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.search_title_bar);
+        }
 
-        // Remove top parent padding (all but left padding)
-        ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
-        LinearLayout root = (LinearLayout) decorView.getChildAt(0);
-        View titleContainer = root.getChildAt(0);
-        titleContainer.setPadding(titleContainer.getPaddingLeft(), 0, 0, 0);
+        if (Application.OSBeforeHoneyComb()) {
+            // Remove top parent padding (all but left padding)
+            ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+            LinearLayout root = (LinearLayout) decorView.getChildAt(0);
+            View titleContainer = root.getChildAt(0);
+            titleContainer.setPadding(titleContainer.getPaddingLeft(), 0, 0, 0);
 
-        setPrimaryTitle(getString(R.string.app_name));
-        setSecondaryTitle(getString(R.string.slogan));
+            setPrimaryTitle(getString(R.string.app_name));
+            setSecondaryTitle(getString(R.string.slogan));
+
+            Button searchButton = (Button)findViewById(R.id.btn_search);
+            searchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    // Open search dialog
+                    onSearchRequested();
+                }
+            });
+        }
+
+        if (!Application.OSBeforeHoneyComb()) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         mDirections = new ArrayList<List<String>>();
-
-        Button searchButton = (Button)findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // Open search dialog
-                onSearchRequested();
-            }
-        });
 
         List<BusLine> lines = mManager.getBusLines();
 
@@ -334,6 +347,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             case R.id.menu_search:
                 // Open search dialog
                 onSearchRequested();
+                return true;
+            case android.R.id.home:
+                // App icon in action bar clicked; go home
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.app.ListActivity;
@@ -43,6 +44,7 @@ import com.google.android.maps.MapView;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 
+import com.monnerville.transports.herault.core.Application;
 import static com.monnerville.transports.herault.core.Application.TAG;
 
 import com.monnerville.transports.herault.core.BusLine;
@@ -78,9 +80,16 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
     {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        if (Application.OSBeforeHoneyComb()) {
+            requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        }
         setContentView(R.layout.busline);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_line_title_bar);
+        if (Application.OSBeforeHoneyComb()) 
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_line_title_bar);
+        else {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         mList = (ListView)findViewById(R.id.stationslist);
         mList.setItemsCanFocus(true);
@@ -96,8 +105,10 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         else
             finish();
 
-        setPrimaryTitle(getString(R.string.current_line_title, mLine));
-        setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
+        if (Application.OSBeforeHoneyComb()) {
+            setPrimaryTitle(getString(R.string.current_line_title, mLine));
+            setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
+        }
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -105,7 +116,9 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         BusLine line = manager.getBusLine(mLine);
 
         TextView lineIcon = (TextView)findViewById(R.id.line_icon);
-        AllLinesActivity.setLineTextViewStyle(this, line, lineIcon);
+        if (Application.OSBeforeHoneyComb()) {
+            AllLinesActivity.setLineTextViewStyle(this, line, lineIcon);
+        }
 
         /**
         MapView mapView = (MapView) findViewById(R.id.mapview);
@@ -157,34 +170,36 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             Log.w(TAG, "Direction '" + mDirection + "' not found");
         }
 
-        Button flipButton = (Button)findViewById(R.id.btn_flip_direction);
-        flipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // Switch to other line direction
-                Intent intent = new Intent(BusLineActivity.this, BusLineActivity.class);
-                String[] directions = manager.getBusLine(mLine).getDirections();
-                for (String dir : directions) {
-                    if (!dir.equals(mDirection)) {
-                        intent.putExtra("line", mLine);
-                        intent.putExtra("direction", dir);
-                        intent.putExtra("showToast", true);
-                        mCanFinish = true;
-                        startActivity(intent);
-                        break;
+        if (Application.OSBeforeHoneyComb()) {
+            Button flipButton = (Button)findViewById(R.id.btn_flip_direction);
+            flipButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    // Switch to other line direction
+                    Intent intent = new Intent(BusLineActivity.this, BusLineActivity.class);
+                    String[] directions = manager.getBusLine(mLine).getDirections();
+                    for (String dir : directions) {
+                        if (!dir.equals(mDirection)) {
+                            intent.putExtra("line", mLine);
+                            intent.putExtra("direction", dir);
+                            intent.putExtra("showToast", true);
+                            mCanFinish = true;
+                            startActivity(intent);
+                            break;
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        Button searchButton = (Button)findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // Open search dialog
-                onSearchRequested();
-            }
-        });
+            Button searchButton = (Button)findViewById(R.id.btn_search);
+            searchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    // Open search dialog
+                    onSearchRequested();
+                }
+            });
+        }
 
         /**
         controller.setZoom(DEFAULT_MAP_ZOOM);
@@ -410,8 +425,23 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_search:
+                // Open search dialog
+                onSearchRequested();
+                return true;
+            case android.R.id.home:
+                // App icon in action bar clicked; go home
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.busline, menu);
+        return true;
     }
 }
