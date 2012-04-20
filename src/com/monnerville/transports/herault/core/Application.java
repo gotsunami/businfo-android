@@ -1,6 +1,7 @@
 package com.monnerville.transports.herault.core;
 
 import android.content.Context;
+import android.os.Build;
 import java.util.List;
 
 /**
@@ -33,4 +34,7 @@ public final class Application {
         return sb.toString();
     }
 
+    public static boolean OSBeforeHoneyComb() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
+    }
 }

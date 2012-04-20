@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- Inherits default Theme.Light theme
-	<style name="OfficialTheme" parent="@android:style/Theme.Holo.Light">
-		<item name="android:windowTitleSize">48dip</item>
-		<item name="android:windowTitleBackgroundStyle">@style/HTWindowTitleBackground</item>
-		<item name="android:windowContentOverlay">@drawable/title_bar_shadow</item>
-        <item name="android:headerBackground">@color/home_primary_text_blue</item>
-        <item name="android:listSeparatorTextViewStyle">@style/HTListSeparator</item>
-	</style>
-    -->
-	<style name="SettingsTheme" parent="@android:style/Theme.Holo" />
+	<style name="OfficialTheme" parent="@android:style/Theme.Holo.Light" />
 </resources>
