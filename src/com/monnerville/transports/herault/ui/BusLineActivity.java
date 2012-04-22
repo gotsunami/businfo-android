@@ -175,19 +175,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             flipButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    // Switch to other line direction
-                    Intent intent = new Intent(BusLineActivity.this, BusLineActivity.class);
-                    String[] directions = manager.getBusLine(mLine).getDirections();
-                    for (String dir : directions) {
-                        if (!dir.equals(mDirection)) {
-                            intent.putExtra("line", mLine);
-                            intent.putExtra("direction", dir);
-                            intent.putExtra("showToast", true);
-                            mCanFinish = true;
-                            startActivity(intent);
-                            break;
-                        }
-                    }
+                    flipLineDirection();
                 }
             });
 
@@ -204,6 +192,26 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         /**
         controller.setZoom(DEFAULT_MAP_ZOOM);
          */
+    }
+
+    /**
+     * Flip line's direction
+     */
+    private void flipLineDirection() {
+        // Switch to other line direction
+        BusManager manager = SQLBusManager.getInstance();
+        Intent intent = new Intent(BusLineActivity.this, BusLineActivity.class);
+        String[] directions = manager.getBusLine(mLine).getDirections();
+        for (String dir : directions) {
+            if (!dir.equals(mDirection)) {
+                intent.putExtra("line", mLine);
+                intent.putExtra("direction", dir);
+                intent.putExtra("showToast", true);
+                mCanFinish = true;
+                startActivity(intent);
+                break;
+            }
+        }
     }
 
     /**
@@ -432,6 +440,12 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             case android.R.id.home:
                 // App icon in action bar clicked; go home
                 finish();
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(this, AppPreferenceActivity.class));
+                return true;
+            case R.id.action_flip_direction:
+                flipLineDirection();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

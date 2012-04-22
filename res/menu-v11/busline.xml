@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_flip_direction"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/action_flip"
+        android:title="@string/menu_flip_direction_title" />
     <item android:id="@+id/menu_search"
         android:showAsAction="ifRoom"
         android:icon="@drawable/ic_menu_search"

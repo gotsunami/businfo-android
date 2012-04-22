@@ -18,7 +18,7 @@
             <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchableActivity" />
         </activity>
         <activity android:name=".ui.BusLineActivity" 
-                  android:configChanges="keyboardHidden|orientation"
+                  android:configChanges="keyboardHidden"
                   android:label="@string/busline_activity_title">
             <meta-data android:name="android.app.default_searchable" android:value=".ui.SearchableActivity" />
         </activity>
