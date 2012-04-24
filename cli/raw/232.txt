@@ -1,0 +1,61 @@
+# Line 232
+# updated: 2011-07-01
+name=232
+circulation=1,2,4,5s
+from=2009-10-01
+color=#660099
+
+direction=
+
+city=BEZIERS 
+Gare routière;12:18*3s*;16:18;16:18*5*
+Gare SNCF;12:23*3s*;16:23;16:23*5*
+
+city=CRUZY 
+Centre;13:00*3s*;17:00;17:00*5*
+
+city=MONTOULIERS 
+Centre;13:10*3s*;17:10;17:10*5*
+
+city=AGEL 
+Centre;13:15*3s*;17:25;17:25*5*
+
+city=AIGUE VIVES 
+Centre;13:20*3s*;17:30;17:30*5*
+
+city=AIGNE 
+Centre;13:25*3s*;17:35;17:35*5*
+
+city=BEAUFORT 
+Centre;13:30*3s*;17:40;17:40*5*
+
+city=OLONZAC 
+Centre;13:35*3s*;17:45;17:45*5*
+
+direction=
+
+city=OLONZAC 
+Centre;7:10*1-5s*;7:10*5*
+
+city=BEAUFORT 
+Centre;7:15*1-5s*;7:15*5*
+
+city=AIGNE 
+Centre;7:20*1-5s*;7:20*5*
+
+city=AIGUE VIVES 
+Centre;7:25*1-5s*;7:25*5*
+
+city=AGEL 
+Centre;7:30*1-5s*;7:30*5*
+
+city=MONTOULIERS 
+Centre;7:40*1-5s*;7:40*5*
+
+city=CRUZY 
+Centre;7:45*1-5s*;7:45*5*
+
+city=BEZIERS 
+Gare SNCF;8:30*1-5s*;8:30*5*
+Gare routière;8:40*1-5s*;8:40*5*
+
