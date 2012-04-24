@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -9,6 +10,9 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -22,6 +26,7 @@ import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,9 +68,17 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
     {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        if (Application.OSBeforeHoneyComb()) {
+            requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        }
         setContentView(R.layout.busstation);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_station_title_bar);
+        if (Application.OSBeforeHoneyComb()) {
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_station_title_bar);
+        }
+        else {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         TextView board = (TextView)findViewById(R.id.board);
 
@@ -79,8 +92,10 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         else
             finish();
 
-        setPrimaryTitle(mStation);
-        setSecondaryTitle(getString(R.string.station_line_direction_title, mLine, mDirection));
+        if (Application.OSBeforeHoneyComb()) {
+            setPrimaryTitle(mStation);
+            setSecondaryTitle(getString(R.string.station_line_direction_title, mLine, mDirection));
+        }
 
         setTitle(mLine + " - Station " + mStation);
         BusManager manager = SQLBusManager.getInstance();
@@ -105,17 +120,28 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         List<BusStation> starredStations = manager.getStarredStations(this);
         mCurrentStation.setStarred(starredStations.contains(mCurrentStation));
 
-        final ImageView star = (ImageView)findViewById(R.id.station_star);
-        star.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCurrentStation.setStarred(!mCurrentStation.isStarred());
-                star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
-                   android.R.drawable.btn_star_big_off);
-            }
-        });
-        star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
-           android.R.drawable.btn_star_big_off);
+        if (Application.OSBeforeHoneyComb()) {
+            final ImageView star = (ImageView)findViewById(R.id.station_star);
+            star.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCurrentStation.setStarred(!mCurrentStation.isStarred());
+                    star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
+                       android.R.drawable.btn_star_big_off);
+                }
+            });
+            star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
+               android.R.drawable.btn_star_big_off);
+        }
+        else {
+            // FIXME: add a star for 3.0+
+            /*
+            final ImageView star = (ImageView)findViewById(R.id.station_star);
+            star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
+               android.R.drawable.btn_star_big_off);
+             * 
+             */
+        }
 
         setupAdapter();
     }
@@ -386,5 +412,35 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             mCurrentStation.getLine().getName(), BusStop.TIME_FORMATTER.format(st.getTime()),
             getFormattedETA(mCurrentStation, st, this)));
         startActivity(Intent.createChooser(intent, getString(R.string.share_with_title)));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_search:
+                // Open search dialog
+                onSearchRequested();
+                return true;
+            case android.R.id.home:
+                // App icon in action bar clicked; go home
+                finish();
+                return true;
+            case R.id.action_rating:
+                // App icon in action bar clicked; go home
+                Log.d("RATING", "DOOOO!");
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(this, AppPreferenceActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.busstation, menu);
+        return true;
     }
 }

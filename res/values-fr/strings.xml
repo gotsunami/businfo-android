@@ -80,6 +80,7 @@
     <string name="menu_preferences">Paramètres</string>
     <string name="menu_search_title">Chercher</string>
     <string name="menu_flip_direction_title">Changer direction</string>
+    <string name="menu_rate_title">Ajouter aux favoris</string>
 
     <string name="cat_tips_title">Astuces</string>
     <string name="cat_tips_sum">Astuces au démarrage</string>

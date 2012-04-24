@@ -81,6 +81,7 @@
     <string name="menu_preferences">Settings</string>
     <string name="menu_search_title">Search</string>
     <string name="menu_flip_direction_title">Flip direction</string>
+    <string name="menu_rate_title">Set as favorite</string>
 
     <string name="cat_tips_title">Tips</string>
     <string name="cat_tips_sum">Tips on startup</string>
