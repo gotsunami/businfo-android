@@ -2,7 +2,7 @@
 <!-- GENERATED AUTOMATICALLY BY THE makeres.py SCRIPT. DO NOT MODIFY! -->
 
 <resources>
-  <string name="numchunks">27</string>
-  <string name="dbchecksum">1f1ad638327a9ec5c9b69102c190daac</string>
-  <string name="dbversion">122</string>
+  <string name="numchunks">24</string>
+  <string name="dbchecksum">094802d40d33a59f4babfc5f60baf3b2</string>
+  <string name="dbversion">124</string>
 </resources>
