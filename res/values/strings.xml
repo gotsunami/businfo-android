@@ -124,12 +124,9 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-- New line 211 (Béziers - Portiragnes)
-- New line 212 (Béziers - Lespignan)
-- New line 213 (Béziers - Vendres)
-- Updated schedules for line 313 (Bélarga - Montpellier)
-- Updated schedules for line 131 (Pérols - Palavas Les Flots)
-- Updated schedules for line 106 (Montpellier - Aigues Mortes)
-- Removed deprecated line schedules: 103/312 été, 103 été, 106 été, 121 été, 131 été, 162 été, 211 été, 212 213 été, 274 été
+- New line 215 (Béziers - Bédarieux)
+- New line 204 (Béziers - Saint-Nazaire-de-Ladarez)
+- New line 232 (Béziers - Olonzac)
+- Updated schedules for line 302 (Montpellier - Clermont l'Hérault)
 "</string>
 </resources>
