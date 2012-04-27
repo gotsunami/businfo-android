@@ -133,15 +133,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
                android.R.drawable.btn_star_big_off);
         }
-        else {
-            // FIXME: add a star for 3.0+
-            /*
-            final ImageView star = (ImageView)findViewById(R.id.station_star);
-            star.setImageResource(mCurrentStation.isStarred() ? android.R.drawable.btn_star_big_on :
-               android.R.drawable.btn_star_big_off);
-             * 
-             */
-        }
 
         setupAdapter();
     }
@@ -426,8 +417,9 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                 finish();
                 return true;
             case R.id.action_rating:
-                // App icon in action bar clicked; go home
-                Log.d("RATING", "DOOOO!");
+                mCurrentStation.setStarred(!mCurrentStation.isStarred());
+                item.setIcon(mCurrentStation.isStarred() ? R.drawable.rating_important :
+                   R.drawable.rating_not_important);
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(this, AppPreferenceActivity.class));
@@ -437,10 +429,20 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         }
     }
 
+    /**
+     * Creating menu options
+     * @param menu object
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.busstation, menu);
+        // Sets the star icon state when activity launches (3.0+ only)
+        if (!Application.OSBeforeHoneyComb()) {
+            MenuItem starItem = menu.findItem(R.id.action_rating);
+            starItem.setIcon(mCurrentStation.isStarred() ? R.drawable.rating_important :
+               R.drawable.rating_not_important);
+        }
         return true;
     }
 }
