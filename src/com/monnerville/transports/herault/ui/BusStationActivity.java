@@ -51,6 +51,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
     private List<BusStop> mStops;
     private BusStation mCurrentStation;
     private final Calendar mNow = Calendar.getInstance();
+    private ActionBar mActionBar = null;
 
     // For mapping week days in StopListAdapter
     private static final int[][] mWDays = {
@@ -76,8 +77,8 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_station_title_bar);
         }
         else {
-            ActionBar actionBar = getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            mActionBar = getActionBar();
+            mActionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         TextView board = (TextView)findViewById(R.id.board);
@@ -95,6 +96,10 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         if (Application.OSBeforeHoneyComb()) {
             setPrimaryTitle(mStation);
             setSecondaryTitle(getString(R.string.station_line_direction_title, mLine, mDirection));
+        }
+        else {
+            mActionBar.setTitle(mStation);
+            mActionBar.setSubtitle(getString(R.string.station_line_direction_title, mLine, mDirection));
         }
 
         setTitle(mLine + " - Station " + mStation);

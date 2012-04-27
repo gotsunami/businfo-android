@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.ActionBar;
 import android.util.Log;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -9,6 +10,9 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -27,6 +31,7 @@ import com.google.android.maps.MapView;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 
+import com.monnerville.transports.herault.core.Application;
 import static com.monnerville.transports.herault.core.Application.TAG;
 
 import com.monnerville.transports.herault.core.BusLine;
@@ -53,6 +58,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
     private ListView mList;
     
     private final int DEFAULT_MAP_ZOOM = 13;
+    private ActionBar mActionBar = null;
 
     final BusManager mManager = SQLBusManager.getInstance();
 
@@ -64,9 +70,17 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mShowGMap = mPrefs.getBoolean("pref_use_city_map", true);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        if (Application.OSBeforeHoneyComb()) {
+            requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        }
         setContentView(mShowGMap ? R.layout.city : R.layout.city_no_map);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.city_title_bar);
+        if (Application.OSBeforeHoneyComb()) {
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.city_title_bar);
+        }
+        else {
+            mActionBar = getActionBar();
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         mList = (ListView)findViewById(R.id.lineslist);
         mList.setItemsCanFocus(true);
@@ -85,20 +99,27 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         List<City> cities = finder.findCities(cityName, true);
         List<String> lines = finder.findLinesInCity(cityName);
 
-        setPrimaryTitle(cityName);
-        setSecondaryTitle(getString(R.string.city_title));
+        if (Application.OSBeforeHoneyComb()) {
+            setPrimaryTitle(cityName);
+            setSecondaryTitle(getString(R.string.city_title));
+        }
+        else {
+            mActionBar.setTitle(cityName);
+        }
 
         new DirectionsRetreiverTask().execute(lines);
 
-        Button searchButton = (Button)findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // Open search dialog
-                mCanFinish = true;
-                onSearchRequested();
-            }
-        });
+        if (Application.OSBeforeHoneyComb()) {
+            Button searchButton = (Button)findViewById(R.id.btn_search);
+            searchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    // Open search dialog
+                    mCanFinish = true;
+                    onSearchRequested();
+                }
+            });
+        }
 
         if (mShowGMap) {
             MapView mapView = (MapView) findViewById(R.id.mapview);
@@ -237,6 +258,36 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
             // Back to the UI thread
             MapView mapView = (MapView)findViewById(R.id.mapview);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_search:
+                // Open search dialog
+                onSearchRequested();
+                return true;
+            case android.R.id.home:
+                // App icon in action bar clicked; go home
+                finish();
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(this, AppPreferenceActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Creating menu options
+     * @param menu object
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.city, menu);
+        return true;
     }
 
 }
