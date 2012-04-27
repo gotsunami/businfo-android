@@ -125,12 +125,9 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-- Ajout de la ligne 211 (Béziers - Portiragnes)
-- Ajout de la ligne 212 (Béziers - Lespignan)
-- Ajout de la ligne 213 (Béziers - Vendres)
-- Mise à jour des horaires de la ligne 313 (Bélarga - Montpellier)
-- Mise à jour des horaires de la ligne 131 (Pérols - Palavas Les Flots)
-- Mise à jour des horaires de la ligne 106 (Montpellier - Aigues Mortes)
-- Suppression des lignes avec horaires d'été obsolètes: 103/312 été, 103 été, 106 été, 121 été, 131 été, 162 été, 211 été, 212 213 été, 274 été
+- Ajout de la ligne 215 (Béziers - Bédarieux)
+- Ajout de la ligne 204 (Béziers - Saint-Nazaire-de-Ladarez)
+- Ajout de la ligne 232 (Béziers - Olonzac)
+- Mise à jour des horaires de la ligne 302 (Montpellier - Clermont l'Hérault)
 "</string>
 </resources>

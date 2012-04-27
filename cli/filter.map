@@ -9,6 +9,7 @@
 ste \(\w\);sainte-\1
 
 # Cities
+genies de f\.;geniès-de-fontedit
 perols;pérols
 beziers;béziers
 sete;sète
@@ -93,9 +94,13 @@ avene;avène
 belarga;bélarga
 sommieres;sommières
 nazaire-de-pezan;nazaire-de-pézan
+nazaire de l\.;nazaire-de-ladarez
+nazaire de ladarez;nazaire-de-ladarez
 le soulie;le soulié
 le cres;le crès
 murviel les mtp;murviel-les-montpellier
+murviel les béziers;murviel-les-béziers
+murviel les bzs;murviel-les-béziers
 saint-georges d'o.;saint-georges-d'orques
 vailhauques;vailhauquès
 lezignan la cebe;lézignan-la-cèbe
@@ -103,6 +108,7 @@ cazouls d'herault;cazouls-d'hérault
 nebian;nébian
 lodeve;lodève
 herepian;hérépian
+lamalou les b\.;lamalou-les-bains
 lamalou les bains;lamalou-les-bains
 le poujol sur orb;le poujol-sur-orb
 colombieres sur orb;colombières-sur-orb
@@ -121,6 +127,10 @@ pegairolles de l'escalette;pégairolles-de-l'escalette
 l' hospitalet du larzac;l'hospitalet du larzac
 l' hospitalet-du-larzac;l'hospitalet du larzac
 l'hospitalet du larzac;l'hospitalet-du-larzac
+causses et veyran;causses-et-veyran
+faugeres;faugères
+aigue vives;aigues-vives
+
 
 
 # Stations

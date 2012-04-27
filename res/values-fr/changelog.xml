@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.11</b> - 25/04/2012 :\n
+  - Ajout de la ligne 215 (Béziers - Bédarieux)\n
+  - Ajout de la ligne 204 (Béziers - Saint-Nazaire-de-Ladarez)\n
+  - Ajout de la ligne 232 (Béziers - Olonzac)\n
+  - Mise à jour des horaires de la ligne 302 (Montpellier - Clermont l\'Hérault)\n\n
 <b>0.9.10</b> - 18/04/2012 :\n
   - Ajout de la ligne 211 (Béziers - Portiragnes)\n
   - Ajout de la ligne 212 (Béziers - Lespignan)\n
