@@ -1,6 +1,7 @@
 
 package com.monnerville.transports.herault.ui;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -94,6 +95,10 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
 
             setPrimaryTitle(getString(R.string.app_name));
             setSecondaryTitle(getString(R.string.slogan));
+        }
+        else {
+            ActionBar bar = getActionBar();
+            bar.setHomeButtonEnabled(false);
         }
 
         new DBCreateOrUpdateTask().execute();

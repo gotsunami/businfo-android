@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -53,19 +54,27 @@ public class SearchableActivity extends ListActivity {
     private List<List<String>> mDirections;
 
     private boolean mCanFinish = false;
+    private ActionBar mActionBar = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        if (Application.OSBeforeHoneyComb()) {
+            requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        }
         setContentView(R.layout.simplelist);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.search_title_bar);
+        if (Application.OSBeforeHoneyComb()) {
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.search_title_bar);
+            TextView tp = (TextView)findViewById(R.id.primary);
+            tp.setText(getString(R.string.app_name));
+        }
+        else {
+            mActionBar = getActionBar();
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+        }
         getListView().setFastScrollEnabled(true);
 
-        TextView tp = (TextView)findViewById(R.id.primary);
-        tp.setText(getString(R.string.app_name));
-        TextView ts = (TextView)findViewById(R.id.secondary);
 
         mDirections = new ArrayList<List<String>>();
 
@@ -74,7 +83,13 @@ public class SearchableActivity extends ListActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             // Handle the normal search query case
             String query = intent.getStringExtra(SearchManager.QUERY);
-            ts.setText(getString(R.string.search_keyword, query));
+            if (Application.OSBeforeHoneyComb()) {
+                TextView ts = (TextView)findViewById(R.id.secondary);
+                ts.setText(getString(R.string.search_keyword, query));
+            }
+            else {
+                mActionBar.setSubtitle(getString(R.string.search_keyword, query));
+            }
             new StartSearchingTask().execute(query);
         }
         else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
@@ -86,15 +101,17 @@ public class SearchableActivity extends ListActivity {
         else
             finish();
 
-        Button searchButton = (Button)findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // Open search dialog
-                mCanFinish = true;
-                onSearchRequested();
-            }
-        });
+        if (Application.OSBeforeHoneyComb()) {
+            Button searchButton = (Button)findViewById(R.id.btn_search);
+            searchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    // Open search dialog
+                    mCanFinish = true;
+                    onSearchRequested();
+                }
+            });
+        }
     }
 
     @Override
