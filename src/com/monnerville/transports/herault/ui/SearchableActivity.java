@@ -14,6 +14,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -88,6 +91,7 @@ public class SearchableActivity extends ListActivity {
                 ts.setText(getString(R.string.search_keyword, query));
             }
             else {
+                mActionBar.setTitle(R.string.search_results_title);
                 mActionBar.setSubtitle(getString(R.string.search_keyword, query));
             }
             new StartSearchingTask().execute(query);
@@ -398,5 +402,31 @@ public class SearchableActivity extends ListActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_search:
+                // Open search dialog
+                onSearchRequested();
+                return true;
+            case android.R.id.home:
+                // App icon in action bar clicked; go home
+                finish();
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(this, AppPreferenceActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.searchable, menu);
+        return true;
     }
 }

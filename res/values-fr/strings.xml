@@ -76,6 +76,7 @@
     <string name="city_served_by_lines">"Desservie par les lignes %1$s"</string>
     <string name="station_served_by_lines">"À %1$s, %2$s"</string>
     <string name="search_keyword">"Mot clef: %1$s"</string>
+    <string name="search_results_title">"Résultats de la recherche"</string>
 
     <string name="menu_preferences">Paramètres</string>
     <string name="menu_search_title">Chercher</string>
