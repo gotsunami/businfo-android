@@ -1,5 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.app.ListActivity;
@@ -9,6 +10,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -20,6 +24,7 @@ import java.util.List;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.Application;
 
 import static com.monnerville.transports.herault.core.Application.TAG;
 
@@ -47,6 +52,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
 
     // Cached directions for matching lines, used by the adapter
     private Map<BusLine, List<BusStation>> mLines;
+    private ActionBar mActionBar = null;
 
     final SQLBusManager mManager = SQLBusManager.getInstance();
 
@@ -55,9 +61,15 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
     {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        if (Application.OSBeforeHoneyComb())
+            requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.simplelist);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.city_title_bar);
+        if (Application.OSBeforeHoneyComb())
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.city_title_bar);
+        else {
+            mActionBar = getActionBar();
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+        }
         getListView().setItemsCanFocus(true);
 
         final Intent intent = getIntent();
@@ -78,18 +90,25 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         mStationName = c.getString(0);
         c.close();
 
-        setPrimaryTitle(mStationName);
-        setSecondaryTitle("");
+        if (Application.OSBeforeHoneyComb()) {
+            setPrimaryTitle(mStationName);
+            setSecondaryTitle("");
+        }
+        else {
+            mActionBar.setTitle(mStationName);
+        }
 
-        Button searchButton = (Button)findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // Open search dialog
-                mCanFinish = true;
-                onSearchRequested();
-            }
-        });
+        if (Application.OSBeforeHoneyComb()) {
+            Button searchButton = (Button)findViewById(R.id.btn_search);
+            searchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    // Open search dialog
+                    mCanFinish = true;
+                    onSearchRequested();
+                }
+            });
+        }
 
         new LinesRetreiverTask().execute();
     }
@@ -185,7 +204,11 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
             try {
                 mDialog.cancel();
                 mDialog = null;
-                setSecondaryTitle(getString(R.string.result_station_subtitle, mCity));
+                String subt = getString(R.string.result_station_subtitle, mCity);
+                if (Application.OSBeforeHoneyComb())
+                    setSecondaryTitle(subt);
+                else
+                    mActionBar.setSubtitle(subt);
                 setupAdapter();
                 mAdapter.notifyDataSetChanged();
             } catch (Exception e) {
@@ -268,4 +291,30 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         }).start();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_search:
+                // Open search dialog
+                mCanFinish = true;
+                onSearchRequested();
+                return true;
+            case android.R.id.home:
+                // App icon in action bar clicked; go home
+                finish();
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(this, AppPreferenceActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
 }
