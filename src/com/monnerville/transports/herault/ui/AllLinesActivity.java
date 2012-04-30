@@ -69,7 +69,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             titleContainer.setPadding(titleContainer.getPaddingLeft(), 0, 0, 0);
 
             setPrimaryTitle(getString(R.string.app_name));
-            setSecondaryTitle(getString(R.string.slogan));
+            setSecondaryTitle(getString(R.string.all_network_lines));
 
             Button searchButton = (Button)findViewById(R.id.btn_search);
             searchButton.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +84,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         if (!Application.OSBeforeHoneyComb()) {
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle((R.string.app_name));
+            actionBar.setSubtitle((R.string.all_network_lines));
         }
 
         mDirections = new ArrayList<List<String>>();
@@ -353,6 +355,9 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                 Intent intent = new Intent(this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(this, AppPreferenceActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
