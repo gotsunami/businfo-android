@@ -12,9 +12,9 @@
         android:layout_weight="1"
         android:apiKey="@string/gmaps_api_key"
     />
+        android:layout_marginLeft="2dip"
     -->
     <ListView android:id="@+id/stationslist"
-        android:layout_marginLeft="2dip"
         android:layout_weight="1"
         android:layout_width="0dip"
         android:layout_height="fill_parent"
