@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="OfficialTheme" parent="@android:style/Theme.Holo.Light" />
+	<style name="OfficialTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/OfficialTheme.ActionBarStyle</item>
+    </style>
+    <style name="OfficialTheme.ActionBarStyle" parent="android:style/Widget.Holo.ActionBar">
+        <item name="android:titleTextStyle">@style/OfficialTheme.ActionBar.TitleTextStyle</item>
+        <item name="android:subtitleTextStyle">@style/OfficialTheme.ActionBar.SubtitleTextStyle</item>
+    </style>
+    <style name="OfficialTheme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/ht_orange</item>
+    </style>
+    <style name="OfficialTheme.ActionBar.SubtitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
+        <item name="android:textColor">@android:color/holo_blue_light</item>
+    </style>
 </resources>

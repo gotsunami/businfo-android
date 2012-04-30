@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="OfficialTheme" parent="@android:style/Theme.DeviceDefault.Light" />
+	<style name="OfficialTheme" parent="@android:style/Theme.DeviceDefault.Light">
+        <item name="android:actionBarStyle">@style/OfficialTheme.ActionBarStyle</item>
+    </style>
 </resources>
