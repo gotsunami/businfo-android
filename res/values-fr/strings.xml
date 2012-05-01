@@ -127,9 +127,6 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-- Ajout de la ligne 215 (Béziers - Bédarieux)
-- Ajout de la ligne 204 (Béziers - Saint-Nazaire-de-Ladarez)
-- Ajout de la ligne 232 (Béziers - Olonzac)
-- Mise à jour des horaires de la ligne 302 (Montpellier - Clermont l'Hérault)
+- Meilleure ergonomie et intégration sur les plateformes Android 3 et supérieur (Honeycomb, Ice Crean Sandwich)
 "</string>
 </resources>

@@ -4,9 +4,11 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.11</string>
+    <string name="app_version">0.9.12</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.12</b> - 2012-04-30:\n
+  - Better ergonomy and integration on Android 3+ platforms (Honeycomb, Ice Cream Sandwich)\n\n
 <b>0.9.11</b> - 2012-04-25:\n
   - New line 215 (Béziers - Bédarieux)\n
   - New line 204 (Béziers - Saint-Nazaire-de-Ladarez)\n
