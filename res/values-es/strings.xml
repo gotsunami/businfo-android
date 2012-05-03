@@ -7,7 +7,7 @@
 <!-- FIXME -->
     <string name="no_more_stop">No antes de mañana</string>
     <string name="no_more_stop_short">"    ---    "</string>
-    <string name="pick_direction_title">dirección</string>
+    <string name="pick_direction_title">Dirección</string>
     <string name="toast_current_direction">"Dirección %1$s"</string>
     <string name="toast_null_direction">"Hacia cero: no dirección"</string>
 <!-- FIXME -->
