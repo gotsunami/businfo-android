@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.12</b> - 03/05/2012 :\n
+  - Application traduite en Espagnol\n
+  - Corrections de bugs\n\n
 <b>0.9.11</b> - 25/04/2012 :\n
   - Ajout de la ligne 215 (Béziers - Bédarieux)\n
   - Ajout de la ligne 204 (Béziers - Saint-Nazaire-de-Ladarez)\n
