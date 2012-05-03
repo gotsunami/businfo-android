@@ -13,9 +13,9 @@ import hashlib, shutil
 from optparse import OptionParser
 #
 # Local import of DBSTRUCT
-import sqlitedb
+import sqlitedb, mysqldb
 
-DBSTRUCT=sqlitedb.DBSTRUCT
+DBSTRUCT = None
 #
 DFLT_CIRC_POLICY = '1-6'
 TIME_PAT = r'^\d{1,2}:\d{2}$'
@@ -545,7 +545,7 @@ def check_up_to_date(chksum):
 
 def main():
     global DEBUG
-    global g_prefilter, GPS_CACHE_FILE
+    global g_prefilter, GPS_CACHE_FILE, DBSTRUCT
 
     parser = OptionParser(usage="""
 %prog [--android|-d|-g|--gps|--gps-cache file] action (raw_line.txt|dir)
@@ -576,7 +576,7 @@ where action is one of:
     DEBUG = options.debug
     action, infile = args
     action = action.lower()
-    if action not in ('xml', 'sqlite'):
+    if action not in ('xml', 'sqlite', 'mysql'):
         parser.error("Unsupported action '%s'." % action)
 
     if options.globalxml and action == 'sqlite':
@@ -599,6 +599,11 @@ where action is one of:
 
     g_prefilter = options.prefilter
     GPS_CACHE_FILE = options.gpscache
+
+    if action == 'sqlite':
+        DBSTRUCT = sqlitedb.DBSTRUCT
+    elif action == 'mysql':
+        DBSTRUCT = mysqldb.DBSTRUCT
 
     if os.path.isdir(infile):
         # Applies pre-filter before parsing any raw content
@@ -741,7 +746,19 @@ where action is one of:
                         else:
                             print "[%-18s] database NOT updated" % 'IDEM'
                         print "[%-18s] done." % 'dbcompare'
-        else:
+        elif action == 'mysql':
+            outname = os.path.join(TMP_DIR, RAW_DB_FILE)
+            print "[%-18s] raw SQL content (for MySQL)..." % outname,
+            sys.stdout.flush()
+            out = open(outname, 'w')
+            out.write("BEGIN;\n")
+            out.write(DBSTRUCT)
+            makeSQL(sources, out)
+            out.write("COMMIT;\n")
+            out.write("SET autocommit=1;\n")
+            out.close()
+            print "done."
+        elif action == 'xml':
             # Action is 'xml'
             for src in sources:
                 busline, directions, linecolor, dfltCirculationPolicy, from_date, to_date = parse(src)

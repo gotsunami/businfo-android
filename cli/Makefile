@@ -11,8 +11,12 @@ CHKSUM=/tmp/.checksum
 all: sqlite
 
 makedb:
-	@echo "Building SQL database..."
+	@echo "Building SQLite database..."
 	@${MAKERES} ${DBOPTS} sqlite raw/
+
+mysql:
+	@echo "Building MySQL database..."
+	@${MAKERES} ${DBOPTS} mysql raw/
 
 test:
 	@echo "Running sanity checks..."
