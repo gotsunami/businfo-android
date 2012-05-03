@@ -474,11 +474,6 @@ def make_chunks(rawname, chunksize=0):
     """
     size = os.path.getsize(rawname)
     chunk = 1
-    num_chunks = 1
-    if chunksize > 0:
-        num_chunks = size / chunksize
-        if size % chunksize > 0:
-            num_chunks += 1
 
     outname = os.path.join(TMP_DIR, "%s_%d.xml" % (CHUNK_PREFIX, chunk))
     print "[%-18s] new chunk file %s..." % ("chunk %02d" % chunk, outname),
@@ -501,7 +496,6 @@ def make_chunks(rawname, chunksize=0):
         seek += len(line)
         if chunksize > 0 and seek > chunksize:
             seek = 0
-            chunk += 1
             out.write("""
 </string>
 """)
@@ -509,6 +503,7 @@ def make_chunks(rawname, chunksize=0):
             print "done."
 
             # New chunk
+            chunk += 1
             outname = os.path.join(TMP_DIR, "%s_%d.xml" % (CHUNK_PREFIX, chunk))
             print "[%-18s] new chunk file %s..." % ("chunk %02d" % chunk, outname),
             out = open(outname, 'w')
@@ -516,12 +511,14 @@ def make_chunks(rawname, chunksize=0):
             out.write("""
 <string name="ht_createdb">
 """)
+
+    # Closing latest chunk
     out.write("""
 </string>
 """)
     out.close()
     print "done."
-    return num_chunks
+    return chunk
 
 def check_up_to_date(chksum):
     """
