@@ -27,7 +27,7 @@
     <string name="bookmark_info">Línea %1$s a %2$s</string>
     <string name="city_title">Ciudad</string>
     <string name="does_not_circulate">No circula</string>
-    <string name="next_stop_board_title">Siguiente parada</string>
+    <string name="next_stop_board_title">Parada siguiente</string>
 
     <string name="bookmark_city">"En %1$s"</string>
     <string name="bookmark_city_eta_hours_hs">"En %1$s, en %2$s hora"</string>
