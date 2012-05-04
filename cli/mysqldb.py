@@ -6,7 +6,6 @@ Database structure for MySQL engine
 """
 
 DBSTRUCT = """
-SET autocommit=0;
 DROP TABLE IF EXISTS city;
 CREATE TABLE city (
     id INTEGER PRIMARY KEY AUTO_INCREMENT, 

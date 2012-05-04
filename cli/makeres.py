@@ -751,7 +751,7 @@ where action is one of:
             print "[%-18s] raw SQL content (for MySQL)..." % outname,
             sys.stdout.flush()
             out = open(outname, 'w')
-            out.write("BEGIN;\n")
+            out.write("SET autocommit=0;\nBEGIN;\n")
             out.write(DBSTRUCT)
             makeSQL(sources, out)
             out.write("COMMIT;\n")
