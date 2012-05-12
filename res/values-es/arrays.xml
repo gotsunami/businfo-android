@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="bookmark_options">
+		<item>Todos los horarios</item>
+		<item>Todas las paradas de la línea</item>
+		<item>Todas las líneas de la ciudad</item>
+		<item>Compartir</item>
+		<item>Suprimir el favorito</item>
+	</string-array>
+	<string-array name="matched_station_options">
+		<item>Todos los horarios</item>
+		<item>Todas las paradas de la línea</item>
+		<item>Guardar en marcadores</item>
+		<item>Compartir</item>
+	</string-array>
+	<string-array name="show_or_share_options">
+		<item>Todos los horarios</item>
+		<item>Compartir</item>
+		<item>Todas las líneas de la ciudad</item>
+	</string-array>
+	<string-array name="tips">
+        <item>"Clic en la lupa en la parte superior derecha de la pantalla para localizar una línea, una parada o una ciudad."</item>
+		<item>"Usted puede utilizar el reconocimiento de voz en la investigación, cuando el icono de micrófono aparece."</item>
+		<item>"Toque la estrella al lado del nombre de una parada de autobús para añadir a sus favoritos en la página principal."</item>
+        <item>"Si no desea mostrar un mapa para localizar las ciudades etc., puede deshabilitar el servicio de mapas en la página de ajustes."</item>
+	</string-array>
+</resources>

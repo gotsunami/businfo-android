@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_changelog">"
+<b>0.9.12</b> - 03/05/2012 :\n
+  - Aplicación traducida al Español\n
+  - Diversas correcciones de errores\n\n
+<b>0.9.11</b> - 25/04/2012 :\n
+  - Adición de la línea 215 (Béziers - Bédarieux)\n
+  - Adición de la línea 204 (Béziers - Saint-Nazaire-de-Ladarez)\n
+  - Adición de la línea 232 (Béziers - Olonzac)\n
+  - Horarios actualizados para la línea 302 (Montpellier - Clermont l\'Hérault)\n\n
+<b>0.9.10</b> - 18/04/2012 :\n
+  - Adición de la línea 211 (Béziers - Portiragnes)\n
+  - Adición de la línea 212 (Béziers - Lespignan)\n
+  - Adición de la línea 213 (Béziers - Vendres)\n
+  - Horarios actualizados para la línea 313 (Bélarga - Montpellier)\n
+  - Horarios actualizados para la línea 131 (Pérols - Palavas Les Flots)\n
+  - Horarios actualizados para la línea 106 (Montpellier - Aigues Mortes)\n
+  - Eliminación de líneas con horarios de verano obsoletos: 103/312 été, 103 été, 106 été, 121 été, 131 été, 162 été, 211 été, 212 213 été, 274 été\n\n
+<b>0.9.9</b> - 07/04/2012 :\n
+Horarios y conexiones actualizados (para acompañar a la llegada del tranvía de la línea 3) por las líneas siguientes:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 107 (Lattes - Marsillargues)\n
+  - 117 Vailhauques (Montpellier - Vailhauquès)\n
+  - 117 Murviel (Montpellier - Murviel les Montpellier)\n
+  - 125 (Lattes - St Aunès)\n
+  - 131 (Pérols - Palavas Les Flots)\n
+  - 132 (Navette du Petit Travers)\n
+  - 301/380 (Clermont l\'Hérault - Lodève)\n
+  - 301/381 (Montpellier - Millau)\n
+  - 302 (Montpellier - Clermont l\'Hérault)\n
+  - 303/485 (Montpellier - St Pons de Thomières)\n
+  - 305 (Montpellier - Aspiran)\n
+  - 306 (Montpellier - Fontès)\n
+  - 307 (Clermont l\'Hérault - Plaissan)\n
+  - 308 (Montpellier - Clermont l\'Hérault)\n
+  - 482/485 (Montpellier - St Pons de Thomières)\n\n
+<b>0.9.8</b> - 04/04/2012 :\n
+  - Adición de la línea 303/485 (Saint-Pons-de-Thomières - Montpellier)\n
+  - Nueva opción \'todas las líneas de la ciudad\' disponible en el menú contextual de las paradas favoritas
+    en la página principal y seleccionando una parada on la pagina de una línea de autobus\n
+  - Nuevo acceso directo \'Búsqueda rápida\' en la página principal (mejor ergonomía)\n
+  - Nueva opción en la página de ajustes para ocultar los mapas que muestran la ubicación de las ciudades (útil si la red no está disponible)\n\n
+<b>0.9.7</b> - 02/04/2012 :\n
+  - La ubicación de las ciudades se muestra en un google maps\n
+  - Rendimiento mejorado\n\n
+<b>0.9.6</b> - 23/03/2012 :\n
+  - Adición de la línea 302 (Clermont-l\'Hérault - Montpellier)\n
+  - Adición de la línea 120 (navette Montpellier - aéroport de Montpellier)\n
+  - Adición de la línea 210 (navette Béziers - aéroport de Béziers)\n
+  - Adición de la línea 313 (Bélarga - Montpellier)\n\n
+<b>0.9.5</b> - 16/03/2012 :\n
+  - Horarios actualizados para la línea 112 (Sommières - Castelnau-le-Lez)\n\n
+<b>0.9.4</b> - 11/02/2012 :\n
+  - Corrección de errores resultando en la eliminación de las paradas favoritas\n
+  - Adición de la línea 482/485 (Saint-Pons-de-Thomières - Montpellier)\n\n
+<b>0.9.3</b> - 07/02/2012 :\n
+Adición de las líneas\n
+  - 301/380 (Lodève - Clermont-l\'Hérault)\n
+  - 304/380 (Clermont-l\'Hérault - Pézenas)\n
+  - 117 (Vailhauquès - Montpellier)\n\n
+<b>0.9.2</b> - 02/02/2012 :\n
+  - Adición de la línea 117 (Murviel-les-Montpellier - Montpellier)\n\n
+<b>0.9.1</b> - 30/01/2012 :\n
+  - Adición de la línea 216 (axe Saint-Jean-de-Védas - Béziers)\n
+  - aumentar el tamaño de la fuente (ajustes)\n\n
+<b>0.9</b> - 29/01/2012 :\n
+  - 53 líneas de autobuses\n
+  - Tiene en cuenta las vacaciones escolares (zona A) y los días feriados en el cálculo de las horas\n
+  - Reconocimiento de voz para buscar las paradas de autobús, líneas o ciudades\n
+  - Marcadores para las paradas favoritas de autobuses\n
+  - Compartir las horas con amigos\n
+  - Primera versión, salida oficial del software\n
+"</string>
+</resources>
