@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ht_separator">@color/ht_orange</color>
+    <!--
+    <color name="ht_separator">@android:color/holo_blue_light</color>
+    -->
     <color name="ht_orange">#cce85113</color>
 </resources>
