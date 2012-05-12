@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
+    DO NOT USE DeviceDefault since the theme can be altered by constructor on 
+    tablets... See ICS theme on asus eeepad tranformer.
 	<style name="OfficialTheme" parent="@android:style/Theme.DeviceDefault.Light">
+    -->
+	<style name="OfficialTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/OfficialTheme.ActionBarStyle</item>
     </style>
 </resources>
