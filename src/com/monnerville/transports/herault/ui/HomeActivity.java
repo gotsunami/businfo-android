@@ -97,10 +97,9 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
             setSecondaryTitle(getString(R.string.slogan));
         }
         else {
-            ActionBar bar = getActionBar();
-            bar.setHomeButtonEnabled(false);
-            bar.setTitle((R.string.app_name));
-            bar.setSubtitle((R.string.slogan));
+            ActionBarHelper.setHomeButtonEnabled(this, false);
+            ActionBarHelper.setTitle(this, R.string.app_name);
+            ActionBarHelper.setSubtitle(this, R.string.slogan);
         }
 
         new DBCreateOrUpdateTask().execute();
