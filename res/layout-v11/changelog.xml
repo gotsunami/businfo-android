@@ -12,7 +12,6 @@
 			android:id="@+id/changelog" 
 			android:text="@string/app_changelog"  
             android:textAppearance="?android:attr/textAppearanceSmall"
-			android:textColor="@color/background_gmail"
 			android:padding="10dip"/>
 	</RelativeLayout>
 </ScrollView>

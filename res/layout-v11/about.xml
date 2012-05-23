@@ -12,7 +12,6 @@
 			android:id="@+id/about_ht_version"
 			android:padding="10dip"
 			android:layout_centerHorizontal="true" 
-			android:textColor="@color/background_gmail"
 			android:textSize="18dip"
 			android:textStyle="bold" />
 		<TextView 
@@ -22,7 +21,6 @@
 			android:text="@string/about_description"
 			android:autoLink="web"
 			android:padding="10dip"
-			android:textColor="@color/background_gmail"
             android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_below="@id/about_ht_version" />
 		<TextView 
@@ -32,7 +30,6 @@
 			android:text="@string/about_description_support"
 			android:padding="10dip"
 			android:autoLink="all"
-			android:textColor="@color/background_gmail"
 			android:layout_below="@id/about" />
 	</RelativeLayout>
 </ScrollView>
