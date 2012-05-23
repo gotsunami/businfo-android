@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.13</b> - 23/05/2012 :\n
+  - Apoyo para el tema de gráfica con los dispositivos Honeycomb (3.x) y Ice Cream Sandwich (4.x)\n\n
 <b>0.9.12</b> - 03/05/2012 :\n
   - Aplicación traducida al Español\n
   - Diversas correcciones de errores\n\n

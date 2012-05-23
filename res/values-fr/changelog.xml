@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.13</b> - 23/05/2012 :\n
+  - Support natif du thème graphique par défaut sur périphériques Honeycomb (3.x) et Ice Cream Sandwich (4.x)\n\n
 <b>0.9.12</b> - 03/05/2012 :\n
   - Application traduite en Espagnol\n
   - Corrections de bugs\n\n

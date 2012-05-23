@@ -4,9 +4,11 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.12</string>
+    <string name="app_version">0.9.13</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.13</b> - 2012-05-23:\n
+  - Native default theme support for Honeycomb (3.x) and Ice Cream Sandwich (4.x) devices\n\n
 <b>0.9.12</b> - 2012-05-03:\n
   - New Spanish language available\n
   - Minor bug fixes\n\n

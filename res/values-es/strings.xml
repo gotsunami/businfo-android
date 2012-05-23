@@ -135,7 +135,6 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-- Aplicación traducida al Español
-- Diversas correcciones de errores
+- Apoyo para el tema de gráfica con los dispositivos Honeycomb (3.x) y Ice Cream Sandwich (4.x)
 "</string>
 </resources>
