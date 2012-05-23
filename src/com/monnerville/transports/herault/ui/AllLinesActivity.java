@@ -1,6 +1,5 @@
 package com.monnerville.transports.herault.ui;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -82,10 +81,9 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         }
 
         if (!Application.OSBeforeHoneyComb()) {
-            ActionBar actionBar = getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle((R.string.app_name));
-            actionBar.setSubtitle((R.string.all_network_lines));
+            ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
+            ActionBarHelper.setTitle(this, R.string.app_name);
+            ActionBarHelper.setSubtitle(this, R.string.all_network_lines);
         }
 
         mDirections = new ArrayList<List<String>>();

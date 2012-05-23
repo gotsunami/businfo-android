@@ -1,6 +1,5 @@
 package com.monnerville.transports.herault.ui;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,8 +20,7 @@ public class AppPreferenceActivity extends PreferenceActivity
 		addPreferencesFromResource(R.xml.preferences);
 
         if (!Application.OSBeforeHoneyComb()) {
-            ActionBar actionBar = getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
         }
 
         Preference dep = findPreference("pref_about_db_version");

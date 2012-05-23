@@ -1,7 +1,5 @@
 package com.monnerville.transports.herault.ui;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,9 +17,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
@@ -29,9 +25,7 @@ import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
@@ -51,7 +45,6 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
     private List<BusStop> mStops;
     private BusStation mCurrentStation;
     private final Calendar mNow = Calendar.getInstance();
-    private ActionBar mActionBar = null;
 
     // For mapping week days in StopListAdapter
     private static final int[][] mWDays = {
@@ -77,8 +70,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_station_title_bar);
         }
         else {
-            mActionBar = getActionBar();
-            mActionBar.setDisplayHomeAsUpEnabled(true);
+            ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
         }
 
         TextView board = (TextView)findViewById(R.id.board);
@@ -98,8 +90,8 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             setSecondaryTitle(getString(R.string.station_line_direction_title, mLine, mDirection));
         }
         else {
-            mActionBar.setTitle(mStation);
-            mActionBar.setSubtitle(getString(R.string.station_line_direction_title, mLine, mDirection));
+            ActionBarHelper.setTitle(this, mStation);
+            ActionBarHelper.setSubtitle(this, getString(R.string.station_line_direction_title, mLine, mDirection));
         }
 
         setTitle(mLine + " - Station " + mStation);

@@ -1,6 +1,5 @@
 package com.monnerville.transports.herault.ui;
 
-import android.app.ActionBar;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -57,7 +56,6 @@ public class SearchableActivity extends ListActivity {
     private List<List<String>> mDirections;
 
     private boolean mCanFinish = false;
-    private ActionBar mActionBar = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +71,7 @@ public class SearchableActivity extends ListActivity {
             tp.setText(getString(R.string.app_name));
         }
         else {
-            mActionBar = getActionBar();
-            mActionBar.setDisplayHomeAsUpEnabled(true);
+            ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
         }
         getListView().setFastScrollEnabled(true);
 
@@ -91,8 +88,8 @@ public class SearchableActivity extends ListActivity {
                 ts.setText(getString(R.string.search_keyword, query));
             }
             else {
-                mActionBar.setTitle(R.string.search_results_title);
-                mActionBar.setSubtitle(getString(R.string.search_keyword, query));
+                ActionBarHelper.setTitle(this, R.string.search_results_title);
+                ActionBarHelper.setSubtitle(this, getString(R.string.search_keyword, query));
             }
             new StartSearchingTask().execute(query);
         }

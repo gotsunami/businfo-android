@@ -1,6 +1,5 @@
 package com.monnerville.transports.herault.ui;
 
-import android.app.ActionBar;
 import android.util.Log;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -58,7 +57,6 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
     private ListView mList;
     
     private final int DEFAULT_MAP_ZOOM = 13;
-    private ActionBar mActionBar = null;
 
     final BusManager mManager = SQLBusManager.getInstance();
 
@@ -78,8 +76,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
             getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.city_title_bar);
         }
         else {
-            mActionBar = getActionBar();
-            mActionBar.setDisplayHomeAsUpEnabled(true);
+            ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
         }
 
         mList = (ListView)findViewById(R.id.lineslist);
@@ -104,7 +101,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
             setSecondaryTitle(getString(R.string.city_title));
         }
         else {
-            mActionBar.setTitle(cityName);
+            ActionBarHelper.setTitle(this, cityName);
         }
 
         new DirectionsRetreiverTask().execute(lines);

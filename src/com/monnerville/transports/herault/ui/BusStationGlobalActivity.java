@@ -1,6 +1,5 @@
 package com.monnerville.transports.herault.ui;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.app.ListActivity;
@@ -52,7 +51,6 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
 
     // Cached directions for matching lines, used by the adapter
     private Map<BusLine, List<BusStation>> mLines;
-    private ActionBar mActionBar = null;
 
     final SQLBusManager mManager = SQLBusManager.getInstance();
 
@@ -67,8 +65,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         if (Application.OSBeforeHoneyComb())
             getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.city_title_bar);
         else {
-            mActionBar = getActionBar();
-            mActionBar.setDisplayHomeAsUpEnabled(true);
+            ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
         }
         getListView().setItemsCanFocus(true);
 
@@ -95,7 +92,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
             setSecondaryTitle("");
         }
         else {
-            mActionBar.setTitle(mStationName);
+            ActionBarHelper.setTitle(this, mStationName);
         }
 
         if (Application.OSBeforeHoneyComb()) {
@@ -208,7 +205,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                 if (Application.OSBeforeHoneyComb())
                     setSecondaryTitle(subt);
                 else
-                    mActionBar.setSubtitle(subt);
+                    ActionBarHelper.setSubtitle(BusStationGlobalActivity.this, subt);
                 setupAdapter();
                 mAdapter.notifyDataSetChanged();
             } catch (Exception e) {

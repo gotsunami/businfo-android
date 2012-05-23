@@ -1,6 +1,5 @@
 package com.monnerville.transports.herault.ui;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.app.ListActivity;
@@ -74,7 +73,6 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
 
     private final int DEFAULT_MAP_ZOOM = 13;
     private QueryManager mFinder = SQLQueryManager.getInstance();
-    private ActionBar mActionBar = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -88,8 +86,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         if (Application.OSBeforeHoneyComb()) 
             getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bus_line_title_bar);
         else {
-            mActionBar = getActionBar();
-            mActionBar.setDisplayHomeAsUpEnabled(true);
+            ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
         }
 
         mList = (ListView)findViewById(R.id.stationslist);
@@ -111,8 +108,8 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
         }
         else {
-            mActionBar.setTitle(getString(R.string.current_line_title, mLine));
-            mActionBar.setSubtitle(getString(R.string.line_direction_title, mDirection));
+            ActionBarHelper.setTitle(this, getString(R.string.current_line_title, mLine));
+            ActionBarHelper.setSubtitle(this, getString(R.string.line_direction_title, mDirection));
         }
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
