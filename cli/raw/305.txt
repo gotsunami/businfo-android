@@ -1,9 +1,9 @@
 # Line 305
-# updated: 2012-03-23
+# updated: 2012-06-13
 name=305
 circulation=1-6
 color=#000099
-from=2012-04-07
+from=2012-06-18
 
 direction=
 
@@ -30,32 +30,32 @@ city=CANET
 Centre;13:40;17:45;18:45
 
 city=ASPIRAN 
-Jeu de Ballon;13:45;18:50
+Jeu de Ballon;13:45*3s*;18:50
 
 direction=
 
 city=ASPIRAN 
-Jeu de Ballon;6:20
+Jeu de Ballon;6:10*6*;6:20
 
 city=CANET 
-Centre;6:25;8:05*1-5*;12:40
+Centre;6:15*6*;6:25;8:05;12:40
 
 city=LE POUGET 
-Eglise;6:35;8:15*1-5*;12:45
+Eglise;6:25*6*;6:35;8:15;12:45
 
 city=POUZOLS 
-Rue des lauzes;6:40;8:20*1-5*;12:50
+Rue des lauzes;6:30*6*;6:40;8:20;12:50
 
 city=POPIAN 
-Mairie;6:42;8:25*1-5*;12:55
+Mairie;6:32*6*;6:42;8:25;12:55
 
 city=ST BAUZILLE DE LA SYLVE 
-Jeu de Ballon;6:45;8:30*1-5*;13:00
+Jeu de Ballon;6:35*6*;6:45;8:30;13:00
 
 city=GIGNAC 
-Gare Routière Arrivée;6:55;8:35*1-5*;13:10
-Gare Routière Départ;6:55;8:35*1-5*;13:15
+Gare Routière Arrivée;6:45*6*;6:55;8:35;13:10
+Gare Routière Départ;6:45*6*;6:55;8:35;13:15
 
 city=MONTPELLIER 
-Station Mosson;7:20;9:00*1-5*;13:40
+Station Mosson;7:20;9:00;13:40
 
