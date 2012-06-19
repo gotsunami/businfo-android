@@ -135,6 +135,11 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-- Apoyo para el tema de gráfica con los dispositivos Honeycomb (3.x) y Ice Cream Sandwich (4.x)
+Horarios actualizados por las líneas siguientes:
+- 301/381 (Montpellier - Millau)
+- 302 (Montpellier - Clermont l\'Hérault)
+- 303/485 (Montpellier - St Pons de Thomières)
+- 305 (Montpellier - Aspiran)
+- 313 (Bélarga - Montpellier)
 "</string>
 </resources>

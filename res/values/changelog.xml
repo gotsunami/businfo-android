@@ -4,9 +4,16 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.13</string>
+    <string name="app_version">0.9.14</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.14</b> - 2012-06-19:\n
+  Updated schedules for the following lines (from June 18, 2012):\n
+  - 301/381 (Montpellier - Millau)\n
+  - 302 (Montpellier - Clermont l\'Hérault)\n
+  - 303/485 (Montpellier - St Pons de Thomières)\n
+  - 305 (Montpellier - Aspiran)\n
+  - 313 (Bélarga - Montpellier)\n\n
 <b>0.9.13</b> - 2012-05-23:\n
   - Native default theme support for Honeycomb (3.x) and Ice Cream Sandwich (4.x) devices\n\n
 <b>0.9.12</b> - 2012-05-03:\n

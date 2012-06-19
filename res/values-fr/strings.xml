@@ -127,6 +127,11 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-- Support natif du thème graphique par défaut sur périphériques Honeycomb (3.x) et Ice Cream Sandwich (4.x)
+Mise à jour des horaires des lignes suivantes (valables à partir du 18 juin 2012) :
+- 301/381 (Montpellier - Millau)
+- 302 (Montpellier - Clermont l\'Hérault)
+- 303/485 (Montpellier - St Pons de Thomières)
+- 305 (Montpellier - Aspiran)
+- 313 (Bélarga - Montpellier)
 "</string>
 </resources>
