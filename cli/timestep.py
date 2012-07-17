@@ -18,6 +18,5 @@ def gettime(start, step=10, count=50):
     print
 
 if __name__ == '__main__':
-    print "todo"
-    #gettime(*sys.argv[1:])
+    gettime(sys.argv[1], *(map(int, sys.argv[2:])))
 
