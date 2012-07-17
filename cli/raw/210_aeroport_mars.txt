@@ -1,4 +1,5 @@
 # Line 210 aeroport navette Béziers
+# updated: 2011-06-29
 name=210 navette aéroport-Béziers
 circulation=1-7
 from=2012-03-25
