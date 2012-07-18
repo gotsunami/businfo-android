@@ -135,11 +135,17 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-Horarios actualizados por las líneas siguientes:
+Horarios actualizados por las líneas siguientes (horarios de verano):
+- 106 (Montpellier - Aigues Mortes)
+- 115 (Montpellier- Quissac)
+- 117 Murviel (Montpellier - Murviel les Montpellier)
+- 117 Vailhauques (Montpellier - Vailhauquès)
+- 131 (Pérols - Palavas Les Flots)
+- 132 (Navette du Petit Travers)
+- 211 (Béziers - Portiragnes)
+- 212/213 (Béziers - Vendres)
+- 274 (Agde - Marseillan Plage)
 - 301/381 (Montpellier - Millau)
-- 302 (Montpellier - Clermont l\'Hérault)
-- 303/485 (Montpellier - St Pons de Thomières)
-- 305 (Montpellier - Aspiran)
-- 313 (Bélarga - Montpellier)
+- 308 (Montpellier - Clermont l\'Hérault)
 "</string>
 </resources>
