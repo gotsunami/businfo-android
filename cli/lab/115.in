@@ -11,7 +11,7 @@ from=2012-09-04
 direction=
 
 days=LàS Me/Sa Me/Sa Me/Sa LMaJV LMaJV LMaJV LàS LMaJV LMaJV Di L à V L à V L à S
-p=0 NSCO SCO SCO SCO SCO NSCO NSCO SCO SCO 0 0 0 0
+p=0 NSCO SCO SCO SCO SCO NSCO NSCO SCO SCO
 
 c=MONTPELLIER Lycée J. Monnet 
 Château d'ô 
@@ -53,7 +53,7 @@ QUISSAC Quissac
 11:30 12:50 12:50 12:51 16:15 17:25 17:30 18:00 18:06 - - 18:51 19:22 19:55
 11:42 13:00 - 13:01 - 17:35 17:40 18:08[2] 18:16 - - 19:00
 - - - 13:05 - - - - 18:20 - - 19:04
-11:45 13:03 13:03 13:08 17:40 17:45 18:13 18:23 18:25 19:09
+11:45 13:03 13:03 13:08 - 17:40 17:45 18:13 18:23 18:25 - 19:09
 - - - - 16:30 - - - - - -
 11:47 13:04 13:05[A] 13:10[A] - 17:43[A] 17:47 18:16[A] 18:25[B] 18:27[B] - 19:12
 
@@ -77,5 +77,69 @@ QUISSAC Quissac
 
 
 direction=
+
+
+days=L à V L à S L à V L à V Sa L à V L à V L à S L à V L à V Di L à S
+p=SCO NSCO SCO SCO SCO SCO[E] SCO NSCO[1]
+
+c=QUISSAC Quissac 
+CORCONNE Corconne 
+VACQUIERES Place des sports 
+SAUTEYRARGUES Vabres 
+Mairie 
+CLARET
+Farjou/Coopérative/Ecoles/Av de Montpellier 
+SAUTEYRARGUES Rives 
+LAURET Calvaire 
+VALFLAUNES Lancyre 
+Valcyre 
+Mairie 
+ST MATHIEU-DE-TREVIERS République 
+Av de Montpellier 
+Garonne 
+Collège 
+Champs noirs 
+ST JEAN-DE-CUCULLES
+Cuculles/Tambourin/Cazarels 
+LE TRIADOU Mairie/Roumanissière 
+PRADES-LE-LEZ Prades le Lez 
+MONTPELLIER Vincent Auriol 
+Station Tam Occitanie 
+Plan des 4 seigneurs 
+Lycée F.Bazille 
+Plan des 4 seigneurs 
+Château d'ô 
+Lycée J. Monnet 
+Station Occitanie 
+
+
+- - - - - - 07:05 07:15
+- - - - - - 07:19 07:25
+- 06:45 06:40[3] - 06:40[3] - 07:26 07:30
+- - - - - - - 07:34
+- 06:49 06:44 - 06:44 - 07:30 07:36
+- 06:53 - 06:40 06:49 07:30 - 07:40
+- 06:57 06:45 - 06:53 - 07:31 07:44
+- 07:01 06:49 - 06:57 - 07:36 07:47
+- 07:05 06:53 - 07:01 - 07:42 07:50
+- 07:06 06:55 - 07:02 - 07:44 07:52
+- 07:08 - 06:55 07:05 07:45 - 07:55
+06:55 07:12 07:02 07:01 07:09 07:53 07:53 08:00 9:00 10:30 10:30 13:30
+- - - - - 07:54 07:54 - 9:01 10:32 10:32 -
+06:57 07:14 07:04[A] 07:04[B] 07:11 - - 08:02 - - - 13:33
+- - - - - 07:55[B] 07:55[C] - -
+- 07:15 07:05 07:05 07:12 07:57 07:59 08:03 - - - 13:35
+07:06 - - - 07:16 - - -
+07:10[A] - 07:10[B] - 07:20 - - 08:05 [2]
+- 07:27 - 07:24 07:29 - 08:18 08:15 9:18 10:44 - 13:44
+- 07:35 - 7:39 07:35 - 08:29 08:24 9:30 10:55 - 13:58
+07:30 - - - - - - - -
+07:33 - - - - - - - -
+07:35 07:36 - 07:40 07:36 - 08:30 08:25 9:31 10:56 - 14:00
+- 07:38 - 07:42 07:38 - 08:32 08:27 9:33 10:58 - 14:03
+- - 07:47 - - 08:43 - - - - -
+- - 07:51[D] - - 08:46 - - - - -
+- 07:40 - 07:45 07:40 - 08:35 08:30 9:35 11:00 10:55 14:05
+
 
 
