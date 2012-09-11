@@ -1,8 +1,12 @@
 # Line 115
 # updated: 2012-08-31
+#
 # Warning: some cities are duplicated in the PDF (SAUTEYRARGUES)
+# Warning: no station name for QUISSAC, CORCONNE and PRADES-LE-LEZ: 
+#   added 'Mairie' as default
 #
 # compile with: htc 115.in
+
 name=115
 circulation=1-6
 color=#CC9966
@@ -21,7 +25,7 @@ Lycée Agropolis
 V. Auriol 
 Agropolis 
 PRADES-LE-LEZ* 
-Prades le Lez 
+Mairie
 LE TRIADOU Roumanissière/Mairie 
 ST JEAN-DE-CUCULLES Cazarels/Tambourin 
 ST MATHIEU-DE-TREVIERS Champs noirs 
@@ -40,8 +44,8 @@ SAUTEYRARGUES Rives
 Mairie 
 Vabres 
 VACQUIERES Ecoles 
-CORCONNE Corconne 
-QUISSAC Quissac 
+CORCONNE Mairie 
+QUISSAC Mairie 
 
 - - 12:25[3] - 16:00 17:00 - - - 18:00
 - - 12:31[3] - 16:02 17:06
@@ -82,8 +86,8 @@ direction=
 days=L à V L à S L à V L à V Sa L à V L à V L à S L à V L à V Di L à S
 p=SCO NSCO SCO SCO SCO SCO[E] SCO NSCO[1]
 
-c=QUISSAC Quissac 
-CORCONNE Corconne 
+c=QUISSAC Mairie 
+CORCONNE Mairie 
 VACQUIERES Place des sports 
 SAUTEYRARGUES Vabres 
 Mairie 
@@ -102,7 +106,7 @@ Champs noirs
 ST JEAN-DE-CUCULLES
 Cuculles/Tambourin/Cazarels 
 LE TRIADOU Mairie/Roumanissière 
-PRADES-LE-LEZ Prades le Lez 
+PRADES-LE-LEZ Mairie
 MONTPELLIER Vincent Auriol 
 Station Tam Occitanie 
 Plan des 4 seigneurs 
