@@ -20,10 +20,10 @@ HTMAP = {
     'à' : '-',
     '/' : ',',
 }
+FEATMAP = {'0': '', 'NSCO': 'S', 'SCO': 's'}
 #
-cities = {}
+cities = []
 cur_city = None
-cur_city_idx = 0
 
 def debug(msg):
     print "=>", msg
@@ -79,6 +79,9 @@ def get_days(d):
         i += 1
     return days
 
+def get_features(p):
+    return [FEATMAP[re.sub(r'\[.\]', '', k)] for k in p]
+
 def print_scheds(scheds):
     print '\n'.join(scheds).replace(' ', ';')
 
@@ -87,7 +90,7 @@ def parse_cities_stations(line):
     Find city name and related stations by reading 
     lines of text
     """
-    global cur_city, cities, cur_city_idx
+    global cur_city, cities
 
     line = line.strip().split(' ')
     city_s = [] # will hold the full city name
@@ -99,40 +102,38 @@ def parse_cities_stations(line):
                 # only city name on line
                 cur_city = ' '.join(city_s)
                 cur_city = re.sub(r'[*]', '', cur_city)
-                if not cities.has_key(cur_city):
-                    cities[cur_city] = [cur_city_idx]
-                    cur_city_idx += 1
+                cities.append([cur_city, []])
         else:
             if len(city_s) > 0:
                 # just got a city name on the line
                 cur_city = ' '.join(city_s)
                 cur_city = re.sub(r'[*]', '', cur_city)
-                if not cities.has_key(cur_city):
-                    cities[cur_city] = [cur_city_idx]
-                    cur_city_idx += 1
+                cities.append([cur_city, []])
                 break
+
+    if len(line) > 1 and ' '.join(city_s) == ' '.join(line):
+        # Special case, only city name on line (may be several words)
+        cur_city = ' '.join(city_s)
+        cur_city = re.sub(r'[*]', '', cur_city)
+        cities.append([cur_city, []])
+        return
 
     if len(city_s) > 0:
         if len(line) > 1:
-            cities[cur_city].append(' '.join(line[len(city_s):]))
+            cities[-1][1].append(' '.join(line[len(city_s):]))
     else:
         # just a station name on the line
-        cities[cur_city].append(' '.join(line))
-            
+        cities[-1][1].append(' '.join(line))
 
-def main():
-    f = open(sys.argv[1])
-    data = f.readlines()
-    f.close()
-
+def handle_direction(data):
+    """
+    Handle one direction at a time
+    """
     scheds = []
-    #cities = {}
     max_sched_width = 0
     city_block = False
-    #cur_city = None
 
     for line in data:
-        line = line[:-1].strip()
         if len(line) == 0:
             continue
         # schedules
@@ -155,7 +156,7 @@ def main():
         elif line.find('p=') == 0:
             # Parsing 
             city_block = False
-            pass
+            features = get_features(line[2:].split(' '))
         elif line.find('c=') == 0:
             # Parsing cities and stations
             city_block = True
@@ -170,36 +171,64 @@ def main():
         k = 0
         for sc in scline:
             if sc != '-':
-                scline[k] = sc + '*' + days[k] + '*'
+                scline[k] = sc + '*' + days[k]# + features[k] + '*'
+                if k < len(features):
+                    scline[k] += features[k]
+                scline[k] += '*'
             k += 1
             scheds[j] = ' '.join(scline)
         j += 1
 
-#    print_scheds(scheds)
-
-    import pprint
-    pp = pprint.PrettyPrinter()
-
-    # convert to a flat-ordererd list
-    lcities = []
-    for x in range(len(cities.values())):
-        for k, v in cities.iteritems():
-            if cities[k][0] == x:
-                lcities.append([k, cities[k][1:]])
-
-#    pp.pprint(lcities)
-
     print "\ndirection="
     st = 0
-    for d in lcities:
+    for d in cities:
         print "\ncity=%s" % d[0]
         for station in d[1]:
             print "%s;%s" % (station, scheds[st].replace(' ', ';'))
             st += 1
 
-
     if max_sched_width > len(days):
         error("more schedules entries (%d) than days definition (%d)!" % (max_sched_width, len(days)))
+            
+
+def main():
+    global cities, cur_city
+    if len(sys.argv) != 2:
+        print "Missing bus line argument"
+        print "Usage: %s line.in" % sys.argv[0]
+        sys.exit(2)
+
+    f = open(sys.argv[1])
+    data = f.readlines()
+    f.close()
+
+    # break content into 2 directions
+    directions = []
+    dir1 = dir2 = False
+    for line in data:
+        line = line[:-1].strip()
+        if len(line) == 0 or line.find("#") == 0:
+            continue
+        if line.find("direction=") == 0:
+            if dir1:
+                dir1 = False
+                dir2 = True
+            else:
+                dir1 = True
+            directions.append(list())
+        else:
+            if dir1 or dir2:
+                directions[-1].append(line)
+
+    if len(directions) != 2:
+        error("Missing direction: only have %d (should have 2)!" % len(directions))
+
+    for d in directions:
+        # Data direction can be handled separately
+        cities = []
+        curc_city = None
+        handle_direction(d)
+
 
 if __name__ == '__main__':
     main()
