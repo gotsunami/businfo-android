@@ -6,8 +6,9 @@ import sys
 import types
 
 SEP = ' '
-DAYS = ('L', 'Ma', 'Me', 'J', 'V', 'Sa', 'Di')
+DAYS = ('L', 'Ma', 'Me', 'J', 'V', 'S', 'Sa', 'Di', 'F')
 DAYS_S = ('à', '/')
+DUPS = {'S': 'Sa', 'Sa': 'S', 'D': 'Di', 'Di': 'D'}
 HTMAP = {
     'L' : '1',
     'Ma': '2',
@@ -17,6 +18,7 @@ HTMAP = {
     'S' : '6',
     'Sa': '6',
     'Di': '7',
+    'F' : 'r', # rest days
     'à' : '-',
     '/' : ',',
 }
@@ -33,10 +35,13 @@ def error(msg):
     sys.exit(1)
 
 def get_days(d):
+    """
+    d in the list of days
+    """
     days = []
     k = 0
 
-    while k < len(d)-1:
+    while k < len(d):
         if k < len(d)-1:
             if d[k+1] in DAYS_S:
                 days.append(d[k:k+3])
@@ -65,8 +70,14 @@ def get_days(d):
             tmp = []
             for c in DAYS:
                 if d.find(c) != -1:
-                    tmp.append(c)
-                    tmp.append('/')
+                    # Special case: check for any day synonyms
+                    if DUPS.has_key(c):
+                        if DUPS[c] not in tmp:
+                            tmp.append(c)
+                            tmp.append('/')
+                    else:
+                        tmp.append(c)
+                        tmp.append('/')
             days[k] = tmp[:-1] # remove trailing /
         k += 1
 
@@ -156,7 +167,9 @@ def handle_direction(data):
         elif line.find('p=') == 0:
             # Parsing 
             city_block = False
-            features = get_features(line[2:].split(' '))
+            features = []
+            if len(line) != 2:
+                features = get_features(line[2:].split(' '))
         elif line.find('c=') == 0:
             # Parsing cities and stations
             city_block = True
@@ -165,13 +178,19 @@ def handle_direction(data):
         elif city_block:
             parse_cities_stations(line)
 
+
     j = 0
     for scline in scheds:
         scline = scline.split(' ')
         k = 0
+        if len(days) < len(scline):
+            print "Error: less days than schedules!"
+            print "days=", len(days), days
+            print "scheds (line %d)=" % (j+1), len(scline), scline
+            error("%d < %d" % (len(days), len(scline)))
         for sc in scline:
             if sc != '-':
-                scline[k] = sc + '*' + days[k]# + features[k] + '*'
+                scline[k] = sc + '*' + days[k]
                 if k < len(features):
                     scline[k] += features[k]
                 scline[k] += '*'
