@@ -3,7 +3,7 @@
 
 name=117 Murviel-les-Montpellier
 circulation=1-6
-from=2012-07-06
+from=2012-09-04
 color=#00CC00
 
 direction=
