@@ -259,12 +259,26 @@ def main():
     header.insert(1, "# Compile: htc %s\n" % sys.argv[1])
     print '\n'.join(header)
 
+    k = 1
+    need_manual = False
     for d in directions:
         # Data direction can be handled separately
         cities = []
         curc_city = None
         handle_direction(d)
+        # Looks for city duplicates
+        dup = {}
+        for cit in cities:
+            if not dup.has_key(cit[0]):
+                dup[cit[0]] = 1
+            else:
+                dup[cit[0]] += 1
+                print >> sys.stderr, "Warning: find duplicates in direction %d for city %s" % (k, cit[0])
+                need_manual = True
+        k += 1
 
+    if need_manual:
+        print >> sys.stderr, "Warning: manual tuning of the result is required!"
 
 if __name__ == '__main__':
     main()
