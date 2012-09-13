@@ -6,7 +6,7 @@ import sys
 import types
 
 SEP = ' '
-DAYS = ('L', 'Ma', 'Me', 'J', 'V', 'S', 'Sa', 'Di', 'F')
+DAYS = ('L', 'Ma', 'Me', 'J', 'V', 'S', 'Sa', 'D', 'Di', 'F')
 DAYS_S = ('à', '/')
 DUPS = {'S': 'Sa', 'Sa': 'S', 'D': 'Di', 'Di': 'D'}
 HTMAP = {
@@ -17,6 +17,7 @@ HTMAP = {
     'V' : '5',
     'S' : '6',
     'Sa': '6',
+    'D' : '7',
     'Di': '7',
     'F' : 'r', # rest days
     'à' : '-',
