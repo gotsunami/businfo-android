@@ -157,8 +157,9 @@ def handle_direction(data):
             for b in bkts:
                 line = line.replace(b, '')
             scheds.append(line)
-            if len(line.split(SEP)) > max_sched_width:
-                max_sched_width = len(scheds)
+            line_size = len(line.split(SEP))
+            if line_size > max_sched_width:
+                max_sched_width = line_size
         elif line.find('days=') == 0:
             # Parsing days line
             city_block = False
