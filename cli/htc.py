@@ -106,7 +106,7 @@ def parse_cities_stations(line):
     line = line.strip().split(' ')
     city_s = [] # will hold the full city name
     for ent in line:
-        tmp = re.sub(r"[-*'.]", '', ent)
+        tmp = re.sub(r"[-*'.’]", '', ent)
         if all([n.isupper() for n in tmp]):
             city_s.append(ent)
             if len(line) == 1:
