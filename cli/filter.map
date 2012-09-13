@@ -10,6 +10,8 @@ ste \(\w\);sainte-\1
 
 # Cities
 genies de f\.;geniès-de-fontedit
+genies des m\.;geniès-des-mourgues
+genies des mourgues;geniès-des-mourgues
 perols;pérols
 beziers;béziers
 sete;sète
@@ -59,7 +61,6 @@ lunel viel;lunel-viel
 pezenas;pézenas
 andré de sangonis;andré-de-sangonis
 bauzille de la sylve;bauzille-de-la-sylve
-génies des m.;geniès-des-mourgues
 génies de varensal;geniès-de-varensal
 vincent de barb;vincent-de-barb
 thezan les béziers;thézan-lès-béziers
