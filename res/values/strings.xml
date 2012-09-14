@@ -121,24 +121,26 @@
 
     <!-- About app -->
     <string name="pref_about_about_title">About</string>
-    <string name="about_description">"Hérault Transport is a free Android application whose goal is to provide an easy way to get bus schedules from the french \"Hérault Transport\" bus network. Please note that this is a <b>non-official</b>, personal application, i.e. not provided by the Hérault Transport company, but rather provided and maintained by me (as an independant software developer).\n Not only can you have schedules, but you can also bookmark favorite bus stations and share them with friends. You can also search information by voice using the voice recognition feature of your Android devices (if supported)."</string>
+    <string name="about_description">"Hérault Transport is a free Android application whose goal is to provide an easy way to get bus schedules from the french \"Hérault Transport\" bus network.\nIt's easy to use and works anytime, anywhere: all schedules are available instantly without using your network connection (off-line mode)!\n Please note that this is a <b>non-official</b>, personal application, i.e. not provided by the Hérault Transport company, but rather provided and maintained by me (as an independant software developer).\n Not only can you have schedules, but you can also bookmark favorite bus stations and share them with friends. You can also search information by voice using the voice recognition feature of your Android devices (if supported)."</string>
     <string name="about_description_support">"For any question, bug report or feature request, please visit http://ht.monnerville.com or drop an email to ht-support@monnerville.com."</string>
 
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-Updated schedules for the following lines (summer schedules):
+Updated schedules for the following lines:
 - 106 (Montpellier - Aigues Mortes)
+- 107 (Lattes - Marsillargues)
+- 108 (Montpellier - Ganges)
+- 112 (Sommières - Castelnau-le-Lez)
 - 115 (Montpellier- Quissac)
 - 117 Murviel (Montpellier - Murviel les Montpellier)
 - 117 Vailhauques (Montpellier - Vailhauquès)
+- 125 (Lattes - St Aunès)
 - 131 (Pérols - Palavas Les Flots)
 - 132 (Navette du Petit Travers)
-- 211 (Béziers - Portiragnes)
-- 212/213 (Béziers - Vendres)
-- 274 (Agde - Marseillan Plage)
-- 301/381 (Montpellier - Millau)
-- 308 (Montpellier - Clermont l\'Hérault)
+- 301/381 (Lodève - Clermont l'Hérault)
+- 308 (Montpellier - Clermont l'Hérault)
+- 323 (Sète - Pinet)
 "</string>
 </resources>

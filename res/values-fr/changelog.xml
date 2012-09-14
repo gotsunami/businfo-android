@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.16</b> - 12/09/2012 :\n
+  Mise à jour des horaires des lignes suivantes (horaires de rentrée) :\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 107 (Lattes - Marsillargues)\n
+  - 108 (Montpellier - Ganges)\n
+  - 112 (Sommières - Castelnau-le-Lez)\n
+  - 115 (Montpellier- Quissac)\n
+  - 117 Murviel (Montpellier - Murviel les Montpellier)\n
+  - 117 Vailhauques (Montpellier - Vailhauquès)\n
+  - 125 (Lattes - St Aunès)\n
+  - 131 (Pérols - Palavas Les Flots)\n
+  - 132 (Navette du Petit Travers)\n
+  - 301/381 (Lodève - Clermont l\'Hérault)\n
+  - 308 (Montpellier - Clermont l\'Hérault)\n
+  - 323 (Sète - Pinet)\n\n
 <b>0.9.15</b> - 15/07/2012 :\n
   Mise à jour des horaires des lignes suivantes (horaires d\'été) :\n
   - 106 (Montpellier - Aigues Mortes)\n
