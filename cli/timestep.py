@@ -18,5 +18,8 @@ def gettime(start, step=10, count=50):
     print
 
 if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print "usage: %s hh:mm step count" % sys.argv[0]
+        sys.exit(2)
     gettime(sys.argv[1], *(map(int, sys.argv[2:])))
 
