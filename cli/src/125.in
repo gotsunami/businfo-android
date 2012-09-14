@@ -1,0 +1,67 @@
+# Line 125
+# updated: 2012-08-31
+#
+# warning: ST AUNES city written twice... (direction 1)
+# warning: replace ZAC with Zac
+#
+# compile with: htc 125.in
+
+name=125
+circulation=1-6
+from=2012-09-03
+color=#660099
+
+direction=
+
+days=Me L à S L à V L à S LMaJV L à S
+p=SCO 0 SCO 0 SCO
+
+c=LATTES Station Boirargues 
+Lycée Champollion 
+MAUGUIO Zac de Figuières 
+ST AUNES Auroux 
+Ciste/Couchant/P. Cézanne 
+Lucado/Les Lapereaux/Le Hameau 
+Mas de Sapte/Tourterelles 
+Centre commercial 
+Escolette 
+Ecole des garrigues 
+
+12:10 12:40 16:32 17:35 18:40 19:35
+12:15 12:45 16:37 17:40 18:45 19:40
+12:16 12:46 16:38 17:43 18:48 19:41
+12:26 12:56 16:48 17:45 18:50 19:43
+12:29 12:59 16:51 17:55 18:55 19:48
+12:31 13:01 16:53 17:57 18:57 19:50
+12:33 13:03 16:55 18:00 19:00 19:53
+12:36 13:06 16:58 18:05 19:05 19:58
+12:37 13:07 16:59 18:06 19:06 19:59
+- 13:14 - 18:09
+
+direction=
+
+days=L à S L à S L à S L à S L à V
+p=SCO 0 0 0 SCO
+
+c=ST AUNES Ecole des garrigues 
+Ciste/Couchant/P. Cézanne 
+Lucado/Les Lapereaux/Le Hameau 
+Mas de Sapte/Tourterelles 
+Centre commercial 
+Escolette 
+Auroux 
+MAUGUIO Zac de Figuières 
+LATTES Lycée Champollion 
+Station Boirargues 
+
+06:42 07:08
+06:49 07:15 08:05 12:57 16:51
+06:51 07:17 08:07 12:59 16:53
+06:53 07:19 08:09 13:01 16:55
+06:56 07:22 08:12 13:04 16:58
+06:57 07:23 08:13 13:05 16:59
+07:00 07:26 08:16 13:08 17:02
+07:10 07:36 08:26 13:18 17:12
+07:11 07:37 08:27 13:19 17:13
+07:16 07:42 08:32 13:24 17:18
+
