@@ -2,7 +2,7 @@
 # updated: 2012-08-31
 #
 # warning: replace ZA with Za
-# warning: remove ** in station name
+# warning: remove ** and * in station name
 #
 # compile with: htc 108.in
 
@@ -36,7 +36,7 @@ La Boissière
 BRISSAC Ferrières D 986
 ST BAUZILLE-DE-PUTOIS Stade/Rieutord/Vierges
 LAROQUE Chemin neuf/Berges/Ponteil/Vigné
-GANGES Mairie *
+GANGES Mairie
 Gendarmerie
 ST JULIEN-DE-LA-NEF Saint Julien la nef
 ST ANDRE-DE-MAJENCOULES Pont d'hérault
@@ -105,7 +105,7 @@ c=LE VIGAN Chataîgniers/Gare SNCF
 ST ANDRE-DE-M. Le Rey/Pont d'Hérault
 ST JULIEN-DE-LA-NEF Saint Julien la Nef
 GANGES Gendarmerie
-Mairie *
+Mairie
 LAROQUE Vigné/Ponteil/Berges/Chemin neuf
 ST BAUZILLE-DE-PUTOIS Stade/Rieutord/Vierge
 BRISSAC Ferrières D 986
