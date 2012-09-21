@@ -73,7 +73,7 @@ func get_days(days string) []string {
                 k += 3
                 continue
             } else {
-               res = append(res, []string{sdays[k]})
+                res = append(res, []string{sdays[k]})
             }
         } else {
             res = append(res, []string{sdays[k]})
@@ -158,11 +158,11 @@ func main() {
     }
 
     /*
-    directions := []string{}
-       dir1 := false
-       dir2 := false
-       for line := range directions {
-       }
+       directions := []string{}
+          dir1 := false
+          dir2 := false
+          for line := range directions {
+          }
     */
     d := get_days("L à V LMaMeJ LàS")
     fmt.Println(d)
