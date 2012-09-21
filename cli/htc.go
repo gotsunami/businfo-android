@@ -54,30 +54,87 @@ func found(val string, a []string) bool {
 }
 
 // Compute the list of days
+// An input like this one:
+// 
+// L à V LMaMeJ LàS
+//
+// will convert to a three element slice:
+//
+// [1-5 1,2,3,4 1-6]
 func get_days(days string) []string {
     sdays := strings.Split(days, SEP)
-    res := []string{}
+    res := make([][]string, 0)
     k := 0
 
-    for _, day := range sdays {
+    for k < len(sdays) {
         if k < len(sdays)-1 {
             if found(sdays[k+1], DAYS_S) {
-                append(res, sdays[k:k+3])
+                res = append(res, sdays[k:k+3])
                 k += 3
                 continue
+            } else {
+               res = append(res, []string{sdays[k]})
             }
-            /*
-               else {
-                   append(res, sdays[k])
-               }
-            */
         } else {
-            append(res, sdays[k])
+            res = append(res, []string{sdays[k]})
         }
         k++
     }
 
-    return res
+    // [[L à V] [LMaMeJ] [LàS]]
+
+    // Find separators in strings with no spaces
+    for k, pat := range res {
+        for _, sep := range DAYS_S {
+            if len(pat) == 1 {
+                if strings.Contains(pat[0], sep) {
+                    z := strings.Split(pat[0], sep)
+                    // new slice with distinct, separated elements
+                    z = []string{z[0], sep, z[1]}
+                    res[k] = z
+                }
+            }
+        }
+    }
+
+    // [[L à V] [LMaMeJ] [L à S]]
+
+    // Remaining strings without special chars
+    for k, pat := range res {
+        if len(pat) == 1 {
+            // Like LMaMeJ, no spaces in it, one block
+            tmp := []string{}
+            for _, day := range DAYS {
+                if strings.Contains(pat[0], day) {
+                    // Special case: check for any day synonyms
+                    if _, has := DUPS[day]; has {
+                        if !found(DUPS[day], tmp) {
+                            tmp = append(tmp, day)
+                            tmp = append(tmp, "/")
+                        }
+                    } else {
+                        tmp = append(tmp, day)
+                        tmp = append(tmp, "/")
+                    }
+                }
+            }
+            res[k] = tmp[:len(tmp)-1] // remove trailing /
+        }
+        k++
+    }
+
+    // [[L à V] [L / Ma / Me / J] [L à S]]
+
+    fres := []string{}
+    for _, pat := range res {
+        tmp := ""
+        for _, j := range pat {
+            tmp += HTMAP[j]
+        }
+        fres = append(fres, tmp)
+    }
+
+    return fres
 }
 
 func debug(msg string) {
@@ -100,14 +157,13 @@ func main() {
         os.Exit(2)
     }
 
-    directions := []string{}
-
     /*
+    directions := []string{}
        dir1 := false
        dir2 := false
        for line := range directions {
        }
     */
-    s := append(directions, "too")
-    fmt.Println(s)
+    d := get_days("L à V LMaMeJ LàS")
+    fmt.Println(d)
 }
