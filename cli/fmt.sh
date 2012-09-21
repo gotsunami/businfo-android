@@ -1,3 +1,3 @@
 #!/bin/sh
 
-gofmt -tabs=false -tabwidth=4 -l -w *.go
+gofmt -tabs=false -tabwidth=4 -l -w -s *.go
