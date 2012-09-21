@@ -1,11 +1,10 @@
-
 package main
 
 import (
     "fmt"
     "os"
-    "strings"
     "sort"
+    "strings"
 )
 
 const (
@@ -19,23 +18,23 @@ var (
     DAYS_S = []string{"à", "/"}
 
     // Mapping of possible duplicate days
-    DUPS = map[string]string {"S": "Sa", "Sa": "S", "D": "Di", "Di": "D"}
+    DUPS = map[string]string{"S": "Sa", "Sa": "S", "D": "Di", "Di": "D"}
 
     // Mapping between weekdays and the *num* format policy required by the 
     // Android app
-    HTMAP = map[string]string {
-        "L" : "1",
+    HTMAP = map[string]string{
+        "L":  "1",
         "Ma": "2",
         "Me": "3",
-        "J" : "4",
-        "V" : "5",
-        "S" : "6",
+        "J":  "4",
+        "V":  "5",
+        "S":  "6",
         "Sa": "6",
-        "D" : "7",
+        "D":  "7",
         "Di": "7",
-        "F" : "r", // rest days
-        "à" : "-",
-        "/" : ",",
+        "F":  "r", // rest days
+        "à":  "-",
+        "/":  ",",
     }
 
     // Bus line features mapping
@@ -43,7 +42,7 @@ var (
 )
 
 type citySpot struct {
-    city string // city name
+    city     string   // city name
     stations []string // city bus line stations
 }
 
@@ -61,33 +60,37 @@ func get_days(days string) []string {
     k := 0
 
     for _, day := range sdays {
-        if k < len(sdays) - 1 {
+        if k < len(sdays)-1 {
             if found(sdays[k+1], DAYS_S) {
                 append(res, sdays[k:k+3])
                 k += 3
                 continue
             }
             /*
-            else {
-                append(res, sdays[k])
-            }
+               else {
+                   append(res, sdays[k])
+               }
             */
         } else {
             append(res, sdays[k])
         }
-        k ++
+        k++
     }
 
     return res
 }
 
 func debug(msg string) {
-    fmt.Println("=> " + msg);
+    fmt.Println("=> " + msg)
 }
 
 func error(msg string) {
-    fmt.Println("Error: " + msg);
+    fmt.Println("Error: " + msg)
     os.Exit(1)
+}
+
+func init() {
+    sort.Strings(DAYS_S)
 }
 
 func main() {
@@ -100,15 +103,11 @@ func main() {
     directions := []string{}
 
     /*
-    dir1 := false
-    dir2 := false
-    for line := range directions {
-    }
+       dir1 := false
+       dir2 := false
+       for line := range directions {
+       }
     */
     s := append(directions, "too")
     fmt.Println(s)
-    
-    
-    
 }
-
