@@ -16,3 +16,4 @@ local.properties
 gmaps.properties
 *.pyc
 .*
+htc
