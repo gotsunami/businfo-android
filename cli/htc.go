@@ -63,6 +63,16 @@ func found(val string, a []string) bool {
 // [1-5 1,2,3,4 1-6]
 func get_days(days string) []string {
     sdays := strings.Split(days, SEP)
+
+    // Remove empty string elements
+    keep := []string{}
+    for _, e := range sdays {
+        if s := strings.Trim(e, " "); len(s) > 0 {
+            keep = append(keep, s)
+        }
+    }
+    sdays = keep
+
     res := make([][]string, 0)
     k := 0
 
