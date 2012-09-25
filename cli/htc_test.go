@@ -20,6 +20,9 @@ func TestGetDays(t *testing.T) {
         "L à V Ma à Di":    {"1-5", "2-7"},
         "LLL MaàJ":         {"1", "2-4"},
         "L   Ma":           {"1", "2"},
+        "L   à    J":       {"1-4"},
+        "L   à    J Ma V":  {"1-4", "2", "5"},
+        // FIXME        "L/Ma/V Di":           {"1,2,5", "7"},
     }
 
     for in, out := range set {
@@ -27,5 +30,18 @@ func TestGetDays(t *testing.T) {
             t.Errorf("%s: got %s, want %s", in, res, out)
         }
     }
+}
 
+func TestGetFeatures(t *testing.T) {
+    set := map[string][]string{
+        "NSCO[1]":                     {"S"},
+        "NSCO   0":                    {"S", ""},
+        "SCO 0 0   0 0 0  0 0  0 SCO": {"s", "", "", "", "", "", "", "", "", "s"},
+    }
+
+    for in, out := range set {
+        if res := get_features(in); !equal(res, out) {
+            t.Errorf("%s: got %s, want %s", in, res, out)
+        }
+    }
 }
