@@ -1,6 +1,9 @@
 # Line 308
 # updated: 2012-08-31
 #
+# warning: there is no space in CLERMONTL'HERAULT but it's
+#          handled automatically by filter.map
+#
 # compile with: htc 308.in
 
 name=308
