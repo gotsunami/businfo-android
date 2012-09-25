@@ -265,6 +265,7 @@ def main():
     need_manual = False
     for d in directions:
         # Data direction can be handled separately
+        # cities is resetted before handling a new direction
         cities = []
         curc_city = None
         handle_direction(d)
