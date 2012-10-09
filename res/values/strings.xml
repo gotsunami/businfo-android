@@ -128,19 +128,7 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-Updated schedules for the following lines:
-- 106 (Montpellier - Aigues Mortes)
-- 107 (Lattes - Marsillargues)
-- 108 (Montpellier - Ganges)
-- 112 (Sommières - Castelnau-le-Lez)
-- 115 (Montpellier- Quissac)
-- 117 Murviel (Montpellier - Murviel les Montpellier)
+Updated schedules for the following line:
 - 117 Vailhauques (Montpellier - Vailhauquès)
-- 125 (Lattes - St Aunès)
-- 131 (Pérols - Palavas Les Flots)
-- 132 (Navette du Petit Travers)
-- 301/381 (Lodève - Clermont l'Hérault)
-- 308 (Montpellier - Clermont l'Hérault)
-- 323 (Sète - Pinet)
 "</string>
 </resources>

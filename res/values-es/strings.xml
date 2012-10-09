@@ -135,19 +135,7 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-Horarios actualizados por las líneas siguientes:
-- 106 (Montpellier - Aigues Mortes)
-- 107 (Lattes - Marsillargues)
-- 108 (Montpellier - Ganges)
-- 112 (Sommières - Castelnau-le-Lez)
-- 115 (Montpellier- Quissac)
-- 117 Murviel (Montpellier - Murviel les Montpellier)
+Horarios actualizados por la línea siguiente:
 - 117 Vailhauques (Montpellier - Vailhauquès)
-- 125 (Lattes - St Aunès)
-- 131 (Pérols - Palavas Les Flots)
-- 132 (Navette du Petit Travers)
-- 301/381 (Lodève - Clermont l'Hérault)
-- 308 (Montpellier - Clermont l'Hérault)
-- 323 (Sète - Pinet)
 "</string>
 </resources>
