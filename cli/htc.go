@@ -12,6 +12,7 @@ import (
     "os"
     "regexp"
     "sort"
+    "strconv"
     "strings"
 
     "github.com/matm/gomisc"
@@ -204,7 +205,8 @@ func parse_cities_stations(data string) {
 
     for _, ent := range line {
         tmp := r1.ReplaceAllString(ent, "")
-        if tmp == strings.ToUpper(tmp) {
+        // Skip numbers
+        if _, err := strconv.Atoi(tmp); err != nil &&  tmp == strings.ToUpper(tmp) {
             city_s = append(city_s, ent)
             if len(line) == 1 {
                 // Only city name on line
@@ -418,13 +420,13 @@ func main() {
                 dup[cit.city] = 1
             } else {
                 dup[cit.city]++
-                fmt.Fprintf(os.Stderr, "Warning: found duplicates in direction %d for city %s", k+1, cit.city)
+                fmt.Fprintf(os.Stderr, "Warning: found duplicates in direction %d for city %s\n", k+1, cit.city)
                 need_manual = true
             }
         }
     }
 
     if need_manual {
-        fmt.Fprintf(os.Stderr, "Warning: manual tuning of the results is required!")
+        fmt.Fprintf(os.Stderr, "Warning: manual tuning of the results is required!\n")
     }
 }
