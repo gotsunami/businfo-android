@@ -1,0 +1,30 @@
+# Line NUMBER
+# updated: YYYY-MM-DD
+#
+# compile with: htc NUMBER.in
+
+name=NUMBER
+from=YYY-MM-DD
+circulation=1-6
+color=#FFFFFF
+
+direction=
+
+days=
+# Can be empty
+p=
+
+# Cities
+c=
+
+# Schedules here...
+
+direction=
+
+days=
+p=
+
+c=
+
+# Schedules here...
+
