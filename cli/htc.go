@@ -208,7 +208,7 @@ func parse_cities_stations(data string) {
         tmp := r1.ReplaceAllString(ent, "")
         // Skip numbers and non-letter chars (/)
         up := strings.ToUpper(tmp)
-        if _, err := strconv.Atoi(tmp); err != nil &&  r3.MatchString(up) && tmp == up {
+        if _, err := strconv.Atoi(tmp); err != nil && r3.MatchString(up) && tmp == up {
             city_s = append(city_s, ent)
             if len(line) == 1 {
                 // Only city name on line
