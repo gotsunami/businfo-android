@@ -202,11 +202,13 @@ func parse_cities_stations(data string) {
     city_s := []string{}
     r1, _ := regexp.Compile("[-*'.’]")
     r2, _ := regexp.Compile("[*]")
+    r3, _ := regexp.Compile("[A-Z]")
 
     for _, ent := range line {
         tmp := r1.ReplaceAllString(ent, "")
-        // Skip numbers
-        if _, err := strconv.Atoi(tmp); err != nil &&  tmp == strings.ToUpper(tmp) {
+        // Skip numbers and non-letter chars (/)
+        up := strings.ToUpper(tmp)
+        if _, err := strconv.Atoi(tmp); err != nil &&  r3.MatchString(up) && tmp == up {
             city_s = append(city_s, ent)
             if len(line) == 1 {
                 // Only city name on line
@@ -269,6 +271,7 @@ func handle_direction(data []string) {
             for _, b := range bkts {
                 line = strings.Replace(line, b, "", -1) // Replace all
             }
+            line = strings.Replace(line, "*", "", -1) // Remove all *
             scheds = append(scheds, line)
             if line_size := len(strings.Split(line, SEP)); line_size > max_sched_width {
                 max_sched_width = line_size
