@@ -127,7 +127,9 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-Mise à jour des horaires de la ligne suivante :
-- 117 Vailhauques (Montpellier - Vailhauquès)
+Mise à jour des horaires des lignes suivantes :
+- 103 (St-Jean-de-Védas - Béziers)
+- 103/312 (St-Jean-de-Védas - Poussan)
+- 312 (St-Jean-de-Védas - Adissan)
 "</string>
 </resources>

@@ -4,9 +4,14 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.17</string>
+    <string name="app_version">0.9.18</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.18</b> - 2012-10-22:\n
+  Updated schedules for the following lines:\n
+  - 103 (St-Jean-de-Védas - Béziers)\n
+  - 103/312 (St-Jean-de-Védas - Poussan)\n
+  - 312 (St-Jean-de-Védas - Adissan)\n\n
 <b>0.9.17</b> - 2012-10-06:\n
   Updated schedules for the following line:\n
   - 117 Vailhauques (Montpellier - Vailhauquès)\n\n

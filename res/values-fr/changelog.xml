@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.18</b> - 22/10/2012 :\n
+  Mise à jour des horaires des lignes suivantes :\n
+  - 103 (St-Jean-de-Védas - Béziers)\n
+  - 103/312 (St-Jean-de-Védas - Poussan)\n
+  - 312 (St-Jean-de-Védas - Adissan)\n\n
 <b>0.9.17</b> - 06/10/2012 :\n
   Mise à jour des horaires de la ligne suivante :\n
   - 117 Vailhauques (Montpellier - Vailhauquès)\n\n

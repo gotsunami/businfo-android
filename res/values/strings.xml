@@ -128,7 +128,9 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-Updated schedules for the following line:
-- 117 Vailhauques (Montpellier - Vailhauquès)
+Updated schedules for the following lines:
+- 103 (St-Jean-de-Védas - Béziers)
+- 103/312 (St-Jean-de-Védas - Poussan)
+- 312 (St-Jean-de-Védas - Adissan)
 "</string>
 </resources>

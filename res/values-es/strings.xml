@@ -135,7 +135,9 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-Horarios actualizados por la línea siguiente:
-- 117 Vailhauques (Montpellier - Vailhauquès)
+Horarios actualizados por las líneas siguientes:
+- 103 (St-Jean-de-Védas - Béziers)
+- 103/312 (St-Jean-de-Védas - Poussan)
+- 312 (St-Jean-de-Védas - Adissan)
 "</string>
 </resources>
