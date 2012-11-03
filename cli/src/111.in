@@ -1,0 +1,173 @@
+# Line 111
+# updated: 2012-10-26
+#
+# warning: rename Me/Sa to MeSa (not handled by compiler)
+# warning: ST DRÉZÉRY and ST JEAN-DE-CORNIES duplicate cities
+# warning: station MONTAUD/Camp soleil duplicated (need merging)
+# warning: change RD to Rd, and TRAM to Tram
+# warning: replace G. Pompidou with G.Pompidou
+# warning: replace C. de Gaulle with C.de Gaulle
+#
+# compile with: htc NUMBER.in
+
+name=111
+circulation=1-6
+color=#660099
+
+direction=
+
+days=Sa MeSa Me MeSa MeSa L à S MeSa L à S Me LMaJV L à V L à V L à S LMaJV L à V L à V Sa L à S L à S L à S L à S L à S L à S
+p=SCO SCO SCO SCO SCO 0 SCO 0 SCO SCO 0 SCO 0 SCO 0 SCO SCO NSCO
+
+# Cities
+c=CASTELNAU-LE-LEZ Station C. de Gaulle
+Station G.Pompidou
+Lycée G.Pompidou
+CLAPIERS Cap alpha
+TEYRAN Massillan/Soleil d'or/Salaison
+Maison de retraite/Hirondelles/Rosiers
+Plan d'Ailas/Square/Bascule
+Zone Artisanale
+ST DRÉZÉRY Lots Romarins/Lots Lilas/Devois
+Stade/ Gd rue/Mazets/Mas Bizard
+Coopérative
+ST JEAN-DE-CORNIES Rte de St Drézéry/Centre
+ST HILAIRE-DE-BEAUVOIR Centre/Cantagril
+MONTAUD Camp soleil
+Ecoles/Eglise
+ST BAUZILLE-DE-MONTMEL Plan Vincent/Rte de bénovie
+Favas
+BUZIGNARGUES Fontbonne/Eglise
+GALARGUES Coopérative/Poste
+GARRIGUES Centre
+CAMPAGNE Mairie
+
+- - - - - - - 12:50 - - - - - - - - - - 18:00
+
+11:40 11:40 12:25 12:40 12:40 12:40 12:55 - 14:35 16:10 16:40 16:40 16:55 17:40 17:40 17:55 17:55 17:55 - 18:25 18:40 18:55 19:40
+
+11:41 11:41 12:26 - 12:41 12:40 - - - - 16:41 16:41 - 17:41 17:41 - - - - - 18:41 - -
+
+- - - - - - - 13:04 - - - - - - - - - - 18:10 - - - -
+
+11:47 11:50 12:31 12:48 12:45 12:47 13:01 - 14:44 16:18 16:50 16:49 17:01 17:45 17:50 18:03 18:00 18:00 - 18:31 18:47 19:03 19:46
+
+- 11:52 12:33 - - 12:50 - - 14:47 16:20 16:52 16:51 17:03 - 17:52 - 18:02 18:02 - 18:33 - - 19:48
+
+11:53 11:55 12:37 - 12:51 12:52 - - 14:52 16:25 16:55 16:56 - 17:51 17:55 - - - - - 18:53 - 19:51
+
+11:56 11:59 12:40 12:52 12:54 12:56 13:07 - 14:57 16:30 16:59 17:00 17:09 17:54 17:59 18:07 18:07 18:07 - 18:39 18:56 19:07 19:55
+
+12:04 12:10 - 13:02 13:01 13:04 13:17 - 15:07 - 17:10 - 17:19 18:01 18:10 18:17 18:15 18:15 18:25 - 19:04 19:17
+
+- - - - - - - - - - - - - - - - 18:18 18:18
+
+12:08 - - - 13:04 - - - - - - - - 18:04 - - - - - - 19:00 19:08
+
+12:11 - - - 13:07 - - - - - - - - 18:07 - - - - - - 19:02 19:11
+
+12:15 - - - 13:10 - - - - - - - - 18:10 - - - - - - 19:15
+
+- 12:16 - 13:07 - 13:08 13:24 13:29 15:13 - 17:16 - 17:26 - 18:16 18:22 - - 18:43 18:54 - 19:22
+
+- 12:17 - 13:09 - 13:09 13:25 - 15:14 - 17:17 - 17:27 - 18:17 18:24 - - - 18:51 - 19:24
+
+- - - 13:14 - - 13:31 - - - - - - - - 18:29 - - - - - 19:29
+
+- - - 13:18 - - - - - - - - - - - 18:33 - - - - - 19:33
+
+- - - 13:22 - - - - - - - - - - - 18:37 - - - - - 19:37
+
+- - - 13:25 - - - - - - - - - - - 18:40 - - - - - 19:40
+
+- - - 13:30 - - - - - - - - - - - 18:45 - - - - - 19:45
+
+- - - 13:34 - - - - - - - - - - - 18:49 - - - - - 19:49
+
+direction=
+
+days=L à S L à S L à S L à S L à V Sa L à V L à S L à V L à S L à S L à S L à S L à S Sa L à S L à V
+p=0 0 0 0 NSCO SCO SCO 0 NSCO SCO SCO 0 0 0 SCO NSCO SCO
+
+c=CAMPAGNE Mairie
+GARRIGUES Centre
+GALARGUES Poste/Coopérative/Eglise
+BUZIGNARGUES Eglise/Fontbonne
+ST HILAIRE-DE-BEAUVOIR Cantagril/Centre
+ST JEAN-DE-CORNIES Centre/Rte de Saint Drézéry
+ST BAUZILLE-DE-MONTMEL Favas
+Rte Benovie/Plan Vincent
+MONTAUD Eglise/Ecole/Camp soleil
+ST DRÉZÉRY Coopérative
+Le devois
+Stade /Gd rue
+Mazets/Mas Bizard
+Lots. Lilas/Lots. Romarins
+TEYRAN Zone Artisanale
+Plan Ailas/Square/Bascule
+Rosiers/Hirondelles/Maison de retraite
+Salaison/Soleil d'or/Massillan
+JACOU Collège/Rd 67
+Cap Alpha
+CLAPIERS Château/Mesanges/Closerie
+Château/Stade/Fesquet
+CASTELNAU-LE-LEZ Lycée G.Pompidou
+Station Tram G.Pompidou
+Station C.de Gaulle
+MONTPELLIER Lycée Frédéric Bazille
+Station Saint Eloi
+
+06:25 -
+
+6:28 -
+
+6:33 - - - - - - - - 7:23
+
+- 6:25 - - - - - - - 7:25
+
+6:37 - - - - - - - - - 7:35
+
+6:40 - - - - - - - - - 7:39
+
+- 6:29 - - - - - - - 7:30
+
+- 6:32 - - - - - - - 7:34
+
+- 6:36 - 6:45 - - - - - 7:38 - 8:34 13:10 13:40 17:32 17:32 17:35
+
+6:43 - - - 6:57 6:57 7:03 - 7:39 - 7:43 - - - - - -
+
+6:44 - - - - - - - - 7:45 - - - - 17:37 17:37 17:40
+
+- 6:47 - 6:50 6:58 6:58 7:04 - 7:40 - 7:44 8:40 13:15 13:45 - - -
+
+- 6:49 - 6:54 6:59 6:59 7:05 - 7:41 - 7:46 8:42 13:17 - - -
+
+6:46 6:52 - 6:57 7:02 7:02 7:08 - 7:44 7:47 7:49 8:45 13:20 - 17:39 17:39 17:42
+
+6:57 6:59 7:04 - 7:13 7:13 7:19 7:52 7:55 7:59 8:01 8:57 13:30 - 17:49 17:49 17:52
+
+6:58 - 7:05 - 7:14 7:14 7:20 7:54 7:56 8:00 - 8:58 13:31 - - -
+
+7:03 - 7:16 - 7:23 7:23 7:29 8:00 8:05 8:05 - 9:03 13:36 - 17:54 17:54 17:57
+
+7:05 7:04 7:18 - 7:25 7:25 7:31 8:04 8:07 8:07 8:05 9:06 13:38 - 17:56 17:56 17:59
+
+7:07 7:07 - - - - - - - - 
+
+- 7:11 - 7:10 - - - - - - - - - 14:05
+
+- - - - - - - - - - - - - 14:07
+
+- 7:14 - - - - - - - -
+
+7:13 - - - - - - 8:14 - 8:13 8:13
+
+7:14 - 7:26 - 7:32 7:32 7:38 8:15 8:14 8:14 8:14 9:14 13:45 - 18:02 18:02 18:05
+
+- - - 7:25 - - - - - - - - - 14:20
+
+- 7:22 - - - - - - - 
+
+- 7:30 - - - - - - - 
+
