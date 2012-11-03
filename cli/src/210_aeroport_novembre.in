@@ -1,0 +1,50 @@
+# Line 210 Aéroport
+# updated: 2012-10-31
+#
+# compile with: htc 210_aeroport_novembre.in
+
+name=210
+from=2012-11-07
+to=2013-03-30
+circulation=1-6
+color=#FFFF66
+
+direction=
+
+days=L L Ma Ma Me V V S D
+# Can be empty
+p=
+
+# Cities
+c=AEROPORT MONTPELLIER
+Aéroport
+VIAS Centre
+AGDE Gare Sncf
+Marseillan Gare Routière
+BEZIERS Gare Routière
+
+09:45 10:50 10:30 14:15 18:45 10:50 18:45 10:30 18:15
+09:50 10:55 10:35 14:20 18:50 10:55 18:50 10:35 18:20
+10:00 11:05 10:45 14:30 19:00 11:05 19:00 10:45 18:30
+10:15 11:20 11:00 14:45 19:15 11:20 19:15 11:00 18:45
+10:15 11:20 11:00 14:45 19:15 11:20 19:15 11:00 18:45
+
+direction=
+
+days=L L Ma Ma Me V V S D
+p=
+
+c=BEZIERS Gare Sncf
+Gare routière
+Marseillan Gare Routière
+AGDE Gare Sncf
+VIAS Centre
+AEROPORT MONTPELLIER
+Aéroport
+
+07:30 08:35 08:15 12:00 16:30 08:35 16:30 08:15 16:00
+07:40 08:45 08:25 12:10 16:40 08:45 16:40 08:25 16:10
+07:40 08:45 08:25 12:10 16:40 08:45 16:40 08:25 16:10
+07:55 09:00 08:40 12:25 16:55 09:00 16:55 08:40 16:25
+08:05 09:10 08:50 12:35 17:05 09:10 17:05 08:50 16:35
+08:10 09:15 08:55 12:40 17:10 09:15 17:10 08:55 16:40
