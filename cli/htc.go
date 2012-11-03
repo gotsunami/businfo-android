@@ -255,7 +255,7 @@ func handle_direction(data []string) {
     max_sched_width := 0
     city_block := false
 
-    sc, _ := regexp.Compile(".*\\d{2}:\\d{2}.*")
+    sc, _ := regexp.Compile(".*\\d{1,2}:\\d{2}.*")
     cl, _ := regexp.Compile("\\[.\\]")
 
     for _, line := range data {
