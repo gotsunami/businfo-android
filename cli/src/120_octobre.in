@@ -1,0 +1,39 @@
+# Line 120
+# updated: 2012-10-26
+#
+# compile with: htc 120.in
+
+name=120
+from=2012-10-28
+to=2013-03-30
+circulation=1-6
+color=#FFCCFF
+
+direction=
+
+days=LàV LàD LàD LMa LàS LàD LMaMeJVD LMaMeV LàD LàJ LàD LMaMeJD LàD
+# Can be empty
+p=
+
+# Cities
+c=AEROPORT MONTPELLIER
+Aeroport
+MONTPELLIER
+Place de l'europe
+
+8:45 9:15 10:30 11:30 13:05 14:25 15:40 16:30 17:35 19:05 20:15 21:05 23:05 
+9:00 9:30 10:45 11:45 13:20 14:40 15:55 16:45 17:50 19:20 20:30 21:20 23:20
+
+direction=
+
+days=LàD LàV LàV LàD LàV LàS LàD LàD LMaMeJVD LMaMeV LMaMeJVD LMaMeJS LàD
+p=
+
+c=MONTPELLIER
+Place de l'europe
+AEROPORT MONTPELLIER
+Aeroport
+
+6:00 6:35 8:15 9:30 10:15 12:35 13:55 14:40 15:15 15:55 17:05 18:40 19:55
+6:15 6:50 8:30 9:45 10:30 12:50 14:10 14:55 15:30 16:10 17:20 18:55 20:10
+
