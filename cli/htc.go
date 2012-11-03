@@ -316,6 +316,14 @@ func handle_direction(data []string) {
         }
     }
 
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Printf("Recovering panic...\nCities: ")
+            fmt.Println(cities)
+            panic(r)
+        }
+    }()
+
     fmt.Printf("\ndirection=\n")
     st := 0
     for _, d := range cities {
