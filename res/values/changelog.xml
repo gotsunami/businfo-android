@@ -4,9 +4,15 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.18</string>
+    <string name="app_version">0.9.19</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.19</b> - 2012-01-03:\n
+  Updated schedules for the following lines:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 111 (Castelnau-le-lez - Campagne)\n
+  - 120 (Montpellier - Montpellier airport shuttle)\n
+  - 210 Airport (Béziers - Cap d\'Agde)\n\n
 <b>0.9.18</b> - 2012-10-22:\n
   Updated schedules for the following lines:\n
   - 103 (St-Jean-de-Védas - Béziers)\n

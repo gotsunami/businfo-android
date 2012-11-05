@@ -128,8 +128,9 @@
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
 Mise à jour des horaires des lignes suivantes :
-- 103 (St-Jean-de-Védas - Béziers)
-- 103/312 (St-Jean-de-Védas - Poussan)
-- 312 (St-Jean-de-Védas - Adissan)
+- 106 (Montpellier - Aigues Mortes)
+- 111 (Castelnau-le-lez - Campagne)
+- 120 (Montpellier - Navette aéroport Montpellier)
+- 210 aéroport (Béziers - Cap d'Agde)
 "</string>
 </resources>

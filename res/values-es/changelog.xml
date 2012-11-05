@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.19</b> - 03/11/2012 :\n
+  Horarios actualizados por las líneas siguientes:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 111 (Castelnau-le-lez - Campagne)\n
+  - 120 (Montpellier - navette Montpellier aéroport)\n
+  - 210 aéroport (Béziers - Cap d\'Agde)\n\n
 <b>0.9.18</b> - 22/10/2012 :\n
   Horarios actualizados por las líneas siguientes:\n
   - 103 (St-Jean-de-Védas - Béziers)\n
