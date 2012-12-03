@@ -13,7 +13,7 @@
    height="297mm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="logo.svg">
   <defs
      id="defs4">
@@ -25,6 +25,27 @@
          stdDeviation="2.1882886"
          id="feGaussianBlur3772" />
     </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3770-1">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.1882886"
+         id="feGaussianBlur3772-4" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3819"
+       x="-0.036086492"
+       width="1.072173"
+       y="-0.2703392"
+       height="1.5406784">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.1416648"
+         id="feGaussianBlur3821" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -34,7 +55,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="160.95607"
+     inkscape:cx="116.88817"
      inkscape:cy="691.04813"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -166,5 +187,78 @@
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3844" /></text>
+    <rect
+       inkscape:export-ydpi="37.27"
+       inkscape:export-xdpi="37.27"
+       inkscape:export-filename="/home/mathias/bus34.png"
+       style="fill:#1a1a1a;fill-opacity:1;stroke:none;filter:url(#filter3770-1)"
+       id="rect3768-0"
+       width="72.85714"
+       height="72.85714"
+       x="58.57143"
+       y="338.79074"
+       transform="matrix(1.0428429,0,0,1.0428429,-20.025639,-61.191676)"
+       ry="12.857142" />
+    <path
+       inkscape:export-ydpi="37.27"
+       inkscape:export-xdpi="37.27"
+       inkscape:export-filename="/home/mathias/bus34.png"
+       id="rect3828-6"
+       d="m 50.848021,292.19687 c -5.34014,0 -9.625,4.34736 -9.625,9.6875 l 0,56.5 c 0,5.34014 4.28486,9.625 9.625,9.625 l 56.531249,0 c 5.34013,0 9.625,-4.28486 9.625,-9.625 l 0,-56.5 c 0,-5.34014 -4.28487,-9.6875 -9.625,-9.6875 l -56.531249,0 z"
+       style="fill:#004a9c;fill-opacity:1;stroke:none"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="37.27"
+       inkscape:export-xdpi="37.27"
+       inkscape:export-filename="/home/mathias/bus34.png"
+       sodipodi:nodetypes="scssscss"
+       inkscape:connector-curvature="0"
+       id="path3832-2"
+       d="m 51.075701,352.19687 c -3.55127,0.0267 -6.57224,0.50644 -9.85268,1.15625 l 0,5.03125 c 0,5.34014 4.10629,9.625 9.44643,9.625 l 56.709819,0 c 5.24598,0 9.44638,-4.13538 9.59375,-9.34375 -9.70373,5.26042 -25.666689,4.61677 -42.031249,-1.40625 -10.46154,-3.8504 -17.79376,-5.10815 -23.86607,-5.0625 z"
+       style="fill:#01a5d6;fill-opacity:1;stroke:none" />
+    <path
+       inkscape:export-ydpi="37.27"
+       inkscape:export-xdpi="37.27"
+       inkscape:export-filename="/home/mathias/bus34.png"
+       style="fill:none;stroke:#ffffff;stroke-width:2.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter3819)"
+       d="m 116.75619,359.1299 c -9.70374,5.26042 -25.488114,4.4382 -41.852677,-1.58482 -10.46154,-3.8504 -18.32947,-5.10815 -24.40178,-5.0625 -3.55127,0.0267 -6.39367,0.32787 -9.67411,0.97768"
+       id="path3008-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssc" />
+    <text
+       inkscape:export-ydpi="37.27"
+       inkscape:export-xdpi="37.27"
+       inkscape:export-filename="/home/mathias/bus34.png"
+       transform="scale(0.97473069,1.0259244)"
+       sodipodi:linespacing="125%"
+       id="text3059-6"
+       y="313.61673"
+       x="81.731216"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
+       xml:space="preserve"><tspan
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
+         y="313.61673"
+         x="81.731216"
+         id="tspan3061-8"
+         sodipodi:role="line">BUS</tspan><tspan
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
+         y="348.61673"
+         x="81.731216"
+         sodipodi:role="line"
+         id="tspan3041" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#e75012;fill-opacity:1;stroke:none;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
+       x="51.51778"
+       y="349.04349"
+       id="text3823"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/mathias/bus34.png"
+       inkscape:export-xdpi="37.27"
+       inkscape:export-ydpi="37.27"><tspan
+         sodipodi:role="line"
+         id="tspan3825"
+         x="51.51778"
+         y="349.04349">34</tspan></text>
   </g>
 </svg>

@@ -9,7 +9,6 @@
         android:fastScrollEnabled="true"
         android:drawSelectorOnTop="false"/>
     <ImageView android:id="@android:id/empty"
-        android:background="@drawable/ht_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
