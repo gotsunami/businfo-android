@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="lines_activity_title">Hérault Transport - líneas de autobuses</string>
-    <string name="slogan">Horarios de autobuses</string>
+    <string name="slogan">Horarios de autobuses en el Hérault</string>
     <string name="busline_activity_title">Línea de autobus</string>
     <string name="stop_all_schedules_title">Todos los horarios</string>
 <!-- FIXME -->
