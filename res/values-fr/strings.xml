@@ -127,10 +127,6 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-Mise à jour des horaires des lignes suivantes :
-- 106 (Montpellier - Aigues Mortes)
-- 111 (Castelnau-le-lez - Campagne)
-- 120 (Montpellier - Navette aéroport Montpellier)
-- 210 aéroport (Béziers - Cap d'Agde)
+L'application change de nom et s'appelle désormais "Bus34" ! Son objectif est de proposer à terme les horaires des bus des réseaux Hérault Transport, Thau Agglo et la TAM.
 "</string>
 </resources>

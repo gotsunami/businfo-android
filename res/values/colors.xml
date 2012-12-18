@@ -16,6 +16,13 @@
     <color name="ht_separator">@color/ht_blue</color>
     <color name="ht_orange">#e4571c</color>
     <color name="ht_blue">#3974f8</color>
+    <color name="thaubg">#fedc00</color>
+    <color name="thaubg_clicked">#ffee7d</color>
+    <color name="htbg">#e4571c</color>
+    <color name="htbg_clicked">#f4814e</color>
+    <color name="tambg">#4a74bf</color>
+    <color name="tambg_clicked">#87b1fd</color>
+    <color name="busbg">#cccccc</color>
     <color name="list_item_bus_time">#e4571c</color>
     <color name="list_item_no_more_stop">#888888</color>
     <color name="lines_by_city">#888888</color>

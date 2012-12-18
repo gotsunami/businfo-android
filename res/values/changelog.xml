@@ -2,11 +2,14 @@
 <resources>
 	<!-- DO NOT TRANSLATE THE FOLLOWING -->
 	<!-- Application credits -->
-    <string name="app_name">Bus 34</string>
-    <string name="short_app_name">Bus 34</string>
-    <string name="app_version">0.9.19</string>
+    <string name="app_name">Bus34</string>
+    <string name="short_app_name">Bus34</string>
+    <string name="app_version">1.0</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>1.0</b> - 2012-12-04:\n
+  The application is now called "Bus34"! Its goal is to handle 
+  the Hérault Transport, Thau Agglo and TAM bus networks.\n\n
 <b>0.9.19</b> - 2012-01-03:\n
   Updated schedules for the following lines:\n
   - 106 (Montpellier - Aigues Mortes)\n

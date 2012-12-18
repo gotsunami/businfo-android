@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_item_margin">1dip</dimen>
+    <dimen name="home_item_margin_twice">2dip</dimen>
+    <dimen name="home_level1_height">200px</dimen>
+    <dimen name="home_level2_height">150px</dimen>
+    <dimen name="home_level3_height">250px</dimen>
+</resources>

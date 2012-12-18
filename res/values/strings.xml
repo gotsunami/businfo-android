@@ -28,6 +28,10 @@
     <string name="does_not_circulate">Does not circulate</string>
     <string name="next_stop_board_title">Next stop</string>
 
+    <string name="home_ht_title">Hérault Transport</string>
+    <string name="home_thau_title">Thau Agglo</string>
+    <string name="home_tam_title">TAM</string>
+
     <string name="bookmark_city">"In %1$s"</string>
     <string name="bookmark_city_eta_hours_hs">"In %1$s, %2$s hour left"</string>
     <string name="bookmark_city_eta_hours_hp">"In %1$s, %2$s hours left"</string>
@@ -128,10 +132,6 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-Updated schedules for the following lines:
-- 106 (Montpellier - Aigues Mortes)
-- 111 (Castelnau-le-lez - Campagne)
-- 120 (Montpellier - Montpellier airport shuttle)
-- 210 Airport (Béziers - Cap d'Agde)
+The application is now called "Bus34"! Its goal is to handle the Hérault Transport, Thau Agglo and TAM bus networks.
 "</string>
 </resources>
