@@ -2,7 +2,9 @@
 package com.monnerville.transports.herault.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -23,15 +25,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
+import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import java.util.ArrayList;
 import java.util.List;
-import static com.monnerville.transports.herault.core.Application.TAG;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SplashActivity extends Activity implements HeaderTitle {
     private SharedPreferences mPrefs;
@@ -46,9 +52,10 @@ public class SplashActivity extends Activity implements HeaderTitle {
      * Used by onResume and updateBookmarks to ensure database is ready
      */
     private boolean mDBReady;
-//    private BookmarkHandler mBookmarkHandler;
+    private BookmarkHandler mBookmarkHandler;
 
     public static final int ACTION_UPDATE_BOOKMARKS = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,10 +99,7 @@ public class SplashActivity extends Activity implements HeaderTitle {
             Log.d(TAG, "Recognize not present: voice recognition not supported");
         }
 
-        //onSearchRequested();
-
-//        mBookmarkHandler = new BookmarkHandler(mAdapter, mStarredStations);
-
+        mBookmarkHandler = new BookmarkHandler(mAdapter, mStarredStations);
     }
 
     @Override
@@ -173,12 +177,83 @@ public class SplashActivity extends Activity implements HeaderTitle {
             mHandler = null;
 
             mDBReady = true;
-            // FIXME updateBookmarks();
+            updateBookmarks();
 
-            //setupAdapter();
-            //mAdapter.notifyDataSetChanged();
+            setupAdapter();
+            // FIXME
+            Log.d("BUS34", "Adapter set up");
+            mAdapter.notifyDataSetChanged();
         }
     }
+
+    /**
+     * Updates bookmarked stations with latest next stop
+     */
+    private void updateBookmarks() {
+        List<BusStation> sts = mManager.getStarredStations(this);
+        mStarredStations.clear();
+        for (BusStation st : sts) {
+            mStarredStations.add(st);
+            try {
+                st.getNextStop(); // Fresh, non-cached value
+            } catch (Exception ex) {
+                // Could not restore station? Delete it.
+                mStarredStations.remove(st);
+                // FIXME
+                Log.e("ST", "Could not restore station!");
+            } 
+        }
+        mAdapter.notifyDataSetChanged();
+        Log.d("BUS34", "starred:" + mStarredStations);
+    }
+
+    /**
+     * Sets up the adapter for the list
+     */
+    private void setupAdapter() {
+        /* FIXME
+        mAdapter.addSection(getString(R.string.quick_actions_header),
+            new ActionListAdapter(this, R.layout.main_action_list_item, mMainActions));
+            */
+        mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
+            new BusStationActivity.BookmarkStationListAdapter(this,
+            R.layout.bus_line_bookmark_list_item, mStarredStations));
+        ListView bl = (ListView)findViewById(R.id.blist);
+        bl.setAdapter(mAdapter);
+
+        // Handle release notes
+        final String releaseKey = "shown_release_notes_for_" + getString(R.string.app_version);
+        if (!mPrefs.getBoolean(releaseKey, false)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.pref_about_release_notes_title))
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        SharedPreferences.Editor ed = mPrefs.edit();
+                        ed.putBoolean(releaseKey, true);
+                        ed.commit();
+                        showTipsDialog();
+                    }
+                });
+            View log = getLayoutInflater().inflate(R.layout.releasenotes, null);
+            ((TextView)log.findViewById(R.id.about_ht_version))
+                .setText(String.format("%s %s", getString(R.string.app_name), getString(R.string.app_version)));
+            builder.setView(log);
+            builder.show();
+        }
+        else {
+            // Handle tips
+            showTipsDialog();
+        }
+    }
+
+    private void showTipsDialog() {
+        if (mPrefs.getBoolean("pref_show_tips_at_startup", true)) {
+            TipsDialog tips = new TipsDialog(this, false);
+            tips.show();
+        }
+    }
+
 
     private class DBHandler extends Handler {
         ProgressDialog mPd;
@@ -210,32 +285,39 @@ public class SplashActivity extends Activity implements HeaderTitle {
         }
     }
 
-    /**
-     * Handles bookmark stations
-    public static class BookmarkHandler extends Handler {
-        private List<BusStation> stations;
-        private SectionedAdapter adapter;
-
-        public BookmarkHandler(SectionedAdapter adapter, List<BusStation> stations) {
-            super();
-            this.stations = stations;
-            this.adapter = adapter;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /* TODO
+         * Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
+         * Strangely, removing this statement on slow device won't display the upgrading process...
+         */
+        if (!mDBReady) {
+            try {
+                Thread.sleep(70); // 70 ms
+            } catch (InterruptedException ex) {
+                Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
+            } // 50 ms
         }
 
-        @Override
-        public void handleMessage(Message msg) {
-            switch(msg.what) {
-                case HomeActivity.ACTION_UPDATE_BOOKMARKS:
-                    for (BusStation st : stations) {
-                        st.getNextStop(); // Fresh, non-cached value
+        if (mDBReady)
+            updateBookmarks();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        // Update bookmark info every minute
+                        Thread.sleep(1000*60);
+                        mBookmarkHandler.sendEmptyMessage(ACTION_UPDATE_BOOKMARKS);
                     }
-                    this.adapter.notifyDataSetChanged();
-                    break;
-                default:
-                    break;
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-     */
+        }).start();
+    }
 
     @Override
     protected void onPause() {
@@ -260,4 +342,50 @@ public class SplashActivity extends Activity implements HeaderTitle {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
+
+    /**
+     * Handles bookmark stations
+     */
+    public static class BookmarkHandler extends Handler {
+        private List<BusStation> stations;
+        private SectionedAdapter adapter;
+
+        public BookmarkHandler(SectionedAdapter adapter, List<BusStation> stations) {
+            super();
+            this.stations = stations;
+            this.adapter = adapter;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch(msg.what) {
+                case SplashActivity.ACTION_UPDATE_BOOKMARKS:
+                    for (BusStation st : stations) {
+                        st.getNextStop(); // Fresh, non-cached value
+                    }
+                    this.adapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Custom adapter with matches display
+     */
+    final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
+        @Override
+        protected int getMatches(String caption) {
+            if (caption.equals(getString(R.string.all_lines_header))) {
+                return mManager.getBusLines().size();
+            }
+            else if (caption.equals(getString(R.string.all_lines_bookmarks_header))) {
+                return mStarredStations.isEmpty() ? CounterSectionedAdapter.NO_MATCH :
+                    mStarredStations.size();
+            }
+            return CounterSectionedAdapter.NO_MATCH;
+        }
+    };
+
 }

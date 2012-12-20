@@ -2,6 +2,7 @@
 <ScrollView 
 	xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@android:color/black"
+    android:fillViewport="true"
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent">
     <LinearLayout
@@ -71,12 +72,17 @@
                 android:text="@string/home_tam_title"
                 style="@style/HomeButton" />
         </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/home_level3_height"
+        <Button android:id="@+id/bookmarkbutton"
             android:layout_marginTop="@dimen/home_item_margin_twice"
-            android:background="@color/board_time">
-        </LinearLayout>
+            android:background="@drawable/btn_home_tam"
+            android:text="@string/home_my_bookmarks"
+            android:padding="15dip"
+            style="@style/HomeButton" />
+        <ListView android:id="@+id/blist"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_item_margin_twice"
+            android:fastScrollEnabled="true"
+            android:drawSelectorOnTop="false"/>
     </LinearLayout>
 </ScrollView>
