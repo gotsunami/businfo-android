@@ -4,9 +4,14 @@
 	<!-- Application credits -->
     <string name="app_name">Hérault Transport</string>
     <string name="short_app_name">Hérault Transport</string>
-    <string name="app_version">0.9.19</string>
+    <string name="app_version">0.9.20</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>0.9.20</b> - 2012-12-17:\n
+  Updated schedules for the following lines:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 108 (Montpellier - Ganges)\n
+  - 120 (Montpellier - Montpellier airport shuttle)\n\n
 <b>0.9.19</b> - 2012-01-03:\n
   Updated schedules for the following lines:\n
   - 106 (Montpellier - Aigues Mortes)\n
