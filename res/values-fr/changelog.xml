@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
-<b>1.0</b> - 04/12/2012:\n
+<b>1.0</b> - 01/01/2013:\n
   L\'application change de nom et s\'appelle désormais "Bus34" ! Son objectif 
   est de proposer à terme les horaires des bus des réseaux Hérault Transport, 
   Thau Agglo et la TAM.\n\n
+<b>0.9.20</b> - 17/12/2012 :\n
+  Mise à jour des horaires des lignes suivantes :\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 108 (Montpellier - Ganges)\n
+  - 120 (Montpellier - Navette aéroport Montpellier)\n\n
 <b>0.9.19</b> - 03/11/2012 :\n
   Mise à jour des horaires des lignes suivantes :\n
   - 106 (Montpellier - Aigues Mortes)\n

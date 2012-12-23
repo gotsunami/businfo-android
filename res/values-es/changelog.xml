@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>0.9.20</b> - 17/12/2012 :\n
+  Horarios actualizados por las líneas siguientes:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 108 (Montpellier - Ganges)\n
+  - 120 (Montpellier - navette Montpellier aéroport)\n\n
 <b>0.9.19</b> - 03/11/2012 :\n
   Horarios actualizados por las líneas siguientes:\n
   - 106 (Montpellier - Aigues Mortes)\n
