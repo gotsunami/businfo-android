@@ -4,8 +4,9 @@
 """
 Generic plain text parser.
 
-Make Android XML resources for bus lines from row text.
-Raw text is a copy of the PDF content using evince
+Make Android SQL resources for bus lines from row text.
+Raw text is a copy of the PDF content using Acrobat Reader
+(evince has some issues with copy/paste schedules).
 """
 
 import sys, re, types, os.path, glob, tempfile
@@ -487,7 +488,6 @@ def make_chunks(rawname, chunksize=0):
         if line.startswith('BEGIN TRANSACTION;') or line.startswith('END TRANSACTION;') or line.startswith('END;'):
             continue
         # Order matters
-        #for pat, sub in (   (r'--.*$', ''), (r'"', '\\"'), (r'$', ' '), 
         for pat, sub in (   (r'--.*$', ''), (r'$', ' '), 
                             (r'IS NULL;', 'IS NULL## END;'), (r'^[ \t]*', ''), 
                             (r'\n', ''), (r';', '\n'), (r'##', ';') ):
