@@ -1,0 +1,13 @@
+Here is a list of french departments. Every department directory
+holds bus networks. Every bus network has one schedule file per
+bus line.
+
+Example:
+34/
+   heraultTransport/
+                    101.in
+                    102.in
+   thauagglo/
+             line1.in
+   tam/
+      10.in
