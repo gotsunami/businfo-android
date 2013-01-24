@@ -58,10 +58,10 @@ public class SQLBusManager implements BusManager {
     public void setResources(Resources appRes, int resid) {
     }
 
-    @Override
     /**
      * Wrapper
      */
+    @Override
     public List<BusLine> getBusLines() {
         return mDB.getBusLines();
     }
@@ -189,5 +189,11 @@ public class SQLBusManager implements BusManager {
                 .append(";");
         }
         return vals;
+    }
+
+    @Override
+    public List<String> getBusNetworks() {
+        HTDatabase db = (HTDatabase)mDB;
+        return db.getAllBusNetworks();
     }
 }

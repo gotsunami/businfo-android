@@ -213,4 +213,9 @@ public class XMLBusManager implements BusManager {
         }
         return vals;
     }
+
+    @Override
+    public List<String> getBusNetworks() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

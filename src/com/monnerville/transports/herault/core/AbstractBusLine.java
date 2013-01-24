@@ -34,6 +34,10 @@ public abstract class AbstractBusLine implements BusLine {
      */
     private String mDefaultTrafficPattern = null;
     /**
+     * Bus network parent name
+     */
+    private String mNetwork = null;
+    /**
      * Primary constructor
      * @param name name of the line
      */
@@ -140,5 +144,13 @@ public abstract class AbstractBusLine implements BusLine {
         if (mAvailableTo != null)
             available = today.before(mAvailableFrom);
         return available;
+    }
+
+    protected void setBusNetworkName(String name) {
+        mNetwork = name;
+    }
+
+    public String getBusNetworkName() {
+        return mNetwork;
     }
 }

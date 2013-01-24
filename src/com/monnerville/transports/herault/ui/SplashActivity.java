@@ -179,9 +179,9 @@ public class SplashActivity extends Activity implements HeaderTitle {
             mDBReady = true;
             updateBookmarks();
 
+            Log.d(TAG, "NETS:" + mManager.getBusNetworks());
+
             setupAdapter();
-            // FIXME
-            Log.d("BUS34", "Adapter set up");
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -204,7 +204,6 @@ public class SplashActivity extends Activity implements HeaderTitle {
             } 
         }
         mAdapter.notifyDataSetChanged();
-        Log.d("BUS34", "starred:" + mStarredStations);
     }
 
     /**

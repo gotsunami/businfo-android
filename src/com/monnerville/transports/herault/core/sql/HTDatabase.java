@@ -242,4 +242,19 @@ class HTDatabase extends SQLiteOpenHelper {
          */
         return cities;
     }
+
+    /**
+     * Returns a list of all bust networks available
+     * @return list of networks
+     */
+    public List<String> getAllBusNetworks() {
+        Cursor c = getReadableDatabase().rawQuery(mContext.getString(R.string.query_getallnetworks), null);
+        List<String> nets = new ArrayList<String>();
+        for (int j=0; j < c.getCount(); j++) {
+            c.moveToPosition(j);
+            nets.add(c.getString(0));
+        }
+		c.close();
+        return nets;
+    }
 }

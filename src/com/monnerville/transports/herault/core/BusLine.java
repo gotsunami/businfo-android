@@ -21,6 +21,7 @@ public interface BusLine {
     public List<BusStation> getStations(String direction);
     public Map<String, List<BusStation>> getStationsPerCity(String direction);
     public String getDefaultTrafficPattern();
+    public String getBusNetworkName();
     /**
      * Returns start of line's availability, or null if none. Used if a line 
      * is not running all year long.

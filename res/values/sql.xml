@@ -14,6 +14,14 @@ SELECT name FROM city
 WHERE id = (SELECT from_city_id FROM line WHERE line.name=?)
 OR id=(SELECT to_city_id FROM line WHERE line.name=?)
 "</string>
+	<string name="query_getnetwork_from_line">"
+SELECT name FROM network
+WHERE id = (SELECT network_id FROM line WHERE line.name=?)
+"</string>
+	<string name="query_getallnetworks">"
+SELECT name FROM network
+ORDER BY name
+"</string>
 <!-- Parameters are not allowed in views -->
 	<string name="query_getcities_from_line_create_view">"
 CREATE VIEW IF NOT EXISTS cities_of_line AS

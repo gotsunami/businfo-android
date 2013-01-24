@@ -24,19 +24,39 @@ public class SQLBusLine extends AbstractBusLine {
 
     public SQLBusLine(String name) {
         super(name);
+        setBusNetwork();
     }
 
     public SQLBusLine(String name, String hexColor) {
         super(name, hexColor);
+        setBusNetwork();
     }
 
     public SQLBusLine(String name, String hexColor, String defaultTrafficPattern) {
         super(name, hexColor, defaultTrafficPattern);
+        setBusNetwork();
     }
 
     public SQLBusLine(String name, String hexColor, String defaultTrafficPattern, 
         Date availableFrom, Date availableTo) {
         super(name, hexColor, defaultTrafficPattern, availableFrom, availableTo);
+        setBusNetwork();
+    }
+
+    /**
+     * Defines parent bus network once.
+     * 
+     * Must be called by all constructors to initialize the network information.
+     */
+    private void setBusNetwork() {
+        Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(R.string.query_getnetwork_from_line),
+			new String[] {getName()}
+        );
+        c.moveToPosition(0);
+        String net = c.getString(0);
+		c.close();
+
+        setBusNetworkName(net);
     }
 
     /**
