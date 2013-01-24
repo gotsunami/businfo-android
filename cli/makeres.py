@@ -156,6 +156,12 @@ def makeSQL(sources, out):
     global g_cities
     db_city_count = db_line_count = db_station_count = 0
 
+    # FIXME: only Herault Transport supported (and hardcoded!) for now. Must add 
+    # a way to support any other network.
+    networks = (u'Hérault Transport',)
+    for n in range(len(networks)):
+        out.write("INSERT INTO network VALUES(%d, \"%s\");\n" % (n+1, networks[n].encode('latin-1')))
+
     cities = set()
     stations = set()
     lines = set()
@@ -223,8 +229,10 @@ def makeSQL(sources, out):
             print "Error: pk_from(%d) or pk_to(%d) id not found!" % (pk_from, pk_to)
             print "Line: " + str(line)
             sys.exit(1)
-        out.write("INSERT INTO line VALUES(%d, \"%s\", \"%s\", \"%s\", %d, %d, \"%s\", \"%s\");\n" % (
-            pk, line[0], line[3], line[4], pk_from, pk_to, line[5], line[6]))
+        # FIXME: network_id is hardcoded (as 1) and only refers to the Herault Transport
+        # network for the moment.
+        out.write("INSERT INTO line VALUES(%d, %d, \"%s\", \"%s\", \"%s\", %d, %d, \"%s\", \"%s\");\n" % (
+            pk, 1, line[0], line[3], line[4], pk_from, pk_to, line[5], line[6]))
         db_line_count += 1
         pk += 1
 

@@ -9,6 +9,7 @@ DBSTRUCT = """
 DROP TABLE IF EXISTS line;
 CREATE TABLE line (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    network_id INTEGER,
     name TEXT, 
     color TEXT, 
     dflt_circpat TEXT,
@@ -16,6 +17,13 @@ CREATE TABLE line (
     to_city_id INTEGER,
     from_date DATETIME,
     to_date DATETIME,
+    UNIQUE(name, network_id)
+);
+
+DROP TABLE IF EXISTS network;
+CREATE TABLE network (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    name TEXT, 
     UNIQUE(name)
 );
 
@@ -61,6 +69,13 @@ CREATE TABLE line_station (
     direction_id INTEGER,			        -- city id for direction
     UNIQUE(line_id, station_id, rank, direction_id)
 );
+
+CREATE TRIGGER fki_line_network_id
+BEFORE INSERT ON line
+BEGIN
+    SELECT RAISE(ROLLBACK, "insert on table 'line' violates foreign key constraint 'fk_network_id'")
+    WHERE (SELECT id FROM network WHERE id = NEW.network_id) IS NULL;
+END;
 
 CREATE TRIGGER fki_line_from_city_id
 BEFORE INSERT ON line

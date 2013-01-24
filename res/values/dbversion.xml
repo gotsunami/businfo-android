@@ -3,6 +3,6 @@
 
 <resources>
   <string name="numchunks">24</string>
-  <string name="dbchecksum">2725f034813944136d393ebebb53f667</string>
-  <string name="dbversion">139</string>
+  <string name="dbchecksum">bd4a436e90a0863868fcc675bb45e564</string>
+  <string name="dbversion">140</string>
 </resources>
