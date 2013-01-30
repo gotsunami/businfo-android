@@ -211,14 +211,12 @@ public class SplashActivity extends Activity implements HeaderTitle {
      */
     private void setupAdapter() {
         /* FIXME
-        mAdapter.addSection(getString(R.string.quick_actions_header),
-            new ActionListAdapter(this, R.layout.main_action_list_item, mMainActions));
-            */
         mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
             new BusStationActivity.BookmarkStationListAdapter(this,
             R.layout.bus_line_bookmark_list_item, mStarredStations));
         ListView bl = (ListView)findViewById(R.id.blist);
         bl.setAdapter(mAdapter);
+            */
 
         // Handle release notes
         final String releaseKey = "shown_release_notes_for_" + getString(R.string.app_version);

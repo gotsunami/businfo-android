@@ -1,88 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView 
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@android:color/black"
-    android:fillViewport="true"
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white">
-        <!-- THAU AGGLO -->
-        <LinearLayout
-            android:orientation="horizontal"
+        <ListView android:id="@+id/networks_list"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/home_level2_height">
-            <ImageView android:id="@+id/thaulogo"
-                android:layout_marginRight="@dimen/home_item_margin"
-                android:layout_marginBottom="@dimen/home_item_margin_twice"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:scaleType="fitStart"
-                android:src="@drawable/thaubus"
-                android:background="@color/busbg"/>
-            <Button android:id="@+id/thaubutton"
-                android:layout_marginLeft="@dimen/home_item_margin"
-                android:layout_marginBottom="@dimen/home_item_margin_twice"
-                android:background="@drawable/btn_home_thau"
-                android:text="@string/home_thau_title"
-                style="@style/HomeButton" />
-        </LinearLayout>
-        <!-- HERAULT TRANSPORT -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/home_level2_height">
-            <Button android:id="@+id/htbutton"
-                android:layout_marginRight="@dimen/home_item_margin"
-                android:layout_marginBottom="@dimen/home_item_margin_twice"
-                android:onClick="startHTNetwork" 
-                android:text="@string/home_ht_title" 
-                android:background="@drawable/btn_home_ht"
-                style="@style/HomeButton" />
-            <ImageView android:id="@+id/htlogo"
-                android:layout_marginLeft="@dimen/home_item_margin"
-                android:layout_marginBottom="@dimen/home_item_margin_twice"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:scaleType="fitEnd"
-                android:src="@drawable/htbus"
-                android:background="@color/busbg"/>
-        </LinearLayout>
-        <!-- TAM -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/home_level2_height">
-            <ImageView android:id="@+id/tamlogo"
-                android:layout_marginRight="@dimen/home_item_margin"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:scaleType="fitEnd"
-                android:src="@drawable/tambus"
-                android:background="@color/busbg"/>
-            <Button android:id="@+id/tambutton"
-                android:layout_marginLeft="@dimen/home_item_margin"
-                android:background="@drawable/btn_home_tam"
-                android:text="@string/home_tam_title"
-                style="@style/HomeButton" />
-        </LinearLayout>
-        <Button android:id="@+id/bookmarkbutton"
-            android:layout_marginTop="@dimen/home_item_margin_twice"
-            android:background="@drawable/btn_home_tam"
-            android:text="@string/home_my_bookmarks"
-            android:padding="15dip"
-            style="@style/HomeButton" />
-        <ListView android:id="@+id/blist"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/home_item_margin_twice"
+            android:layout_height="fill_parent"
             android:fastScrollEnabled="true"
             android:drawSelectorOnTop="false"/>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
