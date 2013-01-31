@@ -122,7 +122,7 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
 
     // Adapter for ViewPager
     public class DynPagerAdapter extends FragmentPagerAdapter {
-        private Fragment[] mFrags = {new BusNetworkFragment(), new BusNetworkFragment()};
+        private Fragment[] mFrags = {new BusNetworkFragment(), new BookmarkFragment()};
         private int[] mPageTitles = {R.string.home_bus_networks, R.string.home_my_bookmarks};
 
         public DynPagerAdapter(FragmentManager fm) {
