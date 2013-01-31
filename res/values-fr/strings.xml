@@ -27,6 +27,9 @@
     <string name="does_not_circulate">Ne circule pas</string>
     <string name="next_stop_board_title">Prochain arrêt</string>
 
+    <string name="home_bus_networks">Réseaux</string>
+    <string name="home_my_bookmarks">Favoris</string>
+
     <string name="bookmark_city">"À %1$s"</string>
     <string name="bookmark_city_eta_hours_hs">"À %1$s, dans %2$s heure"</string>
     <string name="bookmark_city_eta_hours_hp">"À %1$s, dans %2$s heures"</string>

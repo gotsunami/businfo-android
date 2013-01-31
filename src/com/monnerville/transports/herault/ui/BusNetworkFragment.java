@@ -5,13 +5,16 @@
 package com.monnerville.transports.herault.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusNetwork;
@@ -68,5 +71,12 @@ public class BusNetworkFragment extends ListFragment {
 
             return itemView;
         }
+    }
+
+    @Override 
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // FIXME: support more networks
+        Intent intent = new Intent(getActivity(), AllLinesActivity.class);
+        startActivity(intent);
     }
 }
