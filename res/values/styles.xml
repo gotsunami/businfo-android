@@ -127,8 +127,8 @@
         <item name="android:shadowDy">2</item>
 	</style>
 	<style name="NoBookmark">
-        <item name="android:textSize">11pt</item>
-        <item name="android:textColor">@color/list_item_no_more_stop</item>
         <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/list_item_no_more_stop</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
 	</style>
 </resources>

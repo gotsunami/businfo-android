@@ -31,6 +31,7 @@
 
     <string name="home_bus_networks">Redes</string>
     <string name="home_my_bookmarks">Favoritos</string>
+    <string name="no_bookmark">No horarios</string>
 
     <string name="bookmark_city">"En %1$s"</string>
     <string name="bookmark_city_eta_hours_hs">"En %1$s, en %2$s hora"</string>
