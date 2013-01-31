@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.BusStation;
 import java.util.ArrayList;
 import java.util.List;
@@ -192,7 +193,7 @@ public class SQLBusManager implements BusManager {
     }
 
     @Override
-    public List<String> getBusNetworks() {
+    public List<BusNetwork> getBusNetworks() {
         HTDatabase db = (HTDatabase)mDB;
         return db.getAllBusNetworks();
     }

@@ -32,6 +32,7 @@
     <string name="home_thau_title">Thau Agglo</string>
     <string name="home_tam_title">TAM</string>
     <string name="home_my_bookmarks">Bookmarks</string>
+    <string name="home_bus_networks">Networks</string>
 
     <string name="bookmark_city">"In %1$s"</string>
     <string name="bookmark_city_eta_hours_hs">"In %1$s, %2$s hour left"</string>

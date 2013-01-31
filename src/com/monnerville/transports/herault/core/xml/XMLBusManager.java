@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.ui.AllLinesActivity;
 import java.io.IOException;
@@ -215,7 +216,7 @@ public class XMLBusManager implements BusManager {
     }
 
     @Override
-    public List<String> getBusNetworks() {
+    public List<BusNetwork> getBusNetworks() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

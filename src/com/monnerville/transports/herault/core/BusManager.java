@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface BusManager {
     public List<BusLine> getBusLines();
-    public List<String> getBusNetworks();
+    public List<BusNetwork> getBusNetworks();
     public BusLine getBusLine(String name);
     public void setResources(Resources appRes, int resid);
     public void saveStarredStations(BusLine line, String direction, List<BusStation> stations, Context ctx);

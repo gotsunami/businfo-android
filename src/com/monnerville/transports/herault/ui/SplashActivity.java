@@ -1,7 +1,6 @@
 
 package com.monnerville.transports.herault.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -17,6 +16,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +29,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
@@ -39,7 +42,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SplashActivity extends Activity implements HeaderTitle {
+public class SplashActivity extends FragmentActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
     private List<BusStation> mStarredStations;
     private boolean mVoiceSupported = false;
@@ -55,6 +58,8 @@ public class SplashActivity extends Activity implements HeaderTitle {
     private BookmarkHandler mBookmarkHandler;
 
     public static final int ACTION_UPDATE_BOOKMARKS = 1;
+    private ViewPager mPager;
+    private DynPagerAdapter mDynPagerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,19 @@ public class SplashActivity extends Activity implements HeaderTitle {
 
         new DBCreateOrUpdateTask().execute();
 
+        mPager = (ViewPager)findViewById(R.id.pager);
+
+        mDynPagerAdapter = new DynPagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mDynPagerAdapter);
+        /*
+        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                getActionBar().setSelectedNavigationItem(position);
+            }
+        });
+        */
+
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mStarredStations = new ArrayList<BusStation>();
 
@@ -100,6 +118,31 @@ public class SplashActivity extends Activity implements HeaderTitle {
         }
 
         mBookmarkHandler = new BookmarkHandler(mAdapter, mStarredStations);
+    }
+
+    // Adapter for ViewPager
+    public class DynPagerAdapter extends FragmentPagerAdapter {
+        private Fragment[] mFrags = {new BusNetworkFragment(), new BusNetworkFragment()};
+        private int[] mPageTitles = {R.string.home_bus_networks, R.string.home_my_bookmarks};
+
+        public DynPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            return mFrags[i];
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return getString(mPageTitles[position]);
+        }
     }
 
     @Override
@@ -173,13 +216,10 @@ public class SplashActivity extends Activity implements HeaderTitle {
         @Override
         protected void onPostExecute(Void none) {
             // Back to the UI thread
-            Log.d("BENCH0", "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
+            Log.d(TAG, "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mHandler = null;
-
             mDBReady = true;
             updateBookmarks();
-
-            Log.d(TAG, "NETS:" + mManager.getBusNetworks());
 
             setupAdapter();
             mAdapter.notifyDataSetChanged();

@@ -22,6 +22,7 @@ import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStop;
 import java.text.SimpleDateFormat;
 import static com.monnerville.transports.herault.core.Application.TAG;
+import com.monnerville.transports.herault.core.BusNetwork;
 import java.util.Date;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -247,12 +248,12 @@ class HTDatabase extends SQLiteOpenHelper {
      * Returns a list of all bust networks available
      * @return list of networks
      */
-    public List<String> getAllBusNetworks() {
+    public List<BusNetwork> getAllBusNetworks() {
         Cursor c = getReadableDatabase().rawQuery(mContext.getString(R.string.query_getallnetworks), null);
-        List<String> nets = new ArrayList<String>();
+        List<BusNetwork> nets = new ArrayList<BusNetwork>();
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            nets.add(c.getString(0));
+            nets.add(new SQLBusNetwork(c.getString(0)));
         }
 		c.close();
         return nets;
