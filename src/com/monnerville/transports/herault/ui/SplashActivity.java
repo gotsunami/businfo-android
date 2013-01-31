@@ -30,36 +30,26 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import static com.monnerville.transports.herault.core.Application.TAG;
-import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SplashActivity extends FragmentActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
-    private List<BusStation> mStarredStations;
     private boolean mVoiceSupported = false;
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
     private boolean mDatabaseUpgrading = false;
     // Cached directions for all available lines
 
     private final SQLBusManager mManager = SQLBusManager.getInstance();
-    /**
-     * Used by onResume and updateBookmarks to ensure database is ready
-     */
-    private boolean mDBReady;
-    private BookmarkHandler mBookmarkHandler;
-
-    public static final int ACTION_UPDATE_BOOKMARKS = 1;
     private ViewPager mPager;
     private DynPagerAdapter mDynPagerAdapter;
+
+    private BusNetworkFragment mBusNetworkFragment;
+    private BookmarkFragment mBookmarkFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,23 +79,17 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
             ActionBarHelper.setSubtitle(this, R.string.slogan);
         }
 
+        mBusNetworkFragment = new BusNetworkFragment();
+        mBookmarkFragment = new BookmarkFragment();
+
         new DBCreateOrUpdateTask().execute();
 
         mPager = (ViewPager)findViewById(R.id.pager);
 
         mDynPagerAdapter = new DynPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mDynPagerAdapter);
-        /*
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-            @Override
-            public void onPageSelected(int position) {
-                getActionBar().setSelectedNavigationItem(position);
-            }
-        });
-        */
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mStarredStations = new ArrayList<BusStation>();
 
         // Voice recognition supported?
         PackageManager pm = getPackageManager();
@@ -116,13 +100,11 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         } else {
             Log.d(TAG, "Recognize not present: voice recognition not supported");
         }
-
-        mBookmarkHandler = new BookmarkHandler(mAdapter, mStarredStations);
     }
 
     // Adapter for ViewPager
     public class DynPagerAdapter extends FragmentPagerAdapter {
-        private Fragment[] mFrags = {new BusNetworkFragment(), new BookmarkFragment()};
+        private Fragment[] mFrags = {mBusNetworkFragment, mBookmarkFragment};
         private int[] mPageTitles = {R.string.home_bus_networks, R.string.home_my_bookmarks};
 
         public DynPagerAdapter(FragmentManager fm) {
@@ -202,7 +184,7 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         protected void onPreExecute() {
             // Executes on the UI thread
             // Prevents onResume() to update bookmarks before the DB is ready
-            mDBReady = false;
+            mBookmarkFragment.setDatabaseReady(false);
 
             mDialog = new ProgressDialog(SplashActivity.this);
             mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -218,46 +200,15 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
             // Back to the UI thread
             Log.d(TAG, "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mHandler = null;
-            mDBReady = true;
-            updateBookmarks();
-
+            mBookmarkFragment.setDatabaseReady(true);
             setupAdapter();
-            mAdapter.notifyDataSetChanged();
         }
-    }
-
-    /**
-     * Updates bookmarked stations with latest next stop
-     */
-    private void updateBookmarks() {
-        List<BusStation> sts = mManager.getStarredStations(this);
-        mStarredStations.clear();
-        for (BusStation st : sts) {
-            mStarredStations.add(st);
-            try {
-                st.getNextStop(); // Fresh, non-cached value
-            } catch (Exception ex) {
-                // Could not restore station? Delete it.
-                mStarredStations.remove(st);
-                // FIXME
-                Log.e("ST", "Could not restore station!");
-            } 
-        }
-        mAdapter.notifyDataSetChanged();
     }
 
     /**
      * Sets up the adapter for the list
      */
     private void setupAdapter() {
-        /* FIXME
-        mAdapter.addSection(getString(R.string.all_lines_bookmarks_header),
-            new BusStationActivity.BookmarkStationListAdapter(this,
-            R.layout.bus_line_bookmark_list_item, mStarredStations));
-        ListView bl = (ListView)findViewById(R.id.blist);
-        bl.setAdapter(mAdapter);
-            */
-
         // Handle release notes
         final String releaseKey = "shown_release_notes_for_" + getString(R.string.app_version);
         if (!mPrefs.getBoolean(releaseKey, false)) {
@@ -323,40 +274,6 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        /* TODO
-         * Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
-         * Strangely, removing this statement on slow device won't display the upgrading process...
-         */
-        if (!mDBReady) {
-            try {
-                Thread.sleep(70); // 70 ms
-            } catch (InterruptedException ex) {
-                Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
-            } // 50 ms
-        }
-
-        if (mDBReady)
-            updateBookmarks();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        // Update bookmark info every minute
-                        Thread.sleep(1000*60);
-                        mBookmarkHandler.sendEmptyMessage(ACTION_UPDATE_BOOKMARKS);
-                    }
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
     }
@@ -379,50 +296,4 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
-
-    /**
-     * Handles bookmark stations
-     */
-    public static class BookmarkHandler extends Handler {
-        private List<BusStation> stations;
-        private SectionedAdapter adapter;
-
-        public BookmarkHandler(SectionedAdapter adapter, List<BusStation> stations) {
-            super();
-            this.stations = stations;
-            this.adapter = adapter;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch(msg.what) {
-                case SplashActivity.ACTION_UPDATE_BOOKMARKS:
-                    for (BusStation st : stations) {
-                        st.getNextStop(); // Fresh, non-cached value
-                    }
-                    this.adapter.notifyDataSetChanged();
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Custom adapter with matches display
-     */
-    final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
-        @Override
-        protected int getMatches(String caption) {
-            if (caption.equals(getString(R.string.all_lines_header))) {
-                return mManager.getBusLines().size();
-            }
-            else if (caption.equals(getString(R.string.all_lines_bookmarks_header))) {
-                return mStarredStations.isEmpty() ? CounterSectionedAdapter.NO_MATCH :
-                    mStarredStations.size();
-            }
-            return CounterSectionedAdapter.NO_MATCH;
-        }
-    };
-
 }
