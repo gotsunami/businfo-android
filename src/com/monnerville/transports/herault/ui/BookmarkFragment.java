@@ -1,5 +1,10 @@
 package com.monnerville.transports.herault.ui;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusStation;
+import com.monnerville.transports.herault.core.City;
+import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +35,7 @@ public class BookmarkFragment extends ListFragment {
     private BusStationActivity.BookmarkStationListAdapter mAdapter;
     private List<BusStation> mStarredStations;
     private BookmarkHandler mBookmarkHandler;
+    private Context mContext;
     /**
      * Used by onResume and updateBookmarks to ensure database is ready
      */
@@ -43,48 +52,28 @@ public class BookmarkFragment extends ListFragment {
     public void onCreate(Bundle b) {
         super.onCreate(b);
 
+        mContext = null;
         mDBReady= false;
         mStarredStations = new ArrayList<BusStation>();
-        mAdapter = new BusStationActivity.BookmarkStationListAdapter(getActivity(),
-            R.layout.bus_line_bookmark_list_item, mStarredStations);
-        setListAdapter(mAdapter);
-
-        mBookmarkHandler = new BookmarkHandler(mAdapter, mStarredStations);
-    }
-
-    @Override 
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        // TODO
     }
 
     public void setDatabaseReady(boolean ready) {
         mDBReady = ready;
-        if (ready) {
-            updateBookmarks();
-        }
     }
 
     /**
-     * Handles bookmark stations
+     * Handler called by a thread every minute to update stations schedules.
      */
-    public static class BookmarkHandler extends Handler {
-        private List<BusStation> stations;
-        private ArrayAdapter adapter;
-
+    public class BookmarkHandler extends Handler {
         public BookmarkHandler(ArrayAdapter adapter, List<BusStation> stations) {
             super();
-            this.stations = stations;
-            this.adapter = adapter;
         }
 
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what) {
                 case BookmarkFragment.ACTION_UPDATE_BOOKMARKS:
-                    for (BusStation st : stations) {
-                        st.getNextStop(); // Fresh, non-cached value
-                    }
-                    this.adapter.notifyDataSetChanged();
+                    new ComputeNextStopsTask().execute();
                     break;
                 default:
                     break;
@@ -95,19 +84,11 @@ public class BookmarkFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        /* TODO
-         * Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
-         * Strangely, removing this statement on slow device won't display the upgrading process...
-         */
-        if (!mDBReady) {
-            try {
-                Thread.sleep(70); // 70 ms
-            } catch (InterruptedException ex) {
-                Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
-            } // 50 ms
-        }
+
+        Log.d("TOOO", "Resume");
 
         if (mDBReady) {
+            Log.d("TOOO", "DB READY!!");
             updateBookmarks();
         }
 
@@ -127,29 +108,142 @@ public class BookmarkFragment extends ListFragment {
         }).start();
     }
 
+    @Override
+    public void onActivityCreated (Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mContext = getActivity();
+        mDBReady = true;
+        mAdapter = new BusStationActivity.BookmarkStationListAdapter(mContext,
+            R.layout.bus_line_bookmark_list_item, mStarredStations);
+        setListAdapter(mAdapter);
+        mBookmarkHandler = new BookmarkHandler(mAdapter, mStarredStations);
+    }
+
     /**
      * Updates bookmarked stations with latest next stop
      */
     private void updateBookmarks() {
-        List<BusStation> sts = mManager.getStarredStations(getActivity());
-        mStarredStations.clear();
-        for (BusStation st : sts) {
-            mStarredStations.add(st);
-            try {
-                st.getNextStop(); // Fresh, non-cached value
-            } catch (Exception ex) {
-                // Could not restore station? Delete it.
-                mStarredStations.remove(st);
-                // FIXME
-                Log.e("ST", "Could not restore station!");
-            } 
+        if (mContext == null) {
+            return;
         }
-        mAdapter.notifyDataSetChanged();
+        new ComputeFreshNextStopsTask().execute();
+    }
+
+    private class ComputeFreshNextStopsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... none) {
+            List<BusStation> sts = mManager.getStarredStations(mContext);
+            mStarredStations.clear();
+            for (BusStation st : sts) {
+                mStarredStations.add(st);
+                try {
+                    st.getNextStop(); // Fresh, non-cached value
+                } catch (Exception ex) {
+                    // Could not restore station? Delete it.
+                    mStarredStations.remove(st);
+                    // FIXME
+                    Log.e("ST", "Could not restore station!");
+                } 
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(Void none) {
+            // Back to the UI thread
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class ComputeNextStopsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... none) {
+            for (BusStation st : mStarredStations) {
+                st.getNextStop(); // Fresh, non-cached value
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(Void none) {
+            // Back to the UI thread
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
-    public void onDestroy() {
-        mManager.getDB().close();
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+    
+        final Object obj = l.getItemAtPosition(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        if(obj instanceof BusStation) {
+            final BusStation station = (BusStation)obj;
+            builder.setTitle(R.string.bookmark_menu_title);
+            builder.setItems(R.array.bookmark_options, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+                    switch (item) {
+                        case 0: { // All schedules (show station)
+                            Intent intent = new Intent(getActivity(), BusStationActivity.class);
+                            intent.putExtra("line", station.getLine().getName());
+                            intent.putExtra("direction", station.getDirection());
+                            intent.putExtra("station", station.getName());
+                            startActivity(intent);
+                            break;
+                        }
+                        case 1: { // All line stations (show line)
+                            Intent intent = new Intent(getActivity(), BusLineActivity.class);
+                            intent.putExtra("line", station.getLine().getName());
+                            intent.putExtra("direction", station.getDirection());
+                            startActivity(intent);
+                            break;
+                        }
+                        case 2: { // All lines in city (show city)
+                            QueryManager finder = SQLQueryManager.getInstance();
+                            List<City> cs = finder.findCities(station.getCity(), true);
+                            if (cs.isEmpty()) return;
+                            City c = cs.get(0);
+                            if (c.isValid()) {
+                                Intent intent = new Intent(getActivity(), CityActivity.class);
+                                intent.putExtra("cityId", String.valueOf(c.getPK()));
+                                startActivity(intent);
+                            }
+                            break;
+                        }
+                        case 3: { // Share
+                            station.share(getActivity());
+                            break;
+                        }
+                        case 4: // Remove
+                            for (BusStation st : mStarredStations) {
+                                if (st == obj) {
+                                    mStarredStations.remove(st);
+                                    break;
+                                }
+                            }
+                            mManager.overwriteStarredStations(mStarredStations, getActivity());
+                            mAdapter.notifyDataSetChanged();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            builder.show();
+        }
     }
 }

@@ -88,6 +88,7 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
 
         mDynPagerAdapter = new DynPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mDynPagerAdapter);
+        mPager.setOnPageChangeListener(mDynPagerAdapter);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -102,8 +103,22 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        /* TODO
+         * Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
+         * Strangely, removing this statement on slow device won't display the upgrading process...
+         */
+        try {
+            Thread.sleep(70); // 70 ms
+        } catch (InterruptedException ex) {} 
+    }
+
     // Adapter for ViewPager
-    public class DynPagerAdapter extends FragmentPagerAdapter {
+    public class DynPagerAdapter extends FragmentPagerAdapter 
+        implements ViewPager.OnPageChangeListener {
+
         private Fragment[] mFrags = {mBusNetworkFragment, mBookmarkFragment};
         private int[] mPageTitles = {R.string.home_bus_networks, R.string.home_my_bookmarks};
 
@@ -124,6 +139,17 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         @Override
         public CharSequence getPageTitle(int position) {
             return getString(mPageTitles[position]);
+        }
+        @Override
+        public void onPageSelected(int position) {
+        }
+
+        @Override
+        public void onPageScrolled(int i, float f, int i1) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
         }
     }
 
@@ -183,9 +209,6 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
-            // Prevents onResume() to update bookmarks before the DB is ready
-            mBookmarkFragment.setDatabaseReady(false);
-
             mDialog = new ProgressDialog(SplashActivity.this);
             mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mDialog.setMessage(getString(R.string.pd_updating_database));
@@ -200,7 +223,7 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
             // Back to the UI thread
             Log.d(TAG, "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mHandler = null;
-            mBookmarkFragment.setDatabaseReady(true);
+            //mBookmarkFragment.setDatabaseReady(true);
             setupAdapter();
         }
     }
