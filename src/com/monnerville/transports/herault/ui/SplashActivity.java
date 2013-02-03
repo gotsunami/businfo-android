@@ -51,6 +51,8 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
     private BusNetworkFragment mBusNetworkFragment;
     private BookmarkFragment mBookmarkFragment;
 
+    private boolean mDBReady;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,17 +81,8 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
             ActionBarHelper.setSubtitle(this, R.string.slogan);
         }
 
-        mBusNetworkFragment = new BusNetworkFragment();
-        mBookmarkFragment = new BookmarkFragment();
-
-        new DBCreateOrUpdateTask().execute();
-
         mPager = (ViewPager)findViewById(R.id.pager);
-
-        mDynPagerAdapter = new DynPagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mDynPagerAdapter);
-        mPager.setOnPageChangeListener(mDynPagerAdapter);
-
+        mPager.setVisibility(View.GONE);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Voice recognition supported?
@@ -101,6 +94,8 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         } else {
             Log.d(TAG, "Recognize not present: voice recognition not supported");
         }
+
+        new DBCreateOrUpdateTask().execute();
     }
 
     @Override
@@ -110,9 +105,11 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
          * Trick for slow emulator or device, in case the DB is not ready yet (or when DB is updating)
          * Strangely, removing this statement on slow device won't display the upgrading process...
          */
-        try {
-            Thread.sleep(70); // 70 ms
-        } catch (InterruptedException ex) {} 
+        if (!mDBReady) {
+            try {
+                Thread.sleep(70); // 70 ms
+            } catch (InterruptedException ex) {} 
+        }
     }
 
     // Adapter for ViewPager
@@ -209,6 +206,8 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         @Override
         protected void onPreExecute() {
             // Executes on the UI thread
+            mDBReady = false;
+
             mDialog = new ProgressDialog(SplashActivity.this);
             mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mDialog.setMessage(getString(R.string.pd_updating_database));
@@ -223,7 +222,17 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
             // Back to the UI thread
             Log.d(TAG, "DB update duration: " + (System.currentTimeMillis() - mStart) + "ms");
             mHandler = null;
-            //mBookmarkFragment.setDatabaseReady(true);
+            mDBReady = true;
+
+            // Do most of UI init now so that the UI thread is not locked
+            mBusNetworkFragment = new BusNetworkFragment();
+            mBookmarkFragment = new BookmarkFragment();
+
+            mDynPagerAdapter = new DynPagerAdapter(getSupportFragmentManager());
+            mPager.setVisibility(View.VISIBLE);
+            mPager.setAdapter(mDynPagerAdapter);
+            mPager.setOnPageChangeListener(mDynPagerAdapter);
+
             setupAdapter();
         }
     }
@@ -283,6 +292,7 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
                     break;
                 case SQLBusManager.FLUSH_DATABASE_PROGRESS:
                     int progress = (Integer)msg.obj;
+                    Log.d("TOOO", "Progress: " + progress);
                     mPd.setProgress(progress);
                     break;
                 case SQLBusManager.FLUSH_DATABASE_UPGRADED:

@@ -127,9 +127,11 @@ class HTDatabase extends SQLiteOpenHelper {
     }
 
 	private void executeMultiSQL(SQLiteDatabase db, String[] sql) {
-		for(String s : sql) 
-			if (s.trim().length() > 0)
-				db.execSQL(s);
+		for(String s : sql) {
+            if (s.trim().length() > 0) {
+                db.execSQL(s);
+            }
+        }
 	}
 
 	/**

@@ -85,10 +85,7 @@ public class BookmarkFragment extends ListFragment {
     public void onResume() {
         super.onResume();
 
-        Log.d("TOOO", "Resume");
-
         if (mDBReady) {
-            Log.d("TOOO", "DB READY!!");
             updateBookmarks();
         }
 
