@@ -38,7 +38,7 @@ public class BusNetworkFragment extends ListFragment {
     public void onCreate(Bundle b) {
         super.onCreate(b);
         mAdapter = new BusNetworkListAdapter(getActivity(), 
-            android.R.layout.simple_list_item_1, mManager.getBusNetworks());
+            R.layout.bus_network_list_item, mManager.getBusNetworks());
         setListAdapter(mAdapter);
     }
 
@@ -68,6 +68,9 @@ public class BusNetworkFragment extends ListFragment {
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(net.getName());
+
+            TextView netinfo = (TextView)itemView.findViewById(R.id.network_info);
+            netinfo.setText(getString(R.string.pref_about_network_summary, getString(R.string.num_lines)));
 
             return itemView;
         }

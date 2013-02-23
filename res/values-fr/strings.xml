@@ -27,7 +27,7 @@
     <string name="does_not_circulate">Ne circule pas</string>
     <string name="next_stop_board_title">Prochain arrêt</string>
 
-    <string name="home_bus_networks">Réseaux</string>
+    <string name="home_bus_networks">Mes réseaux</string>
     <string name="home_my_bookmarks">Favoris</string>
     <string name="no_bookmark">Aucun horaire</string>
 
@@ -115,6 +115,7 @@
     <string name="pref_about_changelog_title">Historique des versions</string>
     <string name="pref_about_db_version_title">Couverture réseau de bus</string>
     <string name="pref_about_db_version_summary">"%2$s lignes, %3$s communes et %4$s arrêts (v%1$s)"</string>
+    <string name="pref_about_network_summary">"%1$s lignes"</string>
 
     <string name="cat_tts_title">Synthèse vocale</string>
     <string name="cat_tts_sum">Text-To-Speech</string>

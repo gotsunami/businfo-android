@@ -29,7 +29,7 @@
     <string name="does_not_circulate">No circula</string>
     <string name="next_stop_board_title">Parada siguiente</string>
 
-    <string name="home_bus_networks">Redes</string>
+    <string name="home_bus_networks">Mi Redes</string>
     <string name="home_my_bookmarks">Favoritos</string>
     <string name="no_bookmark">No horarios</string>
 
@@ -122,6 +122,7 @@
     <string name="pref_about_changelog_title">Historia de versiones</string>
     <string name="pref_about_db_version_title">Cobertura de la red de autobuses</string>
     <string name="pref_about_db_version_summary">"%2$s líneas, %3$s ciudades y %4$s paradas (v%1$s)"</string>
+    <string name="pref_about_network_summary">"%1$s líneas"</string>
 
     <string name="cat_tts_title">Síntesis de voz</string>
     <string name="cat_tts_sum">Texto a voz</string>
