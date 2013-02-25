@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="lines_activity_title">Hérault Transport - líneas de autobuses</string>
+    <string name="lines_activity_title">Bus34 - líneas de autobuses</string>
     <string name="slogan">Horarios de autobuses en el Hérault</string>
     <string name="busline_activity_title">Línea de autobus</string>
     <string name="stop_all_schedules_title">Todos los horarios</string>
@@ -73,7 +73,7 @@
     <string name="bookmark_menu_title">Favorito</string>
     <string name="station_menu_title">Esta parada</string>
     <string name="share_with_title">Compartir con</string>
-    <string name="share_msg">"Parada %1$s - línea %2$s\n\nSiguiente parada a %3$s.\n\n%4$s.\n\n\n--\nCompartida de la aplicación Hérault Transport para Android"</string>
+    <string name="share_msg">"Parada %1$s - línea %2$s\n\nSiguiente parada a %3$s.\n\n%4$s.\n\n\n--\nCompartida de la aplicación Bus34 para Android"</string>
     <string name="station_context_title">Parada</string>
     <string name="pd_loading_bus_schedules">Cargando horarios</string>
     <string name="pd_loading_bus_lines">Cargando las líneas de autobuses</string>
@@ -133,16 +133,13 @@
 
     <!-- About app -->
     <string name="pref_about_about_title">Acerca de</string>
-    <string name="about_description">"Hérault Transport es una aplicación gratuita para Android que tiene como objetivo de ofrecer un acceso rápido y sencillo a los horarios de todas las líneas de la red de autobuses \"Hérault Transport\". También es posible acceder a sus paradas favoritas y compartirlas con sus amigos. Buscando información (para líneas, paradas de autobús o ciudades) se puede realizar usando el teclado o el mecanismo de reconocimiento de voz de su dispositivo Android, cuando está disponible.\n\nTenga en cuenta que se trata de una aplicación no oficial, propuesta y mantenida por mí en mi calidad de programador independiente y no por el Sindicato Mixto de transporte del Hérault.  "</string>
+    <string name="about_description">"Bus34 es una aplicación gratuita para Android que tiene como objetivo de ofrecer un acceso rápido y sencillo a los horarios de todas las líneas de las redes de autobuses \"Hérault Transport\", \"Thau Agglo\" y TAM. También es posible acceder a sus paradas favoritas y compartirlas con sus amigos. Buscando información (para líneas, paradas de autobús o ciudades) se puede realizar usando el teclado o el mecanismo de reconocimiento de voz de su dispositivo Android, cuando está disponible.\n\nTenga en cuenta que se trata de una aplicación no oficial, propuesta y mantenida por mí en mi calidad de programador independiente y no por el Sindicato Mixto de transporte del Hérault.  "</string>
     <string name="about_description_support">"Si tiene preguntas o si encontra problemas, visite el sitio web oficial http://ht.monnerville.com o envia un correo electrónico a ht-support@monnerville.com."</string>
 
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-Horarios actualizados por las líneas siguientes:
-- 106 (Montpellier - Aigues Mortes)
-- 108 (Montpellier - Ganges)
-- 120 (Montpellier - navette Montpellier aéroport)
+Esta aplicación se llama Bus34.
 "</string>
 </resources>
