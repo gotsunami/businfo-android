@@ -5,13 +5,18 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
+    android:paddingLeft="4dip"
     android:paddingRight="2dip">
 
-    <ImageView android:id="@+id/icon"
+    <TextView android:id="@+id/line_color"
+        android:textColor="@android:color/white"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:scaleType="fitCenter"
+        android:gravity="center"
+        android:textStyle="bold"
         android:layout_width="@android:dimen/app_icon_size"
-        android:layout_height="@android:dimen/app_icon_size"
-        android:src="@android:drawable/ic_menu_myplaces"
-        android:scaleType="fitCenter" />
+        android:layout_height="@android:dimen/app_icon_size" />
+
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center_vertical"

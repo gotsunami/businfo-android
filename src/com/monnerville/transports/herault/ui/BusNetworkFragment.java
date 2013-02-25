@@ -6,6 +6,8 @@ package com.monnerville.transports.herault.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import java.util.List;
@@ -71,6 +74,9 @@ public class BusNetworkFragment extends ListFragment {
 
             TextView netinfo = (TextView)itemView.findViewById(R.id.network_info);
             netinfo.setText(getString(R.string.pref_about_network_summary, getString(R.string.num_lines)));
+
+            TextView linecol = (TextView)itemView.findViewById(R.id.line_color);
+            linecol.setBackgroundResource(R.drawable.busline_bkg);
 
             return itemView;
         }
