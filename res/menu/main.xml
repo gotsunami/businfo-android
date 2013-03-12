@@ -3,4 +3,7 @@
     <item android:id="@+id/menu_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/menu_search_title" />
+    <item android:id="@+id/menu_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/action_show_settings" />
 </menu>
