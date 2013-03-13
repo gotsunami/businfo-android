@@ -52,11 +52,15 @@ public class SQLBusLine extends AbstractBusLine {
         Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(R.string.query_getnetwork_from_line),
 			new String[] {getName()}
         );
-        c.moveToPosition(0);
-        String net = c.getString(0);
-		c.close();
-
-        setBusNetworkName(net);
+        if (c.getCount() == 0) {
+            setBusNetworkName("");
+        }
+        else {
+            c.moveToPosition(0);
+            String net = c.getString(0);
+            setBusNetworkName(net);
+        }
+        c.close();
     }
 
     /**
