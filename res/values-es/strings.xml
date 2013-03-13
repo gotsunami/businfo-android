@@ -140,6 +140,6 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-Esta aplicación se llama Bus34.
+Corrección de la aplicación cuando buscando.
 "</string>
 </resources>

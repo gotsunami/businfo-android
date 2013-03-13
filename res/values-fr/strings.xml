@@ -132,6 +132,6 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-L'application change de nom et s'appelle désormais "Bus34" ! Son objectif est de proposer à terme les horaires des bus des réseaux Hérault Transport, Thau Agglo et la TAM.
+Correction d'un bug provoquant le plantage de l'application sur la page de recherche.
 "</string>
 </resources>

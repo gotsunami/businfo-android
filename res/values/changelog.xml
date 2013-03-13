@@ -4,9 +4,11 @@
 	<!-- Application credits -->
     <string name="app_name">Bus34</string>
     <string name="short_app_name">Bus34</string>
-    <string name="app_version">1.0</string>
+    <string name="app_version">1.0.1</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>1.0.1</b> - 2013-03-13:\n
+  - Fix application crash on search page when no matching line\n\n
 <b>1.0</b> - 2013-03-13:\n
   The application is now called "Bus34"! Its goal is to handle 
   the Hérault Transport, Thau Agglo and TAM bus networks.\n\n

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.1</b> - 13/03/2013:\n
+  - Corrección de la aplicación cuando buscando.\n\n
 <b>1.0</b> - 13/03/2013:\n
   La aplicación ahora se llama "Bus34" !\n\n
 <b>0.9.20</b> - 17/12/2012 :\n

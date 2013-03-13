@@ -136,6 +136,6 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-The application is now called "Bus34"! Its goal is to handle the Hérault Transport, Thau Agglo and TAM bus networks.
+Fix application crash on search page when no matching line.
 "</string>
 </resources>
