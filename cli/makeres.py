@@ -11,7 +11,7 @@ Raw text is a copy of the PDF content using Acrobat Reader
 
 import sys, re, types, os.path, glob, tempfile
 import hashlib, shutil
-import json
+import json, subprocess
 from optparse import OptionParser
 #
 # Local import of DBSTRUCT
@@ -554,7 +554,7 @@ def check_up_to_date(chksum):
             p.close()
         f.close()
 
-def init_networks():
+def init_networks(srcdir):
     """
     Find available bus networks. networks.json is a static file edited
     by hand.
@@ -572,7 +572,7 @@ def init_networks():
         nets[net]["lines"] = [] 
 
     for k, v in nets.iteritems():
-        lines = glob.glob(os.path.join('src', v['path'], '*.in'))
+        lines = glob.glob(os.path.join(srcdir, v['path'], '*.in'))
         if not lines:
             print "[%s] Warning: missing .in line definitions" % k
         else:
@@ -580,6 +580,23 @@ def init_networks():
             print "[%s] Found %d lines" % (k, len(lines))
 
     return nets
+
+def htc_compile(srcdir):
+    """
+    Runs the htc compiler on *.in bus lines definitions.
+    """
+    # Find available networks
+    networks = init_networks(srcdir)
+    # Compile every lines
+    for net, data in networks.iteritems():
+        print "[%s] Compiling" % net,
+        for line in data["lines"]:
+            print line,
+            sys.stdout.flush()
+            cmd = "./htc %s > raw/%s" % (os.path.join(srcdir, data["path"], line), 
+                re.sub('\.in$', '.txt', line))
+            subprocess.call(cmd, shell=True)
+        print
 
 def main():
     global DEBUG
@@ -643,16 +660,17 @@ where action is one of:
     elif action == 'mysql':
         DBSTRUCT = mysqldb.DBSTRUCT
 
-    #MAT
-    nets = init_networks()
-    sys.exit(2)
-
     if os.path.isdir(infile):
         # Applies pre-filter before parsing any raw content
         prefilter_data = {}
         prefilter_matches = 0
         chksum = compute_db_checksum(infile)
         check_up_to_date(chksum)
+        # Run the compiler to convert .in to .txt files
+        # FIXME: replace 'src' with infile (move raw/ away)
+        htc_compile('src')
+        sys.exit(2)
+
         if options.prefilter:
             if not os.path.exists(g_prefilter):
                 raise ValueError, "pre filter not a file"
@@ -664,7 +682,6 @@ where action is one of:
             shutil.copytree(infile, filter_dir)
             infile = filter_dir
             # TODO: check map format (old_name=new_name)
-            import subprocess
             import string
             subs = 0
             print "[%-18s] applying filter %s..." % ('pre-filter', g_prefilter),
