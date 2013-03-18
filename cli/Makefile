@@ -8,18 +8,22 @@ CHKSUM=/tmp/.checksum
 MYSQL=mysql
 MYSQLOPTS=-u ht --password=ht
 MYSQLDB=ht
+LINECOMPILERSRC=htc.go
 
 .PHONY: makedb clean test sqlite mysql mysqldb
 
 all: sqlite
 
-makedb:
+makedb: htc
 	@echo "Generating raw SQLite content..."
 	@${MAKERES} ${DBOPTS} sqlite raw/
 
-mysqldb:
+mysqldb: htc
 	@echo "Generating raw MySQL content..."
 	@${MAKERES} ${DBOPTS} mysql raw/
+
+htc:
+	@go build ${LINECOMPILERSRC}
 
 test:
 	@echo "Running sanity checks..."

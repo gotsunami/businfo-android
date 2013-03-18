@@ -11,6 +11,7 @@ Raw text is a copy of the PDF content using Acrobat Reader
 
 import sys, re, types, os.path, glob, tempfile
 import hashlib, shutil
+import json
 from optparse import OptionParser
 #
 # Local import of DBSTRUCT
@@ -43,6 +44,8 @@ DB_STATS_FILE = 'dbstats.xml'
 CHUNK_DB_FILE = 'htdb-chunks.xml'
 CHUNK_PREFIX = 'htdb_chunk'
 CHUNK_SIZE = 64 * 1024
+# Networks definition file
+NETWORKS_FILE = 'src/networks.json'
 
 def get_cities_in_cache(cache_file):
     ccities = []
@@ -551,6 +554,33 @@ def check_up_to_date(chksum):
             p.close()
         f.close()
 
+def init_networks():
+    """
+    Find available bus networks. networks.json is a static file edited
+    by hand.
+    Returns a dictionnary of available networks.
+    """
+    if not os.path.isfile(NETWORKS_FILE):
+        raise ValueError, "networks.json not found in src directory."
+
+    with open(NETWORKS_FILE) as f:
+        nets = '\n'.join(f.readlines())
+        nets = json.loads(nets)
+        f.close()
+
+    for net in nets.keys():
+        nets[net]["lines"] = [] 
+
+    for k, v in nets.iteritems():
+        lines = glob.glob(os.path.join('src', v['path'], '*.in'))
+        if not lines:
+            print "[%s] Warning: missing .in line definitions" % k
+        else:
+            nets[k]["lines"].extend(map(lambda x: os.path.basename(x), lines))
+            print "[%s] Found %d lines" % (k, len(lines))
+
+    return nets
+
 def main():
     global DEBUG
     global g_prefilter, GPS_CACHE_FILE, DBSTRUCT
@@ -612,6 +642,10 @@ where action is one of:
         DBSTRUCT = sqlitedb.DBSTRUCT
     elif action == 'mysql':
         DBSTRUCT = mysqldb.DBSTRUCT
+
+    #MAT
+    nets = init_networks()
+    sys.exit(2)
 
     if os.path.isdir(infile):
         # Applies pre-filter before parsing any raw content
@@ -796,6 +830,7 @@ where action is one of:
                 f.close()
                 print "Generated global %s" % os.path.join(TMP_DIR, 'lines.xml')
     else:
+        # File target
         if action == 'sqlite':
             print "Error: does not support one file, only full parent directory"
             sys.exit(2)
