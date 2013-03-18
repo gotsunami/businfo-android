@@ -8,7 +8,8 @@ CHKSUM=/tmp/.checksum
 MYSQL=mysql
 MYSQLOPTS=-u ht --password=ht
 MYSQLDB=ht
-LINECOMPILERSRC=htc.go
+LINECOMPILER=htc
+LINECOMPILERSRC=${LINECOMPILER}.go
 
 .PHONY: makedb clean test sqlite mysql mysqldb
 
@@ -44,4 +45,5 @@ mysql: mysqldb
 
 clean:
 	rm -f ${SQLDB} ${SQLITEDB} ${CHKSUM}
+	rm -f ${LINECOMPILER}
 
