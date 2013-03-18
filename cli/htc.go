@@ -431,13 +431,14 @@ func main() {
                 dup[cit.city] = 1
             } else {
                 dup[cit.city]++
-                fmt.Fprintf(os.Stderr, "Warning: found duplicates in direction %d for city %s\n", k+1, cit.city)
+                fmt.Fprintf(os.Stderr, "Warning: found duplicates in direction %d for city %s in %s\n",
+                    k+1, cit.city, os.Args[1])
                 need_manual = true
             }
         }
     }
 
     if need_manual {
-        fmt.Fprintf(os.Stderr, "Warning: manual tuning of the results is required!\n")
+        fmt.Fprintf(os.Stderr, "Warning: manual tuning of the results is required in %s\n", os.Args[1])
     }
 }
