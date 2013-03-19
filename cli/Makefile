@@ -44,6 +44,4 @@ mysql: mysqldb
 	@echo "Done"
 
 clean:
-	rm -f ${SQLDB} ${SQLITEDB} ${CHKSUM}
-	rm -f ${LINECOMPILER}
-
+	rm -f ${SQLDB} ${SQLITEDB} ${CHKSUM} ${LINECOMPILER}
