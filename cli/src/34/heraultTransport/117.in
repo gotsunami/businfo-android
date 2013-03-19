@@ -2,6 +2,8 @@
 # updated: 2012-08-31
 #
 # Warning: replace LEP word with Lep
+#          put Z.A on new line and rename it Z.a
+#          replace J. Monnet with J.Monnet
 #
 # compile with: htc 117.in
 
@@ -15,11 +17,12 @@ direction=
 days=L à S L à S L à S L à S L à S Me L à S Me L à S L à S L à S LMaJV L à S LMaJV LMaJV LMaJV L à S L à V L à S L à S
 p=0 0 0 0 0 SCO 0 SCO 0 0 0 SCO 0 SCO SCO SCO
 
-c=MONTPELLIER Lycée J. Monnet
+c=MONTPELLIER Lycée J.Monnet
 Lep Vinci
 Station Mosson
 JUVIGNAC Route de Saint Georges
-ST GEORGES-D'ORQUES Z.A Mijoulan
+ST GEORGES-D'ORQUES 
+Z.a Mijoulan
 Alicantes
 Regnagues
 Gare
@@ -27,7 +30,7 @@ Le Saint Georges
 Bel horizon
 Réservoir
 Dame dorcas
-Z.A Mijoulan
+Z.a Mijoulan
 MURVIEL-LES-MONTPELLIER Chemin des pins
 Clauses
 Bellevue
@@ -82,7 +85,8 @@ Mas de garenc
 Croix
 Coopérative
 Chemin des pins
-ST GEORGES-D'ORQUES Z.A Mijoulan
+ST GEORGES-D'ORQUES 
+Z.a Mijoulan
 Bel horizon
 Réservoir
 Dame Dorcas
@@ -91,12 +95,12 @@ Stade
 Jardins
 Le Saint Georges
 Gare
-Z.A Mijoulan
+Z.a Mijoulan
 Regnague
 JUVIGNAC Route de Saint Georges
 MONTPELLIER Station Mosson
 Lep Vinci
-Lycée J. Monnet
+Lycée J.Monnet
 
 - - - - - - - - 09:10 - - - - - - - 17:03 17:25
 
