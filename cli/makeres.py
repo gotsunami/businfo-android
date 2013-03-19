@@ -574,7 +574,7 @@ def init_networks(srcdir):
     for k, v in nets.iteritems():
         lines = glob.glob(os.path.join(srcdir, v['path'], '*.in'))
         if not lines:
-            print "[%s] Warning: missing .in line definitions" % k
+            print "[%s] Warning: missing line definitions (*.in)" % k
         else:
             nets[k]["lines"].extend(map(lambda x: os.path.basename(x), lines))
             print "[%s] Found %d lines" % (k, len(lines))
@@ -589,13 +589,16 @@ def htc_compile(srcdir):
     networks = init_networks(srcdir)
     # Compile every lines
     for net, data in networks.iteritems():
-        print "[%s] Compiling" % net,
+        if len(data["lines"]) == 0: continue
+        print "[%s] Compiling lines" % net
         for line in data["lines"]:
-            print line,
+            print "CC", line
             sys.stdout.flush()
             cmd = "./htc %s > raw/%s" % (os.path.join(srcdir, data["path"], line), 
                 re.sub('\.in$', '.txt', line))
-            subprocess.call(cmd, shell=True)
+            r = subprocess.call(cmd, shell=True)
+            if r != 0:
+                sys.exit(r)
         print
 
 def main():
