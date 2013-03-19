@@ -592,7 +592,7 @@ def htc_compile(srcdir):
         if len(data["lines"]) == 0: continue
         print "[%s] Compiling lines" % net
         for line in data["lines"]:
-            print "CC", line
+            print "LC", line
             sys.stdout.flush()
             cmd = "./htc %s > raw/%s" % (os.path.join(srcdir, data["path"], line), 
                 re.sub('\.in$', '.txt', line))
@@ -672,7 +672,7 @@ where action is one of:
         # Run the compiler to convert .in to .txt files
         # FIXME: replace 'src' with infile (move raw/ away)
         htc_compile('src')
-        sys.exit(2)
+        sys.exit(5)
 
         if options.prefilter:
             if not os.path.exists(g_prefilter):
