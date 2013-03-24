@@ -1,0 +1,115 @@
+Bus34
+Horaires des bus dans l'Hérault
+Tags: android, bus, transports
+
+Mathias Monnerville
+Software Engineer
+mathias@monnerville.com
+@droid_fotostop
+
+* État des lieux
+
+* Les réseaux de bus en France
+
+- 300+ réseaux de bus en France métropolitaine
+
+.link http://www.itransports.fr/fr/reseau
+
+- Seuls les réseaux des grandes villes proposent aux usagers plusieurs moyens de recherche: horaires PDF, moteurs de recherche etc.
+- La grande majorité des transporteurs ne propose que des fiches horaires au format PDF
+
+* Un format inadéquat
+
+* Les fiches horaires papier ou au format PDF
+
+- Peu pratiques 
+
+Il faut _planifier_ le déplacement, ne pas oublier de les _télécharger_ au préalable ou _se_déplacer_ pour aller chercher les fiches à l'office du tourisme ou chez le transporteur
+
+- Recherche fastidieuse
+
+Suivant le format de la fiche, variant selon le réseau, trouver la bonne information peut prendre plusieurs minutes
+
+- Peu transportables 
+
+Difficile d'avoir toutes les fiches sur soi en permanence !
+
+- Accessibilité réduite 
+
+Souvent peu lisibles du fait de la petite police utilisée. Les personnes âgées ou déficientes visuelles ont difficilement accès à l'information
+
+* La solution Bus34
+
+* Zone de couverture
+
+Application mobile gratuite pour Android couvrant les 3 réseaux de bus du département de l'Hérault:
+
+- Hérault Transport, 64 lignes régulières
+
+.link http://www.herault-transport.fr
+
+- Thau Agglo,  12 lignes régulières
+
+.link http://www.thau-agglo.fr
+
+- TAM, Transports Agglomération de Montpellier, 30 lignes régulières
+
+.link http://www.montpellier-agglo.com/tam
+
+* Quelques statistiques
+
+- Disponible sur le Google Play Store depuis janvier 2012
+
+.link https://play.google.com/store/apps/details?id=com.monnerville.transports.herault
+
+- Application gratuite
+
+- 1500 utilisateurs (sans publicité)
+
+- Fonctionne sur tous les périphériques Android depuis la version 1.6
+
+* Fonctionnalités
+
+* Consultation libre des horaires
+
+.image bus34-promote/ht-lines.png
+
+* Recherche multi-critères instantanée
+
+.image bus34-promote/home-search.png
+
+* Arrêts favoris avec horaires de passage
+
+.image bus34-promote/home-bookmarks.png
+
+* Résultats avec cartes Google maps
+
+.image bus34-promote/search-maps.png
+
+* Tous les horaires à un arrêt
+
+.image bus34-promote/allschedules.png
+
+* Mais aussi...
+
+- Disposer de l'ensemble des horaires des lignes régulières des réseaux au creux de la main, à tout moment
+- Des horaires accessibles en mode déconnecté, sans connexion Internet
+- Performances et confort d'utilisation optimaux, même en cas de faible couverture réseau
+- Meilleure accessibilité: horaires en gros caractères, possibilité de chercher avec la voix en énonçant un mot clef
+- Disponible en Français, Anglais et Espagnol
+
+* Pistes d'évolution
+
+* Monter en puissance
+
+- Business plan orienté *B2B*
+- Monter une structure juridique officielle (SARL)
+- Application qui reste gratuite pour les usagers
+
+Levée de fond pour 
+
+- Intégration dans l'application des 300+ réseaux de bus du territoire
+- Démarche commerciale pour prospecter les transporteurs
+- Diversification de la solution: iphone, Windows Mobile, plateforme site web avec espace pro...
+- Développement de nouvelles fonctionnalités (calcul d'itinéraires, information voyageur en temps réel, guidage GPS, synthèse vocale pour les déficients visuels)
+- API pro pour entreprises avec accès à la plateforme
