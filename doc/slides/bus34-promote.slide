@@ -1,5 +1,6 @@
 Bus34
 Horaires des bus dans l'Hérault
+24 Mar 2013
 Tags: android, bus, transports
 
 Mathias Monnerville
@@ -24,13 +25,13 @@ mathias@monnerville.com
 
 - Peu pratiques 
 
-Il faut _planifier_ le déplacement, ne pas oublier de les _télécharger_ au préalable ou _se_déplacer_ pour aller chercher les fiches à l'office du tourisme ou chez le transporteur
+Il faut planifier le déplacement, ne pas oublier de les télécharger au préalable ou se déplacer pour aller chercher les fiches à l'office du tourisme ou chez le transporteur
 
 - Recherche fastidieuse
 
 Suivant le format de la fiche, variant selon le réseau, trouver la bonne information peut prendre plusieurs minutes
 
-- Peu transportables 
+- Peu transportables
 
 Difficile d'avoir toutes les fiches sur soi en permanence !
 
@@ -40,9 +41,20 @@ Souvent peu lisibles du fait de la petite police utilisée. Les personnes âgée
 
 * La solution Bus34
 
+* Principes généraux de l'application
+
+- Gratuite
+- Liste des réseaux de bus extensible à volonté
+- Recherche instantanée d'un horaire
+- Interface unifiée et homogène facile à utiliser quelque soit le réseau de bus
+- Fonctions de géolocalisation avec détermination de l'itinéraire optimal
+- Information temps réel aux usagers
+- Accessible: utilisation simple, horaires en gros caractères, synthèse vocale
+- Sociale: participation de l'usager qui peut signaler à la communauté tout retard on incident sur une ligne
+
 * Zone de couverture
 
-Application mobile gratuite pour Android couvrant les 3 réseaux de bus du département de l'Hérault:
+Couverture des 3 réseaux de bus du département de l'Hérault:
 
 - Hérault Transport, 64 lignes régulières
 
@@ -62,11 +74,11 @@ Application mobile gratuite pour Android couvrant les 3 réseaux de bus du dépa
 
 .link https://play.google.com/store/apps/details?id=com.monnerville.transports.herault
 
-- Application gratuite
-
+- Fonctionne sur tous les périphériques Android depuis la version 1.6 (98% des mobiles)
 - 1500 utilisateurs (sans publicité)
+- Avis des utilisateurs
 
-- Fonctionne sur tous les périphériques Android depuis la version 1.6
+.image bus34-promote/comments.png
 
 * Fonctionnalités
 
@@ -98,7 +110,11 @@ Application mobile gratuite pour Android couvrant les 3 réseaux de bus du dépa
 - Meilleure accessibilité: horaires en gros caractères, possibilité de chercher avec la voix en énonçant un mot clef
 - Disponible en Français, Anglais et Espagnol
 
-* Pistes d'évolution
+* Évolutions envisagées
+
+* Objectif
+
+Devenir l'application sur terminaux mobiles de référence en France pour l'utilisation des réseaux de transports de bus.
 
 * Monter en puissance
 
