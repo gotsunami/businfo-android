@@ -10,7 +10,7 @@ Raw text is a copy of the PDF content using Acrobat Reader
 """
 
 import sys, re, types, os.path, glob, tempfile
-import hashlib, shutil
+import hashlib, shutil, os
 import json, subprocess
 from optparse import OptionParser
 #
@@ -46,6 +46,7 @@ CHUNK_PREFIX = 'htdb_chunk'
 CHUNK_SIZE = 64 * 1024
 # Networks definition file
 NETWORKS_FILE = 'src/networks.json'
+LCOMPILER = "htc" # Line compiler
 
 def get_cities_in_cache(cache_file):
     ccities = []
@@ -591,11 +592,14 @@ def htc_compile(srcdir):
     for net, data in networks.iteritems():
         if len(data["lines"]) == 0: continue
         print "[%s] Compiling lines" % net
+        destdir = os.path.join("raw", data["path"])
+        if not os.path.exists(destdir):
+            os.makedirs(destdir)
         for line in data["lines"]:
             print "LC", line
             sys.stdout.flush()
-            cmd = "./htc %s > raw/%s" % (os.path.join(srcdir, data["path"], line), 
-                re.sub('\.in$', '.txt', line))
+            cmd = "./%s %s > %s" % (LCOMPILER, os.path.join(srcdir, data["path"], line),
+                os.path.join(destdir, re.sub('\.in$', '.txt', line)))
             r = subprocess.call(cmd, shell=True)
             if r != 0:
                 sys.exit(r)
