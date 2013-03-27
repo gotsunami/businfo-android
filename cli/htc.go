@@ -10,6 +10,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path"
 	"regexp"
 	"sort"
 	"strconv"
@@ -397,7 +398,7 @@ func main() {
 	// Parsing header
 	header := make([]string, 0)
 	header = append(header, COMPILER_HEADER)
-	header = append(header, fmt.Sprintf("# Compile: htc %s\n", os.Args[1]))
+	header = append(header, fmt.Sprintf("# Compile: htc %s\n", path.Base(os.Args[1])))
 
 	kws := []string{"name", "circulation", "color", "from", "to"}
 	for _, line := range data {
