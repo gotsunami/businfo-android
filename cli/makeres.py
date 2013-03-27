@@ -154,27 +154,42 @@ def makeXML(busline, directions, outfile, linecolor):
     print "[%-15s] %-30s (Dir: %d, Cit: %2d, Stations: %2d, Stops: %2d)" % (busline, "Generated %s" % outfile, nbDirections, nbCities, nbStations, nbStops)
     if DEBUG: print directions
 
-def makeSQL(sources, out):
+def makeSQL(networks, sources, out):
+    """
+    Generates the SQL data. Networks is a dictionary of available bus networks, sources
+    is list of the .txt files (lines) to process.
+    """
     global dfltCirculationPolicy
     global db_city_count, db_line_count, db_station_count
     global g_cities
     db_city_count = db_line_count = db_station_count = 0
 
-    # FIXME: only Herault Transport supported (and hardcoded!) for now. Must add 
-    # a way to support any other network.
-    networks = (u'Hérault Transport',)
-    for n in range(len(networks)):
-        out.write("INSERT INTO network VALUES(%d, \"%s\");\n" % (n+1, networks[n].encode('latin-1')))
+    pathnet = {}
+    n = 0
+    for network, v in networks.iteritems():
+        # n+1 holds the network_id in the line table
+        pathnet[v['path']] = [network, n+1]
+        out.write("INSERT INTO network VALUES(%d, \"%s\");\n" % (n+1, network.encode('latin-1')))
+        n += 1
 
     cities = set()
     stations = set()
     lines = set()
     lines_stations = set()
     for src in sources:
+        # Compute network_id
+        network_id = 0
+        for p in pathnet.keys():
+            if src.find(p) > 0:
+                network_id = pathnet[p][1]
+                break
+        if network_id == 0:
+            raise ValueError, "wrong network_id 0"
+
         try:
             busline, directions, linecolor, dfltCirculationPolicy, from_date, to_date = parse(src)
             lines.add((busline, directions[0][-1]['city'], directions[1][-1]['city'], 
-                linecolor, dfltCirculationPolicy, from_date, to_date))
+                linecolor, dfltCirculationPolicy, from_date, to_date, network_id))
             k = 0
             for direct in directions:
                 rank = 1
@@ -233,10 +248,8 @@ def makeSQL(sources, out):
             print "Error: pk_from(%d) or pk_to(%d) id not found!" % (pk_from, pk_to)
             print "Line: " + str(line)
             sys.exit(1)
-        # FIXME: network_id is hardcoded (as 1) and only refers to the Herault Transport
-        # network for the moment.
         out.write("INSERT INTO line VALUES(%d, %d, \"%s\", \"%s\", \"%s\", %d, %d, \"%s\", \"%s\");\n" % (
-            pk, 1, line[0], line[3], line[4], pk_from, pk_to, line[5], line[6]))
+            pk, line[7], line[0], line[3], line[4], pk_from, pk_to, line[5], line[6]))
         db_line_count += 1
         pk += 1
 
@@ -584,7 +597,8 @@ def init_networks(srcdir):
 
 def htc_compile(srcdir):
     """
-    Runs the htc compiler on *.in bus lines definitions.
+    Runs the htc compiler on *.in bus lines definitions. Returns the list of
+    available bus networks.
     """
     # Find available networks
     networks = init_networks(srcdir)
@@ -603,8 +617,8 @@ def htc_compile(srcdir):
             r = subprocess.call(cmd, shell=True)
             if r != 0:
                 sys.exit(r)
-        print
 
+    return networks
 
 def apply_prefilter(prefilter, infile):
     """
@@ -643,9 +657,6 @@ def apply_prefilter(prefilter, infile):
             subs += 1
     print "%d entries" % subs
 
-    print sources
-    sys.exit(5)
-    # chroot
     return sources
 
 def main():
@@ -712,20 +723,23 @@ where action is one of:
 
     if os.path.isdir(infile):
         # Applies pre-filter before parsing any raw content
-        #FIXME prefilter_data = {}
-        #prefilter_matches = 0
         chksum = compute_db_checksum(infile)
         check_up_to_date(chksum)
         # Run the compiler to convert .in to .txt files
         # FIXME: replace 'src' with infile (move raw/ away)
-        htc_compile("src")
+        networks = htc_compile("src")
+
+        # sources are used to generate the database information. They can be altered with
+        # the prefilter option which acts like a preprocessing hook.
+        sources = []
+        for root, dirs, files in os.walk(infile):
+            linedefs = glob.glob(os.path.join(root, "*.txt"))
+            if len(linedefs) == 0: continue
+            sources.extend(linedefs)
 
         if options.prefilter:
-            # chroot
-            infile = apply_prefilter(g_prefilter, infile)
+            sources = apply_prefilter(g_prefilter, infile)
 
-        sources = glob.glob(os.path.join(infile, '*.txt'))
-        sources.sort()
         if action == 'sqlite':
             # Grouping all INSERTs in a single transaction really 
             # speeds up the whole thing
@@ -735,7 +749,7 @@ where action is one of:
             out = open(outname, 'w')
             out.write("BEGIN TRANSACTION;\n")
             out.write(DBSTRUCT)
-            makeSQL(sources, out)
+            makeSQL(networks, sources, out)
             out.write("END TRANSACTION;\n")
             out.close()
             print "done."
@@ -839,7 +853,7 @@ where action is one of:
             out = open(outname, 'w')
             out.write("SET autocommit=0;\nBEGIN;\n")
             out.write(DBSTRUCT)
-            makeSQL(sources, out)
+            makeSQL(networks, sources, out)
             out.write("COMMIT;\n")
             out.write("SET autocommit=1;\n")
             out.close()
