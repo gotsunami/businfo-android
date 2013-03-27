@@ -45,7 +45,7 @@ CHUNK_DB_FILE = 'htdb-chunks.xml'
 CHUNK_PREFIX = 'htdb_chunk'
 CHUNK_SIZE = 64 * 1024
 # Networks definition file
-NETWORKS_FILE = 'src/networks.json'
+NETWORKS_FILE = 'networks.json'
 LCOMPILER = "htc" # Line compiler
 
 def get_cities_in_cache(cache_file):
@@ -169,7 +169,7 @@ def makeSQL(networks, sources, out):
     for network, v in networks.iteritems():
         # n+1 holds the network_id in the line table
         pathnet[v['path']] = [network, n+1]
-        out.write("INSERT INTO network VALUES(%d, \"%s\");\n" % (n+1, network.encode('latin-1')))
+        out.write("INSERT INTO network VALUES(%d, \"%s\");\n" % (n+1, network.encode('utf-8')))
         n += 1
 
     cities = set()
@@ -579,10 +579,11 @@ def init_networks(srcdir):
     by hand.
     Returns a dictionnary of available networks.
     """
-    if not os.path.isfile(NETWORKS_FILE):
-        raise ValueError, "networks.json not found in src directory."
+    netfile = os.path.join(module_path(), srcdir, NETWORKS_FILE)
+    if not os.path.isfile(netfile):
+        raise ValueError, "%s not found in %s (CWD is %s)" % (netfile, srcdir, os.getcwd())
 
-    with open(NETWORKS_FILE) as f:
+    with open(netfile) as f:
         nets = '\n'.join(f.readlines())
         nets = json.loads(nets)
         f.close()
@@ -591,12 +592,12 @@ def init_networks(srcdir):
         nets[net]["lines"] = [] 
 
     for k, v in nets.iteritems():
-        lines = glob.glob(os.path.join(srcdir, v['path'], '*.in'))
+        lines = glob.glob(os.path.join(module_path(), srcdir, v['path'], '*.in'))
         if not lines:
             print "[%s] Warning: missing line definitions (*.in)" % k
         else:
             nets[k]["lines"].extend(map(lambda x: os.path.basename(x), lines))
-            print "[%s] Found %d lines" % (k, len(lines))
+            print "[%s] Found %d lines" % (unicode(k).encode('utf-8'), len(lines))
 
     return nets
 
@@ -607,17 +608,18 @@ def htc_compile(srcdir):
     """
     # Find available networks
     networks = init_networks(srcdir)
+    htc = os.path.join(module_path(), LCOMPILER)
     # Compile every lines
     for net, data in networks.iteritems():
         if len(data["lines"]) == 0: continue
-        print "[%s] Compiling lines" % net
-        destdir = os.path.join("raw", data["path"])
+        print "[%s] Compiling lines" % unicode(net).encode('utf-8')
+        destdir = os.path.join(module_path(), "raw", data["path"])
         if not os.path.exists(destdir):
             os.makedirs(destdir)
         for line in data["lines"]:
             print "LC", line
             sys.stdout.flush()
-            cmd = "./%s %s > %s" % (LCOMPILER, os.path.join(srcdir, data["path"], line),
+            cmd = "%s %s > %s" % (htc, os.path.join(module_path(), srcdir, data["path"], line),
                 os.path.join(destdir, re.sub('\.in$', '.txt', line)))
             r = subprocess.call(cmd, shell=True)
             if r != 0:
@@ -663,6 +665,10 @@ def apply_prefilter(prefilter, infile):
     print "%d entries" % subs
 
     return sources
+
+def module_path():
+    encoding = sys.getfilesystemencoding()
+    return os.path.dirname(unicode(__file__, encoding))
 
 def main():
     global DEBUG
@@ -789,8 +795,6 @@ where action is one of:
                 out.write(XML_HEADER)
                 print "[%-18s] making checksum file..." % chkname,
                 sys.stdout.flush()
-                if options.prefilter:
-                    infile = filter_dir
                 out.write("""
 <resources>
   <string name="dbchecksum">%s</string>
