@@ -472,7 +472,7 @@ def get_md5(filename):
 def compute_db_checksum(srcdir):
     """
     Checksum of the database is performed using a global checksum of 
-    all the raw/*.txt file, the DBSTRUCT content and the filter.map 
+    all the raw/*/*.in file, the DBSTRUCT content and the filter.map 
     entries. 
     
     It's supposed to be a portable solution between different Python 
@@ -482,10 +482,15 @@ def compute_db_checksum(srcdir):
     to be better to operate directly on source files.
 
     Furthermore, the computed checksum is used to check if database 
-    rebuilding is needed by the building system.
+    rebuilding is needed by the build system.
     """
-    sources = glob.glob(os.path.join(srcdir, '*.txt'))
+    sources = []
+    for root, dirs, files in os.walk(srcdir):
+        linedefs = glob.glob(os.path.join(root, "*.txt"))
+        if len(linedefs) == 0: continue
+        sources.extend(linedefs)
     sources.sort()
+
     final = hashlib.md5()
     final.update(DBSTRUCT)
     final.update(get_md5(os.path.join(sys.path[0], 'filter.map')))
