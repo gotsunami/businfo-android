@@ -605,6 +605,49 @@ def htc_compile(srcdir):
                 sys.exit(r)
         print
 
+
+def apply_prefilter(prefilter, infile):
+    """
+    Apply any substitutions by using regexps defined in the prefilter
+    file.
+    """
+    if not os.path.exists(prefilter):
+        raise ValueError, "pre filter not a file"
+    filter_dir = os.path.join(TMP_DIR, 'pre-filter')
+    # Clean up target
+    if not os.path.exists(filter_dir):
+        os.mkdir(filter_dir)
+    shutil.rmtree(filter_dir)
+    shutil.copytree(infile, filter_dir)
+
+    import string
+    subs = 0
+    pf = open(prefilter)
+    filters = pf.readlines()
+    pf.close()
+    sources = []
+    for root, dirs, files in os.walk(filter_dir):
+        linedefs = glob.glob(os.path.join(root, "*.txt"))
+        if len(linedefs) == 0: continue
+        sources.extend(linedefs)
+        print "[%-18s] applying %s to %s ..." % ('pre-filter', prefilter, root),
+        sys.stdout.flush()
+        for pmap in filters:
+            pmap = pmap.replace('\n', '')
+            if pmap.strip().startswith('#') or len(pmap.strip()) == 0:
+                continue
+            # Old entry, new entry
+            oe, ne = pmap.split(';')
+            cmd = "sed -i \"s,%s,%s,gI\" %s" % (oe, ne, os.path.join(root, '*.txt'))
+            subprocess.call(cmd, shell=True)
+            subs += 1
+    print "%d entries" % subs
+
+    print sources
+    sys.exit(5)
+    # chroot
+    return sources
+
 def main():
     global DEBUG
     global g_prefilter, GPS_CACHE_FILE, DBSTRUCT
@@ -669,40 +712,17 @@ where action is one of:
 
     if os.path.isdir(infile):
         # Applies pre-filter before parsing any raw content
-        prefilter_data = {}
-        prefilter_matches = 0
+        #FIXME prefilter_data = {}
+        #prefilter_matches = 0
         chksum = compute_db_checksum(infile)
         check_up_to_date(chksum)
         # Run the compiler to convert .in to .txt files
         # FIXME: replace 'src' with infile (move raw/ away)
-        htc_compile('src')
-        sys.exit(5)
+        htc_compile("src")
 
         if options.prefilter:
-            if not os.path.exists(g_prefilter):
-                raise ValueError, "pre filter not a file"
-            filter_dir = os.path.join(TMP_DIR, 'pre-filter')
-            # Clean up target
-            if not os.path.exists(filter_dir):
-                os.mkdir(filter_dir)
-            shutil.rmtree(filter_dir)
-            shutil.copytree(infile, filter_dir)
-            infile = filter_dir
-            # TODO: check map format (old_name=new_name)
-            import string
-            subs = 0
-            print "[%-18s] applying filter %s..." % ('pre-filter', g_prefilter),
-            sys.stdout.flush()
-            for pmap in open(g_prefilter):
-                if pmap.strip().startswith('#') or len(pmap.strip()) == 0:
-                    continue
-                # Old entry, new entry
-                oe, ne = pmap.split(';')
-                ne = ne.replace('\n', '')
-                cmd = "sed -i \"s,%s,%s,gI\" %s" % (oe, ne, os.path.join(filter_dir, '*.txt'))
-                subprocess.call(cmd, shell=True)
-                subs += 1
-            print " %d entries" % subs
+            # chroot
+            infile = apply_prefilter(g_prefilter, infile)
 
         sources = glob.glob(os.path.join(infile, '*.txt'))
         sources.sort()
