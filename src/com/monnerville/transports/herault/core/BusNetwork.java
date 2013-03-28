@@ -7,4 +7,5 @@ package com.monnerville.transports.herault.core;
 public interface BusNetwork {
     public int getColor();
     public String getName();
+    public int getLineCount();
 }

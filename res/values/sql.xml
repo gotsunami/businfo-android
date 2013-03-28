@@ -18,6 +18,10 @@ OR id=(SELECT to_city_id FROM line WHERE line.name=?)
 SELECT name FROM network
 WHERE id = (SELECT network_id FROM line WHERE line.name=?)
 "</string>
+	<string name="query_linecount_from_network">"
+SELECT COUNT(l.id) FROM line AS l, network AS n 
+WHERE l.network_id=n.id AND n.name=?
+"</string>
 	<string name="query_getallnetworks">"
 SELECT name FROM network
 ORDER BY name
