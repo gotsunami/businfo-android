@@ -169,7 +169,7 @@ def makeSQL(networks, sources, out):
     for network, v in networks.iteritems():
         # n+1 holds the network_id in the line table
         pathnet[v['path']] = [network, n+1]
-        out.write("INSERT INTO network VALUES(%d, \"%s\");\n" % (n+1, network.encode('utf-8')))
+        out.write("INSERT INTO network VALUES(%d, \"%s\", \"%s\");\n" % (n+1, network.encode('utf-8'), v['color'].encode('utf-8')))
         n += 1
 
     cities = set()

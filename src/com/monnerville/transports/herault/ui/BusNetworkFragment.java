@@ -6,6 +6,10 @@ package com.monnerville.transports.herault.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -73,6 +77,8 @@ public class BusNetworkFragment extends ListFragment {
 
             TextView linecol = (TextView)itemView.findViewById(R.id.line_color);
             linecol.setBackgroundResource(R.drawable.busline_bkg);
+            GradientDrawable bgShape = (GradientDrawable)linecol.getBackground();
+            bgShape.setColor(Color.parseColor(net.getColor()));
 
             return itemView;
         }

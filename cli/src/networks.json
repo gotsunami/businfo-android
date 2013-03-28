@@ -1,11 +1,14 @@
 {
     "Hérault Transport": {
-        "path": "34/heraultTransport/"
+        "path": "34/heraultTransport/",
+        "color": "#e4571c"
     },
     "Thau Agglo": {
-        "path": "34/thauagglo/"
+        "path": "34/thauagglo/",
+        "color": "#ffe50c"
     },
     "TAM": {
-        "path": "34/tam/"
+        "path": "34/tam/",
+        "color": "#10228b"
     }
 }

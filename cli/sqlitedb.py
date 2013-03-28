@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS network;
 CREATE TABLE network (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
     name TEXT, 
+    color TEXT, 
     UNIQUE(name)
 );
 

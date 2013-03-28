@@ -22,6 +22,10 @@ WHERE id = (SELECT network_id FROM line WHERE line.name=?)
 SELECT COUNT(l.id) FROM line AS l, network AS n 
 WHERE l.network_id=n.id AND n.name=?
 "</string>
+	<string name="query_color_from_network">"
+SELECT color FROM network
+WHERE name=?
+"</string>
 	<string name="query_getallnetworks">"
 SELECT name FROM network
 ORDER BY name
