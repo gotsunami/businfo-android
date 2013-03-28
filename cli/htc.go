@@ -61,6 +61,7 @@ type citySpot struct {
 
 var cities []citySpot
 var cur_city = ""
+var dflt_circulation_pat = ""
 
 // Looks for and element in a slice
 func found(val string, a []string) bool {
@@ -296,6 +297,20 @@ func handle_direction(data []string) {
 		}
 	}
 
+	// Use default circulation pattern if days= is empty
+	if len(days) == 0 {
+		max := 0
+		for _, scline := range scheds {
+			scline_s := strings.Split(scline, SEP)
+			if len(scline_s) > max {
+				max = len(scline_s)
+			}
+		}
+		for k := 0; k < max; k++ {
+			days = append(days, dflt_circulation_pat)
+		}
+	}
+
 	for j, scline := range scheds {
 		scline_s := strings.Split(scline, SEP)
 		k := 0
@@ -412,6 +427,9 @@ func main() {
 		for _, kw := range kws {
 			if strings.Index(line, kw+"=") == 0 {
 				header = append(header, line)
+				if kw == "circulation" {
+					dflt_circulation_pat = line[len(kw)+1:]
+				}
 				break
 			}
 		}
