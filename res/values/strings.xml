@@ -136,11 +136,11 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-Hérault transport: Mise à jour des horaires des lignes suivantes :
+Hérault transport: updated schedules for the following lines:
 - 106 (Montpellier - Aigues Mortes)
 - 112 (Sommières - Castelnau-le-Lez)
 - 115 (Montpellier- Quissac)
 - 117 Vailhauques (Montpellier - Vailhauquès)
-- Correction d\'un bug de parsing horaire (uniquement ligne ht/106 impactée)
+- Fix schedule parsing bug (only line ht/106 affected)
 "</string>
 </resources>
