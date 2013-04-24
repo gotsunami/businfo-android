@@ -25,6 +25,7 @@ func TestGetDays(t *testing.T) {
 		"DF":               {"7,r"},
 		"SaDF":             {"6,7,r"},
 		"Me/Sa":            {"3,6"},
+		"L à DF":           {"1-7,r"},
 		// FIXME        "L/Ma/V Di":           {"1,2,5", "7"},
 	}
 

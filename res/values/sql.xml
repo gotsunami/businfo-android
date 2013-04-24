@@ -35,9 +35,10 @@ WHERE l.network_id=n.id AND n.name=?
 SELECT color FROM network
 WHERE name=?
 "</string>
+    <!-- FIXME for serveral networks -->
 	<string name="query_getallnetworks">"
 SELECT name FROM network
-ORDER BY name
+ORDER BY name LIMIT 1
 "</string>
 <!-- Parameters are not allowed in views -->
 	<string name="query_getcities_from_line_create_view">"
