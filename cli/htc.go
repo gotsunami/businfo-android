@@ -48,6 +48,7 @@ var (
 		"F":  "r", // rest days
 		"à":  "-",
 		"/":  ",",
+		"DF": "7,r",
 	}
 
 	// Bus line features mapping
