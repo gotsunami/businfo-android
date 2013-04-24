@@ -61,22 +61,20 @@ public class SQLBusManager implements BusManager {
 
     /**
      * Wrapper
-     * @param network bus network name
      */
     @Override
-    public List<BusLine> getBusLines(String network) {
-        return mDB.getBusLines(network);
+    public List<BusLine> getBusLines() {
+        return mDB.getBusLines();
     }
 
     /**
      * Gets a single bus line by name
      * @param name name of bus line
-     * @param network bus network name
      * @return a BusLine instance or null if not found
      */
     @Override
-    public BusLine getBusLine(String network, String name) {
-        return mDB.getMatchingLines(network, name).get(0);
+    public BusLine getBusLine(String name) {
+        return mDB.getMatchingLines(name).get(0);
     }
 
     /**

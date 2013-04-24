@@ -33,7 +33,7 @@ public class XMLQueryManager implements QueryManager {
     public List<City> findCities(String query, boolean strict) {
         // Can be really slow
         List<City> rcities = new ArrayList<City>();
-        List<BusLine> lines = mBusManager.getBusLines("NETWORK");
+        List<BusLine> lines = mBusManager.getBusLines();
         for (BusLine line : lines) {
             String[] dirs = line.getDirections();
             for (String direction : dirs) {
@@ -53,7 +53,7 @@ public class XMLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<BusLine> findMatchingLines(String network, String query) {
+    public List<BusLine> findMatchingLines(String query) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

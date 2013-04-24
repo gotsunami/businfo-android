@@ -70,7 +70,6 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
     private boolean mShowToast;
     private boolean mCanFinish = false;
     private ListView mList;
-    private String mNetworkName;
 
     private final int DEFAULT_MAP_ZOOM = 13;
     private QueryManager mFinder = SQLQueryManager.getInstance();
@@ -100,7 +99,6 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             mLine = bun.getString("line");
             mDirection = bun.getString("direction");
             mShowToast = bun.getBoolean("showToast");
-            mNetworkName = bun.getString("network");
         }
         else
             finish();
@@ -117,7 +115,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         final BusManager manager = SQLBusManager.getInstance();
-        BusLine line = manager.getBusLine(mNetworkName, mLine);
+        BusLine line = manager.getBusLine(mLine);
 
         TextView lineIcon = (TextView)findViewById(R.id.line_icon);
         if (Application.OSBeforeHoneyComb()) {
