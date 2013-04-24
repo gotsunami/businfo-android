@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.2</b> - 24/04/2013:\n
+  - Hérault Transport: horarios actualizados por la línea 106 (Montpellier - Aigues Mortes)\n
+  - Corrección de la aplicación con los horarios\n\n
 <b>1.0.1</b> - 13/03/2013:\n
   - Corrección de la aplicación cuando buscando.\n\n
 <b>1.0</b> - 13/03/2013:\n

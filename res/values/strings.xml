@@ -136,6 +136,7 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-Fix application crash on search page when no matching line.
+- Hérault transport: updated schedules of line 106 (Montpellier - Aigues Mortes)
+- Fix schedule parsing bug (only line ht/106 affected)
 "</string>
 </resources>
