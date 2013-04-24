@@ -8,7 +8,11 @@
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
 <b>1.0.2</b> - 2013-04-24:\n
-  - Hérault transport: updated schedules of line 106 (Montpellier - Aigues Mortes)\n
+  Hérault transport: updated schedules for the following lines:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 112 (Sommières - Castelnau-le-Lez)\n
+  - 115 (Montpellier- Quissac)\n
+  - 117 Vailhauques (Montpellier - Vailhauquès)\n
   - Fix schedule parsing bug (only line ht/106 affected)\n\n
 <b>1.0.1</b> - 2013-03-13:\n
   - Fix application crash on search page when no matching line\n\n

@@ -140,7 +140,11 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-- Hérault Transport: horarios actualizados por la línea 106 (Montpellier - Aigues Mortes)
+Hérault transport: horarios actualizados por las líneas siguientes:
+- 106 (Montpellier - Aigues Mortes)
+- 112 (Sommières - Castelnau-le-Lez)
+- 115 (Montpellier- Quissac)
+- 117 Vailhauques (Montpellier - Vailhauquès)
 - Corrección de la aplicación con los horarios
 "</string>
 </resources>
