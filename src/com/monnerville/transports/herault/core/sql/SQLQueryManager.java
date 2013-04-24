@@ -70,8 +70,8 @@ public class SQLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<BusLine> findMatchingLines(String query) {
-        return ((HTDatabase)mManager.getDB()).getMatchingLines(query);
+    public List<BusLine> findMatchingLines(String network, String query) {
+        return ((HTDatabase)mManager.getDB()).getMatchingLines(network, query);
     }
 
     @Override

@@ -7,13 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.widget.ListView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,18 +21,17 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     // Cached directions for all available lines
@@ -46,6 +42,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      * Used by onResume and updateBookmarks to ensure database is ready
      */
     private boolean mDBReady;
+    private String mNetworkName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +85,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
         mDirections = new ArrayList<List<String>>();
 
-        List<BusLine> lines = mManager.getBusLines();
+        mNetworkName = "Hérault Transport";
+        List<BusLine> lines = mManager.getBusLines(mNetworkName);
 
         // Background line directions retreiver
         new DirectionsRetreiverTask().execute(lines);
@@ -285,6 +283,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                 Intent intent = new Intent(ctx, BusLineActivity.class);
                 intent.putExtra("line", line.getName());
                 intent.putExtra("direction", directions[item]);
+                intent.putExtra("network", line.getBusNetworkName());
                 ctx.startActivity(intent);
             }
         });
@@ -297,7 +296,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
         @Override
         protected int getMatches(String caption) {
-            return mManager.getBusLines().size();
+            return mManager.getBusLines(mNetworkName).size();
         }
     };
 

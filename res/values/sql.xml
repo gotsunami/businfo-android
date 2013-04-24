@@ -18,6 +18,15 @@ OR id=(SELECT to_city_id FROM line WHERE line.name=?)
 SELECT name FROM network
 WHERE id = (SELECT network_id FROM line WHERE line.name=?)
 "</string>
+	<string name="query_lines_from_network">"
+SELECT name FROM network
+WHERE id = (SELECT network_id FROM line WHERE line.name=?)
+SELECT l.name, l.color, l.dflt_circpat, l.from_date, l.to_date FROM line AS l, network AS n
+WHERE l.name LIKE ? 
+AND l.network_id=n.id 
+AND n.name=?
+ORDER BY l.name
+"</string>
 	<string name="query_linecount_from_network">"
 SELECT COUNT(l.id) FROM line AS l, network AS n 
 WHERE l.network_id=n.id AND n.name=?
