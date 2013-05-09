@@ -318,6 +318,7 @@ func handle_direction(data []string) {
 		if len(days) < len(scline_s) {
 			fmt.Println("Error: less days than schedules!")
 			fmt.Println("days=", len(days), days)
+			fmt.Println("scheds=", len(scline_s), scline_s)
 			fail(fmt.Sprintf("schedule %d: %d < %d", j+1, len(days), len(scline_s)))
 		}
 		for _, sc := range scline_s {
