@@ -134,9 +134,9 @@
     <string name="release_notes_content">"
 Hérault transport: Mise à jour des horaires des lignes suivantes :
 - 106 (Montpellier - Aigues Mortes)
-- 112 (Sommières - Castelnau-le-Lez)
-- 115 (Montpellier- Quissac)
-- 117 Vailhauques (Montpellier - Vailhauquès)
-- Correction d\'un bug de parsing horaire (uniquement ligne ht/106 impactée)
+- 108 (Montpellier - Ganges)
+- 131 (Pérols - Palavas Les Flots)
+- 302 (Montpellier - Clermont l\'Hérault)
+- 307 (Clermont l\'Hérault - Plaissan)
 "</string>
 </resources>

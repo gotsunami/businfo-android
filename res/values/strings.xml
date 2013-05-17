@@ -138,9 +138,9 @@
     <string name="release_notes_content">"
 Hérault transport: updated schedules for the following lines:
 - 106 (Montpellier - Aigues Mortes)
-- 112 (Sommières - Castelnau-le-Lez)
-- 115 (Montpellier- Quissac)
-- 117 Vailhauques (Montpellier - Vailhauquès)
-- Fix schedule parsing bug (only line ht/106 affected)
+- 108 (Montpellier - Ganges)
+- 131 (Pérols - Palavas Les Flots)
+- 302 (Montpellier - Clermont l\'Hérault)
+- 307 (Clermont l\'Hérault - Plaissan)
 "</string>
 </resources>

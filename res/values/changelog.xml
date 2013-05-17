@@ -4,9 +4,16 @@
 	<!-- Application credits -->
     <string name="app_name">Bus34</string>
     <string name="short_app_name">Bus34</string>
-    <string name="app_version">1.0.2</string>
+    <string name="app_version">1.0.3</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>1.0.3</b> - 2013-05-16:\n
+  Hérault transport: updated schedules for the following lines:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 108 (Montpellier - Ganges)\n
+  - 131 (Pérols - Palavas Les Flots)\n
+  - 302 (Montpellier - Clermont l\'Hérault)\n
+  - 307 (Clermont l\'Hérault - Plaissan)\n\n
 <b>1.0.2</b> - 2013-04-24:\n
   Hérault transport: updated schedules for the following lines:\n
   - 106 (Montpellier - Aigues Mortes)\n
