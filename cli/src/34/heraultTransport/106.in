@@ -10,7 +10,7 @@
 name=106
 circulation=1-6
 from=2013-05-08
-to=2013-07-05
+#to=2013-07-05 FIXME
 color=#3399CC
 
 direction=
@@ -19,8 +19,8 @@ days=LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV 
 p=0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 SCO SCO 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 c=MONTPELLIER Station Place de France
-LATTES Lycée Champollion
-CARNON Civadière/Mairie
+Lycée Champollion
+CARNON Civadière/Mairie annexe
 Embruns/Avranche
 Château d'eau/Petit Travers
 LA GRANDE-MOTTE Grand Travers
@@ -78,23 +78,23 @@ days=LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV LàV 
 p=SCO 0 0 SCO SCO 0 0 0 0 0 0 0 0 0 0 0 SCO
 
 c=AIGUES-MORTES Mistral
-LE GRAU DU ROI Ecoles
+LE GRAU-DU-ROI Ecoles
 Héliomarin
 LA GRANDE-MOTTE Ponant/Tennis
 Grand bleu/Rue St Louis/Jardin du ponant
-Goéland
+Goélands
 Gendarmerie
 Cyclades
-Poste/Port/Pyramide
+Poste/Port/Grande pyramide
 Camping/De Lattre de Tassigny
 Petite Motte/Couchant/Bougainville
 Grand Travers
 CARNON Petit Travers/Château d'eau/Avranche
-Mairie/Civadière
-LATTES Lycée Champollion
+Mairie annexe/Civadière
+LATTES Lycée Champollion RD 189
 MONTPELLIER Station Place de France
 
-06:15 - 06:35 - - 06:55 07:20 - - - - - - 12:45 18:10 06:35 - 07:20 - - - - - 12:45 - - - - - - - - - - - - - - - - 18:10
+06:15 - 06:35 - - 06:55 07:20 - - - - - - 12:45 - - - - - - 18:10 - 06:35 - 07:20 - - - - - 12:45 - - - - - - - - - - - - - - - 18:10
 
 06:30 - 06:43 - - 07:10 07:28 - - - 10:35 - - 12:53 13:55 - - - - - 18:18 - 06:43 07:10 07:28 - - 10:35 - - 12:53 13:55 - - - - - - - - - - 17:25 - - - 18:18
 
