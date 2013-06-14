@@ -4,7 +4,7 @@
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
          Version Control Systems. -->
-    <loadproperties srcFile="local.properties" />
+    <property file="local.properties" />
 
     <!-- The ant.properties file can be created by you. It is only edited by the
          'android' tool to add properties to it.
@@ -28,6 +28,15 @@
          -->
     <property file="ant.properties" />
 
+    <!-- if sdk.dir was not set from one of the property file, then
+         get it from the ANDROID_HOME env var.
+         This must be done before we load project.properties since
+         the proguard config can use sdk.dir -->
+    <property environment="env" />
+    <condition property="sdk.dir" value="${env.ANDROID_HOME}">
+        <isset property="env.ANDROID_HOME" />
+    </condition>
+
     <!-- The project.properties file is created and updated by the 'android'
          tool, as well as ADT.
 
@@ -41,92 +50,23 @@
 
     <!-- quick check on sdk.dir -->
     <fail
-            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project'"
+            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through the ANDROID_HOME environment variable."
             unless="sdk.dir"
     />
 
-    <exec executable="tools/makerev.sh"/>
-    <target name="-create-database">
-        <!-- Generating SQL content -->
-        <echo message="Generating SQL database" />
-        <exec failonerror="true" executable="./cli/makeres.py">
-            <arg value="sqlite" />
-            <arg value="cli/raw" />
-            <arg value="--android" />
-            <arg line="--db-compare-with res/values/dbversion.xml" />
-            <arg value="--gps" />
-            <arg line="--gps-cache cli/gps.csv" />
-            <arg line="--pre-filter cli/filter.map" />
-        </exec>
-        <copy todir="res/xml/">
-            <fileset dir="/tmp">
-                <include name="**/htdb_chunk*.xml"/>
-            </fileset>
-        </copy>
-        <copy file="/tmp/dbstats.xml" tofile="res/values/dbstats.xml"/>
-        <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
-    </target>
-
-    <!-- Custom user gmaps api keys 
-            A $KEYFILE file holding both gmaps api keys (for debug and release) 
-            must exists in order for the build to complete successfully. This is 
-            a 2 lines file of the form:
-
-            gmaps.key.debug=key1
-            gmaps.key.release=key2
+    <!--
+        Import per project custom build rules if present at the root of the project.
+        This is the place to put custom intermediary targets such as:
+            -pre-build
+            -pre-compile
+            -post-compile (This is typically used for code obfuscation.
+                           Compiled code location: ${out.classes.absolute.dir}
+                           If this is not done in place, override ${out.dex.input.absolute.dir})
+            -post-package
+            -post-build
+            -pre-clean
     -->
-    <loadproperties srcFile="gmaps.properties" />
-    <target name="-gmaps-keysetup">
-        <condition property="gmaps.key" value="${gmaps.key.debug}" else="${gmaps.key.release}">
-            <equals arg1="${build.target}" arg2="debug"/>
-        </condition>
-        <echo message="Setting up the ${build.target} GMaps key"/>
-        <exec failonerror="true" executable="./tools/gmapskey.sh">
-            <arg value="${gmaps.key}" />
-        </exec>
-    </target>
-
-	<target name="api">
-		<javadoc 
-			classpath="${sdk.dir}/platforms/android-2.1/android.jar" 
-			destdir="api" 
-			sourcepath="src" 
-			packagenames="com.monnerville.transports.herault.*" 
-			author="true" 
-            stylesheetfile="android.css"
-			version="true" />
-	</target>
-
-    <target name="dist" depends="clean,release">
-        <echo message="Getting application version"/>
-        <exec failonerror="true" executable="./tools/getrev.sh" outputproperty="app.version"/>
-        <property name="release.signed" value="${ant.project.name}-${app.version}-signed.apk"/>
-        <copy file="bin/${ant.project.name}-release.apk" tofile="bin/${release.signed}"/>
-    </target>
-
-    <target name="nbdebug" depends="debug,install" />
-    <target name="-pre-build" depends="-gmaps-keysetup,-create-database" />
-    <target name="-pre-clean">
-        <exec failonerror="true" executable="make">
-            <arg line="-C cli" />
-            <arg value="clean" />
-        </exec>
-    </target>
-
-<!-- extension targets. Uncomment the ones where you want to do custom work
-     in between standard targets -->
-<!--
-    <target name="-pre-build">
-    </target>
-    <target name="-pre-compile">
-    </target>
-
-    /* This is typically used for code obfuscation.
-       Compiled code location: ${out.classes.absolute.dir}
-       If this is not done in place, override ${out.dex.input.absolute.dir} */
-    <target name="-post-compile">
-    </target>
--->
+    <import file="custom_rules.xml" optional="true" />
 
     <!-- Import the actual build file.
 
@@ -146,7 +86,7 @@
          In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
          in order to avoid having your file be overridden by tools such as "android update project"
     -->
-    <!-- version-tag: custom -->
+    <!-- version-tag: 1 -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
 
 </project>
