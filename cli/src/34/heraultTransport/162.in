@@ -1,0 +1,52 @@
+# Line 162
+# updated: 2013-06-25
+#
+# warning: replace L. de Tassigny with Lattre de Tassigny
+# compile with: htc 162.in
+
+name=162
+from=2013-07-01
+#to=2013-08-31
+circulation=1-7
+color=#33FFCC
+
+direction=
+
+days=LàD LàD LàD LàD
+p=
+
+c=LUNEL Gare SNCF
+République
+LA GRANDE MOTTE
+Port/Grande Pyramide
+Camping/De Lattre de Tassigny/La Petite Motte
+Couchant/Bougainville
+Le Grand Travers
+
+09:25 11:10 13:05 14:10
+09:30 11:15 13:10 14:15
+09:50 11:35 13:35 14:40
+09:51 11:36 13:36 14:41
+09:55 11:40 13:40 14:45
+10:00 11:45 13:45 14:50
+
+direction=
+
+days=LàD LàD LàD LàD
+p=
+
+c=LA GRANDE MOTTE
+Le Grand Travers
+Bougainville/Couchant
+La Petite Motte/De Lattre de Tassigny/Camping
+Grande Pyramide/Port
+LUNEL
+République
+Gare SNCF
+
+12:05 17:00 18:15 19:35
+12:08 17:03 18:18 19:38
+12:12 17:07 18:22 19:42
+12:13 17:08 18:23 19:43
+12:25 17:40 18:55 20:00
+12:30 17:45 19:00 20:05
