@@ -1,7 +1,0 @@
-
-
-The SQL database by compiling bus line schedules for all supported networks
-and is generated with the following commands:
-
-make clean
-make

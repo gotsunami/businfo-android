@@ -1,8 +1,0 @@
-Those files are raw values taken from original PDF datasheets from herault transport, MANUALLY 
-converted and formatted to a CSV-like format.
-
-legend:
-
-s: school days only
-S: non school days only (holidays only)
-r: rest days (jours feries)
