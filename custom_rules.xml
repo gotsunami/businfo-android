@@ -4,14 +4,14 @@
     <target name="-create-database">
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
-        <exec failonerror="true" executable="./cli/makeres.py">
+        <exec failonerror="true" executable="${lines.dir}/makeres.py">
             <arg value="sqlite" />
-            <arg value="cli/raw" />
+            <arg value="${lines.dir}/raw" />
             <arg value="--android" />
             <arg line="--db-compare-with res/values/dbversion.xml" />
             <arg value="--gps" />
-            <arg line="--gps-cache cli/gps.csv" />
-            <arg line="--pre-filter cli/filter.map" />
+            <arg line="--gps-cache ${lines.dir}/gps.csv" />
+            <arg line="--pre-filter ${lines.dir}/filter.map" />
         </exec>
         <copy todir="res/xml/">
             <fileset dir="/tmp">
@@ -63,7 +63,7 @@
     <target name="-pre-build" depends="-gmaps-keysetup,-create-database" />
     <target name="-pre-clean">
         <exec failonerror="true" executable="make">
-            <arg line="-C cli" />
+            <arg line="-C ${lines.dir}" />
             <arg value="clean" />
         </exec>
     </target>
