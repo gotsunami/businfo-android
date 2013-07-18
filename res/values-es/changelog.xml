@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.5</b> - 16/07/2013:\n
+  Bus34 will have a paid version very soon, Bus34 Pro, that will come with bus\n
+  schedules for the Herault Transport, TAM and Thau Agglo networks. It will have more\n
+  features and will get schedule updates before the free version.\n\n
+
+  Please vote for Bus34 on the Market if you like the app!\n\n
+
+  Hérault transport: horarios actualizados por las líneas siguientes:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 108 (Montpellier - Ganges)\n
+  - 131 (Pérols - Palavas Les Flots)\n
+  - 162 (Lunel - La Grande Motte)\n
+  - 205 (Corneilhan - Béziers)\n
+  - 211 (Béziers - Portiragnes)\n
+  - 212/213 (Béziers - Vendres)\n
+  - 274 (Agde - Marseillan Plage)\n
+  - 301 (Clermont l\'Hérault - Lodève)\n
+  - 301/381 (Montpellier - Millau)\n
+  - 308 (Montpellier - Clermont l\'Hérault)\n\n
 <b>1.0.4</b> - 03/06/2013:\n
   Hérault transport: horarios actualizados por las líneas siguientes:\n
   - 106 (Montpellier - Aigues Mortes)\n\n
