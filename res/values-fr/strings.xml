@@ -132,25 +132,23 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-A partir de la rentrée de septembre, Bus34 sera également disponible en version
-Pro payante sur le Market et proposera les horaires de bus des réseaux Hérault
-Transport, la TAM et Thau Agglo.
-Bus34 Pro offrira davantage de fonctionnalités (itinéraires, alarmes de rappel) 
-et proposera une mise à jour des horaires plusieurs jours avant la version gratuite.
+Hérault transport: mise à jour des horaires des lignes suivantes (rentrée scolaire):
 
-Merci de voter pour Bus34 sur le Market si vous appréciez l\'application !
-
-Hérault transport: Mise à jour des horaires des lignes suivantes (horaires d'été):
+- 101 (Montpellier - Lunel)
+- 103 (St-Jean-de-Védas - Béziers)
 - 106 (Montpellier - Aigues Mortes)
 - 108 (Montpellier - Ganges)
 - 131 (Pérols - Palavas Les Flots)
-- 162 (Lunel - La Grande Motte)
-- 205 (Corneilhan - Béziers)
+- 202 (Béziers - Montouliers)
+- 203 (Béziers - Roquebrun)
+- 206 bis (Béziers - Gabian)
+- 207 (Béziers - Alignan du Vent)
 - 211 (Béziers - Portiragnes)
-- 212/213 (Béziers - Vendres)
-- 274 (Agde - Marseillan Plage)
-- 301 (Clermont l'Hérault - Lodève)
+- 212 (Béziers - Lespignan)
+- 213 (Béziers - Vendres)
+- 302 (Montpellier - Clermont l'Hérault)
 - 301/381 (Montpellier - Millau)
+- 301/380 (Clermont l'Hérault - Lodève)
 - 308 (Montpellier - Clermont l'Hérault)
 "</string>
 </resources>

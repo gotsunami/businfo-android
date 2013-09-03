@@ -140,22 +140,21 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-Bus34 will have a paid version very soon, Bus34 Pro, that will come with bus
-schedules for the Hérault Transport, TAM and Thau Agglo networks. It will have more
-features and will get schedule updates before the free version.
-
-Please vote for Bus34 on the Market if you like the app!
-
 Hérault transport: horarios actualizados por las líneas siguientes:
+- 101 (Montpellier - Lunel)
+- 103 (St-Jean-de-Védas - Béziers)
 - 106 (Montpellier - Aigues Mortes)
 - 108 (Montpellier - Ganges)
 - 131 (Pérols - Palavas Les Flots)
-- 162 (Lunel - La Grande Motte)
-- 205 (Corneilhan - Béziers)
+- 202 (Béziers - Montouliers)
+- 203 (Béziers - Roquebrun)
+- 206 bis (Béziers - Gabian)
+- 207 (Béziers - Alignan du Vent)
 - 211 (Béziers - Portiragnes)
-- 212/213 (Béziers - Vendres)
-- 274 (Agde - Marseillan Plage)
-- 301 (Clermont l'Hérault - Lodève)
+- 212 (Béziers - Lespignan)
+- 213 (Béziers - Vendres)
+- 302 (Montpellier - Clermont l'Hérault)
+- 301/380 (Clermont l'Hérault - Lodève)
 - 301/381 (Montpellier - Millau)
 - 308 (Montpellier - Clermont l'Hérault)
 "</string>

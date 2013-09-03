@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.6</b> - 02/09/2013:\n
+  Hérault transport: mise à jour des horaires des lignes suivantes (rentrée scolaire):\n
+  - 101 (Montpellier - Lunel)\n
+  - 103 (St-Jean-de-Védas - Béziers)\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 108 (Montpellier - Ganges)\n
+  - 131 (Pérols - Palavas Les Flots)\n
+  - 202 (Béziers - Montouliers)\n
+  - 203 (Béziers - Roquebrun)\n
+  - 206 bis (Béziers - Gabian)\n
+  - 207 (Béziers - Alignan du Vent)\n
+  - 211 (Béziers - Portiragnes)\n
+  - 212 (Béziers - Lespignan)\n
+  - 213 (Béziers - Vendres)\n
+  - 302 (Montpellier - Clermont l\'Hérault)\n
+  - 301/380 (Clermont l\'Hérault - Lodève)\n
+  - 301/381 (Montpellier - Millau)\n
+  - 308 (Montpellier - Clermont l\'Hérault)\n\n
 <b>1.0.5</b> - 16/07/2013:\n
   A partir de la rentrée de septembre, Bus34 sera également disponible en version
   Pro payante sur le Market et proposera les horaires de bus des réseaux Hérault
