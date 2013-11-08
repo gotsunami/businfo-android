@@ -133,23 +133,13 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-Hérault transport: mise à jour des horaires des lignes suivantes (rentrée scolaire):
+Bus34 évolue ! Un nouveau site web et un moteur de recherche d'horaires en ligne fontionnant dans tous les navigateurs (et mobiles) sont également disponibles à l'adresse:
 
-- 101 (Montpellier - Lunel)
-- 103 (St-Jean-de-Védas - Béziers)
-- 106 (Montpellier - Aigues Mortes)
-- 108 (Montpellier - Ganges)
-- 131 (Pérols - Palavas Les Flots)
-- 202 (Béziers - Montouliers)
+http://www.businfo.fr
+
+Hérault transport: mise à jour des horaires des lignes suivantes:
 - 203 (Béziers - Roquebrun)
-- 206 bis (Béziers - Gabian)
-- 207 (Béziers - Alignan du Vent)
-- 211 (Béziers - Portiragnes)
-- 212 (Béziers - Lespignan)
-- 213 (Béziers - Vendres)
-- 302 (Montpellier - Clermont l'Hérault)
-- 301/381 (Montpellier - Millau)
-- 301/380 (Clermont l'Hérault - Lodève)
-- 308 (Montpellier - Clermont l'Hérault)
+- 208 (Béziers - Nézignan)
+- 214 (Béziers - La Salvetat)
 "</string>
 </resources>

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.7</b> - 08/11/2013:\n
+  Hérault transport: horarios actualizados por las líneas siguientes:\n
+  - 203 (Béziers - Roquebrun)\n
+  - 208 (Béziers - Nézignan)\n
+  - 214 (Béziers - La Salvetat)\n\n
 <b>1.0.6</b> - 02/09/2013:\n
   Hérault transport: horarios actualizados por las líneas siguientes:\n
   - 101 (Montpellier - Lunel)\n

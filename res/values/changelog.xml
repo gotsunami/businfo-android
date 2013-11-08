@@ -8,6 +8,11 @@
     <string name="website_url">http://www.businfo.fr</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>1.0.7</b> - 2013-11-08:\n
+  Hérault transport: updated schedules for the following lines:\n
+  - 203 (Béziers - Roquebrun)\n
+  - 208 (Béziers - Nézignan)\n
+  - 214 (Béziers - La Salvetat)\n\n
 <b>1.0.6</b> - 2013-09-02:\n
   Hérault transport: updated schedules for the following lines:\n
   - 101 (Montpellier - Lunel)\n
