@@ -57,6 +57,10 @@
         <Preference
             android:key="pref_about_changelog"
             android:title="@string/pref_about_changelog_title"/>
+		<Preference
+			android:key="pref_website"
+			android:title="@string/pref_website_title"
+			android:summary="@string/website_url" />
             <!--
 		<Preference
 			android:key="pref_about_visite_website"

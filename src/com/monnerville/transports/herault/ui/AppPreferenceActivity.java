@@ -3,8 +3,10 @@ package com.monnerville.transports.herault.ui;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.*;
+import android.preference.Preference;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +34,17 @@ public class AppPreferenceActivity extends PreferenceActivity
         dep = findPreference("pref_about_version");
         dep.setSummary(getString(R.string.pref_about_version_summary, getString(R.string.app_version), 
             getString(R.string.app_revision)));
+
+        findPreference("pref_website").setOnPreferenceClickListener(
+            new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(getString(R.string.website_url)));
+                    startActivity(intent);
+                    return true;
+                }
+            });
     }
 
     @Override

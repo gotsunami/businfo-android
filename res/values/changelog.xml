@@ -4,7 +4,8 @@
 	<!-- Application credits -->
     <string name="app_name">Bus34</string>
     <string name="short_app_name">Bus34</string>
-    <string name="app_version">1.0.6</string>
+    <string name="app_version">1.0.7</string>
+    <string name="website_url">http://www.businfo.fr</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
 <b>1.0.6</b> - 2013-09-02:\n
