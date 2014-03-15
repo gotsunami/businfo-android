@@ -137,13 +137,19 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-Bus34 now has a new website with an online search engine working on all mobile devices! Please visit 
+Hérault transport: updated schedules for the following lines:
+- 106 (Montpellier - Aigues Mortes)
+- 107 (Lattes - Marsillargues)
+- 108 (Montpellier - Ganges)
+- 111 (Castelnau-le-lez - Campagne)
+- 112 (Sommières - Castelnau-le-Lez)
+- 115 (Montpellier- Quissac)
+- 131 (Pérols - Palavas Les Flots)
+
+You can also search for bus schedules from our website at
 
 http://www.businfo.fr
 
-Hérault transport: updated schedules for the following lines:
-- 203 (Béziers - Roquebrun)
-- 208 (Béziers - Nézignan)
-- 214 (Béziers - La Salvetat)
+Thanks for using Bus34!
 "</string>
 </resources>

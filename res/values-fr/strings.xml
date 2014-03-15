@@ -133,13 +133,19 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-Bus34 évolue ! Un nouveau site web et un moteur de recherche d'horaires en ligne fontionnant dans tous les navigateurs (et mobiles) sont également disponibles à l'adresse:
+Hérault transport: mise à jour des horaires des lignes suivantes:
+- 106 (Montpellier - Aigues Mortes)
+- 107 (Lattes - Marsillargues)
+- 108 (Montpellier - Ganges)
+- 111 (Castelnau-le-lez - Campagne)
+- 112 (Sommières - Castelnau-le-Lez)
+- 115 (Montpellier- Quissac)
+- 131 (Pérols - Palavas Les Flots)
+
+Retrouvez également les horaires des bus de l'Hérault sur notre site
 
 http://www.businfo.fr
 
-Hérault transport: mise à jour des horaires des lignes suivantes:
-- 203 (Béziers - Roquebrun)
-- 208 (Béziers - Nézignan)
-- 214 (Béziers - La Salvetat)
+Merci d'utiliser Bus34 !
 "</string>
 </resources>

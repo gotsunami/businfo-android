@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.8</b> - 14/03/2014:\n
+  Hérault transport: mise à jour des horaires des lignes suivantes:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 107 (Lattes - Marsillargues)\n
+  - 108 (Montpellier - Ganges)\n
+  - 111 (Castelnau-le-lez - Campagne)\n
+  - 112 (Sommières - Castelnau-le-Lez)\n
+  - 115 (Montpellier- Quissac)\n
+  - 131 (Pérols - Palavas Les Flots)\n\n
 <b>1.0.7</b> - 08/11/2013:\n
   Hérault transport: mise à jour des horaires des lignes suivantes:\n
   - 203 (Béziers - Roquebrun)\n
