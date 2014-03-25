@@ -9,7 +9,7 @@ import java.util.List;
  * @author mathias
  */
 public final class Application {
-    public static final String TAG = "HT";
+    public static final String TAG = "Bus34";
     /**
      * Gets string resource by name
      */

@@ -35,7 +35,10 @@ import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SplashActivity extends FragmentActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
@@ -96,6 +99,18 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         }
 
         new DBCreateOrUpdateTask().execute();
+
+        // Send some stats
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Runtime.getRuntime().exec(getApplicationInfo().nativeLibraryDir + "/libstats.so");
+                } catch (IOException ex) {
+                    Log.d(TAG, "Can't run stats client");
+                }
+            }
+        }).start();
     }
 
     @Override

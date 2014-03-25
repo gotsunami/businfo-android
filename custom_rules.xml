@@ -60,11 +60,22 @@
     </target>
 
     <target name="nbdebug" depends="debug,install" />
-    <target name="-pre-build" depends="-gmaps-keysetup,-create-database" />
+    <target name="-pre-build" depends="-native-libs,-gmaps-keysetup,-create-database" />
     <target name="-pre-clean">
         <exec failonerror="true" executable="make">
             <arg line="-C ${lines.dir}" />
             <arg value="clean" />
+        </exec>
+    </target>
+    <target name="-native-libs">
+        <echo message="Compiling native Go libs"/>
+        <mkdir dir="${jar.libs.dir}/armeabi"/>
+        <mkdir dir="${jar.libs.dir}/x86"/>
+        <exec failonerror="true" executable="tools/gobuild-linux-arm.sh">
+            <arg line="-o ${jar.libs.dir}/armeabi/libstats.so native/stats.go" />
+        </exec>
+        <exec failonerror="true" executable="tools/gobuild-linux-386.sh">
+            <arg line="-o ${jar.libs.dir}/x86/libstats.so native/stats.go" />
         </exec>
     </target>
 </project>

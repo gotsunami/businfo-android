@@ -1,0 +1,5 @@
+This directory include native Go library code.
+
+Build with:
+
+$ go-linux-arm build -o ../libs/armeabi/libstats.so stats.go
