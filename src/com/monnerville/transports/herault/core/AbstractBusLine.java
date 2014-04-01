@@ -142,7 +142,7 @@ public abstract class AbstractBusLine implements BusLine {
         if (mAvailableFrom != null)
             available = today.after(mAvailableFrom);
         if (mAvailableTo != null)
-            available = today.before(mAvailableFrom);
+            available = today.before(mAvailableTo);
         return available;
     }
 
