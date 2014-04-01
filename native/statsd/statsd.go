@@ -5,10 +5,9 @@ package main
 
 import (
 	"fmt"
-	_ "net"
+	"log"
+	"net/http"
 	"os"
-
-	"github.com/go-martini/martini"
 )
 
 const (
@@ -41,9 +40,17 @@ func main() {
 			}
 		}
 	*/
-	m := martini.Classic()
-	m.Post("/v1/usage", func(c martini.Context) string {
-		return "OK"
+	http.HandleFunc("/v1/stats", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "POST" {
+			http.NotFound(w, r)
+			return
+		}
+		if err := r.ParseForm(); err != nil {
+			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
+		}
+		fmt.Fprintf(w, "yeah!")
 	})
-	m.Run()
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
