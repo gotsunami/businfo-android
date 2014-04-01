@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.9</b> - 30/03/2014:\n
+  Hérault transport: mise à jour des horaires des lignes suivantes:\n
+  - 120 (Montpellier - Montpellier airport shuttle)\n
+  - 301/381 (Montpellier - Millau)\n\n
 <b>1.0.8</b> - 14/03/2014:\n
   Hérault transport: mise à jour des horaires des lignes suivantes:\n
   - 106 (Montpellier - Aigues Mortes)\n

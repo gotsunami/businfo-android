@@ -134,13 +134,8 @@
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
 Hérault transport: mise à jour des horaires des lignes suivantes:
-- 106 (Montpellier - Aigues Mortes)
-- 107 (Lattes - Marsillargues)
-- 108 (Montpellier - Ganges)
-- 111 (Castelnau-le-lez - Campagne)
-- 112 (Sommières - Castelnau-le-Lez)
-- 115 (Montpellier- Quissac)
-- 131 (Pérols - Palavas Les Flots)
+- 120 (Montpellier - Montpellier airport shuttle)
+- 301/381 (Montpellier - Millau)
 
 Retrouvez également les horaires des bus de l'Hérault sur notre site
 

@@ -4,10 +4,14 @@
 	<!-- Application credits -->
     <string name="app_name">Bus34</string>
     <string name="short_app_name">Bus34</string>
-    <string name="app_version">1.0.8</string>
+    <string name="app_version">1.0.9</string>
     <string name="website_url">http://www.businfo.fr</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>1.0.9</b> - 2014-03-30:\n
+  Hérault transport: updated schedules for the following lines:\n
+  - 120 (Montpellier - Montpellier airport shuttle)\n
+  - 301/381 (Montpellier - Millau)\n\n
 <b>1.0.8</b> - 2014-03-14:\n
   Hérault transport: updated schedules for the following lines:\n
   - 106 (Montpellier - Aigues Mortes)\n
