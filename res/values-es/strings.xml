@@ -64,7 +64,7 @@
     <string name="suggestion_station_served_by_lines">"Servida por las líneas %1$s"</string>
 
 <!-- FIXME -->
-    <string name="line_avail_range">"Circula sólo de %1$s a %2$s"</string>
+    <string name="line_avail_range">"Circula de %1$s a %2$s"</string>
 <!-- FIXME -->
     <string name="line_avail_from">"Horarios desde %1$s"</string>
     <string name="no_data">Ningún dato.</string>

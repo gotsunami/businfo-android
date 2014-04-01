@@ -59,7 +59,7 @@
     <string name="suggestion_station_served_by_line">"desservi par la ligne %1$s"</string>
     <string name="suggestion_station_served_by_lines">"desservi par les lignes %1$s"</string>
 
-    <string name="line_avail_range">"Circule uniquement du %1$s au %2$s"</string>
+    <string name="line_avail_range">"Circule du %1$s au %2$s"</string>
     <string name="line_avail_from">"Horaires à compter du %1$s"</string>
     <string name="no_data">Pas de données.</string>
     <string name="search_hint">Entrez un mot clef</string>
