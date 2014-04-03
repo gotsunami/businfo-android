@@ -60,7 +60,7 @@
     </target>
 
     <target name="nbdebug" depends="debug,install" />
-    <target name="-pre-build" depends="-native-libs,-gmaps-keysetup,-create-database" />
+    <target name="-pre-build" depends="-gmaps-keysetup,-create-database" />
     <target name="-pre-clean">
         <exec failonerror="true" executable="make">
             <arg line="-C ${lines.dir}" />
