@@ -29,7 +29,8 @@ WHERE name=?
     <!-- FIXME for serveral networks -->
 	<string name="query_getallnetworks">"
 SELECT name FROM network
-ORDER BY name LIMIT 1
+WHERE name!=\"TAM\"
+ORDER BY name
 "</string>
 <!-- Parameters are not allowed in views -->
 	<string name="query_getcities_from_line_create_view">"
