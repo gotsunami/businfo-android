@@ -37,8 +37,6 @@ import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SplashActivity extends FragmentActivity implements HeaderTitle {
     private SharedPreferences mPrefs;
@@ -131,8 +129,8 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
     public class DynPagerAdapter extends FragmentPagerAdapter 
         implements ViewPager.OnPageChangeListener {
 
-        private Fragment[] mFrags = {mBusNetworkFragment, mBookmarkFragment};
-        private int[] mPageTitles = {R.string.home_bus_networks, R.string.home_my_bookmarks};
+        private final Fragment[] mFrags = {mBusNetworkFragment, mBookmarkFragment};
+        private final int[] mPageTitles = {R.string.home_bus_networks, R.string.home_my_bookmarks};
 
         public DynPagerAdapter(FragmentManager fm) {
             super(fm);
