@@ -64,6 +64,7 @@ public class BusNetworkFragment extends ListFragment {
                 itemView = new LinearLayout(mContext);
                 LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 li.inflate(mResource, itemView, true);
+                itemView.setBackgroundResource(R.drawable.cell);
             }
             else {
                 itemView = (LinearLayout)convertView;
@@ -76,9 +77,7 @@ public class BusNetworkFragment extends ListFragment {
             netinfo.setText(getString(R.string.pref_about_network_summary, net.getLineCount()));
 
             TextView linecol = (TextView)itemView.findViewById(R.id.line_color);
-            linecol.setBackgroundResource(R.drawable.busline_bkg);
-            GradientDrawable bgShape = (GradientDrawable)linecol.getBackground();
-            bgShape.setColor(Color.parseColor(net.getColor()));
+            linecol.setBackgroundColor(Color.parseColor(net.getColor()));
 
             return itemView;
         }

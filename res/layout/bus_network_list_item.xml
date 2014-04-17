@@ -3,9 +3,9 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_width="fill_parent"
-    android:paddingLeft="4dip"
+    android:paddingLeft="0dip"
     android:paddingRight="2dip">
 
     <TextView android:id="@+id/line_color"
@@ -14,8 +14,8 @@
         android:scaleType="fitCenter"
         android:gravity="center"
         android:textStyle="bold"
-        android:layout_width="@android:dimen/app_icon_size"
-        android:layout_height="@android:dimen/app_icon_size" />
+        android:layout_width="24dip"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -34,7 +34,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/lines_by_city"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dip"
             android:paddingLeft="10dip" />
     </LinearLayout>
 </LinearLayout>
