@@ -32,6 +32,7 @@ import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.TrafficPatternParser;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import java.util.Calendar;
 
 /**
@@ -39,6 +40,7 @@ import java.util.Calendar;
  * @author mathias
  */
 public class BusStationActivity extends ListActivity implements HeaderTitle {
+    private String mNetwork;
     private String mLine = null;
     private String mStation = null;
     private String mDirection = null;
@@ -78,6 +80,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
         if (bun != null) {
+            mNetwork = bun.getString("network");
             mStation = bun.getString("station");
             mLine = bun.getString("line");
             mDirection = bun.getString("direction");
@@ -96,7 +99,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
 
         setTitle(mLine + " - Station " + mStation);
         BusManager manager = SQLBusManager.getInstance();
-        BusLine line = manager.getBusLine(mLine);
+        BusLine line = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine);
         List<BusStation> stations = line.getStations(mDirection);
         for (BusStation st : stations) {
             if (st.getName().equals(mStation)) {
@@ -143,7 +146,8 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         List <BusStation> starredStations = new ArrayList<BusStation>();
         if (mCurrentStation.isStarred())
             starredStations.add(mCurrentStation);
-        manager.saveStarredStations(manager.getBusLine(mLine), mDirection, starredStations, this);
+        manager.saveStarredStations(manager.getBusLine(new SQLBusNetwork(mNetwork), mLine), 
+            mDirection, starredStations, this);
 
         super.onPause();
     }

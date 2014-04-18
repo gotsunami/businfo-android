@@ -44,6 +44,7 @@ import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import static com.monnerville.transports.herault.core.Application.TAG;
+import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
@@ -282,7 +283,8 @@ public class HomeActivity extends ListActivity implements HeaderTitle {
         @Override
         protected int getMatches(String caption) {
             if (caption.equals(getString(R.string.all_lines_header))) {
-                return mManager.getBusLines().size();
+                // FIXME: lots of code to remove from HomeActivity...
+                return mManager.getBusLines(new SQLBusNetwork("FIXME")).size();
             }
             else if (caption.equals(getString(R.string.all_lines_bookmarks_header))) {
                 return mStarredStations.isEmpty() ? CounterSectionedAdapter.NO_MATCH :

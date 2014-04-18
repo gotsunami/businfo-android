@@ -63,8 +63,8 @@ public class SQLBusManager implements BusManager {
      * Wrapper
      */
     @Override
-    public List<BusLine> getBusLines() {
-        return mDB.getBusLines();
+    public List<BusLine> getBusLines(BusNetwork net) {
+        return mDB.getBusLines(net);
     }
 
     /**
@@ -73,8 +73,8 @@ public class SQLBusManager implements BusManager {
      * @return a BusLine instance or null if not found
      */
     @Override
-    public BusLine getBusLine(String name) {
-        return mDB.getMatchingLines(name).get(0);
+    public BusLine getBusLine(BusNetwork net, String name) {
+        return mDB.getMatchingLines(net, name).get(0);
     }
 
     /**

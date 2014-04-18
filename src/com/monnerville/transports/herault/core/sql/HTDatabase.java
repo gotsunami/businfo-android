@@ -160,8 +160,8 @@ class HTDatabase extends SQLiteOpenHelper {
      * Returns a list of all available bus lines, ordered by name
      * @return list of bus lines
      */
-    public List<BusLine> getBusLines() {
-        return getMatchingLines(null);
+    public List<BusLine> getBusLines(BusNetwork net) {
+        return getMatchingLines(net, null);
     }
 
     /**
@@ -169,14 +169,25 @@ class HTDatabase extends SQLiteOpenHelper {
      * @param pattern name pattern, will be used as %pattern% in a LIKE statement
      * @return list of matching bus lines
      */
-    public List<BusLine> getMatchingLines(String pattern) {
+    public List<BusLine> getMatchingLines(BusNetwork net, String pattern) {
         List<BusLine> lines = new ArrayList<BusLine>();
         String cols[] = new String[] {"name", "color", "dflt_circpat", "from_date", "to_date"};
         Cursor c;
 
+        String pat = "%";
+        if (pattern != null) {
+            pat += pattern + "%";
+
+        }
+        Log.d(TAG, pat);
+        c = getReadableDatabase().rawQuery(mContext.getString(R.string.query_getlines_from_network),
+			new String[] {net.getName(), pat}
+        );
+        
+        /*
         if (pattern != null) {
             c = getReadableDatabase().query(mContext.getString(
-                R.string.db_line_table_name), cols, "name LIKE ?",
+                R.string.db_line_table_name), cols, "name LIKE ? AND",
                 new String[] {"%" + pattern + "%"}, null, null, "name"
             );
         }
@@ -191,6 +202,7 @@ class HTDatabase extends SQLiteOpenHelper {
                 "name" // Order by
             );
         }
+        */
         try {
             Date from_date;
             Date to_date;

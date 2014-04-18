@@ -2,6 +2,7 @@ package com.monnerville.transports.herault.core.xml;
 
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.GPSPoint;
@@ -33,7 +34,23 @@ public class XMLQueryManager implements QueryManager {
     public List<City> findCities(String query, boolean strict) {
         // Can be really slow
         List<City> rcities = new ArrayList<City>();
-        List<BusLine> lines = mBusManager.getBusLines();
+        List<BusLine> lines = mBusManager.getBusLines(new BusNetwork() {
+
+            @Override
+            public String getColor() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public String getName() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public int getLineCount() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
         for (BusLine line : lines) {
             String[] dirs = line.getDirections();
             for (String direction : dirs) {
@@ -53,7 +70,7 @@ public class XMLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<BusLine> findMatchingLines(String query) {
+    public List<BusLine> findMatchingLines(BusNetwork net, String query) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

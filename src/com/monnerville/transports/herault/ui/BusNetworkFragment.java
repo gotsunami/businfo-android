@@ -85,8 +85,8 @@ public class BusNetworkFragment extends ListFragment {
 
     @Override 
     public void onListItemClick(ListView l, View v, int position, long id) {
-        // FIXME: support more networks
-        Intent intent = new Intent(getActivity(), AllLinesActivity.class);
-        startActivity(intent);
+        Intent i = new Intent(getActivity(), AllLinesActivity.class);
+        i.putExtra("network", mManager.getBusNetworks().get(position).getName());
+        startActivity(i);
     }
 }

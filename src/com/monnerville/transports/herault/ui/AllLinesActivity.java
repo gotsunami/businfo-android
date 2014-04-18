@@ -36,6 +36,7 @@ import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     // Cached directions for all available lines
@@ -46,6 +47,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      * Used by onResume and updateBookmarks to ensure database is ready
      */
     private boolean mDBReady;
+    private String mNetwork;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,11 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
         mDirections = new ArrayList<List<String>>();
 
-        List<BusLine> lines = mManager.getBusLines();
+        final Intent intent = getIntent();
+        final Bundle bun = intent.getExtras();
+        mNetwork = bun.getString("network");
+
+        List<BusLine> lines = mManager.getBusLines(new SQLBusNetwork(mNetwork));
 
         // Background line directions retreiver
         new DirectionsRetreiverTask().execute(lines);
@@ -297,7 +303,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     final SectionedAdapter mAdapter = new CounterSectionedAdapter(this) {
         @Override
         protected int getMatches(String caption) {
-            return mManager.getBusLines().size();
+            return mManager.getBusLines(new SQLBusNetwork(mNetwork)).size();
         }
     };
 

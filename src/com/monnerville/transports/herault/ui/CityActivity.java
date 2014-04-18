@@ -40,12 +40,14 @@ import com.monnerville.transports.herault.core.GPSPoint;
 import com.monnerville.transports.herault.core.QueryManager;
 
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.ui.maps.BaseItemsOverlay;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CityActivity extends MapActivity implements HeaderTitle, OnItemClickListener {
+    private String mNetwork;
     private String mCityId;
     private boolean mCanFinish = false;
     private SharedPreferences mPrefs;
@@ -87,6 +89,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         final Bundle bun = intent.getExtras();
         // Sent directly from the suggestion search entry or from the SearchableActivity
         mCityId = bun.getString("cityId");
+        mNetwork = bun.getString("network");
 
         mLines = new ArrayList<BusLine>();
         mDirections = new ArrayList<List<String>>();
@@ -191,7 +194,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         @Override
         protected Void doInBackground(List<String>... lis) {
             for (String li : lis[0]) {
-                BusLine line = mManager.getBusLine(li);
+                BusLine line = mManager.getBusLine(new SQLBusNetwork(mNetwork), li);
                 mDirections.add(Arrays.asList(line.getDirections()));
                 mLines.add(line);
             }

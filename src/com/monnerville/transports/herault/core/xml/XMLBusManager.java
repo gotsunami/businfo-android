@@ -51,7 +51,7 @@ public class XMLBusManager implements BusManager {
     }
 
     @Override
-    public List<BusLine> getBusLines() {
+    public List<BusLine> getBusLines(BusNetwork net) {
         if (mAppResources == null) return null;
         List<BusLine> lines = new ArrayList<BusLine>();
         XmlResourceParser xrp = mAppResources.getXml(mLinesId);
@@ -83,7 +83,7 @@ public class XMLBusManager implements BusManager {
      * @return a BusLine instance or null if not found
      */
     @Override
-    public BusLine getBusLine(String name) {
+    public BusLine getBusLine(BusNetwork net, String name) {
         if (mAppResources == null) return null;
         XmlResourceParser xrp = mAppResources.getXml(mLinesId);
         try {

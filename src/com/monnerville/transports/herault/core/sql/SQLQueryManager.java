@@ -6,6 +6,7 @@ import android.util.Log;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.GPSPoint;
 import java.util.ArrayList;
@@ -70,8 +71,8 @@ public class SQLQueryManager implements QueryManager {
     }
 
     @Override
-    public List<BusLine> findMatchingLines(String query) {
-        return ((HTDatabase)mManager.getDB()).getMatchingLines(query);
+    public List<BusLine> findMatchingLines(BusNetwork net, String query) {
+        return ((HTDatabase)mManager.getDB()).getMatchingLines(net, query);
     }
 
     @Override

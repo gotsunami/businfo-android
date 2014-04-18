@@ -54,6 +54,7 @@ import com.monnerville.transports.herault.core.BusStop;
 import com.monnerville.transports.herault.core.GPSPoint;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.ui.maps.BaseItemsOverlay;
 import com.monnerville.transports.herault.ui.maps.MapService;
@@ -64,6 +65,7 @@ import com.monnerville.transports.herault.ui.maps.NavigationDataSet;
  * @author mathias
  */
 public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemClickListener {
+    private String mNetwork;
     private String mLine;
     private String mDirection;
     private SharedPreferences mPrefs;
@@ -96,6 +98,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         final Intent intent = getIntent();
         final Bundle bun = intent.getExtras();
         if (bun != null) {
+            mNetwork = bun.getString("network");
             mLine = bun.getString("line");
             mDirection = bun.getString("direction");
             mShowToast = bun.getBoolean("showToast");
@@ -115,7 +118,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         final BusManager manager = SQLBusManager.getInstance();
-        BusLine line = manager.getBusLine(mLine);
+        BusLine line = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine);
 
         TextView lineIcon = (TextView)findViewById(R.id.line_icon);
         if (Application.OSBeforeHoneyComb()) {
@@ -203,7 +206,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         // Switch to other line direction
         BusManager manager = SQLBusManager.getInstance();
         Intent intent = new Intent(BusLineActivity.this, BusLineActivity.class);
-        String[] directions = manager.getBusLine(mLine).getDirections();
+        String[] directions = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine).getDirections();
         for (String dir : directions) {
             if (!dir.equals(mDirection)) {
                 intent.putExtra("line", mLine);
@@ -231,7 +234,8 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
                     starredStations.add(st);
             }
         }
-        manager.saveStarredStations(manager.getBusLine(mLine), mDirection, starredStations, this);
+        manager.saveStarredStations(manager.getBusLine(new SQLBusNetwork(mNetwork), mLine), 
+            mDirection, starredStations, this);
 
         // Force finishing the activity so it's not in the activity stack if
         // performing multiple searches

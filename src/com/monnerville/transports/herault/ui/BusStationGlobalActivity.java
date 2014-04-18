@@ -32,6 +32,7 @@ import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.QueryManager;
 
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import com.monnerville.transports.herault.core.sql.SQLBusStation;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BusStationGlobalActivity extends ListActivity implements HeaderTitle {
+    private String mNetwork;
     private String mStationId;
     private String mStationName;
     private List<BusStation> mStations;
@@ -73,6 +75,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         final Bundle bun = intent.getExtras();
         // Sent directly from the suggestion search entry or from the SearchableActivity
         mStationId = bun.getString("stationId");
+        mNetwork = bun.getString("network");
 
         mLines = new HashMap<BusLine, List<BusStation>>();
         mStations = new ArrayList<BusStation>();
@@ -171,7 +174,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
             // Then, for each line, get directions and add the stations
             for (String li : cityAndLines.get(mCity)) {
                 List <BusStation> stations = new ArrayList<BusStation>();
-                BusLine line = mManager.getBusLine(li);
+                BusLine line = mManager.getBusLine(new SQLBusNetwork(mNetwork), li);
                 String dirs[] = line.getDirections();
                 SQLBusStation st1 = new SQLBusStation(line, mStationName, dirs[0], mCity);
                 SQLBusStation st2 = new SQLBusStation(line, mStationName, dirs[1], mCity);

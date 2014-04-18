@@ -28,6 +28,7 @@ import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
@@ -170,6 +171,7 @@ public class SearchableActivity extends ListActivity {
     private class StartSearchingTask extends AsyncTask<String, Void, Void> {
         private ProgressDialog mDialog;
         private long mStart;
+        private List<BusNetwork> mNetworks;
         final QueryManager finder = SQLQueryManager.getInstance();
 
         @Override
@@ -177,7 +179,9 @@ public class SearchableActivity extends ListActivity {
             String query = q[0];
             mCities = finder.findCities(query, false);
             mStations = (List<DBStation>)finder.findStations(query);
-            mLines = finder.findMatchingLines(query);
+            for (BusNetwork net : mNetworks) {
+                mLines.addAll(finder.findMatchingLines(net, query));
+            }
             // Get directions
             for (BusLine line : mLines) {
                 String[] dirs = line.getDirections();
@@ -252,8 +256,8 @@ public class SearchableActivity extends ListActivity {
     };
 
     private class CityListAdapter extends ArrayAdapter<City> {
-        private int mResource;
-        private Context mContext;
+        private final int mResource;
+        private final Context mContext;
 
         CityListAdapter(Context context, int resource, List<City> cities) {
             super(context, resource, cities);
@@ -321,8 +325,8 @@ public class SearchableActivity extends ListActivity {
     }
 
     private class StationListAdapter extends ArrayAdapter<DBStation> {
-        private int mResource;
-        private Context mContext;
+        private final int mResource;
+        private final Context mContext;
 
         StationListAdapter(Context context, int resource, List<DBStation> stations) {
             super(context, resource, stations);
