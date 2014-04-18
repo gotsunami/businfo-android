@@ -48,7 +48,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
     private String mStationId;
     private String mStationName;
     private List<BusStation> mStations;
-    private HomeActivity.BookmarkHandler mBookmarkHandler;
+    private BookmarkFragment.SectionedBookmarkHandler mBookmarkHandler;
     private boolean mCanFinish = false;
 
     // Cached directions for matching lines, used by the adapter
@@ -79,7 +79,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
 
         mLines = new HashMap<BusLine, List<BusStation>>();
         mStations = new ArrayList<BusStation>();
-        mBookmarkHandler = new HomeActivity.BookmarkHandler(mAdapter, mStations);
+        mBookmarkHandler = new BookmarkFragment.SectionedBookmarkHandler(mAdapter, mStations);
 
         // Get station's name
         Cursor c = mManager.getDB().getReadableDatabase().query(getString(
@@ -282,10 +282,10 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                     while (true) {
                         // Update bookmark info every minute
                         Thread.sleep(1000*60);
-                        mBookmarkHandler.sendEmptyMessage(HomeActivity.ACTION_UPDATE_BOOKMARKS);
+                        mBookmarkHandler.sendEmptyMessage(BookmarkFragment.ACTION_UPDATE_BOOKMARKS);
                     }
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BookmarkFragment.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }).start();

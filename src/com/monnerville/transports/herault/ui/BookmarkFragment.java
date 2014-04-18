@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.City;
@@ -72,7 +73,7 @@ public class BookmarkFragment extends ListFragment {
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what) {
-                case BookmarkFragment.ACTION_UPDATE_BOOKMARKS:
+                case ACTION_UPDATE_BOOKMARKS:
                     new ComputeNextStopsTask().execute();
                     break;
                 default:
@@ -80,6 +81,35 @@ public class BookmarkFragment extends ListFragment {
             }
         }
     }
+
+    /**
+     * Handles bookmark stations
+     */
+    public static class SectionedBookmarkHandler extends Handler {
+        private final List<BusStation> stations;
+        private SectionedAdapter adapter;
+
+        public SectionedBookmarkHandler(SectionedAdapter adapter, List<BusStation> stations) {
+            super();
+            this.stations = stations;
+            this.adapter = adapter;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch(msg.what) {
+                case ACTION_UPDATE_BOOKMARKS:
+                    for (BusStation st : stations) {
+                        st.getNextStop(); // Fresh, non-cached value
+                    }
+                    this.adapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 
     @Override
     public void onResume() {
@@ -99,7 +129,7 @@ public class BookmarkFragment extends ListFragment {
                         mBookmarkHandler.sendEmptyMessage(ACTION_UPDATE_BOOKMARKS);
                     }
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(HomeActivity.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SplashActivity.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }).start();
