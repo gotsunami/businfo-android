@@ -184,7 +184,7 @@ class HTDatabase extends SQLiteOpenHelper {
             // Fetch all lines
             c = getReadableDatabase().query(mContext.getString(R.string.db_line_table_name),
                 cols,
-                null,  // No selection
+                "network_id=1",  // FIXME: only HT network
                 null,  // No selection args
                 null,  // No group by
                 null,  // No having
