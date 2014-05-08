@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.10</b> - 06/05/2014:\n
+  Hérault transport: horarios actualizados por las líneas siguientes:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 131 (Pérols - Palavas Les Flots)\n\n
 <b>1.0.9</b> - 30/03/2014:\n
   Hérault transport: horarios actualizados por las líneas siguientes:\n
   - 120 (Montpellier - Montpellier airport shuttle)\n
