@@ -39,4 +39,9 @@ public interface BusLine {
      * @return true if line is currently available, or false
      */
     public boolean isAvailable();
+    /**
+     * Check if directions (city names) are equal. In this case, returns true.
+     * @return true if names are equal
+     */
+    public boolean isSelfReferencing();
 }

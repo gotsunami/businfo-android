@@ -30,6 +30,10 @@ public abstract class AbstractBusLine implements BusLine {
      */
     protected Date mAvailableTo = null;
     /**
+     * Same direction names
+     */
+    protected boolean mIsSelfReferencing = false;
+    /**
      * Default traffic (circulation) pattern
      */
     private String mDefaultTrafficPattern = null;
@@ -152,5 +156,10 @@ public abstract class AbstractBusLine implements BusLine {
 
     public String getBusNetworkName() {
         return mNetwork;
+    }
+
+    @Override
+    public boolean isSelfReferencing() {
+        return mIsSelfReferencing;
     }
 }

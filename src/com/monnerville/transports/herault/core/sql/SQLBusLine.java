@@ -153,6 +153,10 @@ public class SQLBusLine extends AbstractBusLine {
         // FIXME
         HTDatabase db = (HTDatabase)mManager.getDB();
         directions = db.getDirections(getName());
+        if (directions[0].equals(directions[1])) {
+            mIsSelfReferencing = true;
+            // TODO
+        }
         return directions;
     }
 }

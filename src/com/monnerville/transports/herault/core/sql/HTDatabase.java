@@ -23,6 +23,7 @@ import com.monnerville.transports.herault.core.BusStop;
 import java.text.SimpleDateFormat;
 import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.BusNetwork;
+import com.monnerville.transports.herault.core.City;
 import java.util.Date;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -236,7 +237,7 @@ class HTDatabase extends SQLiteOpenHelper {
         String[] directions = new String[2];
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            directions[j] = c.getString(0);
+            directions[j] = City.removeSelfSuffix(c.getString(0));
         }
 		c.close();
         return directions;
