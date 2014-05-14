@@ -29,3 +29,8 @@ Distributed on the Google Play Store.
 
         gmaps.key.debug=your_gmaps_debug_key
         gmaps.key.release=your_gmaps_release_key
+
+3. Build the project with
+
+        $ ant clean
+        $ ant debug install
