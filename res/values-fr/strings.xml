@@ -4,7 +4,7 @@
     <string name="slogan">Horaires des bus de l\'Hérault</string>
     <string name="busline_activity_title">Ligne de bus</string>
     <string name="stop_all_schedules_title">Tous les horaires</string>
-    <string name="all_network_lines">Lignes du réseau</string>
+    <string name="current_network">Réseau %1$s</string>
     <string name="no_more_stop">Pas avant demain</string>
     <string name="no_more_stop_short">"    ---    "</string>
     <string name="pick_direction_title">Direction</string>

@@ -54,6 +54,10 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         super.onCreate(savedInstanceState);
         //setTitle(R.string.lines_activity_title);
 
+        final Intent intent = getIntent();
+        final Bundle bun = intent.getExtras();
+        mNetwork = bun.getString("network");
+
         if (Application.OSBeforeHoneyComb()) {
             requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         }
@@ -70,7 +74,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             titleContainer.setPadding(titleContainer.getPaddingLeft(), 0, 0, 0);
 
             setPrimaryTitle(getString(R.string.app_name));
-            setSecondaryTitle(getString(R.string.all_network_lines));
+            setSecondaryTitle(getString(R.string.current_network, mNetwork));
 
             Button searchButton = (Button)findViewById(R.id.btn_search);
             searchButton.setOnClickListener(new View.OnClickListener() {
@@ -85,14 +89,10 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         if (!Application.OSBeforeHoneyComb()) {
             ActionBarHelper.setDisplayHomeAsUpEnabled(this, true);
             ActionBarHelper.setTitle(this, R.string.app_name);
-            ActionBarHelper.setSubtitle(this, R.string.all_network_lines);
+            ActionBarHelper.setSubtitle(this, getString(R.string.current_network,mNetwork));
         }
 
         mDirections = new ArrayList<List<String>>();
-
-        final Intent intent = getIntent();
-        final Bundle bun = intent.getExtras();
-        mNetwork = bun.getString("network");
 
         List<BusLine> lines = mManager.getBusLines(new SQLBusNetwork(mNetwork));
 

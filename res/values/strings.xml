@@ -4,7 +4,7 @@
     <string name="slogan">Bus lines schedules in Herault</string>
     <string name="busline_activity_title">Bus line</string>
     <string name="stop_all_schedules_title">All schedules</string>
-    <string name="all_network_lines">All network lines</string>
+    <string name="current_network">%1$s Network</string>
     <string name="no_more_stop">No more stop today</string>
     <string name="no_more_stop_short">"    ---    "</string>
     <string name="pick_direction_title">To...</string>
