@@ -3,6 +3,7 @@
     <string name="lines_activity_title">Bus34 - Lignes de bus</string>
     <string name="slogan">Horaires des bus de l\'Hérault</string>
     <string name="busline_activity_title">Ligne de bus</string>
+    <string name="line_name">Ligne %s</string>
     <string name="stop_all_schedules_title">Tous les horaires</string>
     <string name="current_network">Réseau %1$s</string>
     <string name="no_more_stop">Pas avant demain</string>

@@ -163,7 +163,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                 itemView = (LinearLayout)convertView;
 
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
-            name.setText(line.getName());
+            name.setText(mContext.getString(R.string.line_name, line.getName()));
             //GradientDrawable gd;
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
             TextView avail = (TextView)itemView.findViewById(R.id.available);
