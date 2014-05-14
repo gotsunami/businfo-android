@@ -55,7 +55,7 @@ public class SearchableActivity extends ListActivity {
     private List<City> mCities;
     private List<DBStation> mStations;
     private List<BusLine> mLines;
-    private List<List<String>> mDirections;
+    private List<List<City>> mDirections;
 
     private boolean mCanFinish = false;
 
@@ -78,7 +78,7 @@ public class SearchableActivity extends ListActivity {
         getListView().setFastScrollEnabled(true);
 
 
-        mDirections = new ArrayList<List<String>>();
+        mDirections = new ArrayList<List<City>>();
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
@@ -160,10 +160,10 @@ public class SearchableActivity extends ListActivity {
             String name = c.getString(0);
             BusLine line = new SQLBusLine(name);
             c.close();
-            String dirs[] = line.getDirections();
+            List<City> dirs = line.getDirections();
 
             intent.putExtra("line", name);
-            intent.putExtra("direction", dirs[0]);
+            intent.putExtra("direction", dirs.get(0).getPK());
             intent.putExtra("showToast", false);
             startActivity(intent);
         }
@@ -185,8 +185,8 @@ public class SearchableActivity extends ListActivity {
             }
             // Get directions
             for (BusLine line : mLines) {
-                String[] dirs = line.getDirections();
-                mDirections.add(Arrays.asList(dirs));
+                List<City> dirs = line.getDirections();
+                mDirections.add(dirs);
             }
             return null;
         }

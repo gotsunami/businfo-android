@@ -30,6 +30,9 @@ public final class City {
 
     public long getPK() { return mPk; }
     public String getName() {
+        return mName;
+    }
+    public String getRealName() {
         return removeSelfSuffix(mName);
     }
     public boolean isValid() { return mPk != NOT_VALID; }

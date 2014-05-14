@@ -1,18 +1,16 @@
 package com.monnerville.transports.herault.ui;
 
 import android.app.AlertDialog;
-import android.util.Log;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,42 +21,32 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.monnerville.transports.herault.core.City;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.commonsware.android.listview.SectionedAdapter;
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
-
 import com.monnerville.transports.herault.core.Application;
 import static com.monnerville.transports.herault.core.Application.TAG;
-
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
+import com.monnerville.transports.herault.core.City;
 
-import com.monnerville.transports.herault.core.GPSPoint;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.ui.maps.BaseItemsOverlay;
-import com.monnerville.transports.herault.ui.maps.MapService;
-import com.monnerville.transports.herault.ui.maps.NavigationDataSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -205,12 +193,12 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
     private void flipLineDirection() {
         // Switch to other line direction
         BusManager manager = SQLBusManager.getInstance();
-        Intent intent = new Intent(BusLineActivity.this, BusLineActivity.class);
-        String[] directions = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine).getDirections();
-        for (String dir : directions) {
+        Intent intent = new Intent(this, BusLineActivity.class);
+        List<City> directions = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine).getDirections();
+        for (City dir : directions) {
             if (!dir.equals(mDirection)) {
                 intent.putExtra("line", mLine);
-                intent.putExtra("direction", dir);
+                intent.putExtra("direction", dir.getPK());
                 intent.putExtra("showToast", true);
                 mCanFinish = true;
                 startActivity(intent);

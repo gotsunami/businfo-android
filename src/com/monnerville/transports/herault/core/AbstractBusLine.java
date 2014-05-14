@@ -3,7 +3,9 @@ package com.monnerville.transports.herault.core;
 import android.graphics.Color;
 import android.util.Log;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class is an abstract implementation of the BusLine interface and
@@ -18,9 +20,9 @@ public abstract class AbstractBusLine implements BusLine {
      */
     private int mColor = UNKNOWN_COLOR;
     /**
-     * Cities related to this line
+     * Directions (cities) related to this line
      */
-    protected String[] directions = {null, null};
+    protected List<City> directions;
     /**
      * Start of line's availability
      */
@@ -41,11 +43,18 @@ public abstract class AbstractBusLine implements BusLine {
      * Bus network parent name
      */
     private String mNetwork = null;
+	/**
+	 * Common constructor
+	 */
+	private void init() {
+		directions = new ArrayList<City>();
+	}
     /**
      * Primary constructor
      * @param name name of the line
      */
     public AbstractBusLine(String name) {
+		init();
         mName = name;
     }
 
@@ -55,12 +64,14 @@ public abstract class AbstractBusLine implements BusLine {
      * @param hexColor line's background color
      */
     public AbstractBusLine(String name, String hexColor) {
+		init();
         mName = name;
         if (!hexColor.equals(""))
             mColor = Color.parseColor(hexColor);
     }
 
     public AbstractBusLine(String name, String hexColor, String defaultTrafficPattern) {
+		init();
         mName = name;
         mDefaultTrafficPattern = defaultTrafficPattern;
         if (!hexColor.equals(""))
@@ -69,6 +80,7 @@ public abstract class AbstractBusLine implements BusLine {
 
     public AbstractBusLine(String name, String hexColor, String defaultTrafficPattern, 
         Date availableFrom, Date availableTo) {
+		init();
         mName = name;
         mDefaultTrafficPattern = defaultTrafficPattern;
         mAvailableFrom = availableFrom;

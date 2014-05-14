@@ -10,7 +10,7 @@ AND a.size=?
 AND ta.archive_position=?
 "</string>
 	<string name="query_getdirections_from_line">"
-SELECT name FROM city
+SELECT id, name FROM city
 WHERE id = (SELECT from_city_id FROM line WHERE line.name=?)
 OR id=(SELECT to_city_id FROM line WHERE line.name=?)
 "</string>

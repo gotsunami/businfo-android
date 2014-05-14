@@ -3,7 +3,8 @@
     <string name="lines_activity_title">Bus34 - líneas de autobuses</string>
     <string name="slogan">Horarios de autobuses en el Hérault</string>
     <string name="busline_activity_title">Línea de autobus</string>
-    <string name="line_name">Línea %s</string>
+    <string name="line_name">Línea %1$s</string>
+    <string name="line_intra">%1$s intra-muros</string>
     <string name="stop_all_schedules_title">Todos los horarios</string>
     <string name="current_network">Red de %1$s</string>
 <!-- FIXME -->

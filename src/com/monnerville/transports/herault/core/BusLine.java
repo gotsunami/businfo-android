@@ -17,7 +17,8 @@ public interface BusLine {
     public int getColor();
     public String getName();
     public List<String> getCities(String direction);
-    public String[] getDirections();
+    public List<City> getDirections();
+    public String getDirectionsHumanReadable();
     public List<BusStation> getStations(String direction);
     public Map<String, List<BusStation>> getStationsPerCity(String direction);
     public String getDefaultTrafficPattern();

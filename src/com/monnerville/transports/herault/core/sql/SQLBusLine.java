@@ -13,6 +13,7 @@ import java.util.Map;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.AbstractBusLine;
 import com.monnerville.transports.herault.core.BusStation;
+import com.monnerville.transports.herault.core.City;
 
 /**
  *
@@ -21,6 +22,7 @@ import com.monnerville.transports.herault.core.BusStation;
 public class SQLBusLine extends AbstractBusLine {
     private static final SQLBusManager mManager = SQLBusManager.getInstance();
     private final Context ctx = ((HTDatabase)mManager.getDB()).getContext();
+	private String mHumanDirections = null;
 
     public SQLBusLine(String name) {
         super(name);
@@ -102,6 +104,8 @@ public class SQLBusLine extends AbstractBusLine {
         Map<String, List<BusStation>> map = new HashMap<String, List<BusStation>>();
         List<String> cities = getCities(direction);
         List<BusStation> stations = getStations(direction);
+		// FIXME
+		Log.d("MAT", cities.toString());
         for (String city : cities) {
             map.put(city, new ArrayList<BusStation>());
             for (BusStation st : stations) {
@@ -148,15 +152,35 @@ public class SQLBusLine extends AbstractBusLine {
      * @return array of strings for the directions
      */
     @Override
-    public String[] getDirections() {
-        if (directions[0] != null) return directions;
+    public List<City> getDirections() {
+        if (directions.size() > 0) return directions;
         // FIXME
         HTDatabase db = (HTDatabase)mManager.getDB();
         directions = db.getDirections(getName());
-        if (directions[0].equals(directions[1])) {
+        if (directions.get(0).getRealName().equals(directions.get(1).getRealName())) {
             mIsSelfReferencing = true;
-            // TODO
         }
         return directions;
     }
+
+	/**
+	 * Returns a string of the form "City1 - City2". If the line has a self reference,
+	 * returns stations instead of cities.
+	 * @return 
+	 */
+	@Override
+	public String getDirectionsHumanReadable() {
+		List<City> dirs = getDirections();
+		if (mIsSelfReferencing) {
+			if (mHumanDirections != null)
+				return mHumanDirections;
+			List<BusStation> sts1 = getStations(dirs.get(0).getName());
+			BusStation st1 = sts1.get(sts1.size()-1);
+			List<BusStation> sts2 = getStations(dirs.get(1).getName());
+			BusStation st2 = sts2.get(sts2.size()-1);
+			mHumanDirections = st1.getName() + " - " + st2.getName();
+			return mHumanDirections;
+		}
+		return dirs.get(0).getRealName() + " - " + dirs.get(1).getRealName();
+	}
 }

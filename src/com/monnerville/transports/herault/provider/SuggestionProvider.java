@@ -12,12 +12,12 @@ import android.util.Log;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusLine;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import java.util.Iterator;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -150,8 +150,9 @@ public class SuggestionProvider extends ContentProvider {
                     break;
                 case R.string.db_line_table_name:
                     BusLine line = new SQLBusLine(name);
-                    String dirs[] = line.getDirections();
-                    subt = getContext().getString(R.string.suggestion_line_subtitle, dirs[0], dirs[1]);
+                    List<City> dirs = line.getDirections();
+                    subt = getContext().getString(R.string.suggestion_line_subtitle, 
+						dirs.get(0).getName(), dirs.get(1).getName());
                     uidPrefix = BUS_LINE_PREFIX_ID;
                     break;
                 case R.string.db_station_table_name:

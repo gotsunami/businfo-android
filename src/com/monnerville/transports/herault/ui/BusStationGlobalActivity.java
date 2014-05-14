@@ -1,7 +1,6 @@
 package com.monnerville.transports.herault.ui;
 
 import android.app.AlertDialog;
-import android.util.Log;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -9,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,8 +18,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.List;
-
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
@@ -29,9 +27,9 @@ import static com.monnerville.transports.herault.core.Application.TAG;
 
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
+import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusLine;
-
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import com.monnerville.transports.herault.core.sql.SQLBusStation;
@@ -39,6 +37,7 @@ import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -176,9 +175,9 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
             for (String li : cityAndLines.get(mCity)) {
                 List <BusStation> stations = new ArrayList<BusStation>();
                 BusLine line = mManager.getBusLine(new SQLBusNetwork(mNetwork), li);
-                String dirs[] = line.getDirections();
-                SQLBusStation st1 = new SQLBusStation(line, mStationName, dirs[0], mCity);
-                SQLBusStation st2 = new SQLBusStation(line, mStationName, dirs[1], mCity);
+                List<City> dirs = line.getDirections();
+                SQLBusStation st1 = new SQLBusStation(line, mStationName, dirs.get(0).getName(), mCity);
+                SQLBusStation st2 = new SQLBusStation(line, mStationName, dirs.get(1).getName(), mCity);
                 // Get fresh (non-cached) stop values since rendering from BusStationActivity is using 
                 // a cache version only
                 st1.getNextStop();

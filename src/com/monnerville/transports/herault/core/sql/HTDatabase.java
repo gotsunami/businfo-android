@@ -230,14 +230,16 @@ class HTDatabase extends SQLiteOpenHelper {
      * @param line name of bus line
      * @return
      */
-    public String[] getDirections(String line) {
+    public List<City> getDirections(String line) {
         Cursor c = getReadableDatabase().rawQuery(mContext.getString(R.string.query_getdirections_from_line),
 			new String[] {line, line}
         );
-        String[] directions = new String[2];
+        List<City> directions = new ArrayList<City>();
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            directions[j] = City.removeSelfSuffix(c.getString(0));
+			City city = new City(c.getLong(0), c.getString(1));
+            //directions.add(new City(j, line) City.removeSelfSuffix(c.getString(0)));
+            directions.add(city);
         }
 		c.close();
         return directions;

@@ -55,7 +55,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
     private boolean mShowGMap;
 
     // Cached directions for matching lines
-    private List<List<String>> mDirections;
+    private List<List<City>> mDirections;
     private List<BusLine> mLines;
     private ListView mList;
     
@@ -93,7 +93,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         mNetwork = bun.getString("network");
 
         mLines = new ArrayList<BusLine>();
-        mDirections = new ArrayList<List<String>>();
+        mDirections = new ArrayList<List<City>>();
 
         QueryManager finder = SQLQueryManager.getInstance();
         String cityName = finder.getCityFromId(mCityId);
@@ -196,7 +196,7 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         protected Void doInBackground(List<String>... lis) {
             for (String li : lis[0]) {
                 BusLine line = mManager.getBusLine(new SQLBusNetwork(mNetwork), li);
-                mDirections.add(Arrays.asList(line.getDirections()));
+                mDirections.add(line.getDirections());
                 mLines.add(line);
             }
             return null;

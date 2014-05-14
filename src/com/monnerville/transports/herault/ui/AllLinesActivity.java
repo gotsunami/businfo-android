@@ -12,7 +12,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.widget.ListView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,24 +23,24 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.commonsware.android.listview.SectionedAdapter;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusNetwork;
+import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
     // Cached directions for all available lines
-    private List<List<String>> mDirections;
+    private List<List<City>> mDirections;
 
     private final SQLBusManager mManager = SQLBusManager.getInstance();
     /**
@@ -93,7 +92,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             ActionBarHelper.setSubtitle(this, getString(R.string.current_network,mNetwork));
         }
 
-        mDirections = new ArrayList<List<String>>();
+        mDirections = new ArrayList<List<City>>();
 
         List<BusLine> lines = mManager.getBusLines(new SQLBusNetwork(mNetwork));
 
@@ -140,9 +139,9 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     public static class LineListAdapter extends ArrayAdapter<BusLine> {
         private int mResource;
         private Context mContext;
-        private List<List<String>> mDirections;
+        private List<List<City>> mDirections;
 
-        LineListAdapter(Context context, int resource, List<BusLine> lines, List<List<String>> directions) {
+        LineListAdapter(Context context, int resource, List<BusLine> lines, List<List<City>> directions) {
             super(context, resource, lines);
             mResource = resource;
             mContext = context;
@@ -167,6 +166,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             //GradientDrawable gd;
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
             TextView avail = (TextView)itemView.findViewById(R.id.available);
+            TextView intram = (TextView)itemView.findViewById(R.id.intramuros);
 
             // Show line availability information, if any
             if (line.getAvailableFrom() != null) {
@@ -192,10 +192,14 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
 
             if (!line.getName().equals(mContext.getString(R.string.result_no_match))) {
                 TextView direction = (TextView)itemView.findViewById(R.id.direction);
-                try {
-                    List<String> dirs = this.mDirections.get(position);
-                    direction.setText(dirs.get(0) + " - " + dirs.get(1));
-                } catch(IndexOutOfBoundsException ex) {}
+				if (line.isSelfReferencing()) {
+					intram.setVisibility(View.VISIBLE);
+					intram.setText(mContext.getString(R.string.line_intra, 
+						mDirections.get(position).get(0).getRealName()));
+				} else {
+					intram.setVisibility(View.GONE);
+				}
+				direction.setText(line.getDirectionsHumanReadable());
             }
 
             return itemView;
@@ -280,19 +284,21 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      */
     public static void handleBusLineItemClick(final Context ctx, final BusNetwork net, ListView l, View v, int position, long id) {
         final BusLine line = (BusLine)l.getItemAtPosition(position);
-        final String[] directions;
-        directions = line.getDirections();
+        final List<City> directions = line.getDirections();
         // No direction, problem!
-        if (directions[0] == null || directions[1] == null)
+        if (directions.get(0) == null || directions.get(1) == null)
             return;
+
+		String[] dds = line.getDirectionsHumanReadable().split(" - ");
+
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setTitle(R.string.pick_direction_title);
-        builder.setItems(directions, new DialogInterface.OnClickListener() {
+        builder.setItems(dds, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 Intent intent = new Intent(ctx, BusLineActivity.class);
                 intent.putExtra("line", line.getName());
-                intent.putExtra("direction", directions[item]);
+                intent.putExtra("direction", directions.get(item).getName());
                 intent.putExtra("network", net.getName());
                 ctx.startActivity(intent);
             }
@@ -321,8 +327,8 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
         protected Void doInBackground(List<BusLine>... lis) {
             mLines = lis[0];
             for (BusLine line : mLines) {
-                String[] dirs = line.getDirections();
-                mDirections.add(Arrays.asList(dirs));
+                List<City> dirs = line.getDirections();
+                mDirections.add(dirs);
             }
             return null;
         }
