@@ -35,6 +35,7 @@ import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import com.monnerville.transports.herault.core.BusLine;
+import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 
@@ -265,18 +266,19 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         final Object obj = l.getItemAtPosition(position);
         if (obj instanceof BusLine)
-            handleBusLineItemClick(this, l, v, position, id);
+            handleBusLineItemClick(this, new SQLBusNetwork(mNetwork), l, v, position, id);
     }
 
     /**
      * Handles bus line list item click
      * @param ctx context
+     * @param net current bus network
      * @param l listview instance
      * @param v view
      * @param position position of item in the list
      * @param id
      */
-    public static void handleBusLineItemClick(final Context ctx, ListView l, View v, int position, long id) {
+    public static void handleBusLineItemClick(final Context ctx, final BusNetwork net, ListView l, View v, int position, long id) {
         final BusLine line = (BusLine)l.getItemAtPosition(position);
         final String[] directions;
         directions = line.getDirections();
@@ -291,6 +293,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                 Intent intent = new Intent(ctx, BusLineActivity.class);
                 intent.putExtra("line", line.getName());
                 intent.putExtra("direction", directions[item]);
+                intent.putExtra("network", net.getName());
                 ctx.startActivity(intent);
             }
         });

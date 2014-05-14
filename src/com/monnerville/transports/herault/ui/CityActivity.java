@@ -38,6 +38,7 @@ import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.GPSPoint;
 import com.monnerville.transports.herault.core.QueryManager;
+import com.monnerville.transports.herault.core.sql.SQLBusLine;
 
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
@@ -228,8 +229,10 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
     public void onItemClick(AdapterView<?> av, View v, int position, long id) {
         mCanFinish = false;
         final Object obj = mList.getItemAtPosition(position);
-        if (obj instanceof BusLine)
-            AllLinesActivity.handleBusLineItemClick(this, mList, v, position, id);
+        if (obj instanceof BusLine) {
+            BusLine line = (SQLBusLine)obj;
+            AllLinesActivity.handleBusLineItemClick(this, new SQLBusNetwork(line.getBusNetworkName()), mList, v, position, id);
+        }
     }
 
     /**

@@ -30,6 +30,7 @@ import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.QueryManager;
+import com.monnerville.transports.herault.core.sql.SQLBusLine;
 
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
@@ -225,9 +226,10 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         final Object obj = l.getItemAtPosition(position);
-        if (obj instanceof BusLine)
-            AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
-        else if(obj instanceof BusStation) {
+        if (obj instanceof BusLine) {
+            BusLine line = (SQLBusLine)obj;
+            AllLinesActivity.handleBusLineItemClick(this, new SQLBusNetwork(line.getBusNetworkName()), l, v, position, id);
+        } else if(obj instanceof BusStation) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             final BusStation station = (BusStation)obj;
             builder.setTitle(R.string.station_context_title);

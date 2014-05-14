@@ -35,6 +35,7 @@ import com.monnerville.transports.herault.core.sql.SQLQueryManager;
 import com.monnerville.transports.herault.core.sql.DBStation;
 import com.monnerville.transports.herault.core.sql.SQLBusLine;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import com.monnerville.transports.herault.provider.SuggestionProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -383,8 +384,10 @@ public class SearchableActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         final Object obj = l.getItemAtPosition(position);
         mCanFinish = false;
-        if (obj instanceof BusLine)
-            AllLinesActivity.handleBusLineItemClick(this, l, v, position, id);
+        if (obj instanceof BusLine) {
+            BusLine line = (SQLBusLine)obj;
+            AllLinesActivity.handleBusLineItemClick(this, new SQLBusNetwork(line.getBusNetworkName()), l, v, position, id);
+        }
         else if(obj instanceof City) {
             // Cities
             City c = (City)obj;
