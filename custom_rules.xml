@@ -41,6 +41,12 @@
         </exec>
     </target>
 
+    <!-- Copy android support library -->
+    <property name="support.lib" value="android-support-v4.jar"/>
+    <target name="-support-lib">
+        <copy file="${sdk.dir}/extras/android/support/v4/${support.lib}" tofile="${jar.libs.dir}/${support.lib}"/>
+    </target>
+
 	<target name="api">
 		<javadoc 
 			classpath="${sdk.dir}/platforms/android-2.1/android.jar" 
@@ -60,7 +66,7 @@
     </target>
 
     <target name="nbdebug" depends="debug,install" />
-    <target name="-pre-build" depends="-gmaps-keysetup,-create-database" />
+    <target name="-pre-build" depends="-gmaps-keysetup,-create-database,-support-lib" />
     <target name="-pre-clean">
         <exec failonerror="true" executable="make">
             <arg line="-C ${lines.dir}" />
