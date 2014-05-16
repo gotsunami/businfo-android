@@ -74,7 +74,12 @@ public class SQLBusManager implements BusManager {
      */
     @Override
     public BusLine getBusLine(BusNetwork net, String name) {
-        return mDB.getMatchingLines(net, name).get(0);
+        List<BusLine> lines = mDB.getMatchingLines(net, name);
+        for (BusLine li : lines) {
+            if (li.getName().equals(name))
+                return li;
+        }
+        return null;
     }
 
     /**
