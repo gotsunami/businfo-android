@@ -31,6 +31,7 @@ import com.commonsware.android.listview.SectionedAdapter;
 import com.google.android.maps.MapActivity;
 import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
+import com.monnerville.transports.herault.core.AbstractBusLine;
 import com.monnerville.transports.herault.core.Application;
 import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.BusLine;
@@ -94,19 +95,20 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         else
             finish();
 
-        if (Application.OSBeforeHoneyComb()) {
-            setPrimaryTitle(getString(R.string.current_line_title, mLine));
-            setSecondaryTitle(getString(R.string.line_direction_title, mDirection));
-        }
-        else {
-            ActionBarHelper.setTitle(this, getString(R.string.current_line_title, mLine));
-            ActionBarHelper.setSubtitle(this, getString(R.string.line_direction_title, mDirection));
-        }
-
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         final BusManager manager = SQLBusManager.getInstance();
         BusLine line = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine);
+        String[] directs = line.getDirectionsHumanReadable().split(AbstractBusLine.DIRECTION_SEPARATOR);
+        if (Application.OSBeforeHoneyComb()) {
+            setPrimaryTitle(getString(R.string.current_line_title, mLine));
+            setSecondaryTitle(getString(R.string.line_direction_title, directs[1]));
+        }
+        else {
+            ActionBarHelper.setTitle(this, getString(R.string.current_line_title, mLine));
+            ActionBarHelper.setSubtitle(this, getString(R.string.line_direction_title, directs[1]));
+        }
+
 
         TextView lineIcon = (TextView)findViewById(R.id.line_icon);
         if (Application.OSBeforeHoneyComb()) {

@@ -49,6 +49,7 @@ public abstract class AbstractBusLine implements BusLine {
 	private void init() {
 		directions = new ArrayList<City>();
 	}
+    public static final String DIRECTION_SEPARATOR = " - ";
     /**
      * Primary constructor
      * @param name name of the line

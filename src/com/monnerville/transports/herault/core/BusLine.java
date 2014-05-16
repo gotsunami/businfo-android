@@ -19,6 +19,13 @@ public interface BusLine {
     public List<String> getCities(String direction);
     public List<City> getDirections();
     public String getDirectionsHumanReadable();
+    /**
+     * Return station name instead of city name for 
+     * self referencing lines.
+     * @param direction city name
+     * @return station name
+     */
+    public String getDirectionHumanReadableFor(String direction);
     public List<BusStation> getStations(String direction);
     public Map<String, List<BusStation>> getStationsPerCity(String direction);
     public String getDefaultTrafficPattern();

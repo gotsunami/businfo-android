@@ -178,9 +178,14 @@ public class SQLBusLine extends AbstractBusLine {
 			BusStation st1 = sts1.get(sts1.size()-1);
 			List<BusStation> sts2 = getStations(dirs.get(1).getName());
 			BusStation st2 = sts2.get(sts2.size()-1);
-			mHumanDirections = st1.getName() + " - " + st2.getName();
+			mHumanDirections = st1.getName() + DIRECTION_SEPARATOR + st2.getName();
 			return mHumanDirections;
 		}
-		return dirs.get(0).getRealName() + " - " + dirs.get(1).getRealName();
+		return dirs.get(0).getRealName() + DIRECTION_SEPARATOR + dirs.get(1).getRealName();
 	}
+
+    @Override
+    public String getDirectionHumanReadableFor(String direction) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
