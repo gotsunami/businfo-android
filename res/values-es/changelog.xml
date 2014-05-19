@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>1.0.11</b> - 18/05/2014:\n
+  Hérault transport: horarios actualizados por las líneas siguientes:\n
+  - 103 (St-Jean-de-Védas - Béziers)\n
+  - 103/312 (St-Jean-de-Védas - Poussan)\n
+  - 301/380 (Clermont l\'Hérault - Lodève)\n
+  - 301/381 (Montpellier - Millau)\n
+  - 320 (Sète - Mèze)\n
+  - 321 (Sète - Villeveyrac)\n\n
 <b>1.0.10</b> - 06/05/2014:\n
   Hérault transport: horarios actualizados por las líneas siguientes:\n
   - 106 (Montpellier - Aigues Mortes)\n

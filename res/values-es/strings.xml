@@ -134,15 +134,19 @@
     <!-- About app -->
     <string name="pref_about_about_title">Acerca de</string>
     <string name="about_description">"Bus34 es una aplicación gratuita para Android que tiene como objetivo de ofrecer un acceso rápido y sencillo a los horarios de todas las líneas de las redes de autobuses \"Hérault Transport\", \"Thau Agglo\" y TAM. También es posible acceder a sus paradas favoritas y compartirlas con sus amigos. Buscando información (para líneas, paradas de autobús o ciudades) se puede realizar usando el teclado o el mecanismo de reconocimiento de voz de su dispositivo Android, cuando está disponible.\n\nTenga en cuenta que se trata de una aplicación no oficial, propuesta y mantenida por mí en mi calidad de programador independiente y no por el Sindicato Mixto de transporte del Hérault.  "</string>
-    <string name="about_description_support">"Si tiene preguntas o si encontra problemas, visite el sitio web oficial http://ht.monnerville.com o envia un correo electrónico a ht-support@monnerville.com."</string>
+    <string name="about_description_support">"Si tiene preguntas o si encontra problemas, visite el sitio web oficial http://www.businfo.fr o envia un correo electrónico a contact@businfo.fr."</string>
 
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
 Hérault transport: horarios actualizados por las líneas siguientes:
-- 106 (Montpellier - Aigues Mortes)
-- 131 (Pérols - Palavas Les Flots)
+- 103 (St-Jean-de-Védas - Béziers)
+- 103/312 (St-Jean-de-Védas - Poussan)
+- 301/380 (Clermont l\'Hérault - Lodève)
+- 301/381 (Montpellier - Millau)
+- 320 (Sète - Mèze)
+- 321 (Sète - Villeveyrac)
 
 http://www.businfo.fr        
 "</string>

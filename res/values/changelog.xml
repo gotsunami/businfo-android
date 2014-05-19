@@ -4,10 +4,18 @@
 	<!-- Application credits -->
     <string name="app_name">Bus34</string>
     <string name="short_app_name">Bus34</string>
-    <string name="app_version">1.0.10</string>
+    <string name="app_version">1.0.11</string>
     <string name="website_url">http://www.businfo.fr</string>
     <string name="app_author">Mathias Monnerville</string>
 	<string name="app_changelog">"
+<b>1.0.11</b> - 2014-05-18:\n
+  Hérault transport: updated schedules for the following lines:\n
+  - 103 (St-Jean-de-Védas - Béziers)\n
+  - 103/312 (St-Jean-de-Védas - Poussan)\n
+  - 301/380 (Clermont l\'Hérault - Lodève)\n
+  - 301/381 (Montpellier - Millau)\n
+  - 320 (Sète - Mèze)\n
+  - 321 (Sète - Villeveyrac)\n\n
 <b>1.0.10</b> - 2014-05-06:\n
   Hérault transport: updated schedules for the following lines:\n
   - 106 (Montpellier - Aigues Mortes)\n
