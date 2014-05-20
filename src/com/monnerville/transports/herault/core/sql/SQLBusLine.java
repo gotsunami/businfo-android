@@ -110,8 +110,6 @@ public class SQLBusLine extends AbstractBusLine {
         Map<String, List<BusStation>> map = new HashMap<String, List<BusStation>>();
         List<String> cities = getCities(direction);
         List<BusStation> stations = getStations(direction);
-		// FIXME
-		Log.d("MAT", cities.toString());
         for (String city : cities) {
             map.put(city, new ArrayList<BusStation>());
             for (BusStation st : stations) {
