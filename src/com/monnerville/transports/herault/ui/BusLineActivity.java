@@ -136,29 +136,9 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
                 List<BusStation> stations = stationsPerCity.get(city);
                 allStations.addAll(stations);
                 mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
-
-                // Draw point on map
-                /** TODO: not for now
-                GPSPoint pt = mFinder.getCityGPSCoordinates(city);
-                GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
-                busOverlay.addItem(cityPoint, "doo", "Kilo");
-                Log.d("POINT", pt.getLatitude() + ", " + pt.getLongitude());
-                 */
             }
             mList.setAdapter(mAdapter);
-            /**
-            mapView.getOverlays().add(busOverlay);
-            // Center map on the first city
-            GPSPoint pt = mFinder.getCityGPSCoordinates(cities.get(0));
-            GeoPoint cityPoint = new GeoPoint(pt.getLatitude(), pt.getLongitude());
-            controller.setCenter(cityPoint);
-             */
             new StationsStopsRetreiverTask().execute(allStations);
-            /**
-            NavigationDataSet nds = MapService.calculateRoute("Gigean,France", "Frontignan,France", MapService.MODE_CAR);
-            if (nds != null)
-                Log.d("NDS", nds.toString());
-             */
         }
         else {
             Log.w(TAG, "Direction '" + mDirection + "' not found");
@@ -182,10 +162,6 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
                 }
             });
         }
-
-        /**
-        controller.setZoom(DEFAULT_MAP_ZOOM);
-         */
     }
 
     /**
