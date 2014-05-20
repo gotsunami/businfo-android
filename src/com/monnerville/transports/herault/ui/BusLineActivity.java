@@ -135,7 +135,8 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
             for (String city : cities) {
                 List<BusStation> stations = stationsPerCity.get(city);
                 allStations.addAll(stations);
-                mAdapter.addSection(city, new StationListAdapter(this, R.layout.bus_line_list_item, stations));
+                mAdapter.addSection(City.removeSelfSuffix(city),
+                    new StationListAdapter(this, R.layout.bus_line_list_item, stations));
             }
             mList.setAdapter(mAdapter);
             new StationsStopsRetreiverTask().execute(allStations);
