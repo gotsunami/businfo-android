@@ -30,7 +30,7 @@
     <string name="next_stop_board_title">Prochain arrêt</string>
 
     <string name="home_bus_networks">Mes réseaux</string>
-    <string name="home_my_bookmarks">Favoris</string>
+    <string name="home_my_bookmarks">Mes favoris</string>
     <string name="no_bookmark">Aucun horaire</string>
 
     <string name="bookmark_city">"À %1$s"</string>
