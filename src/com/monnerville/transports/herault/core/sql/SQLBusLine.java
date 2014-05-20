@@ -186,6 +186,15 @@ public class SQLBusLine extends AbstractBusLine {
 
     @Override
     public String getDirectionHumanReadableFor(String direction) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		List<City> dirs = getDirections();
+        if (mIsSelfReferencing) {
+			List<BusStation> sts = getStations(direction);
+            return sts.get(sts.size()-1).getName();
+        }
+        for (int k=0; k<dirs.size(); k++) {
+            if (dirs.get(k).getName().equals(direction))
+                return dirs.get(k).getRealName();
+        }
+        return null;
     }
 }

@@ -22,7 +22,7 @@ public interface BusLine {
     /**
      * Return station name instead of city name for 
      * self referencing lines.
-     * @param direction city name
+     * @param direction city
      * @return station name
      */
     public String getDirectionHumanReadableFor(String direction);

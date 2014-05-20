@@ -99,14 +99,13 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
 
         final BusManager manager = SQLBusManager.getInstance();
         BusLine line = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine);
-        String[] directs = line.getDirectionsHumanReadable().split(AbstractBusLine.DIRECTION_SEPARATOR);
         if (Application.OSBeforeHoneyComb()) {
             setPrimaryTitle(getString(R.string.current_line_title, mLine));
-            setSecondaryTitle(getString(R.string.line_direction_title, directs[1]));
+            setSecondaryTitle(getString(R.string.line_direction_title, line.getDirectionHumanReadableFor(mDirection)));
         }
         else {
             ActionBarHelper.setTitle(this, getString(R.string.current_line_title, mLine));
-            ActionBarHelper.setSubtitle(this, getString(R.string.line_direction_title, directs[1]));
+            ActionBarHelper.setSubtitle(this, getString(R.string.line_direction_title, line.getDirectionHumanReadableFor(mDirection)));
         }
 
 
