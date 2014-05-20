@@ -30,6 +30,7 @@ import java.util.List;
 import com.monnerville.transports.herault.core.BusManager;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.BusStop;
+import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.TrafficPatternParser;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
@@ -192,17 +193,16 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             TextView name = (TextView)itemView.findViewById(android.R.id.text1);
             name.setText(station.getName());
             TextView info = (TextView)itemView.findViewById(android.R.id.text2);
-            info.setText(mContext.getString(R.string.bookmark_info, station.getLine().getName(), station.getDirection()));
+            info.setText(mContext.getString(R.string.bookmark_info, station.getLine().getName(), 
+                City.removeSelfSuffix(station.getDirection())));
+            TextView net = (TextView)itemView.findViewById(R.id.network);
+            net.setText(station.getLine().getBusNetworkName());
 
             TextView sched = (TextView)itemView.findViewById(R.id.icon);
             // Get a cached value
             BusStop st = station.getNextStop(true);
             sched.setText(st == null ? mContext.getString(R.string.no_more_stop_short) :
                 BusStop.TIME_FORMATTER.format(st.getTime()));
-
-            int colors[] = { 0x00ffffff, st == null ? 0xffff0000 : 0xff039900, 0x00ffffff };
-            GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-//            sched.setBackgroundDrawable(gd);
 
             TextView city = (TextView)itemView.findViewById(R.id.city);
             city.setText(getFormattedETA(station, st, mContext));
@@ -223,6 +223,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         // FIXME: remove station param to clean up the code
 
         String feta; // formatted ETA
+        String city = City.removeSelfSuffix(station.getCity());
         if (st != null) {
             BusStop.EstimatedTime eta = st.getETA();
             int pattern = -1;
@@ -233,13 +234,12 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                             pattern = R.string.bookmark_city_eta_hours_hp_ms;
                         else if (eta.getMinutes() > 1)
                             pattern = R.string.bookmark_city_eta_hours_hp_mp;
-                        feta = ctx.getString(pattern, station.getCity(), "" + 
-                            eta.getHours(), "" + eta.getMinutes());
+                        feta = ctx.getString(pattern, city, "" + eta.getHours(), "" + eta.getMinutes());
                     }
                     else {
                         // 0 minute
                         pattern = R.string.bookmark_city_eta_hours_hp;
-                        feta = ctx.getString(pattern, station.getCity(), "" + eta.getHours());
+                        feta = ctx.getString(pattern, city, "" + eta.getHours());
                     }
                 }
                 else {
@@ -249,13 +249,12 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                             pattern = R.string.bookmark_city_eta_hours_hs_ms;
                         else if (eta.getMinutes() > 1)
                             pattern = R.string.bookmark_city_eta_hours_hs_mp;
-                        feta = ctx.getString(pattern, station.getCity(), "" + 
-                            eta.getHours(), "" + eta.getMinutes());
+                        feta = ctx.getString(pattern, city, "" + eta.getHours(), "" + eta.getMinutes());
                     }
                     else {
                         // 0 minute
                         pattern = R.string.bookmark_city_eta_hours_hs;
-                        feta = ctx.getString(pattern, station.getCity(), "" + eta.getHours());
+                        feta = ctx.getString(pattern, city, "" + eta.getHours());
                     }
                 }
             }
@@ -266,13 +265,13 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
                 }
                 else {
                     pattern = eta.getMinutes() > 1 ? R.string.bookmark_city_eta_mp : R.string.bookmark_city_eta_ms;
-                    feta = ctx.getString(pattern, station.getCity(), "" + eta.getMinutes());
+                    feta = ctx.getString(pattern, city, "" + eta.getMinutes());
                 }
             }
         }
         else {
             // No more stop today
-            feta = ctx.getString(R.string.bookmark_city, station.getCity());
+            feta = ctx.getString(R.string.bookmark_city, city);
         }
         return feta;
     }
