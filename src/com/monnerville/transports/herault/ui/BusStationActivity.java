@@ -261,7 +261,7 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
             else {
                 // 0 hour
                 if(eta.getMinutes() == 0)  {
-                    feta = ctx.getString(R.string.bookmark_city_eta_ms_now, station.getCity());
+                    feta = ctx.getString(R.string.bookmark_city_eta_ms_now, city);
                 }
                 else {
                     pattern = eta.getMinutes() > 1 ? R.string.bookmark_city_eta_mp : R.string.bookmark_city_eta_ms;
