@@ -229,6 +229,7 @@ public class BookmarkFragment extends ListFragment {
                             intent.putExtra("line", station.getLine().getName());
                             intent.putExtra("direction", station.getDirection());
                             intent.putExtra("station", station.getName());
+                            intent.putExtra("network", station.getLine().getBusNetworkName());
                             startActivity(intent);
                             break;
                         }
@@ -236,6 +237,7 @@ public class BookmarkFragment extends ListFragment {
                             Intent intent = new Intent(getActivity(), BusLineActivity.class);
                             intent.putExtra("line", station.getLine().getName());
                             intent.putExtra("direction", station.getDirection());
+                            intent.putExtra("network", station.getLine().getBusNetworkName());
                             startActivity(intent);
                             break;
                         }
