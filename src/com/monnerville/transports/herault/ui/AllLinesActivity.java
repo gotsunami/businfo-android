@@ -152,6 +152,7 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
                 itemView = new LinearLayout(mContext);
                 LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 li.inflate(mResource, itemView, true);
+                itemView.setBackgroundResource(R.drawable.cell);
             }
             else
                 itemView = (LinearLayout)convertView;

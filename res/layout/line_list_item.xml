@@ -3,10 +3,10 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_width="fill_parent"
-    android:paddingLeft="10dip"
-    android:paddingRight="15dip">
+    android:paddingLeft="0dip"
+    android:paddingRight="2dip">
 
     <!-- Activity icon when presenting dialog -->
     <TextView android:id="@+id/line_color"
@@ -15,8 +15,8 @@
         android:scaleType="fitCenter"
         android:gravity="center"
         android:textStyle="bold"
-        android:layout_width="@android:dimen/app_icon_size"
-        android:layout_height="@android:dimen/app_icon_size" />
+        android:layout_width="24dip"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -40,7 +40,7 @@
             android:paddingLeft="8dip" />
         <TextView android:id="@+id/intramuros"
 			android:visibility="gone"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?android:attr/textColorSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
