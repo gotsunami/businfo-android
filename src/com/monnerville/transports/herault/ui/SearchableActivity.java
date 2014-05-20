@@ -79,6 +79,7 @@ public class SearchableActivity extends ListActivity {
 
 
         mDirections = new ArrayList<List<City>>();
+        mLines = new ArrayList<BusLine>();
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
@@ -172,7 +173,6 @@ public class SearchableActivity extends ListActivity {
     private class StartSearchingTask extends AsyncTask<String, Void, Void> {
         private ProgressDialog mDialog;
         private long mStart;
-        private List<BusNetwork> mNetworks;
         final QueryManager finder = SQLQueryManager.getInstance();
 
         @Override
@@ -180,7 +180,8 @@ public class SearchableActivity extends ListActivity {
             String query = q[0];
             mCities = finder.findCities(query, false);
             mStations = (List<DBStation>)finder.findStations(query);
-            for (BusNetwork net : mNetworks) {
+			List<BusNetwork> nets = mManager.getBusNetworks();
+            for (BusNetwork net : nets) {
                 mLines.addAll(finder.findMatchingLines(net, query));
             }
             // Get directions
@@ -390,7 +391,9 @@ public class SearchableActivity extends ListActivity {
         mCanFinish = false;
         if (obj instanceof BusLine) {
             BusLine line = (SQLBusLine)obj;
-            AllLinesActivity.handleBusLineItemClick(this, new SQLBusNetwork(line.getBusNetworkName()), l, v, position, id);
+			if (!line.getName().equals(getString(R.string.result_no_match))) {
+				AllLinesActivity.handleBusLineItemClick(this, new SQLBusNetwork(line.getBusNetworkName()), l, v, position, id);
+			}
         }
         else if(obj instanceof City) {
             // Cities

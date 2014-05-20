@@ -75,7 +75,6 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
         final Bundle bun = intent.getExtras();
         // Sent directly from the suggestion search entry or from the SearchableActivity
         mStationId = bun.getString("stationId");
-        mNetwork = bun.getString("network");
 
         mLines = new HashMap<BusLine, List<BusStation>>();
         mStations = new ArrayList<BusStation>();

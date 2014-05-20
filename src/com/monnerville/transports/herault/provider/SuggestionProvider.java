@@ -135,7 +135,7 @@ public class SuggestionProvider extends ContentProvider {
             tableId), new String[] {"id", "name"}, "name LIKE ?",
             new String[] {"%" + query + "%"}, null, null, "name"
         );
-        String subt = subtitle;
+        String subt;
         // Primary key prefix to know what kind of intent data this is
         String uidPrefix = "";
 
@@ -144,6 +144,7 @@ public class SuggestionProvider extends ContentProvider {
             String name = c.getString(1);
             switch(tableId) {
                 case R.string.db_city_table_name:
+					name = City.removeSelfSuffix(name);
                     List<BusLine> lines = finder.findLinesInCity(name);
                     subt = getContext().getString(R.string.suggestion_city_subtitle, lines.size());
                     uidPrefix = BUS_CITY_PREFIX_ID;
@@ -175,7 +176,7 @@ public class SuggestionProvider extends ContentProvider {
             }
             String[] tmp = {
                 String.valueOf(offset + c.getInt(0)),   // Unique ID
-                c.getString(1),                         // Main caption
+                name,                         			// Main caption
                 subt,                                   // Subtitle
                 //          iconResource,               // Appropriate icon resource
                 uidPrefix + String.valueOf(c.getInt(0)),// Intent data to identify intent's type

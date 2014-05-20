@@ -24,6 +24,7 @@ public interface QueryManager {
     public List<? extends Object> findStations(String query);
     /**
      * Looks for existing bus lines in a specific network
+	 * @param net
      * @param query
      * @return list of bus lines
      */
