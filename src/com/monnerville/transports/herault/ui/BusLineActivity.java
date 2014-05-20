@@ -318,6 +318,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
                         intent.putExtra("line", mLine);
                         intent.putExtra("direction", mDirection);
                         intent.putExtra("station", station.getName());
+                        intent.putExtra("network", mNetwork);
                         startActivity(intent);
                         break;
                     }

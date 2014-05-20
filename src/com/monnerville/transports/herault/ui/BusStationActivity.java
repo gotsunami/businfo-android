@@ -88,18 +88,20 @@ public class BusStationActivity extends ListActivity implements HeaderTitle {
         else
             finish();
 
+        BusManager manager = SQLBusManager.getInstance();
+        BusLine line = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine);
         if (Application.OSBeforeHoneyComb()) {
             setPrimaryTitle(mStation);
-            setSecondaryTitle(getString(R.string.station_line_direction_title, mLine, mDirection));
+            setSecondaryTitle(getString(R.string.station_line_direction_title, mLine,
+                line.getDirectionHumanReadableFor(mDirection)));
         }
         else {
             ActionBarHelper.setTitle(this, mStation);
-            ActionBarHelper.setSubtitle(this, getString(R.string.station_line_direction_title, mLine, mDirection));
+            ActionBarHelper.setSubtitle(this, getString(R.string.station_line_direction_title, mLine,
+                line.getDirectionHumanReadableFor(mDirection)));
         }
 
         setTitle(mLine + " - Station " + mStation);
-        BusManager manager = SQLBusManager.getInstance();
-        BusLine line = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine);
         List<BusStation> stations = line.getStations(mDirection);
         for (BusStation st : stations) {
             if (st.getName().equals(mStation)) {
