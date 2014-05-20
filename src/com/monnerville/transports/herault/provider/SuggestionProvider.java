@@ -144,7 +144,7 @@ public class SuggestionProvider extends ContentProvider {
             String name = c.getString(1);
             switch(tableId) {
                 case R.string.db_city_table_name:
-                    List<String> lines = finder.findLinesInCity(name);
+                    List<BusLine> lines = finder.findLinesInCity(name);
                     subt = getContext().getString(R.string.suggestion_city_subtitle, lines.size());
                     uidPrefix = BUS_CITY_PREFIX_ID;
                     break;

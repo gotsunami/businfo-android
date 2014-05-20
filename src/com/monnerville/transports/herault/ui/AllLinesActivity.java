@@ -167,6 +167,9 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
             TextView col = (TextView)itemView.findViewById(R.id.line_color);
             TextView avail = (TextView)itemView.findViewById(R.id.available);
             TextView intram = (TextView)itemView.findViewById(R.id.intramuros);
+            TextView network = (TextView)itemView.findViewById(R.id.network);
+            network.setVisibility(View.VISIBLE);
+            network.setText(line.getBusNetworkName());
 
             // Show line availability information, if any
             if (line.getAvailableFrom() != null) {

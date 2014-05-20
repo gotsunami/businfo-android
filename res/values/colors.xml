@@ -28,4 +28,5 @@
     <color name="lines_by_city">#888888</color>
     <color name="result_city_name">#11155D</color>
     <color name="line_availability">#ff9a0000</color>
+    <color name="secondary">#808080</color>
 </resources>

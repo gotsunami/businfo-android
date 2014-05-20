@@ -289,7 +289,11 @@ public class SearchableActivity extends ListActivity {
                 // We have some matches
                 TextView tv = (TextView)itemView.findViewById(R.id.label_layout);
                 QueryManager finder = SQLQueryManager.getInstance();
-                List<String> lines = finder.findLinesInCity(city.getName());
+                List<BusLine> alines = finder.findLinesInCity(city.getName());
+                List<String> lines = new ArrayList<String>();
+                for (BusLine bl : alines) {
+                    lines.add(bl.getName());
+                }
                 String strLines = Application.getJoinedList(lines, ",");
                 String ls = getString(lines.size() == 1 ? R.string.city_served_by_line :
                     R.string.city_served_by_lines, strLines);
