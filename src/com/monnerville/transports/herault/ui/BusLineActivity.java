@@ -176,8 +176,9 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         for (City dir : directions) {
             if (!dir.equals(mDirection)) {
                 intent.putExtra("line", mLine);
-                intent.putExtra("direction", dir.getPK());
+                intent.putExtra("direction", dir.getName());
                 intent.putExtra("showToast", true);
+                intent.putExtra("network", mNetwork);
                 mCanFinish = true;
                 startActivity(intent);
                 break;
@@ -392,7 +393,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
                 mDialog.cancel();
                 if (mShowToast) {
                     Toast.makeText(BusLineActivity.this, getString(R.string.toast_current_direction,
-                        mDirection), Toast.LENGTH_SHORT).show();
+                        City.removeSelfSuffix(mDirection)), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 /* NOP */
