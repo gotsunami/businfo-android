@@ -35,6 +35,7 @@ import static com.monnerville.transports.herault.core.Application.TAG;
 
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusManager;
+import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.GPSPoint;
 import com.monnerville.transports.herault.core.QueryManager;
@@ -48,7 +49,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CityActivity extends MapActivity implements HeaderTitle, OnItemClickListener {
-    private String mNetwork;
     private String mCityId;
     private boolean mCanFinish = false;
     private SharedPreferences mPrefs;
@@ -90,15 +90,14 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
         final Bundle bun = intent.getExtras();
         // Sent directly from the suggestion search entry or from the SearchableActivity
         mCityId = bun.getString("cityId");
-        mNetwork = bun.getString("network");
 
         mLines = new ArrayList<BusLine>();
         mDirections = new ArrayList<List<City>>();
 
         QueryManager finder = SQLQueryManager.getInstance();
-        String cityName = finder.getCityFromId(mCityId);
+        String cityName = City.removeSelfSuffix(finder.getCityFromId(mCityId));
         List<City> cities = finder.findCities(cityName, true);
-        List<String> lines = finder.findLinesInCity(cityName);
+        List<BusLine> lines = finder.findLinesInCity(cityName);
 
         if (Application.OSBeforeHoneyComb()) {
             setPrimaryTitle(cityName);
@@ -189,13 +188,12 @@ public class CityActivity extends MapActivity implements HeaderTitle, OnItemClic
     /**
      * Retrieves all lines directions in a background thread
      */
-    private class DirectionsRetreiverTask extends AsyncTask<List<String>, Void, Void> {
+    private class DirectionsRetreiverTask extends AsyncTask<List<BusLine>, Void, Void> {
         private ProgressDialog mDialog;
 
         @Override
-        protected Void doInBackground(List<String>... lis) {
-            for (String li : lis[0]) {
-                BusLine line = mManager.getBusLine(new SQLBusNetwork(mNetwork), li);
+        protected Void doInBackground(List<BusLine>... lis) {
+            for (BusLine line : lis[0]) {
                 mDirections.add(line.getDirections());
                 mLines.add(line);
             }

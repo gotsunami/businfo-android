@@ -29,12 +29,10 @@ public interface QueryManager {
      */
     public List<BusLine> findMatchingLines(BusNetwork net, String query);
     /**
-     * Looks for lines in city
-     * FIXME: should return a list of BusLine
-     * @param city
-     * @return list of bus lines
+     * @param city the value of city
+     * @return the List<BusLine>
      */
-    public List<String> findLinesInCity(String city);
+    public List<BusLine> findLinesInCity(String city);
     /**
      * Finds lines and city for one station
      * @param name name of station (not unique!)

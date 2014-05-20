@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.AbstractBusLine;
+import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.BusStation;
 import com.monnerville.transports.herault.core.City;
 
@@ -27,6 +28,11 @@ public class SQLBusLine extends AbstractBusLine {
     public SQLBusLine(String name) {
         super(name);
         setBusNetwork();
+    }
+
+    public SQLBusLine(BusNetwork network, String name) {
+        super(name);
+        setBusNetworkName(network.getName());
     }
 
     public SQLBusLine(String name, String hexColor) {

@@ -75,15 +75,20 @@ public class SQLQueryManager implements QueryManager {
         return ((HTDatabase)mManager.getDB()).getMatchingLines(net, query);
     }
 
+    /**
+     *
+     * @param city the value of city
+     * @return the List<BusLine>
+     */
     @Override
-    public List<String> findLinesInCity(String city) {
-        List<String> lines = new ArrayList<String>();
+    public List<BusLine> findLinesInCity(String city) {
+        List<BusLine> lines = new ArrayList<BusLine>();
         Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
             R.string.query_getlines_in_city), new String[] {city}
         );
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            lines.add(c.getString(0));
+            lines.add(new SQLBusLine(new SQLBusNetwork(c.getString(1)), c.getString(0)));
         }
 		c.close();
         return lines;

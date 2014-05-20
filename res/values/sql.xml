@@ -105,8 +105,8 @@ AND (
 )
 "</string>
     <string name="query_getlines_in_city">"
-SELECT name FROM line
-WHERE id IN (
+SELECT l.name, n.name FROM line AS l, network as n
+WHERE l.id IN (
   SELECT DISTINCT(line_station.line_id) FROM line_station
   WHERE line_station.station_id IN (
     SELECT station.id FROM station, city
@@ -116,7 +116,8 @@ WHERE id IN (
     AND station.city_id=city.id
   )
 )
-ORDER BY name
+AND l.network_id=n.id
+ORDER BY l.name
 "</string>
     <string name="query_get_lines_and_city_from_station">"
 SELECT city.name, line.name 
