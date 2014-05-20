@@ -6,13 +6,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +31,6 @@ import com.monnerville.transports.herault.core.City;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLBusNetwork;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AllLinesActivity extends ListActivity implements HeaderTitle {
@@ -216,57 +211,12 @@ public class AllLinesActivity extends ListActivity implements HeaderTitle {
      * @param tv TextView to change
      */
     public static void setLineTextViewStyle(final Context ctx, final BusLine line, TextView tv) {
-        GradientDrawable gd;
         if (line.getName().equals(ctx.getString(R.string.result_no_match))) {
-            int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
-            gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
             tv.setText("?");
+            tv.setBackgroundColor(BusLine.UNKNOWN_COLOR);
+            return;
         }
-        else {
-            if (line.getColor() != BusLine.DEFAULT_COLOR) {
-                tv.setText("");
-                int colors[] = { line.getColor(), AllLinesActivity.getLighterColor(line.getColor(), 2) };
-                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-            }
-            else {
-                int colors[] = { BusLine.DEFAULT_COLOR, AllLinesActivity.getLighterColor(BusLine.DEFAULT_COLOR, 2) };
-                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-                tv.setText("?");
-            }
-        }
-        gd.setCornerRadius(5);
-        tv.setBackgroundDrawable(gd);
-    }
-
-    /**
-     * Computes a lighter color
-     * @param startCol source color to compute from
-     * @param fn times factor
-     * @return new color
-     */
-    public static int getLighterColor(int startCol, int fn) {
-        return Color.rgb(
-            fn*Color.red(startCol),
-            fn*Color.green(startCol),
-            fn*Color.blue(startCol));
-    }
-
-    /**
-     * Computes a darker color
-     * @param startCol source color to compute from
-     * @param fn times factor
-     * @return new color
-     */
-    public static int getDarkerColor(int startCol, int fn) {
-        return Color.rgb(
-            Color.red(startCol)/fn,
-            Color.green(startCol)/fn,
-            Color.blue(startCol)/fn);
-    }
-
-    private int getResourceId(Context ctx, String str) {
-        String packageName = "com.monnerville.transports.herault";
-        return ctx.getResources().getIdentifier(str, null, packageName);
+        tv.setBackgroundColor(line.getColor());
     }
 
     @Override
