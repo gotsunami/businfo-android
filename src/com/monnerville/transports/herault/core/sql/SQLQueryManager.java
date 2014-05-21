@@ -94,9 +94,15 @@ public class SQLQueryManager implements QueryManager {
         return lines;
     }
 
+    /**
+     *
+     * @param name the value of name
+     * @param id the value of id
+     * @return list of lines and city
+     */
     @Override
-    public Map<String, List<String>> findLinesAndCityFromStation(String name, String id) {
-        Map<String, List<String>> result = new HashMap<String, List<String>>();
+    public Map<String, List<BusLine>> findLinesAndCityFromStation(String name, String id) {
+        Map<String, List<BusLine>> result = new HashMap<String, List<BusLine>>();
         Cursor c = mManager.getDB().getReadableDatabase().rawQuery(ctx.getString(
             R.string.query_get_lines_and_city_from_station), new String[] {name, id}
         );
@@ -105,12 +111,12 @@ public class SQLQueryManager implements QueryManager {
         // Get the city
         c.moveToPosition(0);
         String city = c.getString(0);
-        result.put(city, new ArrayList<String>());
+        result.put(city, new ArrayList<BusLine>());
 
         // Fill in the bus lines
         for (int j=0; j < c.getCount(); j++) {
             c.moveToPosition(j);
-            result.get(city).add(c.getString(1));
+            result.get(city).add(new SQLBusLine(new SQLBusNetwork(c.getString(2)), c.getString(1)));
         }
 		c.close();
         return result;

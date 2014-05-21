@@ -17,6 +17,7 @@ import com.monnerville.transports.herault.core.QueryManager;
 import com.monnerville.transports.herault.core.sql.SQLBusLine;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
 import com.monnerville.transports.herault.core.sql.SQLQueryManager;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -157,15 +158,18 @@ public class SuggestionProvider extends ContentProvider {
                     uidPrefix = BUS_LINE_PREFIX_ID;
                     break;
                 case R.string.db_station_table_name:
-                    Map<String, List<String>> cityLines =
+                    Map<String, List<BusLine>> cityLines =
                         finder.findLinesAndCityFromStation(name, c.getString(0));
                     Set<String> keys = cityLines.keySet();
                     Iterator itr = keys.iterator();
                     String city = (String)itr.next();
-                    List<String> allLines = cityLines.get(city);
-
-                    String strLines = Application.getJoinedList(cityLines.get(city), ",");
-                    String ls = getContext().getString(allLines.size() == 1 ? 
+                    List<BusLine> _allLines = cityLines.get(city);
+                    List<String> allLines = new ArrayList<String>();
+                    for (BusLine li : _allLines) {
+                        allLines.add(li.getName());
+                    }
+                    String strLines = Application.getJoinedList(allLines, ",");
+                    String ls = getContext().getString(_allLines.size() == 1 ?
                         R.string.suggestion_station_served_by_line : R.string.suggestion_station_served_by_lines,
                         strLines);
                     subt = getContext().getString(R.string.suggestion_station_subtitle, city, ls);

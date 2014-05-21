@@ -165,15 +165,15 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
             QueryManager finder = SQLQueryManager.getInstance();
 
             // First, find all related lines
-            Map<String, List<String>> cityAndLines = finder.findLinesAndCityFromStation(mStationName, mStationId);
+            Map<String, List<BusLine>> cityAndLines = finder.findLinesAndCityFromStation(mStationName, mStationId);
             Set<String> keys = cityAndLines.keySet();
             Iterator itr = keys.iterator();
             mCity = (String)itr.next();
 
             // Then, for each line, get directions and add the stations
-            for (String li : cityAndLines.get(mCity)) {
+            for (BusLine line : cityAndLines.get(mCity)) {
                 List <BusStation> stations = new ArrayList<BusStation>();
-                BusLine line = mManager.getBusLine(new SQLBusNetwork(mNetwork), li);
+                //BusLine line = mManager.getBusLine(new SQLBusNetwork(mNetwork), li);
                 List<City> dirs = line.getDirections();
                 SQLBusStation st1 = new SQLBusStation(line, mStationName, dirs.get(0).getName(), mCity);
                 SQLBusStation st2 = new SQLBusStation(line, mStationName, dirs.get(1).getName(), mCity);

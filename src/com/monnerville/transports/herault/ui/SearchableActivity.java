@@ -357,7 +357,7 @@ public class SearchableActivity extends ListActivity {
             name.setText(station.name);
 
             QueryManager finder = SQLQueryManager.getInstance();
-            Map<String, List<String>> clines = finder.findLinesAndCityFromStation(
+            Map<String, List<BusLine>> clines = finder.findLinesAndCityFromStation(
                 station.name, Long.toString(station.id));
 
             if (clines.size() > 0) {
@@ -365,9 +365,12 @@ public class SearchableActivity extends ListActivity {
                 Set<String> keys = clines.keySet();
                 Iterator itr = keys.iterator();
                 String city = (String)itr.next();
-                List<String> lines = clines.get(city);
-
-                String strLines = Application.getJoinedList(clines.get(city), ",");
+                List<BusLine> lines = clines.get(city);
+                List<String> allLines = new ArrayList<String>();
+                for (BusLine li : lines) {
+                    allLines.add(li.getName());
+                }
+                String strLines = Application.getJoinedList(allLines, ",");
                 String ls = getString(lines.size() == 1 ? R.string.city_served_by_line :
                     R.string.city_served_by_lines, strLines);
                 tv.setText(getString(R.string.station_served_by_lines, city, ls));

@@ -35,12 +35,11 @@ public interface QueryManager {
      */
     public List<BusLine> findLinesInCity(String city);
     /**
-     * Finds lines and city for one station
-     * @param name name of station (not unique!)
-     * @param id unique station identifier
-     * @return a map with one key (the city) and a list of stations
+     * @param name the value of name
+     * @param id the value of id
+     * @return the java.util.Map<java.lang.String,List<BusLine>>
      */
-    public Map<String, List<String>> findLinesAndCityFromStation(String name, String id);
+    public Map<String, List<BusLine>> findLinesAndCityFromStation(String name, String id);
     public String getLineColor(String name);
     public String getLineDefaultTrafficPattern(String name);
     /**
