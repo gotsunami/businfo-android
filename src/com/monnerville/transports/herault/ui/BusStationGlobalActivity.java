@@ -240,6 +240,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                             intent.putExtra("line", station.getLine().getName());
                             intent.putExtra("direction", station.getDirection());
                             intent.putExtra("station", station.getName());
+                            intent.putExtra("network", station.getLine().getBusNetworkName());
                             startActivity(intent);
                             break;
                         }
@@ -247,6 +248,7 @@ public class BusStationGlobalActivity extends ListActivity implements HeaderTitl
                             Intent intent = new Intent(BusStationGlobalActivity.this, BusLineActivity.class);
                             intent.putExtra("line", station.getLine().getName());
                             intent.putExtra("direction", station.getDirection());
+                            intent.putExtra("network", station.getLine().getBusNetworkName());
                             startActivity(intent);
                             break;
                         }
