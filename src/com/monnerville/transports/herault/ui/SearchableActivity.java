@@ -164,7 +164,8 @@ public class SearchableActivity extends ListActivity {
             List<City> dirs = line.getDirections();
 
             intent.putExtra("line", name);
-            intent.putExtra("direction", dirs.get(0).getPK());
+            intent.putExtra("direction", dirs.get(0).getName());
+            intent.putExtra("network", line.getBusNetworkName());
             intent.putExtra("showToast", false);
             startActivity(intent);
         }
