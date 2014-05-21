@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>2.0</b> - 21/05/2014:\n
+  - Ajout du réseau de bus Thau Agglo (15 lignes)\n
+  - Amélioration de l'interface utilisateur\n\n
 <b>1.0.11</b> - 18/05/2014:\n
   Hérault transport: mise à jour des horaires des lignes suivantes:\n
   - 103 (St-Jean-de-Védas - Béziers)\n

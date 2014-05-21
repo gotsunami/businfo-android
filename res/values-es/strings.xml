@@ -143,13 +143,8 @@
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
-Hérault transport: horarios actualizados por las líneas siguientes:
-- 103 (St-Jean-de-Védas - Béziers)
-- 103/312 (St-Jean-de-Védas - Poussan)
-- 301/380 (Clermont l\'Hérault - Lodève)
-- 301/381 (Montpellier - Millau)
-- 320 (Sète - Mèze)
-- 321 (Sète - Villeveyrac)
+- Adición del red de autobuses Thau Agglo (15 líneas)
+- diversas UI mejoras
 
 http://www.businfo.fr        
 "</string>
