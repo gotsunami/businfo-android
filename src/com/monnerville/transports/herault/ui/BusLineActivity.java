@@ -174,7 +174,7 @@ public class BusLineActivity extends MapActivity implements HeaderTitle, OnItemC
         Intent intent = new Intent(this, BusLineActivity.class);
         List<City> directions = manager.getBusLine(new SQLBusNetwork(mNetwork), mLine).getDirections();
         for (City dir : directions) {
-            if (!dir.equals(mDirection)) {
+            if (!dir.getName().equals(mDirection)) {
                 intent.putExtra("line", mLine);
                 intent.putExtra("direction", dir.getName());
                 intent.putExtra("showToast", true);
