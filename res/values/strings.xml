@@ -139,8 +139,17 @@
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
-- Bus network "Thau Agglo" added (15 lines)
-- Various UI improvements
+Hérault transport: updated schedules for the following lines (summer schedules):
+- 106 (Montpellier - Aigues Mortes)
+- 108 (Montpellier - Ganges)
+- 131 (Pérols - Palavas Les Flots)
+- 162 (Lunel - La Grande Motte)
+- 211 (Béziers - Portiragnes)
+- 212/213 (Béziers - Vendres)
+- 274 (Agde - Marseillan Plage)
+- 301 (Clermont l'Hérault - Lodève)
+- 308 (Montpellier - Clermont l'Hérault)
+- Navette des plages
 
 You can also search for bus schedules from our website at
 

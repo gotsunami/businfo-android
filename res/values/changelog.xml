@@ -4,10 +4,22 @@
 	<!-- Application credits -->
     <string name="app_name">Bus34</string>
     <string name="short_app_name">Bus34</string>
-    <string name="app_version">2.0</string>
+    <string name="app_version">2.0.1</string>
     <string name="website_url">http://www.businfo.fr</string>
     <string name="app_author">GoTsunami</string>
 	<string name="app_changelog">"
+<b>2.0.1</b> - 2014-07-12:\n
+  Hérault transport: updated schedules for the following lines (summer schedules):\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 108 (Montpellier - Ganges)\n
+  - 131 (Pérols - Palavas Les Flots)\n
+  - 162 (Lunel - La Grande Motte)\n
+  - 211 (Béziers - Portiragnes)\n
+  - 212/213 (Béziers - Vendres)\n
+  - 274 (Agde - Marseillan Plage)\n
+  - 301 (Clermont l\'Hérault - Lodève)\n
+  - 308 (Montpellier - Clermont l\'Hérault)\n
+  - Navette des plages\n\n
 <b>2.0</b> - 2014-05-21:\n
   - Bus network "Thau Agglo" added (15 lines)\n
   - Various UI improvements\n\n
