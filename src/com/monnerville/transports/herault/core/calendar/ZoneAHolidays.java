@@ -15,23 +15,26 @@ public final class ZoneAHolidays {
     /**
      * Starting year of supporting holiday range
      */
-    public static final int YEAR_FROM = 2011;
+    public static final int YEAR_FROM = 2014;
     /**
      * Ending year of supporting holiday range
      */
-    public static final int YEAR_TO = 2012;
+    public static final int YEAR_TO = 2015;
 
     /**
      * Zone A: only Herault 
-     *   2011/2012
+     *   2014/2015
      *   Pattern: start|end
      */
     private static final String[][] mHolidays = {
-        { "2011-10-22", "2011-11-02" },
-        { "2011-12-17", "2012-01-02" },
-        { "2012-02-11", "2012-02-26" },
-        { "2012-04-07", "2012-04-22" },
-        { "2012-07-05", "2012-09-03" },
+        // Toussaint
+        { "2014-10-18", "2014-11-02" },
+        // Noel
+        { "2014-12-20", "2015-01-04" },
+        // Vacances d'hiver
+        { "2015-02-07", "2015-02-22" },
+        // Vacances de printemps
+        { "2015-04-11", "2015-04-26" },
     };
 
     private ZoneAHolidays() {}
