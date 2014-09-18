@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>2.0.2</b> - 15/09/2014:\n
+  Hérault transport: horarios actualizados por las líneas siguientes:\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 108 (Montpellier - Ganges)\n
+  - 115 (Montpellier- Quissac)\n
+  - 125 (Lattes - St Aunès)\n
+  - 131 (Pérols - Palavas Les Flots)\n
+  - 301/381 (Montpellier - Millau)\n
+  - 302 (Montpellier - Clermont l\'Hérault)\n
+  - 303/485 (Montpellier - St Pons de Thomières)\n
+  - 308 (Montpellier - Clermont l\'Hérault)\n\n
 <b>2.0.1</b> - 12/07/2014:\n
   Hérault transport: horarios actualizados por las líneas siguientes:\n
   - 106 (Montpellier - Aigues Mortes)\n
