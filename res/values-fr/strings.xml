@@ -135,17 +135,16 @@
     <string name="pref_about_release_notes_title">Notes de version</string>
     <string name="pref_about_release_notes_summary">"Nouveautés de cette version"</string>
     <string name="release_notes_content">"
-Hérault transport: mise à jour des lignes suivantes (horaires d'été):
+Hérault transport: mise à jour des lignes suivantes :
 - 106 (Montpellier - Aigues Mortes)
 - 108 (Montpellier - Ganges)
+- 115 (Montpellier- Quissac)
+- 125 (Lattes - St Aunès)
 - 131 (Pérols - Palavas Les Flots)
-- 162 (Lunel - La Grande Motte)
-- 211 (Béziers - Portiragnes)
-- 212/213 (Béziers - Vendres)
-- 274 (Agde - Marseillan Plage)
-- 301 (Clermont l'Hérault - Lodève)
+- 301/381 (Montpellier - Millau)
+- 302 (Montpellier - Clermont l'Hérault)
+- 303/485 (Montpellier - St Pons de Thomières)
 - 308 (Montpellier - Clermont l'Hérault)
-- Navette des plages
 
 Retrouvez également les horaires des bus de l'Hérault sur notre site
 
