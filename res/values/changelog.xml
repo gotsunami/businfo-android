@@ -4,10 +4,13 @@
 	<!-- Application credits -->
     <string name="app_name">Bus34</string>
     <string name="short_app_name">Bus34</string>
-    <string name="app_version">2.0.2</string>
+    <string name="app_version">2.0.3</string>
     <string name="website_url">http://www.businfo.fr</string>
     <string name="app_author">GoTsunami</string>
 	<string name="app_changelog">"
+<b>2.0.3</b> - 2014-09-23:\n
+  Hérault transport: updated schedules for the following line:\n
+  - 216 (Saint-Jean-de-Védas - Béziers)\n\n
 <b>2.0.2</b> - 2014-09-15:\n
   Hérault transport: updated schedules for the following lines:\n
   - 106 (Montpellier - Aigues Mortes)\n
