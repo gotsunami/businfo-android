@@ -4,7 +4,7 @@
     <target name="-create-database">
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
-        <exec failonerror="true" executable="${lines.dir}/makeres.py">
+        <exec failonerror="true" executable="${lines.dir}/tools/makeres.py">
             <arg value="sqlite" />
             <arg value="${lines.dir}/raw" />
             <arg value="--android" />
