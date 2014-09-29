@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>2.0.4</b> - 29/09/2014:\n
+  Hérault transport: horarios actualizados por las líneas siguientes:\n
+  - 101 (Montpellier - Lunel)\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 107 (Lattes - Marsillargues)\n\n
 <b>2.0.3</b> - 23/09/2014:\n
   Hérault transport: horarios actualizados por la línea siguiente:\n
   - 216 (Saint-Jean-de-Védas - Béziers)\n\n

@@ -144,7 +144,9 @@
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
 Hérault transport: nuevos horarios :
-- 216 (Saint-Jean-de-Védas - Béziers)
+- 101 (Montpellier - Lunel)
+- 106 (Montpellier - Aigues Mortes)
+- 107 (Lattes - Marsillargues)
 
 http://www.businfo.fr        
 "</string>
