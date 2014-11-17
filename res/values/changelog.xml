@@ -4,10 +4,13 @@
 	<!-- Application credits -->
     <string name="app_name">Bus34</string>
     <string name="short_app_name">Bus34</string>
-    <string name="app_version">2.0.4</string>
+    <string name="app_version">2.0.5</string>
     <string name="website_url">http://www.businfo.fr</string>
     <string name="app_author">GoTsunami</string>
 	<string name="app_changelog">"
+<b>2.0.5</b> - 2014-11-10:\n
+  Hérault transport: updated schedules for the following lines:\n
+  - 106 (Montpellier - Aigues Mortes)\n\n
 <b>2.0.4</b> - 2014-09-29:\n
   Hérault transport: updated schedules for the following lines:\n
   - 101 (Montpellier - Lunel)\n

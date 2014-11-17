@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>2.0.5</b> - 10/11/2014:\n
+  Hérault transport: horarios actualizados por las líneas siguientes:\n
+  - 106 (Montpellier - Aigues Mortes)\n\n
 <b>2.0.4</b> - 29/09/2014:\n
   Hérault transport: horarios actualizados por las líneas siguientes:\n
   - 101 (Montpellier - Lunel)\n
