@@ -1,6 +1,6 @@
 package main
 
-// Simple web RPC service collecting statistics for bus34.
+// Simple web RPC service collecting statistics for businfo.
 // Stats are written to a MySQL database.
 
 import (

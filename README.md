@@ -1,9 +1,11 @@
 
-Bus34 is a free Android application whose goal is to provide an easy way to get 
-bus schedules of the french bus networks "Hérault Transport", "Thau Agglo" and 
-TAM (south of France).
+Businfo is a free Android application whose goal is to provide an easy way to get 
+bus schedules of french bus networks.
 
-This is free software released under the GPL (see LICENSE).
+## Supported Bus Networks
+
+* Hérault Transport
+* Thau Agglo
 
 ## Features
 
@@ -23,7 +25,7 @@ Distributed on the Google Play Store.
 1. Create a `local.properties` file at the root of the project with the following entries:
 
         sdk.dir=/path/to/android/sdk
-        lines.dir=/path/to/bus34-lines
+        lines.dir=/path/to/businfo-lines
 
 2. Create a `gmaps.properties` file at the root of project with:
 
@@ -34,3 +36,7 @@ Distributed on the Google Play Store.
 
         $ ant clean
         $ ant debug install
+
+## License
+
+This is free software released under the GPL (see LICENSE).

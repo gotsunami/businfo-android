@@ -2,8 +2,8 @@
 <resources>
 	<!-- DO NOT TRANSLATE THE FOLLOWING -->
 	<!-- Application credits -->
-    <string name="app_name">Bus34</string>
-    <string name="short_app_name">Bus34</string>
+    <string name="app_name">Businfo</string>
+    <string name="short_app_name">Businfo</string>
     <string name="app_version">2.0.5</string>
     <string name="website_url">http://www.businfo.fr</string>
     <string name="app_author">GoTsunami</string>
@@ -94,11 +94,11 @@
   - 301/381 (Montpellier - Millau)\n
   - 308 (Montpellier - Clermont l\'Hérault)\n\n
 <b>1.0.5</b> - 2013-07-16:\n
-  Bus34 will have a paid version very soon, Bus34 Pro, that will come with bus\n
+  Businfo will have a paid version very soon, Businfo Pro, that will come with bus\n
   schedules for the Herault Transport, TAM and Thau Agglo networks. It will have more\n
   features and will get schedule updates before the free version.\n\n
 
-  Please vote for Bus34 on the Market if you like the app!\n\n
+  Please vote for Businfo on the Market if you like the app!\n\n
 
   Hérault transport: updated schedules for the following lines:\n
   - 106 (Montpellier - Aigues Mortes)\n
@@ -132,7 +132,7 @@
 <b>1.0.1</b> - 2013-03-13:\n
   - Fix application crash on search page when no matching line\n\n
 <b>1.0</b> - 2013-03-13:\n
-  The application is now called "Bus34"! Its goal is to handle 
+  The application is now called "Businfo"! Its goal is to handle 
   the Hérault Transport, Thau Agglo and TAM bus networks.\n\n
 <b>0.9.20</b> - 2012-12-17:\n
   Updated schedules for the following lines:\n

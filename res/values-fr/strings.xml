@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="lines_activity_title">Bus34 - Lignes de bus</string>
+    <string name="lines_activity_title">Businfo - Lignes de bus</string>
     <string name="slogan">Horaires des bus de l\'Hérault</string>
     <string name="busline_activity_title">Ligne de bus</string>
     <string name="line_name">Ligne %1$s</string>
@@ -68,7 +68,7 @@
     <string name="bookmark_menu_title">Favori</string>
     <string name="station_menu_title">Cet arrêt</string>
     <string name="share_with_title">Partager avec</string>
-    <string name="share_msg">"Arrêt %1$s - ligne %2$s\n\nProchain arrêt à %3$s.\n\n%4$s.\n\n\n--\nPartagé depuis l'application Bus34 pour Android"</string>
+    <string name="share_msg">"Arrêt %1$s - ligne %2$s\n\nProchain arrêt à %3$s.\n\n%4$s.\n\n\n--\nPartagé depuis l'application Businfo pour Android"</string>
     <string name="station_context_title">Arrêt</string>
     <string name="pd_loading_bus_schedules">Chargement des horaires</string>
     <string name="pd_loading_bus_lines">Chargement des lignes de bus</string>
@@ -128,7 +128,7 @@
 
     <!-- About app -->
     <string name="pref_about_about_title">À propos</string>
-    <string name="about_description">"Bus34 est une application gratuite pour Android qui a pour objectif de proposer un accès facile et rapide aux horaires de l'ensemble des lignes des réseau de bus \"Hérault Transport\", \"Thau agglo\" et la TAM. Vous pouvez également accéder facilement à vos arrêts favoris et partager les horaires avec des amis. La recherche d'information (ligne, arrêt de bus, ville) peut s'effectuer soit à l'aide du clavier ou en utilisant le mécanisme de reconnaissance vocale de votre périphérique Android, lorsque ce dernier est disponible.\nCette application est facile à utiliser et fonctionne à tout moment, même sans couverture réseau, en mode déconnecté !\n"</string>
+    <string name="about_description">"Businfo est une application gratuite pour Android qui a pour objectif de proposer un accès facile et rapide aux horaires de l'ensemble des lignes des réseau de bus \"Hérault Transport\", \"Thau agglo\" et la TAM. Vous pouvez également accéder facilement à vos arrêts favoris et partager les horaires avec des amis. La recherche d'information (ligne, arrêt de bus, ville) peut s'effectuer soit à l'aide du clavier ou en utilisant le mécanisme de reconnaissance vocale de votre périphérique Android, lorsque ce dernier est disponible.\nCette application est facile à utiliser et fonctionne à tout moment, même sans couverture réseau, en mode déconnecté !\n"</string>
     <string name="about_description_support">"En cas de question ou si vous rencontrez des problèmes à l'utilisation, veuillez consulter le site officiel http://www.businfo.fr ou envoyer un email à contact@businfo.fr."</string>
 
     <!-- Release notes go there! -->
@@ -142,6 +142,6 @@ Retrouvez également les horaires des bus de l'Hérault sur notre site
 
 http://www.businfo.fr
 
-Merci d'utiliser Bus34 !
+Merci d'utiliser Businfo !
 "</string>
 </resources>
