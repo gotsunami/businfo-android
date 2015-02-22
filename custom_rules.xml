@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="imported">
+    <loadproperties srcFile="${tools.dir}/local.properties" />
     <exec executable="tools/makerev.sh"/>
     <target name="-create-database">
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
-        <exec failonerror="true" executable="${lines.dir}/tools/makeres.py">
+        <exec failonerror="true" executable="make">
+            <arg line="-C ${tools.dir}" />
+            <arg value="bsc" />
+        </exec>
+        <exec failonerror="true" executable="${tools.dir}/tools/makeres.py">
             <arg value="sqlite" />
-            <arg value="${lines.dir}/raw" />
+            <arg value="${tools.dir}/raw" />
             <arg value="--android" />
             <arg line="--db-compare-with res/values/dbversion.xml" />
             <arg value="--gps" />
-            <arg line="--gps-cache ${lines.dir}/gps.csv" />
-            <arg line="--pre-filter ${lines.dir}/filter.map" />
+            <arg line="--gps-cache ${tools.dir}/gps.csv" />
+            <arg line="--pre-filter ${tools.dir}/filter.map" />
         </exec>
         <copy todir="res/xml/">
             <fileset dir="/tmp">
@@ -69,7 +74,7 @@
     <target name="-pre-build" depends="-gmaps-keysetup,-create-database,-support-lib" />
     <target name="-pre-clean">
         <exec failonerror="true" executable="make">
-            <arg line="-C ${lines.dir}" />
+            <arg line="-C ${tools.dir}" />
             <arg value="clean" />
         </exec>
     </target>

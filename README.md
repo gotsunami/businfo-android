@@ -25,7 +25,7 @@ Distributed on the Google Play Store.
 1. Create a `local.properties` file at the root of the project with the following entries:
 
         sdk.dir=/path/to/android/sdk
-        lines.dir=/path/to/businfo-lines
+        tools.dir=/path/to/businfo-tools
 
 2. Create a `gmaps.properties` file at the root of project with:
 
