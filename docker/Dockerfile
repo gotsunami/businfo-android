@@ -43,7 +43,6 @@ RUN useradd -d /home/businfo -m -s /bin/bash businfo
 WORKDIR /home/businfo
 USER businfo
 RUN mkdir -p go/bin go/src go/pkg
-#RUN echo "export PATH=/usr/local/go/bin:/usr/local/android-sdk-linux/tools:$PATH; export GOPATH=$HOME/go" >> .bashrc
 ENV PATH /usr/local/go/bin:/usr/local/android-sdk-linux/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ENV TIMESTAMP 3
