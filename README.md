@@ -22,20 +22,32 @@ Distributed on the Google Play Store.
 
 ## Contribute
 
+### Quick Installation
+
+The easiest way to compile the android application is to use the provided Docker image `gotsunami/businfo`:
+
+    $ docker pull gotsunami/businfo
+    $ mkdir /tmp/apk
+    $ docker run --rm -ti -v /tmp/apk:/home/businfo/businfo-android/bin businfo debug
+
+You'll get the `/tmp/apk/Businfo-debug.apk` ready to be uploaded to your emulator/device.
+
+### Manual Installation
+
 1. Create a `local.properties` file at the root of the project with the following entries:
 
-        sdk.dir=/path/to/android/sdk
-        tools.dir=/path/to/businfo-tools
+    sdk.dir=/path/to/android/sdk
+    tools.dir=/path/to/businfo-tools
 
 2. Create a `gmaps.properties` file at the root of project with:
 
-        gmaps.key.debug=your_gmaps_debug_key
-        gmaps.key.release=your_gmaps_release_key
+    gmaps.key.debug=your_gmaps_debug_key
+    gmaps.key.release=your_gmaps_release_key
 
 3. Build the project with
 
-        $ ant clean
-        $ ant debug install
+    $ ant clean
+    $ ant debug install
 
 ## License
 
