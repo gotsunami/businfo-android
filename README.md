@@ -26,7 +26,7 @@ Distributed on the Google Play Store.
 
 The easiest way to compile the android application is to use the provided Docker image `gotsunami/businfo`:
 
-    $ docker pull gotsunami/businfo
+    $ docker pull gotsunami/businfo-android
     $ mkdir /tmp/apk
     $ docker run --rm -ti -v /tmp/apk:/home/businfo/businfo-android/bin businfo debug
 
