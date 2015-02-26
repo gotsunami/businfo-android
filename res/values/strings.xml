@@ -140,7 +140,16 @@
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
 Hérault transport: updated schedules for the following lines:
+- 102 (Montpellier - Sète)
 - 106 (Montpellier - Aigues Mortes)
+- 232 (Béziers - Olonzac)
+- 301/381 (Montpellier - Millau)
+- 302 (Montpellier - Clermont l\'Hérault)
+- 303/485 (Montpellier - St Pons de Thomières)
+- 305 (Montpellier - Aspiran)
+- 307 (Clermont l\'Hérault - Plaissan)
+- 308 (Montpellier - Clermont l\'Hérault)
+- 313 (Bélarga - Montpellier)
 
 You can also search for bus schedules from our website at
 

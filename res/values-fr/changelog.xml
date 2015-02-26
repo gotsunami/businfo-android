@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_changelog">"
+<b>2.0.6</b> - 26/02/2015:\n
+  Hérault transport: mise à jour des horaires des lignes suivantes:\n
+  - 102 (Montpellier - Sète)\n
+  - 106 (Montpellier - Aigues Mortes)\n
+  - 232 (Béziers - Olonzac)\n
+  - 301/381 (Montpellier - Millau)\n
+  - 302 (Montpellier - Clermont l\'Hérault)\n
+  - 303/485 (Montpellier - St Pons de Thomières)\n
+  - 305 (Montpellier - Aspiran)\n
+  - 307 (Clermont l\'Hérault - Plaissan)\n
+  - 308 (Montpellier - Clermont l\'Hérault)\n
+  - 313 (Bélarga - Montpellier)\n\n
 <b>2.0.5</b> - 10/11/2014:\n
   Hérault transport: mise à jour des horaires des lignes suivantes:\n
   - 106 (Montpellier - Aigues Mortes)\n\n
