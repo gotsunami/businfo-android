@@ -13,7 +13,7 @@
    height="297mm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="logo.svg">
   <defs
      id="defs4">
@@ -55,15 +55,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="116.88817"
-     inkscape:cy="691.04813"
+     inkscape:cx="98.542565"
+     inkscape:cy="711.25118"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1614"
-     inkscape:window-height="897"
-     inkscape:window-x="183"
-     inkscape:window-y="91"
+     inkscape:window-width="919"
+     inkscape:window-height="603"
+     inkscape:window-x="1588"
+     inkscape:window-y="292"
      inkscape:window-maximized="0"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -75,7 +75,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -131,19 +131,6 @@
        d="m 208.0893,330.59876 c -5.34014,0 -9.625,4.34736 -9.625,9.6875 l 0,56.5 c 0,5.34014 4.28486,9.625 9.625,9.625 l 56.53125,0 c 5.34013,0 9.625,-4.28486 9.625,-9.625 l 0,-56.5 c 0,-5.34014 -4.28487,-9.6875 -9.625,-9.6875 l -56.53125,0 z"
        style="fill:#004a9c;fill-opacity:1;stroke:none"
        inkscape:connector-curvature="0" />
-    <path
-       inkscape:export-ydpi="74.540001"
-       inkscape:export-xdpi="74.540001"
-       inkscape:export-filename="/tmp/icon-hdpi.png"
-       sodipodi:type="arc"
-       style="fill:#e75012;fill-opacity:1;stroke:none"
-       id="path3830"
-       sodipodi:cx="165.89285"
-       sodipodi:cy="361.11218"
-       sodipodi:rx="34.482235"
-       sodipodi:ry="34.482235"
-       d="m 200.37509,361.11218 a 34.482235,34.482235 0 1 1 -68.96447,0 34.482235,34.482235 0 1 1 68.96447,0 z"
-       transform="matrix(1,0,0,0.97536946,70.649837,15.789442)" />
     <path
        inkscape:export-ydpi="74.540001"
        inkscape:export-xdpi="74.540001"
@@ -225,6 +212,16 @@
        id="path3008-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cssc" />
+    <ellipse
+       inkscape:export-ydpi="74.540001"
+       inkscape:export-xdpi="74.540001"
+       inkscape:export-filename="/tmp/icon-hdpi.png"
+       style="fill:#e75012;fill-opacity:1;stroke:none"
+       id="path3830"
+       cx="80.221588"
+       cy="335.01434"
+       rx="20.592638"
+       ry="20.08543" />
     <text
        inkscape:export-ydpi="37.27"
        inkscape:export-xdpi="37.27"
@@ -248,17 +245,15 @@
          id="tspan3041" /></text>
     <text
        xml:space="preserve"
-       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#e75012;fill-opacity:1;stroke:none;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
-       x="51.51778"
-       y="349.04349"
-       id="text3823"
-       sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/mathias/bus34.png"
-       inkscape:export-xdpi="37.27"
-       inkscape:export-ydpi="37.27"><tspan
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="72.225906"
+       y="347.27576"
+       id="text3361"
+       sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan3825"
-         x="51.51778"
-         y="349.04349">34</tspan></text>
+         id="tspan3363"
+         x="72.225906"
+         y="347.27576"
+         style="font-style:italic;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Chancery URW';-inkscape-font-specification:'Chancery URW Medium Italic';fill:#ffffff;fill-opacity:1">i</tspan></text>
   </g>
 </svg>
