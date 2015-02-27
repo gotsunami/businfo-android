@@ -13,7 +13,7 @@
    height="297mm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="logo.svg">
   <defs
      id="defs4">
@@ -55,15 +55,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="98.542565"
+     inkscape:cx="67.606644"
      inkscape:cy="711.25118"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="919"
-     inkscape:window-height="603"
-     inkscape:window-x="1588"
-     inkscape:window-y="292"
+     inkscape:window-width="956"
+     inkscape:window-height="1041"
+     inkscape:window-x="2240"
+     inkscape:window-y="18"
      inkscape:window-maximized="0"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -75,7 +75,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -175,9 +175,9 @@
          sodipodi:role="line"
          id="tspan3844" /></text>
     <rect
-       inkscape:export-ydpi="37.27"
-       inkscape:export-xdpi="37.27"
-       inkscape:export-filename="/home/mathias/bus34.png"
+       inkscape:export-ydpi="49.689999"
+       inkscape:export-xdpi="49.689999"
+       inkscape:export-filename="/home/mathias/logo.png"
        style="fill:#1a1a1a;fill-opacity:1;stroke:none;filter:url(#filter3770-1)"
        id="rect3768-0"
        width="72.85714"
@@ -187,73 +187,85 @@
        transform="matrix(1.0428429,0,0,1.0428429,-20.025639,-61.191676)"
        ry="12.857142" />
     <path
-       inkscape:export-ydpi="37.27"
-       inkscape:export-xdpi="37.27"
-       inkscape:export-filename="/home/mathias/bus34.png"
+       inkscape:export-ydpi="49.689999"
+       inkscape:export-xdpi="49.689999"
+       inkscape:export-filename="/home/mathias/logo.png"
        id="rect3828-6"
        d="m 50.848021,292.19687 c -5.34014,0 -9.625,4.34736 -9.625,9.6875 l 0,56.5 c 0,5.34014 4.28486,9.625 9.625,9.625 l 56.531249,0 c 5.34013,0 9.625,-4.28486 9.625,-9.625 l 0,-56.5 c 0,-5.34014 -4.28487,-9.6875 -9.625,-9.6875 l -56.531249,0 z"
        style="fill:#004a9c;fill-opacity:1;stroke:none"
        inkscape:connector-curvature="0" />
     <path
-       inkscape:export-ydpi="37.27"
-       inkscape:export-xdpi="37.27"
-       inkscape:export-filename="/home/mathias/bus34.png"
+       inkscape:export-ydpi="49.689999"
+       inkscape:export-xdpi="49.689999"
+       inkscape:export-filename="/home/mathias/logo.png"
        sodipodi:nodetypes="scssscss"
        inkscape:connector-curvature="0"
        id="path3832-2"
        d="m 51.075701,352.19687 c -3.55127,0.0267 -6.57224,0.50644 -9.85268,1.15625 l 0,5.03125 c 0,5.34014 4.10629,9.625 9.44643,9.625 l 56.709819,0 c 5.24598,0 9.44638,-4.13538 9.59375,-9.34375 -9.70373,5.26042 -25.666689,4.61677 -42.031249,-1.40625 -10.46154,-3.8504 -17.79376,-5.10815 -23.86607,-5.0625 z"
        style="fill:#01a5d6;fill-opacity:1;stroke:none" />
     <path
-       inkscape:export-ydpi="37.27"
-       inkscape:export-xdpi="37.27"
-       inkscape:export-filename="/home/mathias/bus34.png"
+       inkscape:export-ydpi="49.689999"
+       inkscape:export-xdpi="49.689999"
+       inkscape:export-filename="/home/mathias/logo.png"
        style="fill:none;stroke:#ffffff;stroke-width:2.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter3819)"
        d="m 116.75619,359.1299 c -9.70374,5.26042 -25.488114,4.4382 -41.852677,-1.58482 -10.46154,-3.8504 -18.32947,-5.10815 -24.40178,-5.0625 -3.55127,0.0267 -6.39367,0.32787 -9.67411,0.97768"
        id="path3008-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cssc" />
-    <ellipse
-       inkscape:export-ydpi="74.540001"
-       inkscape:export-xdpi="74.540001"
-       inkscape:export-filename="/tmp/icon-hdpi.png"
-       style="fill:#e75012;fill-opacity:1;stroke:none"
-       id="path3830"
-       cx="80.221588"
-       cy="335.01434"
-       rx="20.592638"
-       ry="20.08543" />
+    <g
+       id="g3010"
+       transform="translate(-1.1079426,0.75761439)"
+       inkscape:export-filename="/home/mathias/logo.png"
+       inkscape:export-xdpi="49.689999"
+       inkscape:export-ydpi="49.689999">
+      <ellipse
+         ry="20.08543"
+         rx="20.592638"
+         cy="335.01434"
+         cx="80.221588"
+         id="path3830"
+         style="fill:#e75012;fill-opacity:1;stroke:none"
+         inkscape:export-filename="/tmp/icon-hdpi.png"
+         inkscape:export-xdpi="74.540001"
+         inkscape:export-ydpi="74.540001"
+         d="m 100.81423,335.01434 c 0,11.09288 -9.219642,20.08543 -20.592642,20.08543 -11.373,0 -20.592638,-8.99255 -20.592638,-20.08543 0,-11.09287 9.219638,-20.08543 20.592638,-20.08543 11.373,0 20.592642,8.99256 20.592642,20.08543 z"
+         sodipodi:cx="80.221588"
+         sodipodi:cy="335.01434"
+         sodipodi:rx="20.592638"
+         sodipodi:ry="20.08543" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3361"
+         y="350.15436"
+         x="74.001587"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:LaurenScript;-inkscape-font-specification:LaurenScript Bold"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:LaurenScript;-inkscape-font-specification:LaurenScript Bold"
+           y="350.15436"
+           x="74.001587"
+           id="tspan3363"
+           sodipodi:role="line">i</tspan></text>
+    </g>
     <text
-       inkscape:export-ydpi="37.27"
-       inkscape:export-xdpi="37.27"
-       inkscape:export-filename="/home/mathias/bus34.png"
+       inkscape:export-ydpi="49.689999"
+       inkscape:export-xdpi="49.689999"
+       inkscape:export-filename="/home/mathias/logo.png"
        transform="scale(0.97473069,1.0259244)"
        sodipodi:linespacing="125%"
        id="text3059-6"
-       y="313.61673"
-       x="81.731216"
+       y="311.40131"
+       x="80.91169"
        style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
        xml:space="preserve"><tspan
          style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
-         y="313.61673"
-         x="81.731216"
+         y="311.40131"
+         x="80.91169"
          id="tspan3061-8"
          sodipodi:role="line">BUS</tspan><tspan
          style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;font-family:Vemana2000;-inkscape-font-specification:Vemana2000 Bold"
-         y="348.61673"
-         x="81.731216"
+         y="346.40131"
+         x="80.91169"
          sodipodi:role="line"
          id="tspan3041" /></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="72.225906"
-       y="347.27576"
-       id="text3361"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3363"
-         x="72.225906"
-         y="347.27576"
-         style="font-style:italic;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Chancery URW';-inkscape-font-specification:'Chancery URW Medium Italic';fill:#ffffff;fill-opacity:1">i</tspan></text>
   </g>
 </svg>
