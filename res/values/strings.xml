@@ -117,6 +117,7 @@
     <string name="pref_about_version_summary">%1$s - build %2$s</string>
     <string name="pref_about_title">Version</string>
     <string name="pref_website_title">Website</string>
+    <string name="pref_oss_title">Businfo is free software (GPL)</string>
     <string name="pref_author_title">Author</string>
     <string name="pref_about_visite_website_title">Visit web site</string>
     <string name="pref_about_changelog_title">ChangeLog</string>
@@ -132,13 +133,15 @@
 
     <!-- About app -->
     <string name="pref_about_about_title">About</string>
-    <string name="about_description">"Businfo is a free Android application whose goal is to provide an easy way to get bus schedules of the french bus networks \"Hérault Transport\", \"Thau Agglo\" and TAM.\nIt's easy to use and works anytime, anywhere: all schedules are available instantly without using your network connection (off-line mode)!\nNot only can you have schedules, but you can also bookmark favorite bus stations and share them with friends. You can also search information by voice using the voice recognition feature of your Android devices (if supported)."</string>
+    <string name="about_description">"Businfo is a free and open source Android application whose goal is to provide an easy way to get bus schedules of the french bus networks \"Hérault Transport\", \"Thau Agglo\" and TAM.\nIt's easy to use and works anytime, anywhere: all schedules are available instantly without using your network connection (off-line mode)!\nNot only can you have schedules, but you can also bookmark favorite bus stations and share them with friends. You can also search information by voice using the voice recognition feature of your Android devices (if supported)."</string>
     <string name="about_description_support">"For any question, bug report or feature request, please visit http://www.businfo.fr or drop an email to contact@businfo.fr."</string>
 
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Release notes</string>
     <string name="pref_about_release_notes_summary">"See what's new in this version"</string>
     <string name="release_notes_content">"
+Bus34 is now called Businfo!
+
 Hérault transport: updated schedules for the following lines:
 - 102 (Montpellier - Sète)
 - 106 (Montpellier - Aigues Mortes)

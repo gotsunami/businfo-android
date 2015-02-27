@@ -45,6 +45,17 @@ public class AppPreferenceActivity extends PreferenceActivity
                     return true;
                 }
             });
+
+        findPreference("pref_oss").setOnPreferenceClickListener(
+            new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(getString(R.string.oss_repo_url)));
+                    startActivity(intent);
+                    return true;
+                }
+            });
     }
 
     @Override

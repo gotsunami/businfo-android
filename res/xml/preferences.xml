@@ -61,6 +61,10 @@
 			android:key="pref_website"
 			android:title="@string/pref_website_title"
 			android:summary="@string/website_url" />
+		<Preference
+			android:key="pref_oss"
+			android:title="@string/pref_oss_title"
+			android:summary="@string/oss_repo_url" />
             <!--
 		<Preference
 			android:key="pref_about_visite_website"

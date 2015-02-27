@@ -6,6 +6,7 @@
     <string name="short_app_name">Businfo</string>
     <string name="app_version">2.0.6</string>
     <string name="website_url">http://www.businfo.fr</string>
+    <string name="oss_repo_url">https://github.com/gotsunami/businfo-android</string>
     <string name="app_author">GoTsunami</string>
 	<string name="app_changelog">"
 <b>2.0.6</b> - 2015-02-26:\n

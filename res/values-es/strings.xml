@@ -119,6 +119,7 @@
     <string name="cat_about_sum">"Acerca de la aplicación"</string>
     <string name="pref_about_title">Versión</string>
     <string name="pref_about_build_title">Número de compilación</string>
+    <string name="pref_oss_title">Businfo es un software Libre (GPL)</string>
     <string name="pref_author_title">Autor</string>
 <!-- FIXME -->
     <string name="pref_about_visite_website_title">Visite el sitio web</string>
@@ -136,13 +137,15 @@
 
     <!-- About app -->
     <string name="pref_about_about_title">Acerca de</string>
-    <string name="about_description">"Businfo es una aplicación gratuita para Android que tiene como objetivo de ofrecer un acceso rápido y sencillo a los horarios de todas las líneas de las redes de autobuses \"Hérault Transport\", \"Thau Agglo\" y TAM. También es posible acceder a sus paradas favoritas y compartirlas con sus amigos. Buscando información (para líneas, paradas de autobús o ciudades) se puede realizar usando el teclado o el mecanismo de reconocimiento de voz de su dispositivo Android, cuando está disponible.\n\nTenga en cuenta que se trata de una aplicación no oficial, propuesta y mantenida por mí en mi calidad de programador independiente y no por el Sindicato Mixto de transporte del Hérault.  "</string>
+    <string name="about_description">"Businfo es una aplicación gratuita y Libre para Android que tiene como objetivo de ofrecer un acceso rápido y sencillo a los horarios de todas las líneas de las redes de autobuses \"Hérault Transport\", \"Thau Agglo\" y TAM. También es posible acceder a sus paradas favoritas y compartirlas con sus amigos. Buscando información (para líneas, paradas de autobús o ciudades) se puede realizar usando el teclado o el mecanismo de reconocimiento de voz de su dispositivo Android, cuando está disponible.\n\nTenga en cuenta que se trata de una aplicación no oficial, propuesta y mantenida por mí en mi calidad de programador independiente y no por el Sindicato Mixto de transporte del Hérault.  "</string>
     <string name="about_description_support">"Si tiene preguntas o si encontra problemas, visite el sitio web oficial http://www.businfo.fr o envia un correo electrónico a contact@businfo.fr."</string>
 
     <!-- Release notes go there! -->
     <string name="pref_about_release_notes_title">Notas de la versión</string>
     <string name="pref_about_release_notes_summary">"Nuevo en esta versión"</string>
     <string name="release_notes_content">"
+Bus34 ahora se llama Businfo !
+
 Hérault transport: nuevos horarios :
 - 102 (Montpellier - Sète)
 - 106 (Montpellier - Aigues Mortes)
