@@ -1,11 +1,5 @@
 
-Businfo is a [free Android application](https://play.google.com/store/apps/details?id=com.monnerville.transports.herault)
-whose goal is to provide an easy way to get bus schedules of french bus networks.
-
-## Supported Bus Networks
-
-* Hérault Transport
-* Thau Agglo
+Businfo is a free Android application whose goal is to provide an easy way to get bus schedules of french bus networks.
 
 ## Features
 
@@ -18,7 +12,14 @@ whose goal is to provide an easy way to get bus schedules of french bus networks
   devices (if supported).
 * Available in French, English and Spanish
 
-Distributed on the Google Play Store. 
+## Supported Bus Networks
+
+Businfo is available on the [Google Play Store](https://play.google.com/store/apps/details?id=com.monnerville.transports.herault) and [Aptoide market place](http://gotsunami.store.aptoide.com/). 
+
+Currently supported bus networks are:
+
+* Hérault Transport (34, France)
+* Thau Agglo (34, France)
 
 ## Contribute
 
