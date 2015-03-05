@@ -19,12 +19,12 @@
             <arg line="--pre-filter filter.map" />
         </exec>
         <copy todir="res/xml/">
-            <fileset dir="/tmp">
+            <fileset dir="/tmp/businfo/">
                 <include name="**/htdb_chunk*.xml"/>
             </fileset>
         </copy>
-        <copy file="/tmp/dbstats.xml" tofile="res/values/dbstats.xml"/>
-        <copy file="/tmp/gps.xml" tofile="res/xml/gps.xml"/>
+        <copy file="/tmp/businfo/dbstats.xml" tofile="res/values/dbstats.xml"/>
+        <copy file="/tmp/businfo/gps.xml" tofile="res/xml/gps.xml"/>
     </target>
 
     <!-- Custom user gmaps api keys 
