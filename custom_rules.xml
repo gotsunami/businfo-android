@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="imported">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="imported">
     <loadproperties srcFile="${tools.dir}/local.properties" />
     <exec executable="tools/makerev.sh"/>
     <target name="-create-database">
@@ -71,7 +71,7 @@
     </target>
 
     <target name="nbdebug" depends="debug,install" />
-    <target name="-pre-build" depends="-gmaps-keysetup,-create-database,-support-lib" />
+    <target name="-pre-build" depends="-dependencies,-gmaps-keysetup,-create-database,-support-lib" />
     <target name="-pre-clean">
         <exec failonerror="true" executable="make">
             <arg line="-C ${tools.dir}" />
@@ -88,5 +88,10 @@
         <exec failonerror="true" executable="tools/gobuild-linux-386.sh">
             <arg line="-o ${jar.libs.dir}/x86/libstats.so native/stats.go" />
         </exec>
+    </target>
+
+    <target name="-dependencies" description="Retrieve dependencies with Ivy">
+        <ivy:retrieve pattern="${jar.libs.dir}/[artifact](-[revision])(-[classifier]).[ext]" />
+        <delete file="${jar.libs.dir}/asm-3.3.1.jar"/>
     </target>
 </project>

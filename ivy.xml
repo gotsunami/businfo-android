@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+    <info organisation="com.go-tsunami" module="businfo-android"/>
+    <dependencies>
+        <dependency org="net.minidev" name="json-smart" rev="2.1.1" conf="*->*,!sources,!javadoc" />
+        <dependency org="com.thetransactioncompany" name="jsonrpc2-base" rev="1.38" conf="*->*,!sources,!javadoc"/>
+    </dependencies>
+</ivy-module>
