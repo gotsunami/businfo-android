@@ -2,16 +2,24 @@
 package com.monnerville.transports.herault.ui;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.app.DownloadManager.Query;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -34,7 +42,9 @@ import com.monnerville.transports.herault.HeaderTitle;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.Application;
 import static com.monnerville.transports.herault.core.Application.TAG;
+import com.monnerville.transports.herault.core.UpdateManager;
 import com.monnerville.transports.herault.core.sql.SQLBusManager;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -53,6 +63,7 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
     private BookmarkFragment mBookmarkFragment;
 
     private boolean mDBReady;
+	private UpdateManager um;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,6 +120,15 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
                 }
             }
         }).start();
+
+		um = new UpdateManager(this);
+		registerReceiver(um.receiver(), new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
+	 public void showDownload() {
+        Intent i = new Intent();
+        i.setAction(DownloadManager.ACTION_VIEW_DOWNLOADS);
+        startActivity(i);
     }
 
     @Override
@@ -191,6 +211,12 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(this, AppPreferenceActivity.class));
+                return true;
+            case R.id.menu_download:
+				um.download();
+                return true;
+            case R.id.menu_show_downloads:
+                showDownload();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -305,7 +331,6 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
                     break;
                 case SQLBusManager.FLUSH_DATABASE_PROGRESS:
                     int progress = (Integer)msg.obj;
-                    Log.d("TOOO", "Progress: " + progress);
                     mPd.setProgress(progress);
                     break;
                 case SQLBusManager.FLUSH_DATABASE_UPGRADED:
@@ -326,6 +351,7 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
 
     @Override
     protected void onDestroy() {
+		unregisterReceiver(um.receiver());
         mManager.getDB().close();
         super.onDestroy();
     }

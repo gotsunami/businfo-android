@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import com.monnerville.transports.herault.R;
 import com.monnerville.transports.herault.core.BusLine;
 import com.monnerville.transports.herault.core.BusStop;
-import java.text.SimpleDateFormat;
 import static com.monnerville.transports.herault.core.Application.TAG;
 import com.monnerville.transports.herault.core.BusNetwork;
 import com.monnerville.transports.herault.core.City;
@@ -35,10 +34,8 @@ import org.xmlpull.v1.XmlPullParserException;
 class HTDatabase extends SQLiteOpenHelper {
 	private final Context mContext;
 	private static final String DATABASE_NAME = "ht";
-	private static final int DATABASE_VERSION = 1;
-	private static final String mDatePattern = "yyyy-MM-dd HH:mm:ss";
 
-    private Handler mHandler;
+    private final Handler mHandler;
 
 	public HTDatabase(Context context, Handler handler) {
 		super(context, DATABASE_NAME, null, Integer.parseInt(context.getString(R.string.dbversion)));

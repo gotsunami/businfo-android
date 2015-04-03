@@ -7,4 +7,5 @@ test "$BRANCH" = "-master" && unset BRANCH
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>" > $OFILE
 echo "<resources>" >> $OFILE
 echo "<string name=\"app_revision\">`git rev-parse HEAD|cut -b 1-7`$BRANCH@`hostname -s`</string>" >> $OFILE
+echo "<string name=\"network_update_uri\">$1</string>" >> $OFILE
 echo "</resources>" >> $OFILE

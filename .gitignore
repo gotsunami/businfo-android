@@ -3,7 +3,6 @@ cli/java/doc
 cli/java/build
 cli/raw/*.xml
 res/xml/gps.xml
-res/xml/htdb_chunk*.xml
 libs
 gen
 api

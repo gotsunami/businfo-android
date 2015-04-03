@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="imported">
     <loadproperties srcFile="${tools.dir}/local.properties" />
-    <exec executable="tools/makerev.sh"/>
+
+    <fail message="Property &quot;network.update.uri&quot; needs to be set in local.properties" unless="network.update.uri"/>
+    <exec failonerror="true" executable="tools/makerev.sh">
+        <arg value="${network.update.uri}" />
+    </exec>
     <target name="-create-database">
         <!-- Generating SQL content -->
         <echo message="Generating SQL database" />
@@ -18,11 +22,6 @@
             <arg line="--gps-cache gps.csv" />
             <arg line="--pre-filter filter.map" />
         </exec>
-        <copy todir="res/xml/">
-            <fileset dir="/tmp/businfo/">
-                <include name="**/htdb_chunk*.xml"/>
-            </fileset>
-        </copy>
         <copy file="/tmp/businfo/dbstats.xml" tofile="res/values/dbstats.xml"/>
         <copy file="/tmp/businfo/gps.xml" tofile="res/xml/gps.xml"/>
     </target>

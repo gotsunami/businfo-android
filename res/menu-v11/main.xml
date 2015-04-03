@@ -8,4 +8,8 @@
     <item android:id="@+id/menu_settings"
         android:icon="@drawable/action_settings"
         android:title="@string/action_show_settings" />
+    <item android:id="@+id/menu_download"
+        android:title="Download test" />
+    <item android:id="@+id/menu_show_downloads"
+        android:title="Show downloads" />
 </menu>
