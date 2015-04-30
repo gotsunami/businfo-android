@@ -4,5 +4,6 @@
         <dependency org="net.minidev" name="json-smart" rev="2.1.1" conf="*->*,!sources,!javadoc" />
         <dependency org="com.thetransactioncompany" name="jsonrpc2-base" rev="1.38" conf="*->*,!sources,!javadoc"/>
         <dependency org="org.apache.commons" name="commons-compress" rev="1.9" conf="*->*,!sources,!javadoc"/>
+        <dependency org="com.koushikdutta.ion" name="ion" rev="2.1.3" conf="*->*,!sources,!javadoc"/>
     </dependencies>
 </ivy-module>

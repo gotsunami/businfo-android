@@ -122,7 +122,6 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
         }).start();
 
 		um = new UpdateManager(this);
-		registerReceiver(um.receiver(), new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
 	 public void showDownload() {
@@ -351,7 +350,6 @@ public class SplashActivity extends FragmentActivity implements HeaderTitle {
 
     @Override
     protected void onDestroy() {
-		unregisterReceiver(um.receiver());
         mManager.getDB().close();
         super.onDestroy();
     }

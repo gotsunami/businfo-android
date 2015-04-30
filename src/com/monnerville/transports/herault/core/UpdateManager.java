@@ -1,15 +1,11 @@
 package com.monnerville.transports.herault.core;
 
-import android.app.DownloadManager;
-import android.app.DownloadManager.Query;
-import android.content.BroadcastReceiver;
+import android.app.ProgressDialog;
 import android.content.Context;
-import static android.content.Context.DOWNLOAD_SERVICE;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Environment;
+import android.os.AsyncTask;
 import android.util.Log;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.ProgressCallback;
 import com.monnerville.transports.herault.R;
 import static com.monnerville.transports.herault.core.Application.TAG;
 import java.io.File;
@@ -20,38 +16,19 @@ import java.io.File;
  */
 public class UpdateManager {
 	// Schedules download id through download manager
-	private long mEnqueue;
-	private DownloadManager dm;
-	private final BroadcastReceiver mReceiver;
-
 	private final String ARCHIVE_NAME = "update.tar.bz2";
 	private final Context mContext;
-	private String mArchiveLocalPath;
+    private final ProgressDialog mDialog;
 
 	public UpdateManager(Context ctx) {
 		mContext = ctx;
-		mReceiver = newReceiver();
-	}
 
-	private BroadcastReceiver newReceiver() {
-		return new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-                    long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
-                    Query query = new Query();
-                    query.setFilterById(mEnqueue);
-					Cursor c = dm.query(query);
-					if (c.moveToFirst()) {
-                        int idx = c .getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        if (DownloadManager.STATUS_SUCCESSFUL == c .getInt(idx)) {
-                            mArchiveLocalPath = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                        }
-                    }
-                }
-            }
-        };
+        mDialog = new ProgressDialog(ctx);
+        mDialog.setMessage(mContext.getString(R.string.download_title));
+        mDialog.setIndeterminate(false);
+        mDialog.setMax(100);
+        mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mDialog.setCancelable(true);
 	}
 
 	private void extractArchive() {
@@ -59,18 +36,52 @@ public class UpdateManager {
 	}
 
 	public void download() {
-		Uri u = Uri.parse(mContext.getString(R.string.network_update_uri));
-		DownloadManager.Request m = new DownloadManager.Request(u);
-		m.setTitle("Downloading new schedules");
-		m.setDescription("Yeah man!");
-		m.setVisibleInDownloadsUi(true);
-		File f = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), ARCHIVE_NAME);
-		m.setDestinationUri(Uri.fromFile(f));
-		dm = (DownloadManager)mContext.getSystemService(DOWNLOAD_SERVICE);
-		mEnqueue = dm.enqueue(m);
+        new DownloadFileTask().execute(mContext.getString(R.string.network_update_uri));
 	}
 
-	public BroadcastReceiver receiver() {
-		return mReceiver;
-	}
+    // Async download task
+    private class DownloadFileTask extends AsyncTask<String, String, Exception> {
+        @Override
+        protected void onPreExecute() {
+            // UI thread
+            super.onPreExecute();
+            mDialog.show();
+        }
+
+        @Override
+        protected Exception doInBackground(String... url) {
+            try {
+                // Synchronous download
+                Ion.with(mContext).load(url[0])
+                    .progress(new ProgressCallback() {
+                        @Override
+                        public void onProgress(long downloaded, long total) {
+                            publishProgress(""+(int)((total*100)/downloaded));
+                        }
+                    })
+                    .write(new File(mContext.getFilesDir(), ARCHIVE_NAME))
+                    .get();
+            } catch (Exception e) {
+                return e;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... progress) {
+            // UI thread
+            // setting progress percentage
+            mDialog.setProgress(Integer.parseInt(progress[0]));
+        }
+
+        @Override
+        protected void onPostExecute(Exception e) {
+            // UI thread
+            mDialog.dismiss();
+            if (e != null) {
+                // TODO: show an error dialog
+                Log.e(TAG, "AN ERROR OCCURRED DURING DOWNLOAD: " + e);
+            }
+        }
+    }
 }

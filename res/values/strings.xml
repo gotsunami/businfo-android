@@ -29,6 +29,7 @@
     <string name="city_title">City</string>
     <string name="does_not_circulate">Does not circulate</string>
     <string name="next_stop_board_title">Next stop</string>
+    <string name="download_title">Downloading bus schedules update. Please wait...</string>
 
     <string name="home_ht_title">Businfo</string>
     <string name="home_thau_title">Thau Agglo</string>

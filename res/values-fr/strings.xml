@@ -28,6 +28,7 @@
     <string name="city_title">Ville</string>
     <string name="does_not_circulate">Ne circule pas</string>
     <string name="next_stop_board_title">Prochain arrêt</string>
+    <string name="download_title">Téléchargement mise à jour des horaires des bus, veuillez patienter...</string>
 
     <string name="home_bus_networks">Mes réseaux</string>
     <string name="home_my_bookmarks">Mes favoris</string>
